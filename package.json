@@ -1,5 +1,10 @@
 {
   "private": true,
+  "scripts": {
+    "docker:start": "docker-compose up -d",
+    "docker:stop": "docker-compose stop",
+    "dev": "yarn docker:start && rw dev"
+  },
   "workspaces": {
     "packages": [
       "api",
