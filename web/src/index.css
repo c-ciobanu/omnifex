@@ -11,3 +11,9 @@
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+
+@layer utilities {
+  .min-h-main {
+    min-height: calc(100vh - theme('height.12'));
+  }
+}
