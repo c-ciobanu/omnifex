@@ -1,19 +1,17 @@
-import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
+
+import happyPopcorn from './happy-popcorn.svg'
 
 const HomePage = () => {
   return (
     <>
       <MetaTags title="Home" description="Home page" />
 
-      <h1>HomePage</h1>
-      <p>
-        Find me in <code>./web/src/pages/HomePage/HomePage.tsx</code>
-      </p>
-      <p>
-        My default route is named <code>home</code>, link to me with `
-        <Link to={routes.home()}>Home</Link>`
-      </p>
+      <div className="flex min-h-[inherit] flex-col items-center justify-center">
+        <p>Popcorn is ready!</p>
+        <p>What do you want to watch?</p>
+        <img src={happyPopcorn} alt="Popcorn" title="Happy Popcorn!" />
+      </div>
     </>
   )
 }
