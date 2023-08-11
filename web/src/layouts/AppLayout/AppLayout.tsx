@@ -6,8 +6,9 @@ import { Transition } from '@headlessui/react'
 
 import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
 
-import batmanLogo from './batman-logo.svg'
+import MoviesCell from 'src/components/MoviesCell'
 
+import batmanLogo from './batman-logo.svg'
 type AppLayoutProps = {
   children?: React.ReactNode
 }
@@ -17,15 +18,17 @@ interface FormValues {
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   const [showSearchInput, setShowSearchInput] = useState(false)
+  const [title, setTitle] = useState<string>()
+
   const formMethods = useForm({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
+    setTitle(data.title)
   }
 
   return (
     <>
-      <header className="relative flex h-12 items-center justify-between bg-neutral-800 px-4 text-white">
+      <header className="sticky left-0 top-0 flex h-12 items-center justify-between bg-neutral-800 px-4 text-white">
         <img src={batmanLogo} alt="Logo" title="Batman is here!" />
         <h1 className="text-xl">Favorites Hub</h1>
         <FontAwesomeIcon
@@ -62,12 +65,15 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             onClick={() => {
               formMethods.reset()
               setShowSearchInput(false)
+              setTitle(undefined)
             }}
           />
         </Transition>
       </header>
 
-      <main className="min-h-main bg-black text-white">{children}</main>
+      <main className="min-h-main bg-black text-white">
+        {title ? <MoviesCell title={title} /> : children}
+      </main>
     </>
   )
 }
