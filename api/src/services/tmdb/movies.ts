@@ -16,7 +16,8 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
 
   return json.results.map((result) => ({
     id: result.id,
+    posterUrl: `http://image.tmdb.org/t/p/w92${result.poster_path}`,
+    releaseYear: Number(result.release_date.split('-')[0]),
     title: result.title,
-    posterUrl: `http://image.tmdb.org/t/p/w185${result.poster_path}`,
   }))
 }

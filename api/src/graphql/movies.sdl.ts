@@ -1,8 +1,9 @@
 export const schema = gql`
   type Movie {
     id: Int!
-    title: String!
     posterUrl: String!
+    releaseYear: Int!
+    title: String!
   }
 
   type Query {
