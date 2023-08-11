@@ -16,4 +16,8 @@
   .min-h-main {
     min-height: calc(100vh - theme('height.12'));
   }
+
+  .w-header-without-p {
+    width: calc(100% - theme('padding.4') - theme('padding.4'));
+  }
 }
