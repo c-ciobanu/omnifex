@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@redwoodjs/api": "6.0.1",
-    "@redwoodjs/graphql-server": "6.0.1"
+    "@redwoodjs/graphql-server": "6.0.1",
+    "@whatwg-node/fetch": "^0.9.9"
   }
 }

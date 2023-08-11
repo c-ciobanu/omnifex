@@ -7815,7 +7815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@whatwg-node/fetch@npm:^0.9.0, @whatwg-node/fetch@npm:^0.9.6":
+"@whatwg-node/fetch@npm:^0.9.0, @whatwg-node/fetch@npm:^0.9.6, @whatwg-node/fetch@npm:^0.9.9":
   version: 0.9.9
   resolution: "@whatwg-node/fetch@npm:0.9.9"
   dependencies:
@@ -8346,6 +8346,7 @@ __metadata:
   dependencies:
     "@redwoodjs/api": 6.0.1
     "@redwoodjs/graphql-server": 6.0.1
+    "@whatwg-node/fetch": ^0.9.9
   languageName: unknown
   linkType: soft
 
