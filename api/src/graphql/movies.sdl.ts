@@ -1,12 +1,26 @@
 export const schema = gql`
-  type Movie {
+  type BasicMovie {
     id: Int!
     posterUrl: String!
     releaseYear: Int!
     title: String!
   }
 
+  type DetailedMovie {
+    genres: [String!]!
+    id: Int!
+    overview: String!
+    posterUrl: String!
+    productionCountries: [String!]!
+    rating: Float!
+    releaseYear: Int!
+    runtime: Int!
+    tagline: String!
+    title: String!
+  }
+
   type Query {
-    movies(title: String!): [Movie!]! @skipAuth
+    movie(id: Int!): DetailedMovie @skipAuth
+    movies(title: String!): [BasicMovie!]! @skipAuth
   }
 `
