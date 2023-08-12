@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transition } from '@headlessui/react'
 
 import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
-import { useLocation } from '@redwoodjs/router'
+import { Link, routes, useLocation } from '@redwoodjs/router'
 
 import MoviesCell from 'src/components/MoviesCell'
 
@@ -39,7 +39,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     <>
       <header className="fixed left-0 top-0 flex h-12 w-full items-center justify-between bg-neutral-800 px-4 text-white">
         <img src={batmanLogo} alt="Logo" title="Batman is here!" />
-        <h1 className="text-xl">Favorites Hub</h1>
+        <Link to={routes.home()}>
+          <h1 className="text-xl">Batman&#39;s Lair</h1>
+        </Link>
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className="text-xl"
