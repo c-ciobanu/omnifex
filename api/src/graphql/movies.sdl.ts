@@ -11,7 +11,6 @@ export const schema = gql`
     id: Int!
     overview: String!
     posterUrl: String!
-    productionCountries: [String!]!
     rating: Float!
     releaseYear: Int!
     runtime: Int!

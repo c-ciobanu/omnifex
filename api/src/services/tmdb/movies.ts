@@ -32,16 +32,11 @@ export const movie: QueryResolvers['movie'] = async ({ id }) => {
   })
   const json = await response.json()
 
-  console.log({ json })
-
   return {
     genres: json.genres.map((genre) => genre.name),
     id: json.id,
     overview: json.overview,
     posterUrl: `http://image.tmdb.org/t/p/w342${json.poster_path}`,
-    productionCountries: json.production_countries.map(
-      (country) => country.name
-    ),
     rating: Math.round(json.vote_average * 10) / 10,
     releaseYear: Number(json.release_date.split('-')[0]),
     runtime: json.runtime,
