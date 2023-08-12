@@ -15,6 +15,7 @@ const Routes = () => {
   return (
     <Router>
       <Set wrap={AppLayout}>
+        <Route path="/movies/{id:Int}" page={MoviePage} name="movie" />
         <Route path="/" page={HomePage} name="home" />
       </Set>
 

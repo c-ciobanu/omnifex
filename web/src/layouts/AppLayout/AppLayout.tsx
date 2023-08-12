@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { faMagnifyingGlass, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transition } from '@headlessui/react'
 
 import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
+import { useLocation } from '@redwoodjs/router'
 
 import MoviesCell from 'src/components/MoviesCell'
 
 import batmanLogo from './batman-logo.svg'
+
 type AppLayoutProps = {
   children?: React.ReactNode
 }
+
 interface FormValues {
   title: string
 }
@@ -19,12 +22,18 @@ interface FormValues {
 const AppLayout = ({ children }: AppLayoutProps) => {
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [title, setTitle] = useState<string>()
-
-  const formMethods = useForm({ mode: 'onBlur' })
+  const { pathname } = useLocation()
+  const formMethods = useForm()
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setTitle(data.title)
   }
+
+  useEffect(() => {
+    formMethods.reset()
+    setShowSearchInput(false)
+    setTitle(undefined)
+  }, [pathname])
 
   return (
     <>

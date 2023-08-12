@@ -1,5 +1,6 @@
 import type { MoviesQuery } from 'types/graphql'
 
+import { Link, routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 export const QUERY = gql`
@@ -26,12 +27,18 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
     <ul className="divide-y-2 divide-neutral-800">
       {movies.map((movie) => {
         return (
-          <li key={movie.id} className="flex gap-4 p-2">
-            <img src={movie.posterUrl} alt={`${movie.title} poster`} />
-            <div>
-              <p className="text-yellow-300">{movie.title}</p>
-              <p className="text-neutral-400">{movie.releaseYear}</p>
-            </div>
+          <li key={movie.id}>
+            <Link
+              to={routes.movie({ id: movie.id })}
+              title={`'Show ${movie.title} movie details`}
+              className="flex gap-4 p-2"
+            >
+              <img src={movie.posterUrl} alt={`${movie.title} poster`} />
+              <div>
+                <p className="text-yellow-300">{movie.title}</p>
+                <p className="text-neutral-400">{movie.releaseYear}</p>
+              </div>
+            </Link>
           </li>
         )
       })}
