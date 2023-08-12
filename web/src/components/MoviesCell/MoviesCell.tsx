@@ -24,7 +24,7 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
   return (
-    <ul className="divide-y-2 divide-neutral-800">
+    <ul className="divide-y divide-white">
       {movies.map((movie) => {
         return (
           <li key={movie.id}>
@@ -36,7 +36,7 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
               <img src={movie.posterUrl} alt={`${movie.title} poster`} />
               <div>
                 <p className="text-yellow-300">{movie.title}</p>
-                <p className="text-neutral-400">{movie.releaseYear}</p>
+                <p className="text-gray-400">{movie.releaseYear}</p>
               </div>
             </Link>
           </li>

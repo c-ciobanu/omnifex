@@ -37,7 +37,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <>
-      <header className="sticky left-0 top-0 flex h-12 items-center justify-between bg-neutral-800 px-4 text-white">
+      <header className="fixed left-0 top-0 flex h-12 w-full items-center justify-between bg-neutral-800 px-4 text-white">
         <img src={batmanLogo} alt="Logo" title="Batman is here!" />
         <h1 className="text-xl">Favorites Hub</h1>
         <FontAwesomeIcon
@@ -62,7 +62,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             <TextField
               name="title"
               placeholder="Search for a movie"
-              className="w-full bg-transparent text-neutral-400 placeholder-neutral-400 outline-none"
+              className="w-full bg-transparent text-gray-400 placeholder-gray-400 outline-none"
               validation={{ required: true }}
             />
           </Form>
@@ -80,7 +80,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </Transition>
       </header>
 
-      <main className="min-h-main bg-black text-white">
+      <main className="min-h-main mt-12 bg-black text-white">
         {title ? <MoviesCell title={title} /> : children}
       </main>
     </>
