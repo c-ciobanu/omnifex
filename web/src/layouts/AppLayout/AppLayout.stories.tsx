@@ -11,3 +11,7 @@ export default meta
 type Story = StoryObj<typeof AppLayout>
 
 export const Primary: Story = {}
+
+Primary.parameters = {
+  layout: 'fullscreen',
+}

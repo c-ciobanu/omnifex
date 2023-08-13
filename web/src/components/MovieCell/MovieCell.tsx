@@ -27,14 +27,14 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
+export const formatMinutesToHoursAndMinutes = (minutes: number) => {
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+
+  return `${h}h ${m}m`
+}
+
 export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
-  const formatMinutesToHoursAndMinutes = (minutes: number) => {
-    const h = Math.floor(minutes / 60)
-    const m = minutes % 60
-
-    return `${h}h ${m}m`
-  }
-
   return (
     <>
       <h2 className="text-xl">{movie.title}</h2>
