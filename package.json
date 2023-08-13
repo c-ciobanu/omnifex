@@ -3,7 +3,9 @@
   "scripts": {
     "docker:start": "docker-compose up -d",
     "docker:stop": "docker-compose stop",
-    "dev": "yarn docker:start && rw dev"
+    "dev": "yarn docker:start && rw dev",
+    "test": "rw test",
+    "storybook": "rw storybook"
   },
   "workspaces": {
     "packages": [
