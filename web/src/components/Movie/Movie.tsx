@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DetailedMovie } from 'types/graphql'
 
+import Tooltip from 'src/components/Tooltip'
 import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
 export const formatMinutesToHoursAndMinutes = (minutes: number) => {
@@ -24,13 +25,66 @@ type MovieProps = {
 }
 
 const Movie = ({ movie }: MovieProps) => {
-  const [userMovieStats, setUserMovieStats] = useLocalStorage(
-    movie.id.toString(),
-    { isFavorited: false, isWatched: false }
-  )
+  const [moviesStats, setMoviesStats] = useLocalStorage('moviesStats', {
+    favorited: [],
+    watched: [],
+  })
+
+  const userMovieStats = {
+    isWatched: moviesStats.watched.includes(movie.id),
+    isFavorited: moviesStats.favorited.includes(movie.id),
+  }
 
   return (
     <>
+      <div className="mb-4 flex justify-around bg-neutral-800 py-3 text-gray-400">
+        <Tooltip
+          content={
+            userMovieStats.isWatched ? 'Remove from watched' : 'Set as watched'
+          }
+        >
+          <button
+            className="h-11 w-11 rounded-full bg-white text-xl"
+            onClick={() =>
+              setMoviesStats((prevState) => ({
+                ...prevState,
+                watched: userMovieStats.isWatched
+                  ? prevState.watched.filter((el) => el !== movie.id)
+                  : prevState.watched.concat(movie.id),
+              }))
+            }
+          >
+            <FontAwesomeIcon
+              icon={userMovieStats.isWatched ? faSolidEye : faRegularEye}
+            />
+          </button>
+        </Tooltip>
+
+        <Tooltip
+          content={
+            userMovieStats.isFavorited
+              ? 'Remove from favorites'
+              : 'Set as favorite'
+          }
+        >
+          <button
+            className="h-11 w-11 rounded-full bg-white text-xl"
+            onClick={() =>
+              setMoviesStats((prevState) => ({
+                ...prevState,
+                favorited: userMovieStats.isFavorited
+                  ? prevState.favorited.filter((el) => el !== movie.id)
+                  : prevState.favorited.concat(movie.id),
+              }))
+            }
+          >
+            <FontAwesomeIcon
+              icon={userMovieStats.isFavorited ? faSolidHeart : faRegularHeart}
+            />
+          </button>
+        </Tooltip>
+      </div>
+
       <h2 className="text-xl">{movie.title}</h2>
       <q>{movie.tagline}</q>
       <h4 className="text-gray-400">
@@ -49,38 +103,6 @@ const Movie = ({ movie }: MovieProps) => {
         <div className="space-y-2">
           <p>{movie.genres.join(', ')}</p>
           <p>{movie.overview}</p>
-
-          <div className="space-x-4">
-            <button
-              className="h-11 w-11 rounded-full bg-neutral-800 text-xl"
-              onClick={() =>
-                setUserMovieStats((prevState) => ({
-                  ...prevState,
-                  isWatched: !prevState.isWatched,
-                }))
-              }
-            >
-              <FontAwesomeIcon
-                icon={userMovieStats.isWatched ? faSolidEye : faRegularEye}
-              />
-            </button>
-
-            <button
-              className="h-11 w-11 rounded-full bg-neutral-800 text-xl"
-              onClick={() =>
-                setUserMovieStats((prevState) => ({
-                  ...prevState,
-                  isFavorited: !prevState.isFavorited,
-                }))
-              }
-            >
-              <FontAwesomeIcon
-                icon={
-                  userMovieStats.isFavorited ? faSolidHeart : faRegularHeart
-                }
-              />
-            </button>
-          </div>
         </div>
       </div>
     </>
