@@ -1,12 +1,5 @@
-import {
-  faEye as faRegularEye,
-  faHeart as faRegularHeart,
-} from '@fortawesome/free-regular-svg-icons'
-import {
-  faEye as faSolidEye,
-  faHeart as faSolidHeart,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons'
+import { faEye as faRegularEye, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
+import { faEye as faSolidEye, faHeart as faSolidHeart, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DetailedMovie } from 'types/graphql'
 
@@ -38,11 +31,7 @@ const Movie = ({ movie }: MovieProps) => {
   return (
     <>
       <div className="mb-4 flex justify-around bg-neutral-800 py-3 text-gray-400">
-        <Tooltip
-          content={
-            userMovieStats.isWatched ? 'Remove from watched' : 'Set as watched'
-          }
-        >
+        <Tooltip content={userMovieStats.isWatched ? 'Remove from watched' : 'Set as watched'}>
           <button
             className="h-11 w-11 rounded-full bg-white text-xl"
             onClick={() =>
@@ -54,19 +43,11 @@ const Movie = ({ movie }: MovieProps) => {
               }))
             }
           >
-            <FontAwesomeIcon
-              icon={userMovieStats.isWatched ? faSolidEye : faRegularEye}
-            />
+            <FontAwesomeIcon icon={userMovieStats.isWatched ? faSolidEye : faRegularEye} />
           </button>
         </Tooltip>
 
-        <Tooltip
-          content={
-            userMovieStats.isFavorited
-              ? 'Remove from favorites'
-              : 'Set as favorite'
-          }
-        >
+        <Tooltip content={userMovieStats.isFavorited ? 'Remove from favorites' : 'Set as favorite'}>
           <button
             className="h-11 w-11 rounded-full bg-white text-xl"
             onClick={() =>
@@ -78,9 +59,7 @@ const Movie = ({ movie }: MovieProps) => {
               }))
             }
           >
-            <FontAwesomeIcon
-              icon={userMovieStats.isFavorited ? faSolidHeart : faRegularHeart}
-            />
+            <FontAwesomeIcon icon={userMovieStats.isFavorited ? faSolidHeart : faRegularHeart} />
           </button>
         </Tooltip>
       </div>
@@ -94,11 +73,7 @@ const Movie = ({ movie }: MovieProps) => {
       </h4>
 
       <div className="mt-4 flex items-start gap-4">
-        <img
-          src={movie.posterUrl}
-          alt={`${movie.title} poster`}
-          className="w-1/4"
-        />
+        <img src={movie.posterUrl} alt={`${movie.title} poster`} className="w-1/4" />
 
         <div className="space-y-2">
           <p>{movie.genres.join(', ')}</p>

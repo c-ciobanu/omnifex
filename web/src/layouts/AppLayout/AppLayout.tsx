@@ -82,9 +82,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </Transition>
       </header>
 
-      <main className="min-h-main mt-12 bg-black text-white">
-        {title ? <MoviesCell title={title} /> : children}
-      </main>
+      <main className="min-h-main mt-12 bg-black text-white">{title ? <MoviesCell title={title} /> : children}</main>
     </>
   )
 }

@@ -7,13 +7,8 @@ const getLocalStorageValue = <T>(key: string, defaultValue: T): T => {
   return value || defaultValue
 }
 
-export const useLocalStorage = <T>(
-  key: string,
-  defaultValue: T
-): [T, Dispatch<SetStateAction<T>>] => {
-  const [value, setValue] = useState(() =>
-    getLocalStorageValue(key, defaultValue)
-  )
+export const useLocalStorage = <T>(key: string, defaultValue: T): [T, Dispatch<SetStateAction<T>>] => {
+  const [value, setValue] = useState(() => getLocalStorageValue(key, defaultValue))
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value))

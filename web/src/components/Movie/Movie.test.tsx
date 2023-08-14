@@ -13,8 +13,6 @@ describe('Movie', () => {
 
     expect(screen.getByText(movie.title)).toBeInTheDocument()
     expect(screen.queryByText(movie.runtime)).not.toBeInTheDocument()
-    expect(
-      screen.queryByText(runtimeText, { exact: false })
-    ).toBeInTheDocument()
+    expect(screen.queryByText(runtimeText, { exact: false })).toBeInTheDocument()
   })
 })
