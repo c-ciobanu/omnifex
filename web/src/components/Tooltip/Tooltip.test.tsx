@@ -7,7 +7,7 @@ describe('Tooltip', () => {
     expect(() =>
       render(
         <Tooltip content="Tooltip content">
-          <p>Hover me!</p>
+          <button>Hover me!</button>
         </Tooltip>
       )
     ).not.toThrow()
