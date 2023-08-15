@@ -4,8 +4,10 @@
     "docker:start": "docker-compose up -d",
     "docker:stop": "docker-compose stop",
     "dev": "yarn docker:start && rw dev",
+    "migrate": "rw prisma migrate dev",
     "test": "rw test",
-    "storybook": "rw storybook"
+    "storybook": "rw storybook",
+    "lint": "rw lint --fix"
   },
   "workspaces": {
     "packages": [
