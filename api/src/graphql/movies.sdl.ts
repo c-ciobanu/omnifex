@@ -16,6 +16,12 @@ export const schema = gql`
     runtime: Int!
     tagline: String!
     title: String!
+    user: UserMovie
+  }
+
+  type UserMovie {
+    favorited: Boolean!
+    watched: Boolean!
   }
 
   type Query {

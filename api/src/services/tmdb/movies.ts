@@ -1,5 +1,7 @@
 import { fetch } from '@whatwg-node/fetch'
-import type { QueryResolvers } from 'types/graphql'
+import type { DetailedMovieRelationResolvers, QueryResolvers } from 'types/graphql'
+
+import { db } from 'src/lib/db'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${title}`, {
@@ -40,4 +42,24 @@ export const movie: QueryResolvers['movie'] = async ({ id }) => {
     tagline: json.tagline,
     title: json.title,
   }
+}
+
+export const DetailedMovie: DetailedMovieRelationResolvers = {
+  user: async (_obj, { root }) => {
+    if (context.currentUser) {
+      const favoritedCount = await db.favorite.count({
+        where: { tmdbId: root.id, userId: context.currentUser.id },
+      })
+      const watchedCount = await db.watched.count({
+        where: { tmdbId: root.id, userId: context.currentUser.id },
+      })
+
+      return {
+        favorited: favoritedCount === 1,
+        watched: watchedCount === 1,
+      }
+    }
+
+    return null
+  },
 }
