@@ -42,12 +42,14 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <Link to={routes.home()}>
           <h1 className="text-xl">Batman&#39;s Lair</h1>
         </Link>
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          className="text-xl"
-          fixedWidth
-          onClick={() => setShowSearchInput(true)}
-        />
+        <button type="button" className="flex h-9 w-9 items-center justify-center">
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className="text-xl"
+            fixedWidth
+            onClick={() => setShowSearchInput(true)}
+          />
+        </button>
 
         <Transition
           className="absolute right-4 top-0 flex h-full items-center bg-neutral-800"
@@ -69,16 +71,18 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             />
           </Form>
 
-          <FontAwesomeIcon
-            icon={faX}
-            className="text-xl"
-            fixedWidth
-            onClick={() => {
-              formMethods.reset()
-              setShowSearchInput(false)
-              setTitle(undefined)
-            }}
-          />
+          <button type="button" className="flex h-9 w-9 items-center justify-center">
+            <FontAwesomeIcon
+              icon={faX}
+              className="text-xl"
+              fixedWidth
+              onClick={() => {
+                formMethods.reset()
+                setShowSearchInput(false)
+                setTitle(undefined)
+              }}
+            />
+          </button>
         </Transition>
       </header>
 
