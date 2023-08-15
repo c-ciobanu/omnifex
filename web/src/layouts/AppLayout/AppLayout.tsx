@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import { faMagnifyingGlass, faX } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faRightFromBracket, faRightToBracket, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transition } from '@headlessui/react'
 
 import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
 import { Link, routes, useLocation } from '@redwoodjs/router'
 
+import { useAuth } from 'src/auth'
 import MoviesCell from 'src/components/MoviesCell'
 
 import batmanLogo from './batman-logo.svg'
@@ -20,6 +21,7 @@ interface FormValues {
 }
 
 const AppLayout = ({ children }: AppLayoutProps) => {
+  const { logOut, isAuthenticated } = useAuth()
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [title, setTitle] = useState<string>()
   const { pathname } = useLocation()
@@ -42,14 +44,27 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <Link to={routes.home()}>
           <h1 className="text-xl">Batman&#39;s Lair</h1>
         </Link>
-        <button type="button" className="flex h-9 w-9 items-center justify-center">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            className="text-xl"
-            fixedWidth
-            onClick={() => setShowSearchInput(true)}
-          />
-        </button>
+
+        <div className="flex items-center gap-4">
+          {isAuthenticated ? (
+            <button type="button" onClick={logOut} className="p-2">
+              <FontAwesomeIcon icon={faRightFromBracket} />
+            </button>
+          ) : (
+            <Link to={routes.login()} className="p-2">
+              <FontAwesomeIcon icon={faRightToBracket} />
+            </Link>
+          )}
+
+          <button type="button" className="flex h-9 w-9 items-center justify-center">
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="text-xl"
+              fixedWidth
+              onClick={() => setShowSearchInput(true)}
+            />
+          </button>
+        </div>
 
         <Transition
           className="absolute right-4 top-0 flex h-full items-center bg-neutral-800"
