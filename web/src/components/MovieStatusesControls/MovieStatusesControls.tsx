@@ -3,67 +3,135 @@ import { useState } from 'react'
 import { faEye as faRegularEye, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
 import { faEye as faSolidEye, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { UserMovie } from 'types/graphql'
 
+import { useMutation } from '@redwoodjs/web'
+
+import { useAuth } from 'src/auth'
+import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import Tooltip from 'src/components/Tooltip'
 import WarningDialog from 'src/components/WarningDialog'
 import { useLocalStorage } from 'src/hooks/useLocalStorage'
 
 type MovieStatusesControlsProps = {
   id: number
+  statuses?: UserMovie
 }
 
-const MovieStatusesControls = ({ id }: MovieStatusesControlsProps) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [movieStatuses, setMovieStatuses] = useLocalStorage('movieStatuses', {
-    favorited: [],
-    watched: [],
-  })
-  const [hideLocalStorageWarning, setHideLocalStorageWarning] = useLocalStorage('hideLocalStorageWarning', false)
-
-  const userMovieStatuses = {
-    isWatched: movieStatuses.watched.includes(id),
-    isFavorited: movieStatuses.favorited.includes(id),
+const CREATE_FAVORITE = gql`
+  mutation CreateFavoriteMutation($input: CreateFavoriteInput!) {
+    createFavorite(input: $input) {
+      id
+    }
   }
+`
+
+const DELETE_FAVORITE = gql`
+  mutation DeleteFavoriteMutation($tmdbId: Int!) {
+    deleteFavorite(tmdbId: $tmdbId) {
+      id
+    }
+  }
+`
+
+const CREATE_WATCHED = gql`
+  mutation CreateWatchedMutation($input: CreateWatchedInput!) {
+    createWatched(input: $input) {
+      id
+    }
+  }
+`
+
+const DELETE_WATCHED = gql`
+  mutation DeleteWatchedMutation($tmdbId: Int!) {
+    deleteWatched(tmdbId: $tmdbId) {
+      id
+    }
+  }
+`
+
+const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => {
+  const { isAuthenticated } = useAuth()
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [movieStatuses, setMovieStatuses] = useLocalStorage('movieStatuses', { favorited: [], watched: [] })
+  const [hideLocalStorageWarning, setHideLocalStorageWarning] = useLocalStorage('hideLocalStorageWarning', false)
+  const [createFavorite, { loading: createFavoriteLoading }] = useMutation(CREATE_FAVORITE, {
+    variables: { input: { tmdbId: id } },
+    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+  })
+  const [deleteFavorite, { loading: deleteFavoriteLoading }] = useMutation(DELETE_FAVORITE, {
+    variables: { tmdbId: id },
+    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+  })
+  const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_WATCHED, {
+    variables: { input: { tmdbId: id } },
+    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+  })
+  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_WATCHED, {
+    variables: { tmdbId: id },
+    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+  })
+
+  const toggleFavoritedStatus = () => {
+    if (isAuthenticated) {
+      if (favorited) {
+        deleteFavorite()
+      } else {
+        createFavorite()
+      }
+    } else {
+      setMovieStatuses((prevState) => ({
+        ...prevState,
+        favorited: favorited ? prevState.favorited.filter((el) => el !== id) : prevState.favorited.concat(id),
+      }))
+
+      if (!hideLocalStorageWarning) {
+        setIsDialogOpen(true)
+      }
+    }
+  }
+
+  const toggleWatchedStatus = () => {
+    if (isAuthenticated) {
+      if (watched) {
+        deleteWatched()
+      } else {
+        createWatched()
+      }
+    } else {
+      setMovieStatuses((prevState) => ({
+        ...prevState,
+        watched: watched ? prevState.watched.filter((el) => el !== id) : prevState.watched.concat(id),
+      }))
+
+      if (!hideLocalStorageWarning) {
+        setIsDialogOpen(true)
+      }
+    }
+  }
+
+  const { favorited = movieStatuses.favorited.includes(id), watched = movieStatuses.watched.includes(id) } =
+    statuses ?? {}
 
   return (
     <>
-      <Tooltip content={userMovieStatuses.isWatched ? 'Remove from watched' : 'Set as watched'}>
+      <Tooltip content={watched ? 'Remove from watched' : 'Set as watched'}>
         <button
+          onClick={toggleWatchedStatus}
+          disabled={createWatchedLoading || deleteWatchedLoading}
           className="h-11 w-11 rounded-full bg-white text-xl"
-          onClick={() => {
-            setMovieStatuses((prevState) => ({
-              ...prevState,
-              watched: userMovieStatuses.isWatched
-                ? prevState.watched.filter((el) => el !== id)
-                : prevState.watched.concat(id),
-            }))
-
-            if (!hideLocalStorageWarning) {
-              setIsDialogOpen(true)
-            }
-          }}
         >
-          <FontAwesomeIcon icon={userMovieStatuses.isWatched ? faSolidEye : faRegularEye} />
+          <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} />
         </button>
       </Tooltip>
 
-      <Tooltip content={userMovieStatuses.isFavorited ? 'Remove from favorites' : 'Set as favorite'}>
+      <Tooltip content={favorited ? 'Remove from favorites' : 'Set as favorite'}>
         <button
+          onClick={toggleFavoritedStatus}
+          disabled={createFavoriteLoading || deleteFavoriteLoading}
           className="h-11 w-11 rounded-full bg-white text-xl"
-          onClick={() => {
-            setMovieStatuses((prevState) => ({
-              ...prevState,
-              favorited: userMovieStatuses.isFavorited
-                ? prevState.favorited.filter((el) => el !== id)
-                : prevState.favorited.concat(id),
-            }))
-
-            if (!hideLocalStorageWarning) {
-              setIsDialogOpen(true)
-            }
-          }}
         >
-          <FontAwesomeIcon icon={userMovieStatuses.isFavorited ? faSolidHeart : faRegularHeart} />
+          <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} />
         </button>
       </Tooltip>
 

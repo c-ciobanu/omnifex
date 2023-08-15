@@ -17,6 +17,10 @@ export const QUERY = gql`
       runtime
       tagline
       title
+      user {
+        favorited
+        watched
+      }
     }
   }
 `
@@ -31,7 +35,7 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
   return (
     <>
       <div className="mb-4 flex justify-around bg-neutral-800 py-3 text-gray-400">
-        <MovieStatusesControls id={movie.id} />
+        <MovieStatusesControls id={movie.id} statuses={movie.user} />
       </div>
 
       <Movie movie={movie} />
