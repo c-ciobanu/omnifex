@@ -7,6 +7,7 @@ export const QUERY = gql`
   query MoviesQuery($title: String!) {
     movies(title: $title) {
       id
+      overview
       posterUrl
       releaseYear
       title
@@ -35,6 +36,7 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
               <div>
                 <p>{movie.title}</p>
                 <p className="text-gray-500">{movie.releaseYear}</p>
+                <p className="line-clamp-3 text-sm text-gray-500 sm:line-clamp-4">{movie.overview}</p>
               </div>
             </Link>
           </li>

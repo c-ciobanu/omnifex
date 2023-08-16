@@ -1,6 +1,7 @@
 export const schema = gql`
   type BasicMovie {
     id: Int!
+    overview: String!
     posterUrl: String!
     releaseYear: Int!
     title: String!
