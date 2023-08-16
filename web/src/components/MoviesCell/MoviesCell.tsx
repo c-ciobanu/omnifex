@@ -22,7 +22,7 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 
 export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
   return (
-    <ul className="divide-y divide-white">
+    <ul className="grid grid-cols-1 gap-6 divide-y divide-white sm:grid-cols-2 lg:grid-cols-3">
       {movies.map((movie) => {
         return (
           <li key={movie.id}>
