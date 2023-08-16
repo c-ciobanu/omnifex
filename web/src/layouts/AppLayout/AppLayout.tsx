@@ -6,6 +6,7 @@ import { Transition } from '@headlessui/react'
 
 import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
 import { Link, routes, useLocation } from '@redwoodjs/router'
+import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
 import MoviesCell from 'src/components/MoviesCell'
@@ -39,6 +40,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <>
+      <Toaster />
+
       <header className="h-header fixed left-0 top-0 w-full items-center justify-between bg-gray-800 px-4 sm:px-6 lg:px-8">
         <nav className="max-w-container relative mx-auto flex h-full items-center justify-between text-gray-300 ">
           <img src={batmanLogo} alt="Logo" title="Batman is here!" />

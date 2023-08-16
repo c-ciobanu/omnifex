@@ -3,10 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Form, Label, PasswordField, Submit, FieldError } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
-import { toast, Toaster } from '@redwoodjs/web/toast'
+import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import 'src/scaffold.css'
 
 const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
   const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } = useAuth()
@@ -55,50 +54,41 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
     <>
       <MetaTags title="Reset Password" />
 
-      <main>
-        <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
-        <div className="rw-scaffold rw-login-container">
-          <div className="rw-segment">
-            <header className="rw-segment-header">
-              <h2 className="rw-heading rw-heading-secondary">Reset Password</h2>
-            </header>
+      <div className="flex min-h-[inherit] flex-col items-center justify-center space-y-10">
+        <h2 className="text-2xl font-bold">Reset Password</h2>
 
-            <div className="rw-segment-main">
-              <div className="rw-form-wrapper">
-                <Form onSubmit={onSubmit} className="rw-form-wrapper">
-                  <div className="text-left">
-                    <Label name="password" className="rw-label" errorClassName="rw-label rw-label-error">
-                      New Password
-                    </Label>
-                    <PasswordField
-                      name="password"
-                      autoComplete="new-password"
-                      className="rw-input"
-                      errorClassName="rw-input rw-input-error"
-                      disabled={!enabled}
-                      ref={passwordRef}
-                      validation={{
-                        required: {
-                          value: true,
-                          message: 'New Password is required',
-                        },
-                      }}
-                    />
+        <div className="w-full max-w-md rounded-lg bg-white p-6 shadow sm:p-12">
+          <Form onSubmit={onSubmit} className="space-y-6">
+            <fieldset>
+              <Label name="password" className="form-label" errorClassName="form-label form-label-error">
+                New Password
+              </Label>
+              <PasswordField
+                name="password"
+                className="form-input"
+                errorClassName="form-input form-input-error"
+                autoComplete="new-password"
+                disabled={!enabled}
+                ref={passwordRef}
+                validation={{
+                  required: {
+                    value: true,
+                    message: 'New Password is required',
+                  },
+                }}
+              />
+              <FieldError name="password" className="form-field-error" />
+            </fieldset>
 
-                    <FieldError name="password" className="rw-field-error" />
-                  </div>
-
-                  <div className="rw-button-group">
-                    <Submit className="rw-button rw-button-blue" disabled={!enabled}>
-                      Submit
-                    </Submit>
-                  </div>
-                </Form>
-              </div>
-            </div>
-          </div>
+            <Submit
+              className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+              disabled={!enabled}
+            >
+              Submit
+            </Submit>
+          </Form>
         </div>
-      </main>
+      </div>
     </>
   )
 }
