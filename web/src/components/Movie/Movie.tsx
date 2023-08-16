@@ -28,7 +28,16 @@ const Movie = ({ movie }: MovieProps) => {
         <img src={movie.posterUrl} alt={`${movie.title} poster`} className="w-1/4" />
 
         <div className="space-y-3">
-          <p>{movie.genres.join(', ')}</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {movie.genres.map((genre) => (
+              <span
+                key={genre}
+                className="nline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+              >
+                {genre}
+              </span>
+            ))}
+          </div>
           <p>{movie.overview}</p>
         </div>
       </div>
