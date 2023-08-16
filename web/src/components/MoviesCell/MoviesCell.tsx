@@ -29,12 +29,12 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
             <Link
               to={routes.movie({ id: movie.id })}
               title={`'Show ${movie.title} movie details`}
-              className="flex gap-4 p-2"
+              className="flex gap-x-6 py-5 hover:bg-white"
             >
               <img src={movie.posterUrl} alt={`${movie.title} poster`} />
               <div>
-                <p className="text-yellow-300">{movie.title}</p>
-                <p className="text-gray-400">{movie.releaseYear}</p>
+                <p>{movie.title}</p>
+                <p className="text-gray-500">{movie.releaseYear}</p>
               </div>
             </Link>
           </li>

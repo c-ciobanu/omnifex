@@ -10744,6 +10744,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: c09f43b3144a0b7826b6b11b6a111b2c7440831004eecc02d333533c5e58ef0aa5f2dce071d3b25fbb8c8ea97b45df96c74bcc1d51c8c2027eb981931107b0cd
+  languageName: node
+  linkType: hard
+
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -24075,6 +24082,7 @@ __metadata:
     "@redwoodjs/vite": 6.0.6
     "@redwoodjs/web": 6.0.6
     autoprefixer: ^10.4.14
+    clsx: ^2.0.0
     postcss: ^8.4.27
     postcss-loader: ^7.3.3
     prop-types: 15.8.1

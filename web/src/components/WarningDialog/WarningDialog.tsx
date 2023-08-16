@@ -64,7 +64,7 @@ const WarningDialog = ({ isOpen, onClose, onContinue, title, description }: Warn
                     </div>
 
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <DialogPrimitive.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                      <DialogPrimitive.Title as="h3" className="font-semibold">
                         {title}
                       </DialogPrimitive.Title>
 
@@ -74,7 +74,7 @@ const WarningDialog = ({ isOpen, onClose, onContinue, title, description }: Warn
 
                       <fieldset className="flex gap-2">
                         <CheckboxField name="dontShowAgain" />
-                        <Label name="dontShowAgain" className="text-sm text-gray-500">
+                        <Label name="dontShowAgain" className="text-sm">
                           Don&#39;t show this message again
                         </Label>
                       </fieldset>

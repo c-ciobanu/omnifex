@@ -39,69 +39,67 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <>
-      <header className="fixed left-0 top-0 flex h-12 w-full items-center justify-between bg-neutral-800 px-4 text-white">
-        <img src={batmanLogo} alt="Logo" title="Batman is here!" />
-        <Link to={routes.home()}>
-          <h1 className="text-xl">Batman&#39;s Lair</h1>
-        </Link>
+      <header className="h-header fixed left-0 top-0 w-full items-center justify-between bg-gray-800 px-4 sm:px-6 lg:px-8">
+        <nav className="max-w-container relative mx-auto flex h-full items-center justify-between text-gray-300 ">
+          <img src={batmanLogo} alt="Logo" title="Batman is here!" />
+          <Link to={routes.home()}>
+            <h1 className="text-xl hover:text-white">Batman&#39;s Lair</h1>
+          </Link>
 
-        <div className="flex items-center gap-4">
-          {isAuthenticated ? (
-            <button type="button" onClick={logOut} className="p-2">
-              <FontAwesomeIcon icon={faRightFromBracket} />
+          <div className="flex items-center gap-4">
+            {isAuthenticated ? (
+              <button type="button" onClick={logOut} className="icon-bg-dark">
+                <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
+              </button>
+            ) : (
+              <Link to={routes.login()} className="icon-bg-dark">
+                <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
+              </Link>
+            )}
+
+            <button type="button" className="icon-bg-dark">
+              <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth onClick={() => setShowSearchInput(true)} />
             </button>
-          ) : (
-            <Link to={routes.login()} className="p-2">
-              <FontAwesomeIcon icon={faRightToBracket} />
-            </Link>
-          )}
+          </div>
 
-          <button type="button" className="flex h-9 w-9 items-center justify-center">
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className="text-xl"
-              fixedWidth
-              onClick={() => setShowSearchInput(true)}
-            />
-          </button>
-        </div>
+          <Transition
+            className="absolute right-0 top-0 flex h-full items-center bg-gray-800"
+            show={showSearchInput}
+            unmount={false}
+            enter="transition-width duration-500"
+            enterFrom="w-0"
+            enterTo="w-full"
+            leave="transition-width duration-500"
+            leaveFrom="w-full"
+            leaveTo="w-0"
+          >
+            <Form onSubmit={onSubmit} formMethods={formMethods} className="grow">
+              <TextField
+                name="title"
+                placeholder="Search for a movie"
+                className="w-full bg-transparent placeholder-gray-300 outline-none"
+                validation={{ required: true }}
+              />
+            </Form>
 
-        <Transition
-          className="absolute right-4 top-0 flex h-full items-center bg-neutral-800"
-          show={showSearchInput}
-          unmount={false}
-          enter="transition-width duration-500"
-          enterFrom="w-0"
-          enterTo="w-header-without-p"
-          leave="transition-width duration-500"
-          leaveFrom="w-header-without-p"
-          leaveTo="w-0"
-        >
-          <Form onSubmit={onSubmit} formMethods={formMethods} className="grow">
-            <TextField
-              name="title"
-              placeholder="Search for a movie"
-              className="w-full bg-transparent text-gray-400 placeholder-gray-400 outline-none"
-              validation={{ required: true }}
-            />
-          </Form>
-
-          <button type="button" className="flex h-9 w-9 items-center justify-center">
-            <FontAwesomeIcon
-              icon={faX}
-              className="text-xl"
-              fixedWidth
-              onClick={() => {
-                formMethods.reset()
-                setShowSearchInput(false)
-                setTitle(undefined)
-              }}
-            />
-          </button>
-        </Transition>
+            <button type="button" className="icon-bg-dark">
+              <FontAwesomeIcon
+                icon={faX}
+                fixedWidth
+                onClick={() => {
+                  formMethods.reset()
+                  setShowSearchInput(false)
+                  setTitle(undefined)
+                }}
+              />
+            </button>
+          </Transition>
+        </nav>
       </header>
 
-      <main className="min-h-main mt-12 bg-black text-white">{title ? <MoviesCell title={title} /> : children}</main>
+      <main className="min-h-main max-w-container mx-auto mt-16">
+        {title ? <MoviesCell title={title} /> : children}
+      </main>
     </>
   )
 }

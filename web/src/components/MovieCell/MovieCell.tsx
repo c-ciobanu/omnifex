@@ -34,7 +34,7 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
   return (
     <>
-      <div className="mb-4 flex justify-around bg-neutral-800 py-3 text-gray-400">
+      <div className="mb-6 flex justify-around bg-white py-4 shadow">
         <MovieStatusesControls id={movie.id} statuses={movie.user} />
       </div>
 

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { faEye as faRegularEye, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
 import { faEye as faSolidEye, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import { UserMovie } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
@@ -119,9 +120,9 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
         <button
           onClick={toggleWatchedStatus}
           disabled={createWatchedLoading || deleteWatchedLoading}
-          className="h-11 w-11 rounded-full bg-white text-xl"
+          className={clsx('icon-bg-light', watched && 'text-gray-700 hover:text-gray-300')}
         >
-          <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} />
+          <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} fixedWidth />
         </button>
       </Tooltip>
 
@@ -129,9 +130,9 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
         <button
           onClick={toggleFavoritedStatus}
           disabled={createFavoriteLoading || deleteFavoriteLoading}
-          className="h-11 w-11 rounded-full bg-white text-xl"
+          className={clsx('icon-bg-light', favorited && 'text-gray-700 hover:text-gray-300')}
         >
-          <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} />
+          <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} fixedWidth />
         </button>
       </Tooltip>
 

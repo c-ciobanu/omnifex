@@ -11,9 +11,7 @@ const MoviePage = ({ id }: MoviePageProps) => {
     <>
       <MetaTags title="Movie" description="Movie page" />
 
-      <div className="p-4">
-        <MovieCell id={id} />
-      </div>
+      <MovieCell id={id} />
     </>
   )
 }
