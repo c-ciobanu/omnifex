@@ -1,12 +1,15 @@
 import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
-type LocalMovies = {
+interface LocalMovies {
   favorited: number[]
   watched: number[]
 }
 
 export const useLocalMovies = () => {
-  const [localMovies, setLocalMovies] = useLocalStorage<LocalMovies>('movies', { favorited: [], watched: [] })
+  const defaultValue = { favorited: [], watched: [] }
+  const [localMovies, setLocalMovies] = useLocalStorage<LocalMovies>('movies', defaultValue)
 
-  return { localMovies, setLocalMovies }
+  const resetLocalMovies = () => setLocalMovies(defaultValue)
+
+  return { localMovies, setLocalMovies, resetLocalMovies }
 }

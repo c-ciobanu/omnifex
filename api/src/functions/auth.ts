@@ -105,12 +105,15 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
     handler: ({ username, hashedPassword, salt, userAttributes }) => {
+      const { favorited, watched } = userAttributes as unknown as { favorited: number[]; watched: number[] }
+
       return db.user.create({
         data: {
           email: username,
           hashedPassword: hashedPassword,
           salt: salt,
-          // name: userAttributes.name
+          favorited: { create: favorited.map((el) => ({ tmdbId: el })) },
+          watched: { create: watched.map((el) => ({ tmdbId: el })) },
         },
       })
     },

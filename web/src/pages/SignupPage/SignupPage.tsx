@@ -7,9 +7,11 @@ import { MetaTags } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
+import { useLocalMovies } from 'src/hooks/useLocalMovies/useLocalMovies'
 
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth()
+  const { localMovies, resetLocalMovies } = useLocalMovies()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -24,7 +26,7 @@ const SignupPage = () => {
   }, [])
 
   const onSubmit = async (data: Record<string, string>) => {
-    const response = await signUp({ username: data.email, password: data.password })
+    const response = await signUp({ username: data.email, password: data.password, ...localMovies })
 
     if (response.message) {
       toast(response.message)
@@ -32,6 +34,7 @@ const SignupPage = () => {
       toast.error(response.error)
     } else {
       // user is signed in automatically
+      resetLocalMovies()
       toast.success('Welcome!')
     }
   }
