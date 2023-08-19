@@ -12,7 +12,8 @@ import { useAuth } from 'src/auth'
 import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import Tooltip from 'src/components/Tooltip'
 import WarningDialog from 'src/components/WarningDialog'
-import { useLocalStorage } from 'src/hooks/useLocalStorage'
+import { useLocalMovies } from 'src/hooks/useLocalMovies/useLocalMovies'
+import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
 type MovieStatusesControlsProps = {
   id: number
@@ -54,7 +55,7 @@ const DELETE_WATCHED = gql`
 const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => {
   const { isAuthenticated } = useAuth()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [movieStatuses, setMovieStatuses] = useLocalStorage('movieStatuses', { favorited: [], watched: [] })
+  const { localMovies, setLocalMovies } = useLocalMovies()
   const [hideLocalStorageWarning, setHideLocalStorageWarning] = useLocalStorage('hideLocalStorageWarning', false)
   const [createFavorite, { loading: createFavoriteLoading }] = useMutation(CREATE_FAVORITE, {
     variables: { input: { tmdbId: id } },
@@ -81,7 +82,7 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
         createFavorite()
       }
     } else {
-      setMovieStatuses((prevState) => ({
+      setLocalMovies((prevState) => ({
         ...prevState,
         favorited: favorited ? prevState.favorited.filter((el) => el !== id) : prevState.favorited.concat(id),
       }))
@@ -100,7 +101,7 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
         createWatched()
       }
     } else {
-      setMovieStatuses((prevState) => ({
+      setLocalMovies((prevState) => ({
         ...prevState,
         watched: watched ? prevState.watched.filter((el) => el !== id) : prevState.watched.concat(id),
       }))
@@ -111,8 +112,7 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
     }
   }
 
-  const { favorited = movieStatuses.favorited.includes(id), watched = movieStatuses.watched.includes(id) } =
-    statuses ?? {}
+  const { favorited = localMovies.favorited.includes(id), watched = localMovies.watched.includes(id) } = statuses ?? {}
 
   return (
     <>
