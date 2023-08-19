@@ -19,11 +19,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favorites Favorite[]
+  favorited Favorited[]
   watched   Watched[]
 }
 
-model Favorite {
+model Favorited {
   id     Int @id @default(autoincrement())
   tmdbId Int
 

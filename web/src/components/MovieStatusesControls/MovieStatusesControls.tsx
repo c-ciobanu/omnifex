@@ -20,17 +20,17 @@ type MovieStatusesControlsProps = {
   statuses?: UserMovie
 }
 
-const CREATE_FAVORITE = gql`
-  mutation CreateFavoriteMutation($input: CreateFavoriteInput!) {
-    createFavorite(input: $input) {
+const CREATE_FAVORITED = gql`
+  mutation CreateFavoritedMutation($input: CreateFavoritedInput!) {
+    createFavorited(input: $input) {
       id
     }
   }
 `
 
-const DELETE_FAVORITE = gql`
-  mutation DeleteFavoriteMutation($tmdbId: Int!) {
-    deleteFavorite(tmdbId: $tmdbId) {
+const DELETE_FAVORITED = gql`
+  mutation DeleteFavoritedMutation($tmdbId: Int!) {
+    deleteFavorited(tmdbId: $tmdbId) {
       id
     }
   }
@@ -57,11 +57,11 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const { localMovies, setLocalMovies } = useLocalMovies()
   const [hideLocalStorageWarning, setHideLocalStorageWarning] = useLocalStorage('hideLocalStorageWarning', false)
-  const [createFavorite, { loading: createFavoriteLoading }] = useMutation(CREATE_FAVORITE, {
+  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED, {
     variables: { input: { tmdbId: id } },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })
-  const [deleteFavorite, { loading: deleteFavoriteLoading }] = useMutation(DELETE_FAVORITE, {
+  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED, {
     variables: { tmdbId: id },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })
@@ -77,9 +77,9 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
   const toggleFavoritedStatus = () => {
     if (isAuthenticated) {
       if (favorited) {
-        deleteFavorite()
+        deleteFavorited()
       } else {
-        createFavorite()
+        createFavorited()
       }
     } else {
       setLocalMovies((prevState) => ({
@@ -129,7 +129,7 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
       <Tooltip content={favorited ? 'Remove from favorites' : 'Set as favorite'}>
         <button
           onClick={toggleFavoritedStatus}
-          disabled={createFavoriteLoading || deleteFavoriteLoading}
+          disabled={createFavoritedLoading || deleteFavoritedLoading}
           className={clsx('icon-bg-light', favorited && 'text-gray-700 hover:text-gray-300')}
         >
           <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} fixedWidth />
