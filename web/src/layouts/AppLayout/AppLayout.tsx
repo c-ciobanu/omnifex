@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faMagnifyingGlass, faRightFromBracket, faRightToBracket, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transition } from '@headlessui/react'
@@ -100,9 +101,36 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </nav>
       </header>
 
-      <main className="min-h-main max-w-container mx-auto mt-16">
+      <main className="min-h-main max-w-container mx-auto mt-16 px-4">
         {title ? <MoviesCell title={title} /> : children}
       </main>
+
+      <footer className="mx-4 space-y-2 border-t border-gray-900/10 py-8">
+        <div className="flex items-center gap-2">
+          <Link to="https://www.themoviedb.org" target="_blank">
+            <img
+              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+              alt="TMDB logo"
+              className="w-28"
+            />
+          </Link>
+          <p>Data provided by TMDB</p>
+        </div>
+
+        <p>
+          Icons provided by{' '}
+          <Link to="https://icons8.com" target="_blank">
+            icons8.com
+          </Link>
+        </p>
+
+        <div className="flex items-center justify-between">
+          <p>© {new Date().getFullYear()} Cristi Ciobanu</p>
+          <Link to="https://github.com/c-ciobanu/popcorn-time" className="text-xl">
+            <FontAwesomeIcon icon={faGithub} fixedWidth />
+          </Link>
+        </div>
+      </footer>
     </>
   )
 }
