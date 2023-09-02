@@ -101,7 +101,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </nav>
       </header>
 
-      <main className="min-h-main max-w-container mx-auto mt-16 px-4">
+      <main className="max-w-container mx-auto min-h-screen px-4 pt-16">
         {title ? <MoviesCell title={title} /> : children}
       </main>
 

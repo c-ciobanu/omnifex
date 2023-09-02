@@ -54,7 +54,7 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
     <>
       <MetaTags title="Reset Password" />
 
-      <div className="flex min-h-[inherit] flex-col items-center justify-center space-y-10">
+      <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Reset Password</h2>
 
         <div className="w-full max-w-md rounded-lg bg-white p-6 shadow sm:p-12">
