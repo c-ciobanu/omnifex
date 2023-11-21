@@ -14,7 +14,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-100 text-gray-900 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-screen-2xl bg-gray-100 px-4 text-gray-900 sm:px-6 lg:px-8;
   }
 }
 
@@ -55,9 +55,5 @@
 
   .min-h-main {
     min-height: calc(100vh - theme('height.16'));
-  }
-
-  .max-w-container {
-    @apply max-w-screen-2xl;
   }
 }

@@ -43,69 +43,69 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     <>
       <Toaster />
 
-      <header className="h-header fixed left-0 top-0 w-full items-center justify-between bg-gray-800 px-4 sm:px-6 lg:px-8">
-        <nav className="max-w-container relative mx-auto flex h-full items-center justify-between text-gray-300 ">
-          <img src={batmanLogo} alt="Logo" title="Batman is here!" />
-          <Link to={routes.home()}>
-            <h1 className="text-xl hover:text-white">Batman&#39;s Lair</h1>
-          </Link>
+      <header className="h-header fixed left-0 top-0 w-full bg-gray-800">
+        <div className="mx-auto h-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+          <nav className="relative flex h-full w-full items-center justify-between text-gray-300">
+            <img src={batmanLogo} alt="Logo" title="Batman is here!" />
+            <Link to={routes.home()}>
+              <h1 className="text-xl hover:text-white">Batman&#39;s Lair</h1>
+            </Link>
 
-          <div className="flex items-center gap-4">
-            {isAuthenticated ? (
-              <button type="button" onClick={logOut} className="icon-bg-dark">
-                <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
+            <div className="flex items-center gap-4">
+              {isAuthenticated ? (
+                <button type="button" onClick={logOut} className="icon-bg-dark">
+                  <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
+                </button>
+              ) : (
+                <Link to={routes.login()} className="icon-bg-dark">
+                  <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
+                </Link>
+              )}
+
+              <button type="button" className="icon-bg-dark">
+                <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth onClick={() => setShowSearchInput(true)} />
               </button>
-            ) : (
-              <Link to={routes.login()} className="icon-bg-dark">
-                <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
-              </Link>
-            )}
+            </div>
 
-            <button type="button" className="icon-bg-dark">
-              <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth onClick={() => setShowSearchInput(true)} />
-            </button>
-          </div>
+            <Transition
+              className="absolute right-0 top-0 flex h-full items-center bg-gray-800"
+              show={showSearchInput}
+              unmount={false}
+              enter="transition-width duration-500"
+              enterFrom="w-0"
+              enterTo="w-full"
+              leave="transition-width duration-500"
+              leaveFrom="w-full"
+              leaveTo="w-0"
+            >
+              <Form onSubmit={onSubmit} formMethods={formMethods} className="grow">
+                <TextField
+                  name="title"
+                  placeholder="Search for a movie"
+                  className="w-full bg-transparent placeholder-gray-300 outline-none"
+                  validation={{ required: true }}
+                />
+              </Form>
 
-          <Transition
-            className="absolute right-0 top-0 flex h-full items-center bg-gray-800"
-            show={showSearchInput}
-            unmount={false}
-            enter="transition-width duration-500"
-            enterFrom="w-0"
-            enterTo="w-full"
-            leave="transition-width duration-500"
-            leaveFrom="w-full"
-            leaveTo="w-0"
-          >
-            <Form onSubmit={onSubmit} formMethods={formMethods} className="grow">
-              <TextField
-                name="title"
-                placeholder="Search for a movie"
-                className="w-full bg-transparent placeholder-gray-300 outline-none"
-                validation={{ required: true }}
-              />
-            </Form>
-
-            <button type="button" className="icon-bg-dark">
-              <FontAwesomeIcon
-                icon={faX}
-                fixedWidth
-                onClick={() => {
-                  formMethods.reset()
-                  setShowSearchInput(false)
-                  setTitle(undefined)
-                }}
-              />
-            </button>
-          </Transition>
-        </nav>
+              <button type="button" className="icon-bg-dark">
+                <FontAwesomeIcon
+                  icon={faX}
+                  fixedWidth
+                  onClick={() => {
+                    formMethods.reset()
+                    setShowSearchInput(false)
+                    setTitle(undefined)
+                  }}
+                />
+              </button>
+            </Transition>
+          </nav>
+        </div>
       </header>
 
-      <main className="max-w-container mx-auto min-h-screen px-4 pt-16">
-        {title ? <MoviesCell title={title} /> : children}
-      </main>
+      <main className="min-h-screen pt-16">{title ? <MoviesCell title={title} /> : children}</main>
 
-      <footer className="mx-4 space-y-2 border-t border-gray-900/10 py-8">
+      <footer className="space-y-2 border-t border-gray-900/10 py-8">
         <div className="flex items-center gap-2">
           <Link to="https://www.themoviedb.org" target="_blank">
             <img
