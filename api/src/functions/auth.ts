@@ -1,6 +1,6 @@
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
 
-import { DbAuthHandler, DbAuthHandlerOptions } from '@redwoodjs/auth-dbauth-api'
+import { DbAuthHandler, DbAuthHandlerOptions, UserType } from '@redwoodjs/auth-dbauth-api'
 
 import { db } from 'src/lib/db'
 
@@ -88,7 +88,12 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     },
   }
 
-  const signupOptions: DbAuthHandlerOptions['signup'] = {
+  interface UserAttributes {
+    favorited: number[]
+    watched: number[]
+  }
+
+  const signupOptions: DbAuthHandlerOptions<UserType, UserAttributes>['signup'] = {
     // Whatever you want to happen to your data on new user signup. Redwood will
     // check for duplicate usernames before calling this handler. At a minimum
     // you need to save the `username`, `hashedPassword` and `salt` to your
@@ -105,7 +110,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
     handler: ({ username, hashedPassword, salt, userAttributes }) => {
-      const { favorited, watched } = userAttributes as unknown as { favorited: number[]; watched: number[] }
+      const { favorited, watched } = userAttributes
 
       return db.user.create({
         data: {
