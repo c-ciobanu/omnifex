@@ -68,13 +68,13 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             </div>
 
             <Transition
-              className="absolute right-0 top-0 flex h-full items-center bg-gray-800"
+              className="absolute right-0 top-0 flex h-full items-center overflow-hidden bg-gray-800"
               show={showSearchInput}
               unmount={false}
-              enter="transition-width duration-500"
+              enter="transition-width ease-out duration-500"
               enterFrom="w-0"
               enterTo="w-full"
-              leave="transition-width duration-500"
+              leave="transition-width ease-in duration-500"
               leaveFrom="w-full"
               leaveTo="w-0"
             >
