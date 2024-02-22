@@ -1,9 +1,9 @@
-import type { Prisma, Favorited } from '@prisma/client'
+import type { Prisma, FavoritedMovie } from '@prisma/client'
 
 import type { ScenarioData } from '@redwoodjs/testing/api'
 
-export const standard = defineScenario<Prisma.FavoritedCreateArgs>({
-  favorited: {
+export const standard = defineScenario<Prisma.FavoritedMovieCreateArgs>({
+  favoritedMovie: {
     one: {
       data: {
         tmdbId: 1425510,
@@ -31,4 +31,4 @@ export const standard = defineScenario<Prisma.FavoritedCreateArgs>({
   },
 })
 
-export type StandardScenario = ScenarioData<Favorited, 'favorited'>
+export type StandardScenario = ScenarioData<FavoritedMovie, 'favoritedMovie'>

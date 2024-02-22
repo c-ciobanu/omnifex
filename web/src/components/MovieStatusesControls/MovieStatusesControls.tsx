@@ -20,33 +20,33 @@ type MovieStatusesControlsProps = {
   statuses?: UserMovie
 }
 
-const CREATE_FAVORITED = gql`
-  mutation CreateFavoritedMutation($input: CreateFavoritedInput!) {
-    createFavorited(input: $input) {
+const CREATE_FAVORITED_MOVIE = gql`
+  mutation CreateFavoritedMovieMutation($input: CreateFavoritedMovieInput!) {
+    createFavoritedMovie(input: $input) {
       id
     }
   }
 `
 
-const DELETE_FAVORITED = gql`
-  mutation DeleteFavoritedMutation($tmdbId: Int!) {
-    deleteFavorited(tmdbId: $tmdbId) {
+const DELETE_FAVORITED_MOVIE = gql`
+  mutation DeleteFavoritedMovieMutation($tmdbId: Int!) {
+    deleteFavoritedMovie(tmdbId: $tmdbId) {
       id
     }
   }
 `
 
-const CREATE_WATCHED = gql`
-  mutation CreateWatchedMutation($input: CreateWatchedInput!) {
-    createWatched(input: $input) {
+const CREATE_WATCHED_MOVIE = gql`
+  mutation CreateWatchedMovieMutation($input: CreateWatchedMovieInput!) {
+    createWatchedMovie(input: $input) {
       id
     }
   }
 `
 
-const DELETE_WATCHED = gql`
-  mutation DeleteWatchedMutation($tmdbId: Int!) {
-    deleteWatched(tmdbId: $tmdbId) {
+const DELETE_WATCHED_MOVIE = gql`
+  mutation DeleteWatchedMovieMutation($tmdbId: Int!) {
+    deleteWatchedMovie(tmdbId: $tmdbId) {
       id
     }
   }
@@ -57,19 +57,19 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const { localMovies, setLocalMovies } = useLocalMovies()
   const [hideLocalStorageWarning, setHideLocalStorageWarning] = useLocalStorage('hideLocalStorageWarning', false)
-  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED, {
+  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
     variables: { input: { tmdbId: id } },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })
-  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED, {
+  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED_MOVIE, {
     variables: { tmdbId: id },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })
-  const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_WATCHED, {
+  const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_WATCHED_MOVIE, {
     variables: { input: { tmdbId: id } },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })
-  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_WATCHED, {
+  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_WATCHED_MOVIE, {
     variables: { tmdbId: id },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })

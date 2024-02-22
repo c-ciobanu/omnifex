@@ -1,9 +1,9 @@
-import type { Prisma, Watched } from '@prisma/client'
+import type { Prisma, WatchedMovie } from '@prisma/client'
 
 import type { ScenarioData } from '@redwoodjs/testing/api'
 
-export const standard = defineScenario<Prisma.WatchedCreateArgs>({
-  watched: {
+export const standard = defineScenario<Prisma.WatchedMovieCreateArgs>({
+  watchedMovie: {
     one: {
       data: {
         tmdbId: 1425510,
@@ -31,4 +31,4 @@ export const standard = defineScenario<Prisma.WatchedCreateArgs>({
   },
 })
 
-export type StandardScenario = ScenarioData<Watched, 'watched'>
+export type StandardScenario = ScenarioData<WatchedMovie, 'watchedMovie'>

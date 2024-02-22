@@ -117,8 +117,8 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
           email: username,
           hashedPassword: hashedPassword,
           salt: salt,
-          favorited: { create: favorited.map((el) => ({ tmdbId: el })) },
-          watched: { create: watched.map((el) => ({ tmdbId: el })) },
+          favoritedMovies: { create: favorited.map((el) => ({ tmdbId: el })) },
+          watchedMovies: { create: watched.map((el) => ({ tmdbId: el })) },
         },
       })
     },
