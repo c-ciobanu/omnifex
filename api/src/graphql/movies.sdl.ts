@@ -23,6 +23,7 @@ export const schema = gql`
   type UserMovie {
     favorited: Boolean!
     watched: Boolean!
+    watchlisted: Boolean!
   }
 
   type Query {
