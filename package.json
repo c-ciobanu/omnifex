@@ -7,6 +7,7 @@
     "migrate:dev": "rw prisma migrate dev",
     "test": "rw test",
     "storybook": "rw storybook",
+    "type-check": "rw type-check",
     "lint": "rw lint --fix"
   },
   "workspaces": {
