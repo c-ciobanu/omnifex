@@ -3,7 +3,7 @@ import type { MovieQuery } from 'types/graphql'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import Movie from 'src/components/Movie'
-import MovieStatusesControls from 'src/components/MovieStatusesControls'
+import MovieActions from 'src/components/MovieActions'
 
 export const QUERY = gql`
   query MovieQuery($id: Int!) {
@@ -35,7 +35,7 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
   return (
     <>
       <div className="mb-6 flex justify-around bg-white py-4 shadow">
-        <MovieStatusesControls id={movie.id} statuses={movie.user} />
+        <MovieActions id={movie.id} statuses={movie.user} />
       </div>
 
       <Movie movie={movie} />

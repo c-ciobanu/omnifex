@@ -15,7 +15,7 @@ import WarningDialog from 'src/components/WarningDialog'
 import { useLocalMovies } from 'src/hooks/useLocalMovies/useLocalMovies'
 import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
-type MovieStatusesControlsProps = {
+type MovieActionsProps = {
   id: number
   statuses?: UserMovie
 }
@@ -52,7 +52,7 @@ const DELETE_WATCHED_MOVIE = gql`
   }
 `
 
-const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => {
+const MovieActions = ({ id, statuses }: MovieActionsProps) => {
   const { isAuthenticated } = useAuth()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const { localMovies, setLocalMovies } = useLocalMovies()
@@ -159,4 +159,4 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
   )
 }
 
-export default MovieStatusesControls
+export default MovieActions
