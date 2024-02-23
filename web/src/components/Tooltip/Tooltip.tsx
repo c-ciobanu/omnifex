@@ -1,27 +1,24 @@
-import { ReactNode } from 'react'
-
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import clsx from 'clsx'
 
-type TooltipProps = {
-  children: ReactNode
-  content: string
+export const TooltipProvider = ({ delayDuration = 300, ...props }: TooltipPrimitive.TooltipProviderProps) => {
+  return <TooltipPrimitive.Provider delayDuration={delayDuration} {...props} />
 }
 
-const Tooltip = ({ children, content }: TooltipProps) => {
+export const Tooltip = TooltipPrimitive.Root
+
+export const TooltipTrigger = TooltipPrimitive.Trigger
+
+export const TooltipContent = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+>(({ className, sideOffset = 4, ...props }, ref) => {
   return (
-    <TooltipPrimitive.Provider delayDuration={250} skipDelayDuration={250}>
-      <TooltipPrimitive.Root>
-        <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
-        <TooltipPrimitive.Content
-          sideOffset={5}
-          className="select-none rounded-md bg-white px-4 py-2 leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]"
-        >
-          {content}
-          <TooltipPrimitive.Arrow className="fill-white" />
-        </TooltipPrimitive.Content>
-      </TooltipPrimitive.Root>
-    </TooltipPrimitive.Provider>
+    <TooltipPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={clsx('select-none rounded-md border bg-white px-3 py-1.5 text-sm text-black shadow-md', className)}
+      {...props}
+    />
   )
-}
-
-export default Tooltip
+})

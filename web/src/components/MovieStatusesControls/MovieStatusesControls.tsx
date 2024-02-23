@@ -10,7 +10,7 @@ import { useMutation } from '@redwoodjs/web'
 
 import { useAuth } from 'src/auth'
 import { QUERY as MovieQuery } from 'src/components/MovieCell'
-import Tooltip from 'src/components/Tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 import WarningDialog from 'src/components/WarningDialog'
 import { useLocalMovies } from 'src/hooks/useLocalMovies/useLocalMovies'
 import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
@@ -116,25 +116,37 @@ const MovieStatusesControls = ({ id, statuses }: MovieStatusesControlsProps) => 
 
   return (
     <>
-      <Tooltip content={watched ? 'Remove from watched' : 'Set as watched'}>
-        <button
-          onClick={toggleWatchedStatus}
-          disabled={createWatchedLoading || deleteWatchedLoading}
-          className={clsx('icon-bg-light', watched && 'text-gray-700 hover:text-gray-300')}
-        >
-          <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} fixedWidth />
-        </button>
-      </Tooltip>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={toggleWatchedStatus}
+              disabled={createWatchedLoading || deleteWatchedLoading}
+              className={clsx('icon-bg-light', watched && 'text-gray-700 hover:text-gray-300')}
+            >
+              <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} fixedWidth />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{watched ? 'Remove from watched' : 'Set as watched'}</p>
+          </TooltipContent>
+        </Tooltip>
 
-      <Tooltip content={favorited ? 'Remove from favorites' : 'Set as favorite'}>
-        <button
-          onClick={toggleFavoritedStatus}
-          disabled={createFavoritedLoading || deleteFavoritedLoading}
-          className={clsx('icon-bg-light', favorited && 'text-gray-700 hover:text-gray-300')}
-        >
-          <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} fixedWidth />
-        </button>
-      </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={toggleFavoritedStatus}
+              disabled={createFavoritedLoading || deleteFavoritedLoading}
+              className={clsx('icon-bg-light', favorited && 'text-gray-700 hover:text-gray-300')}
+            >
+              <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} fixedWidth />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{favorited ? 'Remove from favorites' : 'Set as favorite'}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       <WarningDialog
         isOpen={isDialogOpen}
