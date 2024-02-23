@@ -20,7 +20,7 @@
 
 @layer components {
   .icon-bg-dark {
-    @apply rounded-lg bg-gray-800 p-2 text-xl hover:bg-gray-700 hover:text-white;
+    @apply rounded-lg bg-gray-800 p-2 text-xl text-gray-300 hover:bg-gray-700 hover:text-white;
   }
 
   .icon-bg-light {

@@ -11,6 +11,7 @@ import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
 import MoviesCell from 'src/components/MoviesCell'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 
 import batmanLogo from './batman-logo.svg'
 
@@ -52,15 +53,24 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             </Link>
 
             <div className="flex items-center gap-4">
-              {isAuthenticated ? (
-                <button type="button" onClick={logOut} className="icon-bg-dark">
-                  <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
-                </button>
-              ) : (
-                <Link to={routes.login()} className="icon-bg-dark">
-                  <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
-                </Link>
-              )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {isAuthenticated ? (
+                      <button type="button" onClick={logOut} className="icon-bg-dark">
+                        <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
+                      </button>
+                    ) : (
+                      <Link to={routes.login()} className="icon-bg-dark">
+                        <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
+                      </Link>
+                    )}
+                  </TooltipTrigger>
+                  <TooltipContent side="left">
+                    <p>{isAuthenticated ? 'Sign Out' : 'Sign In'}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
 
               <button type="button" className="icon-bg-dark">
                 <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth onClick={() => setShowSearchInput(true)} />
