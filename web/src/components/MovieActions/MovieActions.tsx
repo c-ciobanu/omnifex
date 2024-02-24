@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { faEye as faRegularEye, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
 import { faEye as faSolidEye, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,16 +6,12 @@ import { UserMovie } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
-import { useAuth } from 'src/auth'
 import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
-import WarningDialog from 'src/components/WarningDialog'
-import { useLocalMovies } from 'src/hooks/useLocalMovies/useLocalMovies'
-import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
 type MovieActionsProps = {
   id: number
-  statuses?: UserMovie
+  userState: UserMovie
 }
 
 const CREATE_FAVORITED_MOVIE = gql`
@@ -52,11 +46,9 @@ const DELETE_WATCHED_MOVIE = gql`
   }
 `
 
-const MovieActions = ({ id, statuses }: MovieActionsProps) => {
-  const { isAuthenticated } = useAuth()
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const { localMovies, setLocalMovies } = useLocalMovies()
-  const [hideLocalStorageWarning, setHideLocalStorageWarning] = useLocalStorage('hideLocalStorageWarning', false)
+const MovieActions = ({ id, userState }: MovieActionsProps) => {
+  const { favorited, watched } = userState
+
   const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
     variables: { input: { tmdbId: id } },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
@@ -75,47 +67,23 @@ const MovieActions = ({ id, statuses }: MovieActionsProps) => {
   })
 
   const toggleFavoritedStatus = () => {
-    if (isAuthenticated) {
-      if (favorited) {
-        deleteFavorited()
-      } else {
-        createFavorited()
-      }
+    if (favorited) {
+      deleteFavorited()
     } else {
-      setLocalMovies((prevState) => ({
-        ...prevState,
-        favorited: favorited ? prevState.favorited.filter((el) => el !== id) : prevState.favorited.concat(id),
-      }))
-
-      if (!hideLocalStorageWarning) {
-        setIsDialogOpen(true)
-      }
+      createFavorited()
     }
   }
 
   const toggleWatchedStatus = () => {
-    if (isAuthenticated) {
-      if (watched) {
-        deleteWatched()
-      } else {
-        createWatched()
-      }
+    if (watched) {
+      deleteWatched()
     } else {
-      setLocalMovies((prevState) => ({
-        ...prevState,
-        watched: watched ? prevState.watched.filter((el) => el !== id) : prevState.watched.concat(id),
-      }))
-
-      if (!hideLocalStorageWarning) {
-        setIsDialogOpen(true)
-      }
+      createWatched()
     }
   }
 
-  const { favorited = localMovies.favorited.includes(id), watched = localMovies.watched.includes(id) } = statuses ?? {}
-
   return (
-    <>
+    <div className="mb-6 flex justify-around bg-white py-4 shadow">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -128,7 +96,7 @@ const MovieActions = ({ id, statuses }: MovieActionsProps) => {
             </button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{watched ? 'Remove from watched' : 'Set as watched'}</p>
+            <p>{watched ? 'Remove from watched movies' : 'Set as watched'}</p>
           </TooltipContent>
         </Tooltip>
 
@@ -143,19 +111,11 @@ const MovieActions = ({ id, statuses }: MovieActionsProps) => {
             </button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{favorited ? 'Remove from favorites' : 'Set as favorite'}</p>
+            <p>{favorited ? 'Remove from favorites' : 'Add to favorites'}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-
-      <WarningDialog
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        onContinue={setHideLocalStorageWarning}
-        title="Data Storage Limitation: The saved data will only be accessible on this specific browser"
-        description="Please note that the action you just performed will be saved within your current browser only. It will not be accessible from another browser or device unless you log in or sign up. To ensure seamless access to the platform across multiple devices, kindly create an account or log in to your existing account."
-      />
-    </>
+    </div>
   )
 }
 
