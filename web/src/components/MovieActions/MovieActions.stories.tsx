@@ -13,9 +13,10 @@ type Story = StoryObj<typeof MovieActions>
 export const Primary: Story = {
   args: {
     id: 1,
-    statuses: {
+    userState: {
       favorited: true,
       watched: false,
+      watchlisted: true,
     },
   },
 }

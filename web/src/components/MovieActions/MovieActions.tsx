@@ -1,5 +1,13 @@
-import { faEye as faRegularEye, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
-import { faEye as faSolidEye, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEye as faRegularEye,
+  faHeart as faRegularHeart,
+  faRectangleList as faRegularRectangleList,
+} from '@fortawesome/free-regular-svg-icons'
+import {
+  faEye as faSolidEye,
+  faHeart as faSolidHeart,
+  faRectangleList as faSolidRectangleList,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { UserMovie } from 'types/graphql'
@@ -46,8 +54,24 @@ const DELETE_WATCHED_MOVIE = gql`
   }
 `
 
+const CREATE_WATCHLIST_ITEM_MOVIE = gql`
+  mutation CreateWatchlistItemMovieMutation($input: CreateWatchlistItemMovieInput!) {
+    createWatchlistItemMovie(input: $input) {
+      id
+    }
+  }
+`
+
+const DELETE_WATCHLIST_ITEM_MOVIE = gql`
+  mutation DeleteWatchlistItemMovieMutation($tmdbId: Int!) {
+    deleteWatchlistItemMovie(tmdbId: $tmdbId) {
+      id
+    }
+  }
+`
+
 const MovieActions = ({ id, userState }: MovieActionsProps) => {
-  const { favorited, watched } = userState
+  const { favorited, watched, watchlisted } = userState
 
   const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
     variables: { input: { tmdbId: id } },
@@ -65,6 +89,14 @@ const MovieActions = ({ id, userState }: MovieActionsProps) => {
     variables: { tmdbId: id },
     refetchQueries: [{ query: MovieQuery, variables: { id } }],
   })
+  const [createWatchlisted, { loading: createWatchlistedLoading }] = useMutation(CREATE_WATCHLIST_ITEM_MOVIE, {
+    variables: { input: { tmdbId: id } },
+    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+  })
+  const [deleteWatchlisted, { loading: deleteWatchlistedLoading }] = useMutation(DELETE_WATCHLIST_ITEM_MOVIE, {
+    variables: { tmdbId: id },
+    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+  })
 
   const toggleFavoritedStatus = () => {
     if (favorited) {
@@ -79,6 +111,14 @@ const MovieActions = ({ id, userState }: MovieActionsProps) => {
       deleteWatched()
     } else {
       createWatched()
+    }
+  }
+
+  const toggleWatchlistedStatus = () => {
+    if (watchlisted) {
+      deleteWatchlisted()
+    } else {
+      createWatchlisted()
     }
   }
 
@@ -103,6 +143,32 @@ const MovieActions = ({ id, userState }: MovieActionsProps) => {
           </TooltipTrigger>
           <TooltipContent>
             <p>{watched ? 'Remove from watched movies' : 'Set as watched'}</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={toggleWatchlistedStatus}
+              disabled={createWatchlistedLoading || deleteWatchlistedLoading}
+              className={clsx(
+                'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+                watchlisted
+                  ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
+                  : 'text-sky-500 hover:bg-sky-500 hover:text-white'
+              )}
+            >
+              <FontAwesomeIcon
+                icon={watchlisted ? faSolidRectangleList : faRegularRectangleList}
+                className="text-3xl"
+              />
+              <span className="whitespace-nowrap font-medium">
+                {watchlisted ? 'Listed on watchlist' : 'Add to watchlist'}
+              </span>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{watchlisted ? 'Remove from movies watchlist' : 'Add to watchlist'}</p>
           </TooltipContent>
         </Tooltip>
 

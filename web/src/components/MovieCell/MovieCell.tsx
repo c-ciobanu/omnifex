@@ -21,6 +21,7 @@ export const QUERY = gql`
       user {
         favorited
         watched
+        watchlisted
       }
     }
   }
@@ -40,7 +41,7 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
       <Movie movie={movie} />
 
       {isAuthenticated ? (
-        <div className="lg:w-80">
+        <div className="lg:w-72 lg:flex-shrink-0">
           <MovieActions id={movie.id} userState={movie.user} />
         </div>
       ) : null}
