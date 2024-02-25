@@ -23,10 +23,6 @@
     @apply rounded-lg bg-gray-800 p-2 text-xl text-gray-300 hover:bg-gray-700 hover:text-white;
   }
 
-  .icon-bg-light {
-    @apply rounded-lg bg-white p-2 text-xl text-gray-300 hover:bg-gray-100 hover:text-gray-700;
-  }
-
   .form-label {
     @apply block text-sm font-medium;
   }

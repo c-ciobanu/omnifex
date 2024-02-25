@@ -36,10 +36,14 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
   const { isAuthenticated } = useAuth()
 
   return (
-    <div className="mt-4 flex flex-col gap-4">
+    <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:gap-8">
       <Movie movie={movie} />
 
-      {isAuthenticated ? <MovieActions id={movie.id} userState={movie.user} /> : null}
+      {isAuthenticated ? (
+        <div className="lg:w-80">
+          <MovieActions id={movie.id} userState={movie.user} />
+        </div>
+      ) : null}
     </div>
   )
 }

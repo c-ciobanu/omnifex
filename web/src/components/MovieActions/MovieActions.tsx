@@ -83,16 +83,22 @@ const MovieActions = ({ id, userState }: MovieActionsProps) => {
   }
 
   return (
-    <div className="mb-6 flex justify-around bg-white py-4 shadow">
+    <div className="flex flex-col gap-4">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               onClick={toggleWatchedStatus}
               disabled={createWatchedLoading || deleteWatchedLoading}
-              className={clsx('icon-bg-light', watched && 'text-gray-700 hover:text-gray-300')}
+              className={clsx(
+                'flex items-center gap-2 rounded-sm border border-teal-500 px-2 py-3 uppercase',
+                watched
+                  ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
+                  : 'text-teal-500 hover:bg-teal-500 hover:text-white'
+              )}
             >
-              <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} fixedWidth />
+              <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} className="text-3xl" />
+              <span className="whitespace-nowrap font-medium">{watched ? 'Watched' : 'Set as watched'}</span>
             </button>
           </TooltipTrigger>
           <TooltipContent>
@@ -105,12 +111,18 @@ const MovieActions = ({ id, userState }: MovieActionsProps) => {
             <button
               onClick={toggleFavoritedStatus}
               disabled={createFavoritedLoading || deleteFavoritedLoading}
-              className={clsx('icon-bg-light', favorited && 'text-gray-700 hover:text-gray-300')}
+              className={clsx(
+                'flex items-center gap-2 rounded-sm border border-red-500 px-2 py-3 uppercase',
+                favorited
+                  ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
+                  : 'text-red-500 hover:bg-red-500 hover:text-white'
+              )}
             >
-              <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} fixedWidth />
+              <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} className="text-3xl" />
+              <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
             </button>
           </TooltipTrigger>
-          <TooltipContent>
+          <TooltipContent className="w-full">
             <p>{favorited ? 'Remove from favorites' : 'Add to favorites'}</p>
           </TooltipContent>
         </Tooltip>

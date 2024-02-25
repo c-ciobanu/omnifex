@@ -15,7 +15,7 @@ type MovieProps = {
 
 const Movie = ({ movie }: MovieProps) => {
   return (
-    <>
+    <div>
       <h2 className="text-2xl font-bold">{movie.title}</h2>
       <q>{movie.tagline}</q>
       <h4 className="text-gray-400">
@@ -41,7 +41,7 @@ const Movie = ({ movie }: MovieProps) => {
           <p>{movie.overview}</p>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
