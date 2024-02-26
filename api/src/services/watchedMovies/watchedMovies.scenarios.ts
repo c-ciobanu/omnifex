@@ -1,34 +1,37 @@
-import type { Prisma, WatchedMovie } from '@prisma/client'
+import type { Prisma, WatchedMovie, User, WatchlistItemMovie } from '@prisma/client'
 
-import type { ScenarioData } from '@redwoodjs/testing/api'
-
-export const standard = defineScenario<Prisma.WatchedMovieCreateArgs>({
-  watchedMovie: {
+export const standard = defineScenario<
+  Prisma.UserCreateArgs | Prisma.WatchedMovieCreateArgs | Prisma.WatchlistItemMovieCreateArgs
+>({
+  user: {
     one: {
       data: {
-        tmdbId: 1425510,
-        user: {
-          create: {
-            email: 'String1830174',
-            hashedPassword: 'String',
-            salt: 'String',
-          },
-        },
-      },
-    },
-    two: {
-      data: {
-        tmdbId: 2562972,
-        user: {
-          create: {
-            email: 'String2297818',
-            hashedPassword: 'String',
-            salt: 'String',
-          },
-        },
+        email: 'String4672043',
+        hashedPassword: 'String',
+        salt: 'String',
       },
     },
   },
+  watchedMovie: {
+    one: (scenario) => ({
+      data: {
+        tmdbId: 1425510,
+        userId: scenario.user.one.id,
+      },
+    }),
+  },
+  watchlistItemMovie: {
+    one: (scenario) => ({
+      data: {
+        tmdbId: 2562972,
+        userId: scenario.user.one.id,
+      },
+    }),
+  },
 })
 
-export type StandardScenario = ScenarioData<WatchedMovie, 'watchedMovie'>
+export type StandardScenario = {
+  user: Record<string, User>
+  watchedMovie: Record<string, WatchedMovie>
+  watchlistItemMovie: Record<string, WatchlistItemMovie>
+}
