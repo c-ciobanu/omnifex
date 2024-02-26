@@ -146,31 +146,33 @@ const MovieActions = ({ id, userState }: MovieActionsProps) => {
           </TooltipContent>
         </Tooltip>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={toggleWatchlistedStatus}
-              disabled={createWatchlistedLoading || deleteWatchlistedLoading}
-              className={clsx(
-                'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
-                watchlisted
-                  ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
-                  : 'text-sky-500 hover:bg-sky-500 hover:text-white'
-              )}
-            >
-              <FontAwesomeIcon
-                icon={watchlisted ? faSolidRectangleList : faRegularRectangleList}
-                className="text-3xl"
-              />
-              <span className="whitespace-nowrap font-medium">
-                {watchlisted ? 'Listed on watchlist' : 'Add to watchlist'}
-              </span>
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{watchlisted ? 'Remove from movies watchlist' : 'Add to watchlist'}</p>
-          </TooltipContent>
-        </Tooltip>
+        {watched ? null : (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={toggleWatchlistedStatus}
+                disabled={createWatchlistedLoading || deleteWatchlistedLoading}
+                className={clsx(
+                  'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+                  watchlisted
+                    ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
+                    : 'text-sky-500 hover:bg-sky-500 hover:text-white'
+                )}
+              >
+                <FontAwesomeIcon
+                  icon={watchlisted ? faSolidRectangleList : faRegularRectangleList}
+                  className="text-3xl"
+                />
+                <span className="whitespace-nowrap font-medium">
+                  {watchlisted ? 'Listed on watchlist' : 'Add to watchlist'}
+                </span>
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{watchlisted ? 'Remove from movies watchlist' : 'Add to watchlist'}</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
 
         <Tooltip>
           <TooltipTrigger asChild>
