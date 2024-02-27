@@ -35,7 +35,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   }
 
   useEffect(() => {
-    formMethods.reset()
     setShowSearchInput(false)
     setTitle(undefined)
   }, [pathname])
@@ -102,7 +101,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                   icon={faX}
                   fixedWidth
                   onClick={() => {
-                    formMethods.reset()
                     setShowSearchInput(false)
                     setTitle(undefined)
                   }}
