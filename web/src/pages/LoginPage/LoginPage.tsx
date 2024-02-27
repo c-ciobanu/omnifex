@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { Form, Label, TextField, PasswordField, Submit, FieldError } from '@redwoodjs/forms'
 import { Link, navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
@@ -36,7 +36,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <MetaTags title="Login" />
+      <Metadata title="Login" />
 
       <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Login</h2>

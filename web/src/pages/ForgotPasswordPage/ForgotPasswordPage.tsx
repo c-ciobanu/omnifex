@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { Form, Label, TextField, Submit, FieldError } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
@@ -37,7 +37,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
-      <MetaTags title="Forgot Password" />
+      <Metadata title="Forgot Password" />
 
       <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Forgot Password</h2>
