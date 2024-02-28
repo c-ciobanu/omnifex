@@ -16,7 +16,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/co
 import batmanLogo from './batman-logo.svg'
 
 type AppLayoutProps = {
-  children?: React.ReactNode
+  children: React.ReactNode
 }
 
 interface FormValues {
@@ -47,7 +47,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <div className="mx-auto h-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <nav className="relative flex h-full w-full items-center justify-between text-gray-300">
             <img src={batmanLogo} alt="Logo" title="Batman is here!" />
-            <Link to={routes.home()}>
+            <Link to={isAuthenticated ? routes.dashboard() : routes.home()}>
               <h1 className="text-xl hover:text-white">Batman&#39;s Lair</h1>
             </Link>
 

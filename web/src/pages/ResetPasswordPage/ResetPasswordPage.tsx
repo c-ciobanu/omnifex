@@ -8,14 +8,8 @@ import { toast } from '@redwoodjs/web/toast'
 import { useAuth } from 'src/auth'
 
 const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
-  const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } = useAuth()
+  const { reauthenticate, validateResetToken, resetPassword } = useAuth()
   const [enabled, setEnabled] = useState(true)
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(routes.home())
-    }
-  }, [isAuthenticated])
 
   useEffect(() => {
     const validateToken = async () => {

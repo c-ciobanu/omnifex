@@ -8,13 +8,7 @@ import { toast } from '@redwoodjs/web/toast'
 import { useAuth } from 'src/auth'
 
 const ForgotPasswordPage = () => {
-  const { isAuthenticated, forgotPassword } = useAuth()
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(routes.home())
-    }
-  }, [isAuthenticated])
+  const { forgotPassword } = useAuth()
 
   const emailRef = useRef<HTMLInputElement>(null)
   useEffect(() => {

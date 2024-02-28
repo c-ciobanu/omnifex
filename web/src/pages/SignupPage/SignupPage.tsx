@@ -2,20 +2,14 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 
 import { Form, Label, TextField, PasswordField, FieldError, Submit } from '@redwoodjs/forms'
-import { Link, navigate, routes } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 
 const SignupPage = () => {
-  const { isAuthenticated, signUp } = useAuth()
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(routes.home())
-    }
-  }, [isAuthenticated])
+  const { signUp } = useAuth()
 
   // focus on email box on page load
   const emailRef = useRef<HTMLInputElement>(null)

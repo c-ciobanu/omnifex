@@ -2,20 +2,14 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 
 import { Form, Label, TextField, PasswordField, Submit, FieldError } from '@redwoodjs/forms'
-import { Link, navigate, routes } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 
 const LoginPage = () => {
-  const { isAuthenticated, logIn } = useAuth()
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(routes.home())
-    }
-  }, [isAuthenticated])
+  const { logIn } = useAuth()
 
   const emailRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
