@@ -3,6 +3,19 @@ import type { DetailedMovieRelationResolvers, QueryResolvers } from 'types/graph
 
 import { db } from 'src/lib/db'
 
+interface TMDBMovie {
+  genres: { id: number; name: string }[]
+  id: number
+  imdb_id: string
+  overview: string
+  poster_path: string
+  release_date: string
+  runtime: number
+  tagline: string
+  title: string
+  vote_average: number
+}
+
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${title}`, {
     method: 'GET',
@@ -11,7 +24,7 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
       Authorization: `Bearer ${process.env.TMDB_API_ACCESS_TOKEN}`,
     },
   })
-  const json = await response.json()
+  const json: { results: TMDBMovie[] } = await response.json()
 
   return json.results.map((result) => ({
     id: result.id,
@@ -23,6 +36,8 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
 }
 
 export const movie: QueryResolvers['movie'] = async ({ id }) => {
+  const m = await db.movie.findUnique({ where: { tmdbId: id } })
+
   const response = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
     method: 'GET',
     headers: {
@@ -30,7 +45,24 @@ export const movie: QueryResolvers['movie'] = async ({ id }) => {
       Authorization: `Bearer ${process.env.TMDB_API_ACCESS_TOKEN}`,
     },
   })
-  const json = await response.json()
+  const json: TMDBMovie = await response.json()
+
+  if (!m) {
+    await db.movie.create({
+      data: {
+        genres: json.genres.map((genre) => genre.name),
+        imdbId: json.imdb_id,
+        overview: json.overview,
+        rating: Math.round(json.vote_average * 10) / 10,
+        releaseDate: new Date(json.release_date),
+        runtime: json.runtime,
+        tagline: json.tagline,
+        title: json.title,
+        tmdbId: json.id,
+        tmdbPosterPath: json.poster_path,
+      },
+    })
+  }
 
   return {
     genres: json.genres.map((genre) => genre.name),
