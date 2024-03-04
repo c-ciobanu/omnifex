@@ -18,7 +18,7 @@ import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 
 type MovieActionsProps = {
-  id: number
+  tmdbId: number
   userState: UserMovie
 }
 
@@ -70,32 +70,32 @@ const DELETE_WATCHLIST_ITEM_MOVIE = gql`
   }
 `
 
-const MovieActions = ({ id, userState }: MovieActionsProps) => {
+const MovieActions = ({ tmdbId, userState }: MovieActionsProps) => {
   const { favorited, watched, watchlisted } = userState
 
   const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
-    variables: { input: { tmdbId: id } },
-    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+    variables: { input: { tmdbId } },
+    refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED_MOVIE, {
-    variables: { tmdbId: id },
-    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+    variables: { tmdbId },
+    refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_WATCHED_MOVIE, {
-    variables: { input: { tmdbId: id } },
-    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+    variables: { input: { tmdbId } },
+    refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_WATCHED_MOVIE, {
-    variables: { tmdbId: id },
-    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+    variables: { tmdbId },
+    refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [createWatchlisted, { loading: createWatchlistedLoading }] = useMutation(CREATE_WATCHLIST_ITEM_MOVIE, {
-    variables: { input: { tmdbId: id } },
-    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+    variables: { input: { tmdbId } },
+    refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [deleteWatchlisted, { loading: deleteWatchlistedLoading }] = useMutation(DELETE_WATCHLIST_ITEM_MOVIE, {
-    variables: { tmdbId: id },
-    refetchQueries: [{ query: MovieQuery, variables: { id } }],
+    variables: { tmdbId },
+    refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
 
   const toggleFavoritedStatus = () => {

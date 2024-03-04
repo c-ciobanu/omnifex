@@ -27,7 +27,7 @@ const Routes = () => {
           <Route path="/" page={HomePage} name="home" />
         </Set>
 
-        <Route path="/movies/{id:Int}" page={MoviePage} name="movie" />
+        <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
 
         <PrivateSet unauthenticated="home">
           <Route path="/dashboard" page={DashboardPage} name="dashboard" />

@@ -4,6 +4,14 @@ import AppLayout from './AppLayout'
 
 describe('AppLayout', () => {
   it('renders successfully', async () => {
-    await waitFor(() => expect(() => render(<AppLayout />)).not.toThrow())
+    await waitFor(() =>
+      expect(() =>
+        render(
+          <AppLayout>
+            <div>Content</div>
+          </AppLayout>
+        )
+      ).not.toThrow()
+    )
   })
 })

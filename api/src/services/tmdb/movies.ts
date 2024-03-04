@@ -35,20 +35,20 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
   }))
 }
 
-export const movie: QueryResolvers['movie'] = async ({ id }) => {
-  const m = await db.movie.findUnique({ where: { tmdbId: id } })
-
-  const response = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_API_ACCESS_TOKEN}`,
-    },
-  })
-  const json: TMDBMovie = await response.json()
+export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
+  let m = await db.movie.findUnique({ where: { tmdbId } })
 
   if (!m) {
-    await db.movie.create({
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.TMDB_API_ACCESS_TOKEN}`,
+      },
+    })
+    const json: TMDBMovie = await response.json()
+
+    m = await db.movie.create({
       data: {
         genres: json.genres.map((genre) => genre.name),
         imdbId: json.imdb_id,
@@ -65,15 +65,9 @@ export const movie: QueryResolvers['movie'] = async ({ id }) => {
   }
 
   return {
-    genres: json.genres.map((genre) => genre.name),
-    id: json.id,
-    overview: json.overview,
-    posterUrl: `http://image.tmdb.org/t/p/w342${json.poster_path}`,
-    rating: Math.round(json.vote_average * 10) / 10,
-    releaseYear: Number(json.release_date.split('-')[0]),
-    runtime: json.runtime,
-    tagline: json.tagline,
-    title: json.title,
+    ...m,
+    posterUrl: `http://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
+    rating: m.rating.toNumber(),
   }
 }
 
@@ -81,13 +75,13 @@ export const DetailedMovie: DetailedMovieRelationResolvers = {
   user: async (_obj, { root }) => {
     if (context.currentUser) {
       const favoritedMovieCount = await db.favoritedMovie.count({
-        where: { tmdbId: root.id, userId: context.currentUser.id },
+        where: { tmdbId: root.tmdbId, userId: context.currentUser.id },
       })
       const watchedMovieCount = await db.watchedMovie.count({
-        where: { tmdbId: root.id, userId: context.currentUser.id },
+        where: { tmdbId: root.tmdbId, userId: context.currentUser.id },
       })
       const watchlistItemMovieCount = await db.watchlistItemMovie.count({
-        where: { tmdbId: root.id, userId: context.currentUser.id },
+        where: { tmdbId: root.tmdbId, userId: context.currentUser.id },
       })
 
       return {

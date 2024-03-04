@@ -19,7 +19,7 @@ const Movie = ({ movie }: MovieProps) => {
       <h2 className="text-2xl font-bold">{movie.title}</h2>
       <q>{movie.tagline}</q>
       <h4 className="text-gray-400">
-        {movie.releaseYear} · {formatMinutesToHoursAndMinutes(movie.runtime)} ·{' '}
+        {movie.releaseDate.split('-')[0]} · {formatMinutesToHoursAndMinutes(movie.runtime)} ·{' '}
         <FontAwesomeIcon icon={faStar} className="text-yellow-300" />{' '}
         <span className="text-lg font-bold text-gray-900">{movie.rating}</span>/10
       </h4>

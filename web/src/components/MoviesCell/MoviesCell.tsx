@@ -28,7 +28,7 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
         return (
           <li key={movie.id}>
             <Link
-              to={routes.movie({ id: movie.id })}
+              to={routes.movie({ tmdbId: movie.id })}
               title={`'Show ${movie.title} movie details`}
               className="flex gap-x-6 py-5 hover:bg-white"
             >

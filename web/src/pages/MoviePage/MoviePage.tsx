@@ -3,15 +3,15 @@ import { Metadata } from '@redwoodjs/web'
 import MovieCell from 'src/components/MovieCell'
 
 type MoviePageProps = {
-  id: number
+  tmdbId: number
 }
 
-const MoviePage = ({ id }: MoviePageProps) => {
+const MoviePage = ({ tmdbId }: MoviePageProps) => {
   return (
     <>
       <Metadata title="Movie" description="Movie page" />
 
-      <MovieCell id={id} />
+      <MovieCell tmdbId={tmdbId} />
     </>
   )
 }
