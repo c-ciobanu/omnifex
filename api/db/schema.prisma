@@ -24,6 +24,23 @@ model User {
   moviesWatchlist WatchlistItemMovie[]
 }
 
+model Movie {
+  id             Int      @id @default(autoincrement())
+  genres         String[]
+  imdbId         String   @unique
+  overview       String
+  rating         Decimal  @db.Decimal(3, 1)
+  releaseDate    DateTime @db.Date
+  runtime        Int
+  tagline        String
+  title          String
+  tmdbId         Int      @unique
+  tmdbPosterPath String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model FavoritedMovie {
   id     Int @id @default(autoincrement())
   tmdbId Int
