@@ -19,7 +19,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favoritedMovies FavoritedMovie[]
+  favoriteMovies  FavoritedMovie[]
   watchedMovies   WatchedMovie[]
   moviesWatchlist WatchlistItemMovie[]
 }
