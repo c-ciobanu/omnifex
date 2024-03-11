@@ -9,7 +9,7 @@ export const createWatchedMovie: MutationResolvers['createWatchedMovie'] = async
   requireAuth()
 
   const watchlistItemMovieCount = await db.watchlistItemMovie.count({
-    where: { tmdbId: input.tmdbId, userId: context.currentUser.id },
+    where: { ...input, userId: context.currentUser.id },
   })
 
   if (watchlistItemMovieCount === 1) {
@@ -21,10 +21,10 @@ export const createWatchedMovie: MutationResolvers['createWatchedMovie'] = async
   })
 }
 
-export const deleteWatchedMovie: MutationResolvers['deleteWatchedMovie'] = ({ tmdbId }) => {
+export const deleteWatchedMovie: MutationResolvers['deleteWatchedMovie'] = ({ movieId }) => {
   requireAuth()
 
   return db.watchedMovie.delete({
-    where: { tmdbId_userId: { tmdbId, userId: context.currentUser.id } },
+    where: { movieId_userId: { movieId, userId: context.currentUser.id } },
   })
 }

@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
-import { UserMovie } from 'types/graphql'
+import { DetailedMovie } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
@@ -18,8 +18,7 @@ import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 
 type MovieActionsProps = {
-  tmdbId: number
-  userState: UserMovie
+  movie: DetailedMovie
 }
 
 const CREATE_FAVORITED_MOVIE = gql`
@@ -31,8 +30,8 @@ const CREATE_FAVORITED_MOVIE = gql`
 `
 
 const DELETE_FAVORITED_MOVIE = gql`
-  mutation DeleteFavoritedMovieMutation($tmdbId: Int!) {
-    deleteFavoritedMovie(tmdbId: $tmdbId) {
+  mutation DeleteFavoritedMovieMutation($movieId: Int!) {
+    deleteFavoritedMovie(movieId: $movieId) {
       id
     }
   }
@@ -47,8 +46,8 @@ const CREATE_WATCHED_MOVIE = gql`
 `
 
 const DELETE_WATCHED_MOVIE = gql`
-  mutation DeleteWatchedMovieMutation($tmdbId: Int!) {
-    deleteWatchedMovie(tmdbId: $tmdbId) {
+  mutation DeleteWatchedMovieMutation($movieId: Int!) {
+    deleteWatchedMovie(movieId: $movieId) {
       id
     }
   }
@@ -63,38 +62,39 @@ const CREATE_WATCHLIST_ITEM_MOVIE = gql`
 `
 
 const DELETE_WATCHLIST_ITEM_MOVIE = gql`
-  mutation DeleteWatchlistItemMovieMutation($tmdbId: Int!) {
-    deleteWatchlistItemMovie(tmdbId: $tmdbId) {
+  mutation DeleteWatchlistItemMovieMutation($movieId: Int!) {
+    deleteWatchlistItemMovie(movieId: $movieId) {
       id
     }
   }
 `
 
-const MovieActions = ({ tmdbId, userState }: MovieActionsProps) => {
+const MovieActions = ({ movie }: MovieActionsProps) => {
+  const { id: movieId, tmdbId, user: userState } = movie
   const { favorited, watched, watchlisted } = userState
 
   const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
-    variables: { input: { tmdbId } },
+    variables: { input: { movieId } },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED_MOVIE, {
-    variables: { tmdbId },
+    variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_WATCHED_MOVIE, {
-    variables: { input: { tmdbId } },
+    variables: { input: { movieId } },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_WATCHED_MOVIE, {
-    variables: { tmdbId },
+    variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [createWatchlisted, { loading: createWatchlistedLoading }] = useMutation(CREATE_WATCHLIST_ITEM_MOVIE, {
-    variables: { input: { tmdbId } },
+    variables: { input: { movieId } },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
   const [deleteWatchlisted, { loading: deleteWatchlistedLoading }] = useMutation(DELETE_WATCHLIST_ITEM_MOVIE, {
-    variables: { tmdbId },
+    variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
 

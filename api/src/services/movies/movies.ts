@@ -48,13 +48,13 @@ export const DetailedMovie: DetailedMovieRelationResolvers = {
   user: async (_obj, { root }) => {
     if (context.currentUser) {
       const favoritedMovieCount = await db.favoritedMovie.count({
-        where: { tmdbId: root.tmdbId, userId: context.currentUser.id },
+        where: { movieId: root.id, userId: context.currentUser.id },
       })
       const watchedMovieCount = await db.watchedMovie.count({
-        where: { tmdbId: root.tmdbId, userId: context.currentUser.id },
+        where: { movieId: root.id, userId: context.currentUser.id },
       })
       const watchlistItemMovieCount = await db.watchlistItemMovie.count({
-        where: { tmdbId: root.tmdbId, userId: context.currentUser.id },
+        where: { movieId: root.id, userId: context.currentUser.id },
       })
 
       return {

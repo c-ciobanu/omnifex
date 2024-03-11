@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { standard } from 'src/components/MovieCell/MovieCell.mock'
+
 import MovieActions from './MovieActions'
 
 const meta: Meta<typeof MovieActions> = {
@@ -12,11 +14,6 @@ type Story = StoryObj<typeof MovieActions>
 
 export const Primary: Story = {
   args: {
-    tmdbId: 1,
-    userState: {
-      favorited: true,
-      watched: false,
-      watchlisted: true,
-    },
+    movie: standard().movie,
   },
 }

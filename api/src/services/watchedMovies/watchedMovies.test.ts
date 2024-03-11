@@ -13,24 +13,24 @@ describeScenario<StandardScenario>('watchedMovies', (getScenario) => {
   })
 
   it('creates a watched movie', async () => {
-    mockCurrentUser({ id: scenario.user.one.id })
-    const result = await createWatchedMovie({ input: { tmdbId: 4985314 } })
+    mockCurrentUser({ id: scenario.user.john.id })
+    const result = await createWatchedMovie({ input: { movieId: scenario.movie.parasite.id } })
 
-    expect(result.tmdbId).toEqual(4985314)
-    expect(result.userId).toEqual(scenario.user.one.id)
+    expect(result.movieId).toEqual(scenario.movie.parasite.id)
+    expect(result.userId).toEqual(scenario.user.john.id)
   })
 
   it("creates a watched movie and removes it from the user's watchlist", async () => {
-    mockCurrentUser({ id: scenario.user.one.id })
+    mockCurrentUser({ id: scenario.user.john.id })
 
     const watchlistItemMovieCount = () =>
       db.watchlistItemMovie.count({
-        where: { tmdbId: scenario.watchlistItemMovie.one.tmdbId, userId: scenario.user.one.id },
+        where: { movieId: scenario.watchlistItemMovie.one.movieId, userId: scenario.user.john.id },
       })
 
     await expect(watchlistItemMovieCount()).resolves.toBe(1)
 
-    await createWatchedMovie({ input: { tmdbId: scenario.watchlistItemMovie.one.tmdbId } })
+    await createWatchedMovie({ input: { movieId: scenario.watchlistItemMovie.one.movieId } })
 
     await expect(watchlistItemMovieCount()).resolves.toBe(0)
   })
@@ -38,14 +38,12 @@ describeScenario<StandardScenario>('watchedMovies', (getScenario) => {
   it('does not allow a logged out user to create a watched movie', async () => {
     mockCurrentUser(null)
 
-    await expect(async () => await createWatchedMovie({ input: { tmdbId: 4985314 } })).rejects.toThrow(
-      AuthenticationError
-    )
+    await expect(async () => await createWatchedMovie({ input: { movieId: 1 } })).rejects.toThrow(AuthenticationError)
   })
 
   it('deletes a watched movie', async () => {
-    mockCurrentUser({ id: scenario.user.one.id })
-    const original = await deleteWatchedMovie({ tmdbId: scenario.watchedMovie.one.tmdbId })
+    mockCurrentUser({ id: scenario.user.john.id })
+    const original = await deleteWatchedMovie({ movieId: scenario.watchedMovie.one.movieId })
     const result = await db.watchedMovie.findUnique({ where: { id: original.id } })
 
     expect(result).toEqual(null)
@@ -54,6 +52,6 @@ describeScenario<StandardScenario>('watchedMovies', (getScenario) => {
   it('does not allow a logged out user to delete a watched movie', async () => {
     mockCurrentUser(null)
 
-    await expect(async () => await deleteWatchedMovie({ tmdbId: 4985314 })).rejects.toThrow(AuthenticationError)
+    await expect(async () => await deleteWatchedMovie({ movieId: 1 })).rejects.toThrow(AuthenticationError)
   })
 })

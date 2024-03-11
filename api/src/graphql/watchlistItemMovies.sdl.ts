@@ -1,18 +1,17 @@
 export const schema = gql`
   type WatchlistItemMovie {
     id: Int!
-    tmdbId: Int!
+    movieId: Int!
     createdAt: DateTime!
-    updatedAt: DateTime!
     userId: Int!
   }
 
   input CreateWatchlistItemMovieInput {
-    tmdbId: Int!
+    movieId: Int!
   }
 
   type Mutation {
     createWatchlistItemMovie(input: CreateWatchlistItemMovieInput!): WatchlistItemMovie! @requireAuth
-    deleteWatchlistItemMovie(tmdbId: Int!): WatchlistItemMovie! @requireAuth
+    deleteWatchlistItemMovie(movieId: Int!): WatchlistItemMovie! @requireAuth
   }
 `

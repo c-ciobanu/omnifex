@@ -8,6 +8,7 @@ export const schema = gql`
   }
 
   type DetailedMovie {
+    id: Int!
     genres: [String!]!
     overview: String!
     posterUrl: String!

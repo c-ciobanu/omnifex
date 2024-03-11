@@ -11,10 +11,10 @@ export const createFavoritedMovie: MutationResolvers['createFavoritedMovie'] = (
   })
 }
 
-export const deleteFavoritedMovie: MutationResolvers['deleteFavoritedMovie'] = ({ tmdbId }) => {
+export const deleteFavoritedMovie: MutationResolvers['deleteFavoritedMovie'] = ({ movieId }) => {
   requireAuth()
 
   return db.favoritedMovie.delete({
-    where: { tmdbId_userId: { tmdbId, userId: context.currentUser.id } },
+    where: { movieId_userId: { movieId, userId: context.currentUser.id } },
   })
 }

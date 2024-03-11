@@ -9,6 +9,7 @@ import MovieActions from 'src/components/MovieActions'
 export const QUERY = gql`
   query MovieQuery($tmdbId: Int!) {
     movie(tmdbId: $tmdbId) {
+      id
       genres
       overview
       posterUrl
@@ -42,7 +43,7 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
 
       {isAuthenticated ? (
         <div className="lg:w-72 lg:flex-shrink-0">
-          <MovieActions tmdbId={movie.tmdbId} userState={movie.user} />
+          <MovieActions movie={movie} />
         </div>
       ) : null}
     </div>
