@@ -6,6 +6,14 @@ export const schema = gql`
     userId: Int!
   }
 
+  input WatchedMoviesInput {
+    take: Int
+  }
+
+  type Query {
+    watchedMovies(input: WatchedMoviesInput!): [MovieDetails!]! @requireAuth
+  }
+
   input CreateWatchedMovieInput {
     movieId: Int!
   }
