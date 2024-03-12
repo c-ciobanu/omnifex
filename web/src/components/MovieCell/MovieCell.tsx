@@ -19,7 +19,7 @@ export const QUERY = gql`
       tagline
       title
       tmdbId
-      user {
+      userInteractions {
         favorited
         watched
         watchlisted

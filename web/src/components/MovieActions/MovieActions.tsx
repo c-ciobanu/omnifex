@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
-import { DetailedMovie } from 'types/graphql'
+import { MovieDetails } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
@@ -18,7 +18,7 @@ import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 
 type MovieActionsProps = {
-  movie: DetailedMovie
+  movie: MovieDetails
 }
 
 const CREATE_FAVORITED_MOVIE = gql`
@@ -70,8 +70,8 @@ const DELETE_WATCHLIST_ITEM_MOVIE = gql`
 `
 
 const MovieActions = ({ movie }: MovieActionsProps) => {
-  const { id: movieId, tmdbId, user: userState } = movie
-  const { favorited, watched, watchlisted } = userState
+  const { id: movieId, tmdbId, userInteractions } = movie
+  const { favorited, watched, watchlisted } = userInteractions
 
   const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
     variables: { input: { movieId } },

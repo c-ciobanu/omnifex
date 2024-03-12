@@ -1,6 +1,6 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DetailedMovie } from 'types/graphql'
+import { MovieDetails } from 'types/graphql'
 
 export const formatMinutesToHoursAndMinutes = (minutes: number) => {
   const h = Math.floor(minutes / 60)
@@ -10,7 +10,7 @@ export const formatMinutesToHoursAndMinutes = (minutes: number) => {
 }
 
 type MovieProps = {
-  movie: DetailedMovie
+  movie: MovieDetails
 }
 
 const Movie = ({ movie }: MovieProps) => {

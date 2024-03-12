@@ -1,5 +1,5 @@
 export const schema = gql`
-  type BasicMovie {
+  type SearchMovie {
     id: Int!
     overview: String!
     posterUrl: String!
@@ -7,7 +7,7 @@ export const schema = gql`
     title: String!
   }
 
-  type DetailedMovie {
+  type MovieDetails {
     id: Int!
     genres: [String!]!
     overview: String!
@@ -18,17 +18,17 @@ export const schema = gql`
     tagline: String!
     title: String!
     tmdbId: Int!
-    user: UserMovie
+    userInteractions: MovieInteractions
   }
 
-  type UserMovie {
+  type MovieInteractions {
     favorited: Boolean!
     watched: Boolean!
     watchlisted: Boolean!
   }
 
   type Query {
-    movie(tmdbId: Int!): DetailedMovie @skipAuth
-    movies(title: String!): [BasicMovie!]! @skipAuth
+    movie(tmdbId: Int!): MovieDetails @skipAuth
+    movies(title: String!): [SearchMovie!]! @skipAuth
   }
 `

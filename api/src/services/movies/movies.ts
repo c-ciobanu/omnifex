@@ -1,4 +1,4 @@
-import type { DetailedMovieRelationResolvers, QueryResolvers } from 'types/graphql'
+import type { MovieDetailsRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 import { searchTMDBMovies, getTMDBMovie } from 'src/lib/tmdb'
@@ -44,8 +44,8 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
   }
 }
 
-export const DetailedMovie: DetailedMovieRelationResolvers = {
-  user: async (_obj, { root }) => {
+export const MovieDetails: MovieDetailsRelationResolvers = {
+  userInteractions: async (_obj, { root }) => {
     if (context.currentUser) {
       const favoritedMovieCount = await db.favoritedMovie.count({
         where: { movieId: root.id, userId: context.currentUser.id },
