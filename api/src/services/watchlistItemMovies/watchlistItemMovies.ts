@@ -1,9 +1,28 @@
-import type { MutationResolvers } from 'types/graphql'
+import type { MutationResolvers, QueryResolvers } from 'types/graphql'
 
 import { validateWith } from '@redwoodjs/api'
 
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
+
+export const moviesWatchlist: QueryResolvers['moviesWatchlist'] = async ({ input }) => {
+  requireAuth()
+
+  const watchlistItemMovies = await db.watchlistItemMovie.findMany({
+    where: { userId: context.currentUser.id },
+    select: { movie: true },
+    take: input.take,
+    orderBy: { createdAt: 'desc' },
+  })
+
+  const movies = watchlistItemMovies.map((fm) => fm.movie)
+
+  return movies.map((m) => ({
+    ...m,
+    posterUrl: `http://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
+    rating: m.rating.toNumber(),
+  }))
+}
 
 export const createWatchlistItemMovie: MutationResolvers['createWatchlistItemMovie'] = async ({ input }) => {
   requireAuth()
