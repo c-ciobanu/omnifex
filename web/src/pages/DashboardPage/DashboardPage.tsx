@@ -1,11 +1,15 @@
 import { Metadata } from '@redwoodjs/web'
 
+import UserMoviesCell from 'src/components/UserMoviesCell'
+
 const DashboardPage = () => {
   return (
     <>
       <Metadata title="Dashboard" description="Dashboard page" />
 
-      <h1>DashboardPage</h1>
+      <div className="mt-4">
+        <UserMoviesCell />
+      </div>
     </>
   )
 }
