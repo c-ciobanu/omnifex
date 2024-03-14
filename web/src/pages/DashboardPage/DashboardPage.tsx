@@ -7,9 +7,7 @@ const DashboardPage = () => {
     <>
       <Metadata title="Dashboard" description="Dashboard page" />
 
-      <div className="mt-4">
-        <UserMoviesCell />
-      </div>
+      <UserMoviesCell />
     </>
   )
 }

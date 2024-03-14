@@ -43,7 +43,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     <>
       <Toaster />
 
-      <header className="h-header fixed left-0 top-0 w-full bg-gray-800">
+      <header className="bg-gray-800">
         <div className="mx-auto h-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <nav className="relative flex h-full w-full items-center justify-between text-gray-300">
             <img src={batmanLogo} alt="Logo" title="Batman is here!" />
@@ -111,9 +111,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
 
-      <main className="min-h-screen pt-16">{title ? <MoviesCell title={title} /> : children}</main>
+      <main>{title ? <MoviesCell title={title} /> : children}</main>
 
-      <footer className="space-y-2 border-t border-gray-900/10 py-8">
+      <footer className="space-y-2">
         <div className="flex items-center gap-2">
           <Link to="https://www.themoviedb.org" target="_blank">
             <img
