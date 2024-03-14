@@ -7,5 +7,3 @@
 yarn i
 yarn dev
 ```
-
-- Your browser should automatically open to http://localhost:8910.
