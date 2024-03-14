@@ -6,7 +6,7 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 export const QUERY = gql`
   query MoviesQuery($title: String!) {
     movies(title: $title) {
-      id
+      tmdbId
       overview
       posterUrl
       releaseYear
@@ -26,10 +26,10 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
     <ul className="grid grid-cols-1 gap-6 divide-y divide-white sm:grid-cols-2 lg:grid-cols-3">
       {movies.map((movie) => {
         return (
-          <li key={movie.id}>
+          <li key={movie.tmdbId}>
             <Link
-              to={routes.movie({ tmdbId: movie.id })}
-              title={`'Show ${movie.title} movie details`}
+              to={routes.movie({ tmdbId: movie.tmdbId })}
+              title={movie.title}
               className="flex gap-x-6 py-5 hover:bg-white"
             >
               <img src={movie.posterUrl} alt={`${movie.title} poster`} />

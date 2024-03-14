@@ -7,7 +7,7 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const tmdbMovies = await searchTMDBMovies({ title })
 
   return tmdbMovies.map((tmdbMovie) => ({
-    id: tmdbMovie.id,
+    tmdbId: tmdbMovie.id,
     overview: tmdbMovie.overview,
     posterUrl: `http://image.tmdb.org/t/p/w92${tmdbMovie.poster_path}`,
     releaseYear: Number(tmdbMovie.release_date.split('-')[0]),

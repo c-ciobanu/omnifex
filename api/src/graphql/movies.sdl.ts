@@ -1,6 +1,6 @@
 export const schema = gql`
   type SearchMovie {
-    id: Int!
+    tmdbId: Int!
     overview: String!
     posterUrl: String!
     releaseYear: Int!
