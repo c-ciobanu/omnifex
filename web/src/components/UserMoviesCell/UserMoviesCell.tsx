@@ -1,3 +1,5 @@
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { UserMoviesQuery } from 'types/graphql'
 
 import { Link } from '@redwoodjs/router'
@@ -65,7 +67,13 @@ export const Success = ({ favoriteMovies, watchedMovies, moviesWatchlist }: Cell
       </div>
 
       <div className="space-y-2 pt-2">
-        <h2 className="font-medium">Recently favorited movies</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="font-medium">Recently favorited movies</h2>
+          <Link to={routes.favoritedMovies()} className="flex items-center gap-1 text-xs uppercase hover:text-black/50">
+            <span>See all</span>
+            <FontAwesomeIcon icon={faArrowRight} />
+          </Link>
+        </div>
 
         <ul className="flex gap-6">
           {favoriteMovies.map((movie) => (
