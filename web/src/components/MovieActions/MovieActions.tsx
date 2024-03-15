@@ -53,17 +53,17 @@ const DELETE_WATCHED_MOVIE = gql`
   }
 `
 
-const CREATE_WATCHLIST_ITEM_MOVIE = gql`
-  mutation CreateWatchlistItemMovieMutation($input: CreateWatchlistItemMovieInput!) {
-    createWatchlistItemMovie(input: $input) {
+const CREATE_WATCHLISTED_MOVIE = gql`
+  mutation CreateWatchlistedMovieMutation($input: CreateWatchlistedMovieInput!) {
+    createWatchlistedMovie(input: $input) {
       id
     }
   }
 `
 
-const DELETE_WATCHLIST_ITEM_MOVIE = gql`
-  mutation DeleteWatchlistItemMovieMutation($movieId: Int!) {
-    deleteWatchlistItemMovie(movieId: $movieId) {
+const DELETE_WATCHLISTED_MOVIE = gql`
+  mutation DeleteWatchlistedMovieMutation($movieId: Int!) {
+    deleteWatchlistedMovie(movieId: $movieId) {
       id
     }
   }
@@ -89,11 +89,11 @@ const MovieActions = ({ movie }: MovieActionsProps) => {
     variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
-  const [createWatchlisted, { loading: createWatchlistedLoading }] = useMutation(CREATE_WATCHLIST_ITEM_MOVIE, {
+  const [createWatchlisted, { loading: createWatchlistedLoading }] = useMutation(CREATE_WATCHLISTED_MOVIE, {
     variables: { input: { movieId } },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
-  const [deleteWatchlisted, { loading: deleteWatchlistedLoading }] = useMutation(DELETE_WATCHLIST_ITEM_MOVIE, {
+  const [deleteWatchlisted, { loading: deleteWatchlistedLoading }] = useMutation(DELETE_WATCHLISTED_MOVIE, {
     variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
