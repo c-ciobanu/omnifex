@@ -39,7 +39,16 @@ export const Success = ({ favoriteMovies, watchedMovies, moviesWatchlist }: Cell
   return (
     <div className="flex flex-col divide-y">
       <div className="space-y-2 pb-4">
-        <h2 className="font-medium">Recently added movies to watchlist</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="font-medium">Recently added movies to watchlist</h2>
+          <Link
+            to={routes.watchlistedMovies()}
+            className="flex items-center gap-1 text-xs uppercase hover:text-black/50"
+          >
+            <span>See all</span>
+            <FontAwesomeIcon icon={faArrowRight} />
+          </Link>
+        </div>
 
         <ul className="flex gap-6">
           {moviesWatchlist.map((movie) => (
