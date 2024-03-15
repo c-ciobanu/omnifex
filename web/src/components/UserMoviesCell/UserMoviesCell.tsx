@@ -53,7 +53,13 @@ export const Success = ({ favoriteMovies, watchedMovies, moviesWatchlist }: Cell
       </div>
 
       <div className="space-y-2 pb-4 pt-2">
-        <h2 className="font-medium">Recently watched movies</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="font-medium">Recently watched movies</h2>
+          <Link to={routes.watchedMovies()} className="flex items-center gap-1 text-xs uppercase hover:text-black/50">
+            <span>See all</span>
+            <FontAwesomeIcon icon={faArrowRight} />
+          </Link>
+        </div>
 
         <ul className="flex gap-6">
           {watchedMovies.map((movie) => (
