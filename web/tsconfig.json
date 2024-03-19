@@ -6,7 +6,6 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": "./",
     "skipLibCheck": false,
     "rootDirs": ["./src", "../.redwood/types/mirror/web/src", "../api/src", "../.redwood/types/mirror/api/src"],
     "paths": {
@@ -19,5 +18,12 @@
     "types": ["jest", "jest-dom"],
     "jsx": "preserve"
   },
-  "include": ["src", "../.redwood/types/includes/all-*", "../.redwood/types/includes/web-*", "../types", "./types"]
+  "include": [
+    "src",
+    "config",
+    "../.redwood/types/includes/all-*",
+    "../.redwood/types/includes/web-*",
+    "../types",
+    "./types"
+  ]
 }
