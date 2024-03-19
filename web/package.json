@@ -22,6 +22,7 @@
     "@redwoodjs/forms": "7.1.3",
     "@redwoodjs/router": "7.1.3",
     "@redwoodjs/web": "7.1.3",
+    "@redwoodjs/web-server": "7.1.3",
     "clsx": "^2.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"

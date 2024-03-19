@@ -19,3 +19,6 @@
   open = false
 [notifications]
   versionUpdates = ["latest"]
+
+[experimental.dockerfile]
+	enabled = true
