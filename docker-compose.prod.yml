@@ -24,13 +24,3 @@ services:
       - api
     environment:
       - API_PROXY_TARGET=http://api:8911
-
-  console:
-    user: root
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: console
-    tmpfs:
-      - /tmp
-    command: "echo console up"
