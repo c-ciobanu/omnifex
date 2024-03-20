@@ -1,12 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "docker:start": "docker compose up -d",
-    "docker:stop": "docker compose stop",
+    "docker:start": "docker compose -f ./docker-compose.dev.yml up -d db",
+    "docker:stop": "docker compose -f ./docker-compose.dev.yml stop db",
     "dev": "yarn docker:start && rw dev",
     "migrate:dev": "rw prisma migrate dev",
-    "test": "rw test",
+    "migrate:reset": "rw prisma migrate reset",
     "storybook": "rw storybook",
+    "test": "rw test",
     "type-check": "rw type-check",
     "lint": "rw lint --fix"
   },
