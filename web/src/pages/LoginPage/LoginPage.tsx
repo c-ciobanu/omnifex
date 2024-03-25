@@ -56,30 +56,32 @@ const LoginPage = () => {
               <FieldError name="email" className="form-field-error" />
             </fieldset>
 
-            <fieldset>
-              <Label name="password" className="form-label" errorClassName="form-label form-label-error">
-                Password
-              </Label>
-              <PasswordField
-                name="password"
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                autoComplete="current-password"
-                validation={{
-                  required: {
-                    value: true,
-                    message: 'Password is required',
-                  },
-                }}
-              />
-              <FieldError name="password" className="form-field-error" />
+            <div>
+              <fieldset>
+                <Label name="password" className="form-label" errorClassName="form-label form-label-error">
+                  Password
+                </Label>
+                <PasswordField
+                  name="password"
+                  className="form-input"
+                  errorClassName="form-input form-input-error"
+                  autoComplete="current-password"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: 'Password is required',
+                    },
+                  }}
+                />
+                <FieldError name="password" className="form-field-error" />
+              </fieldset>
 
-              <div className="mt-2 block text-right">
+              {/* <div className="mt-2 block text-right">
                 <Link to={routes.forgotPassword()} className="text-sm font-semibold text-blue-600 hover:text-blue-500">
                   Forgot Password?
                 </Link>
-              </div>
-            </fieldset>
+              </div> */}
+            </div>
 
             <Submit className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
               Login

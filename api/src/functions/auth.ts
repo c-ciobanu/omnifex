@@ -6,6 +6,7 @@ import { db } from 'src/lib/db'
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   const forgotPasswordOptions: DbAuthHandlerOptions['forgotPassword'] = {
+    enabled: false,
     // handler() is invoked after verifying that a user was found with the given
     // username. This is where you can send the user an email with a link to
     // reset their password. With the default dbAuth routes and field names, the
@@ -65,6 +66,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
   }
 
   const resetPasswordOptions: DbAuthHandlerOptions['resetPassword'] = {
+    enabled: false,
     // handler() is invoked after the password has been successfully updated in
     // the database. Returning anything truthy will automatically log the user
     // in. Return `false` otherwise, and in the Reset Password page redirect the
