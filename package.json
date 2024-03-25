@@ -6,7 +6,6 @@
     "dev": "yarn docker:start && rw dev",
     "migrate:dev": "rw prisma migrate dev",
     "migrate:reset": "rw prisma migrate reset",
-    "storybook": "rw storybook",
     "test": "rw test",
     "type-check": "rw type-check",
     "lint": "rw lint --fix"
@@ -19,7 +18,6 @@
   },
   "devDependencies": {
     "@redwoodjs/auth-dbauth-setup": "7.1.3",
-    "@redwoodjs/cli-storybook": "7.1.3",
     "@redwoodjs/core": "7.1.3",
     "@redwoodjs/project-config": "7.1.3",
     "prettier-plugin-tailwindcss": "^0.4.1"
