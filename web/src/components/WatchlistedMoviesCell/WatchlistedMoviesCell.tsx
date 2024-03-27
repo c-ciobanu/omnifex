@@ -4,8 +4,8 @@ import { Link, routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
 
 export const QUERY: TypedDocumentNode<WatchlistedMoviesQuery, WatchlistedMoviesQueryVariables> = gql`
-  query WatchlistedMoviesQuery {
-    moviesWatchlist(input: {}) {
+  query WatchlistedMoviesQuery($numberToShow: Int) {
+    moviesWatchlist(input: { take: $numberToShow }) {
       id
       title
       tmdbId

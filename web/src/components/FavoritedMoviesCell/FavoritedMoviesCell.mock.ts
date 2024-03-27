@@ -18,11 +18,5 @@ export const standard = () => ({
       tmdbId: 13,
       posterUrl: 'http://image.tmdb.org/t/p/w342/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg',
     },
-    {
-      id: 4,
-      title: 'Parasite',
-      tmdbId: 496243,
-      posterUrl: 'http://image.tmdb.org/t/p/w342/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
-    },
   ],
 })
