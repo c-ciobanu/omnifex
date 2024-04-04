@@ -32,10 +32,10 @@ const LoginPage = () => {
     <>
       <Metadata title="Login" />
 
-      <div className="absolute-center flex flex-col items-center justify-center space-y-10">
-        <h2 className="text-2xl font-bold">Login</h2>
+      <div className="min-h-main flex flex-col items-center justify-center space-y-10">
+        <h2 className="text-2xl font-bold">Sign in to your account</h2>
 
-        <div className="w-full max-w-md rounded-lg bg-white p-6 shadow sm:p-12">
+        <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
             <fieldset>
               <Label name="email" className="form-label" errorClassName="form-label form-label-error">
@@ -84,7 +84,7 @@ const LoginPage = () => {
             </div>
 
             <Submit className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
-              Login
+              Sign in to your account
             </Submit>
           </Form>
         </div>

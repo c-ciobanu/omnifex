@@ -34,10 +34,10 @@ const SignupPage = () => {
     <>
       <Metadata title="Signup" />
 
-      <div className="absolute-center flex flex-col items-center justify-center space-y-10">
-        <h2 className="text-2xl font-bold">Signup</h2>
+      <div className="min-h-main flex flex-col items-center justify-center space-y-10">
+        <h2 className="text-2xl font-bold">Sign up</h2>
 
-        <div className="w-full max-w-md rounded-lg bg-white p-6 shadow sm:p-12">
+        <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
             <fieldset>
               <Label name="email" className="form-label" errorClassName="form-label form-label-error">
@@ -82,7 +82,7 @@ const SignupPage = () => {
             </fieldset>
 
             <Submit className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
-              Sign Up
+              Sign up
             </Submit>
           </Form>
         </div>
@@ -90,7 +90,7 @@ const SignupPage = () => {
         <div>
           <span className="text-sm text-gray-500">Already have an account?</span>{' '}
           <Link to={routes.login()} className="text-sm font-semibold text-blue-600 hover:text-blue-500">
-            Log in!
+            Sign in!
           </Link>
         </div>
       </div>

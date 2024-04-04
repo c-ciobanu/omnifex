@@ -48,10 +48,10 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
     <>
       <Metadata title="Reset Password" />
 
-      <div className="absolute-center flex flex-col items-center justify-center space-y-10">
+      <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Reset Password</h2>
 
-        <div className="w-full max-w-md rounded-lg bg-white p-6 shadow sm:p-12">
+        <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
             <fieldset>
               <Label name="password" className="form-label" errorClassName="form-label form-label-error">

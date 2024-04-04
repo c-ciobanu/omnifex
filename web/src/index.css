@@ -58,8 +58,7 @@
 }
 
 @layer utilities {
-  .absolute-center {
-    @apply absolute left-1/2 top-1/2;
-    transform: translate(-50%, -50%);
+  .min-h-main {
+    min-height: calc(100vh - theme('height.16') - theme('height.8'));
   }
 }
