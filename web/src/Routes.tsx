@@ -28,6 +28,7 @@ const Routes = () => {
         </Set>
 
         <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
+        <Route path="/books/{googleId:String}" page={BookPage} name="book" />
 
         <PrivateSet unauthenticated="home">
           <Route path="/dashboard" page={DashboardPage} name="dashboard" />
