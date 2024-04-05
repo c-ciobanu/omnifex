@@ -21,13 +21,13 @@ import MoviesCell from './MoviesCell'
 const entities = {
   movie: {
     title: "Batman's Lair",
-    img: batmanLogo,
-    component: MoviesCell,
+    logoSrc: batmanLogo,
+    mainComponent: MoviesCell,
   },
   book: {
     title: 'The Paper Palace',
-    img: bookLogo,
-    component: BooksCell,
+    logoSrc: bookLogo,
+    mainComponent: BooksCell,
   },
 }
 
@@ -66,7 +66,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             <Listbox value={searchEntity} onChange={setSearchEntity}>
               <div className="relative flex">
                 <Listbox.Button>
-                  <img src={entities[searchEntity].img} alt="Logo" />
+                  <img
+                    src={entities[searchEntity].logoSrc}
+                    alt="Logo"
+                    className="animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_2]"
+                  />
                 </Listbox.Button>
 
                 <Transition
@@ -166,7 +170,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
 
-      <main>{title ? entities[searchEntity].component({ title }) : children}</main>
+      <main>{title ? entities[searchEntity].mainComponent({ title }) : children}</main>
 
       <footer className="space-y-2">
         <div className="flex items-center gap-2">
