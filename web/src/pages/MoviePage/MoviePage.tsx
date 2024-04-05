@@ -1,6 +1,6 @@
 import { Metadata } from '@redwoodjs/web'
 
-import MovieCell from 'src/components/MovieCell'
+import MovieCell from './MovieCell'
 
 type MoviePageProps = {
   tmdbId: number

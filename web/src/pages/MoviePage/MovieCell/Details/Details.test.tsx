@@ -1,13 +1,13 @@
 import { render, screen } from '@redwoodjs/testing/web'
 
-import { standard } from 'src/components/MovieCell/MovieCell.mock'
+import { standard } from 'src/pages/MoviePage/MovieCell/MovieCell.mock'
 
-import Movie, { formatMinutesToHoursAndMinutes } from './Movie'
+import Details, { formatMinutesToHoursAndMinutes } from './Details'
 
-describe('Movie', () => {
+describe('Details', () => {
   it('renders successfully', () => {
     const movie = standard().movie
-    render(<Movie movie={movie} />)
+    render(<Details movie={movie} />)
 
     const runtimeText = formatMinutesToHoursAndMinutes(movie.runtime)
 

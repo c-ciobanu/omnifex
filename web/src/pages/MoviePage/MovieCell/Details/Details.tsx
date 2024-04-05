@@ -9,11 +9,11 @@ export const formatMinutesToHoursAndMinutes = (minutes: number) => {
   return `${h}h ${m}m`
 }
 
-type MovieProps = {
+type DetailsProps = {
   movie: MovieDetails
 }
 
-const Movie = ({ movie }: MovieProps) => {
+const Details = ({ movie }: DetailsProps) => {
   return (
     <div>
       <h2 className="text-2xl font-bold">{movie.title}</h2>
@@ -45,4 +45,4 @@ const Movie = ({ movie }: MovieProps) => {
   )
 }
 
-export default Movie
+export default Details

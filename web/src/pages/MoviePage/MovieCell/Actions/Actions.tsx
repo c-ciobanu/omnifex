@@ -14,10 +14,10 @@ import { MovieDetails } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
-import { QUERY as MovieQuery } from 'src/components/MovieCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
+import { QUERY as MovieQuery } from 'src/pages/MoviePage/MovieCell/MovieCell'
 
-type MovieActionsProps = {
+type ActionsProps = {
   movie: MovieDetails
 }
 
@@ -69,7 +69,7 @@ const DELETE_WATCHLISTED_MOVIE = gql`
   }
 `
 
-const MovieActions = ({ movie }: MovieActionsProps) => {
+const Actions = ({ movie }: ActionsProps) => {
   const { id: movieId, tmdbId, userInteractions } = movie
   const { favorited, watched, watchlisted } = userInteractions
 
@@ -199,4 +199,4 @@ const MovieActions = ({ movie }: MovieActionsProps) => {
   )
 }
 
-export default MovieActions
+export default Actions

@@ -1,14 +1,14 @@
 import { render } from '@redwoodjs/testing/web'
 
-import { standard } from 'src/components/MovieCell/MovieCell.mock'
+import { standard } from 'src/pages/MoviePage/MovieCell/MovieCell.mock'
 
-import MovieActions from './MovieActions'
+import Actions from './Actions'
 
 describe('MovieActions', () => {
   it('renders successfully', () => {
     expect(() =>
       render(
-        <MovieActions
+        <Actions
           movie={{ ...standard().movie, userInteractions: { favorited: true, watched: false, watchlisted: true } }}
         />
       )

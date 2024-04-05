@@ -11,12 +11,12 @@ import { Link, routes, useLocation } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
-import BooksCell from 'src/components/BooksCell'
-import MoviesCell from 'src/components/MoviesCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 
 import batmanLogo from './batman-logo.svg'
 import bookLogo from './book-logo.svg'
+import BooksCell from './BooksCell'
+import MoviesCell from './MoviesCell'
 
 const entities = {
   movie: {

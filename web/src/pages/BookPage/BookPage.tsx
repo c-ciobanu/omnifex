@@ -1,6 +1,6 @@
 import { Metadata } from '@redwoodjs/web'
 
-import BookCell from 'src/components/BookCell'
+import BookCell from './BookCell'
 
 type BookPageProps = {
   googleId: string
