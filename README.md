@@ -1,6 +1,7 @@
 ## Local development
 
 - Set your `TMDB_API_ACCESS_TOKEN` environment variable
+- Set your `GOOGLE_BOOKS_API_KEY` environment variable
 - Run the following commands in your terminal:
 
 ```bash
