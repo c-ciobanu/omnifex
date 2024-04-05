@@ -1,32 +1,49 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faMagnifyingGlass, faRightFromBracket, faRightToBracket, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Transition } from '@headlessui/react'
+import { Listbox, Transition } from '@headlessui/react'
+import clsx from 'clsx'
 
 import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
 import { Link, routes, useLocation } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
+import BooksCell from 'src/components/BooksCell'
 import MoviesCell from 'src/components/MoviesCell'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 
 import batmanLogo from './batman-logo.svg'
+import bookLogo from './book-logo.svg'
 
-type AppLayoutProps = {
-  children: React.ReactNode
+const entities = {
+  movie: {
+    title: "Batman's Lair",
+    img: batmanLogo,
+    component: MoviesCell,
+  },
+  book: {
+    title: 'The Paper Palace',
+    img: bookLogo,
+    component: BooksCell,
+  },
 }
 
 interface FormValues {
   title: string
 }
 
+type AppLayoutProps = {
+  children: React.ReactNode
+}
+
 const AppLayout = ({ children }: AppLayoutProps) => {
   const { logOut, isAuthenticated } = useAuth()
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [title, setTitle] = useState<string>()
+  const [searchEntity, setSearchEntity] = useState<'book' | 'movie'>('movie')
   const { pathname } = useLocation()
   const formMethods = useForm()
 
@@ -46,9 +63,47 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       <header className="bg-gray-800">
         <div className="mx-auto h-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <nav className="relative flex h-full w-full items-center justify-between text-gray-300">
-            <img src={batmanLogo} alt="Logo" title="Batman is here!" />
+            <Listbox value={searchEntity} onChange={setSearchEntity}>
+              <div className="relative flex">
+                <Listbox.Button>
+                  <img src={entities[searchEntity].img} alt="Logo" />
+                </Listbox.Button>
+
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute left-full ml-1 w-60 rounded-md border bg-white py-1.5 text-sm text-black shadow-md focus:outline-none">
+                    <Listbox.Option
+                      value={'movie'}
+                      disabled={searchEntity === 'movie'}
+                      className={({ active }) =>
+                        clsx('flex cursor-default items-center gap-2 px-4 py-2 text-gray-900', active && 'bg-amber-100')
+                      }
+                    >
+                      <img src={batmanLogo} alt="Movies logo" />
+                      <span>Search movies</span>
+                    </Listbox.Option>
+
+                    <Listbox.Option
+                      value={'book'}
+                      disabled={searchEntity === 'book'}
+                      className={({ active }) =>
+                        clsx('flex cursor-default items-center gap-2 px-4 py-2 text-gray-900', active && 'bg-amber-100')
+                      }
+                    >
+                      <img src={bookLogo} alt="Books logo" />
+                      <span>Search books</span>
+                    </Listbox.Option>
+                  </Listbox.Options>
+                </Transition>
+              </div>
+            </Listbox>
+
             <Link to={isAuthenticated ? routes.dashboard() : routes.home()}>
-              <h1 className="text-xl hover:text-white">Batman&#39;s Lair</h1>
+              <h1 className="text-xl hover:text-white">{entities[searchEntity].title}</h1>
             </Link>
 
             <div className="flex items-center gap-4">
@@ -90,7 +145,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               <Form onSubmit={onSubmit} formMethods={formMethods} className="grow">
                 <TextField
                   name="title"
-                  placeholder="Search for a movie"
+                  placeholder={`Search for a ${searchEntity}`}
                   className="w-full bg-transparent placeholder-gray-300 outline-none"
                   validation={{ required: true }}
                 />
@@ -111,7 +166,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
 
-      <main>{title ? <MoviesCell title={title} /> : children}</main>
+      <main>{title ? entities[searchEntity].component({ title }) : children}</main>
 
       <footer className="space-y-2">
         <div className="flex items-center gap-2">
