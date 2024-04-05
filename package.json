@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "docker:start": "docker compose -f ./docker-compose.dev.yml up -d db",
-    "docker:stop": "docker compose -f ./docker-compose.dev.yml stop db",
+    "docker:start": "docker compose -f ./docker-compose.dev.yml up -d",
+    "docker:stop": "docker compose -f ./docker-compose.dev.yml stop",
     "dev": "yarn docker:start && rw dev",
     "migrate:dev": "rw prisma migrate dev",
     "migrate:reset": "rw prisma migrate reset",
