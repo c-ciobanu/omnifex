@@ -12,6 +12,7 @@ import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
+import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
 import batmanLogo from './batman-logo.svg'
 import bookLogo from './book-logo.svg'
@@ -43,7 +44,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   const { logOut, isAuthenticated } = useAuth()
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [title, setTitle] = useState<string>()
-  const [searchEntity, setSearchEntity] = useState<'book' | 'movie'>('movie')
+  const [searchEntity, setSearchEntity] = useLocalStorage<'book' | 'movie'>('selectedEntity', 'movie')
   const { pathname } = useLocation()
   const formMethods = useForm()
 
