@@ -83,3 +83,18 @@ model WatchlistedMovie {
 
   @@unique([movieId, userId])
 }
+
+model Book {
+  id              Int      @id @default(autoincrement())
+  authors         String[]
+  description     String
+  genres          String[]
+  googleId        String   @unique
+  pages           Int
+  publicationDate DateTime @db.Date
+  subtitle        String?
+  title           String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
