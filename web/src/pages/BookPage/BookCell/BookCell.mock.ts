@@ -1,5 +1,6 @@
 export const standard = () => ({
   book: {
+    id: 1,
     authors: ['Robert C. Martin'],
     coverUrl:
       'http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=3&edge=curl&imgtk=AFLRE70wKVZIODVVCkEQlyAFks1WaMMwWXF8Tw8ulTgC1w9kUZ3QIA23ma4GYyGg3wyW-5X-sTbcda7NFBiAQkWaG05lIwnYfy6171ilw6Hgd8R_qUv7PbCpXF18a_uTFn2ROqJFi2lW&source=gbs_api',

@@ -35,7 +35,7 @@ export const Success = ({ books }: CellSuccessProps<BooksQuery>) => {
               <img src={book.coverUrl} alt={`${book.title} cover`} />
               <div>
                 <p>{book.title}</p>
-                <p className="text-gray-500">{book.publicationDate.split('-')[0]}</p>
+                <p className="text-gray-500">{book.publicationDate?.split('-')[0]}</p>
                 <p className="line-clamp-3 text-sm text-gray-500 sm:line-clamp-4">{book.description}</p>
               </div>
             </Link>

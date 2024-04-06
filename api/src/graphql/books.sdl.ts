@@ -1,12 +1,13 @@
 export const schema = gql`
   type Book {
+    id: Int
     authors: [String!]!
     coverUrl: String
     description: String
     genres: [String!]
     googleId: String!
     pages: Int
-    publicationDate: String!
+    publicationDate: Date
     subtitle: String
     title: String!
   }

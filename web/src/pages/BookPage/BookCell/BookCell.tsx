@@ -5,6 +5,7 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 export const QUERY = gql`
   query BookQuery($googleId: String!) {
     book(googleId: $googleId) {
+      id
       authors
       coverUrl
       description
@@ -33,7 +34,7 @@ export const Success = ({ book }: CellSuccessProps<BookQuery>) => {
       </h2>
       <div>By {book.authors.join(', ')}</div>
       <h4 className="text-gray-400">
-        {book.publicationDate.split('-')[0]} · {book.pages} pages
+        {book.publicationDate?.split('-')[0]} · {book.pages} pages
       </h4>
 
       <div className="mt-6 flex items-start gap-6">
