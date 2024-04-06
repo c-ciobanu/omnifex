@@ -70,8 +70,8 @@ const DELETE_WATCHLISTED_MOVIE = gql`
 `
 
 const Actions = ({ movie }: ActionsProps) => {
-  const { id: movieId, tmdbId, userInteractions } = movie
-  const { favorited, watched, watchlisted } = userInteractions
+  const { id: movieId, tmdbId, userInfo } = movie
+  const { favorited, watched, inWatchlist } = userInfo
 
   const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
     variables: { input: { movieId } },
@@ -115,7 +115,7 @@ const Actions = ({ movie }: ActionsProps) => {
   }
 
   const toggleWatchlistedStatus = () => {
-    if (watchlisted) {
+    if (inWatchlist) {
       deleteWatchlisted()
     } else {
       createWatchlisted()
@@ -154,22 +154,22 @@ const Actions = ({ movie }: ActionsProps) => {
                 disabled={createWatchlistedLoading || deleteWatchlistedLoading}
                 className={clsx(
                   'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
-                  watchlisted
+                  inWatchlist
                     ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
                     : 'text-sky-500 hover:bg-sky-500 hover:text-white'
                 )}
               >
                 <FontAwesomeIcon
-                  icon={watchlisted ? faSolidRectangleList : faRegularRectangleList}
+                  icon={inWatchlist ? faSolidRectangleList : faRegularRectangleList}
                   className="text-3xl"
                 />
                 <span className="whitespace-nowrap font-medium">
-                  {watchlisted ? 'Listed on watchlist' : 'Add to watchlist'}
+                  {inWatchlist ? 'Listed on watchlist' : 'Add to watchlist'}
                 </span>
               </button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{watchlisted ? 'Remove from movies watchlist' : 'Add to watchlist'}</p>
+              <p>{inWatchlist ? 'Remove from movies watchlist' : 'Add to watchlist'}</p>
             </TooltipContent>
           </Tooltip>
         )}

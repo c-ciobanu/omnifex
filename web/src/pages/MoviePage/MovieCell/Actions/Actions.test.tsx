@@ -8,9 +8,7 @@ describe('MovieActions', () => {
   it('renders successfully', () => {
     expect(() =>
       render(
-        <Actions
-          movie={{ ...standard().movie, userInteractions: { favorited: true, watched: false, watchlisted: true } }}
-        />
+        <Actions movie={{ ...standard().movie, userInfo: { favorited: true, watched: false, inWatchlist: true } }} />
       )
     ).not.toThrow()
   })

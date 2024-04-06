@@ -18,13 +18,13 @@ export const schema = gql`
     tagline: String!
     title: String!
     tmdbId: Int!
-    userInteractions: MovieInteractions
+    userInfo: MovieUserInfo
   }
 
-  type MovieInteractions {
+  type MovieUserInfo {
     favorited: Boolean!
     watched: Boolean!
-    watchlisted: Boolean!
+    inWatchlist: Boolean!
   }
 
   type Query {

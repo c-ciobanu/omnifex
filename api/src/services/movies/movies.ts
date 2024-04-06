@@ -45,7 +45,7 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
 }
 
 export const MovieDetails: MovieDetailsRelationResolvers = {
-  userInteractions: async (_obj, { root }) => {
+  userInfo: async (_obj, { root }) => {
     if (context.currentUser) {
       const favoritedMovieCount = await db.favoritedMovie.count({
         where: { movieId: root.id, userId: context.currentUser.id },
@@ -60,7 +60,7 @@ export const MovieDetails: MovieDetailsRelationResolvers = {
       return {
         favorited: favoritedMovieCount === 1,
         watched: watchedMovieCount === 1,
-        watchlisted: watchlistedMovieCount === 1,
+        inWatchlist: watchlistedMovieCount === 1,
       }
     }
 
