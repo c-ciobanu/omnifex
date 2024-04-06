@@ -15,19 +15,19 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/co
 import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
 import batmanLogo from './batman-logo.svg'
-import bookLogo from './book-logo.svg'
 import BooksCell from './BooksCell'
+import lotrLogo from './lotr-logo.svg'
 import MoviesCell from './MoviesCell'
 
 const entities = {
   movie: {
-    title: "Batman's Lair",
+    title: 'Gotham City',
     logoSrc: batmanLogo,
     mainComponent: MoviesCell,
   },
   book: {
-    title: 'The Paper Palace',
-    logoSrc: bookLogo,
+    title: 'Minas Tirith',
+    logoSrc: lotrLogo,
     mainComponent: BooksCell,
   },
 }
@@ -88,7 +88,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                         clsx('flex cursor-default items-center gap-2 px-4 py-2 text-gray-900', active && 'bg-amber-100')
                       }
                     >
-                      <img src={batmanLogo} alt="Movies logo" />
+                      <img src={entities.movie.logoSrc} alt="Movies logo" />
                       <span>Search movies</span>
                     </Listbox.Option>
 
@@ -99,7 +99,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                         clsx('flex cursor-default items-center gap-2 px-4 py-2 text-gray-900', active && 'bg-amber-100')
                       }
                     >
-                      <img src={bookLogo} alt="Books logo" />
+                      <img src={entities.book.logoSrc} alt="Books logo" />
                       <span>Search books</span>
                     </Listbox.Option>
                   </Listbox.Options>
