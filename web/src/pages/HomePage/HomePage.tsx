@@ -9,7 +9,8 @@ const HomePage = () => {
 
       <div className="min-h-main flex flex-col items-center justify-center">
         <p>Popcorn is ready!</p>
-        <p>What do you want to do?</p>
+        <p>Want to watch a movie or maybe read a book?</p>
+        <p>It&#39;s up to you.</p>
         <img src={happyPopcorn} alt="Popcorn" title="Happy Popcorn!" />
       </div>
     </>
