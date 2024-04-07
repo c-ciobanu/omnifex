@@ -35,6 +35,7 @@ const Routes = () => {
           <Route path="/dashboard/favorites/movies" page={UserFavoriteMoviesPage} name="userFavoriteMovies" />
           <Route path="/dashboard/history/movies" page={UserWatchedMoviesPage} name="userWatchedMovies" />
           <Route path="/dashboard/watchlist/movies" page={UserMoviesWatchlistPage} name="userMoviesWatchlist" />
+          <Route path="/dashboard/favorites/books" page={UserFavoriteBooksPage} name="userFavoriteBooks" />
         </PrivateSet>
       </Set>
 
