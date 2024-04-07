@@ -1,4 +1,4 @@
-import type { QueryResolvers } from 'types/graphql'
+import type { BookRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 import { getGoogleBook, searchGoogleBooks } from 'src/lib/googleBooks'
@@ -64,4 +64,28 @@ export const book: QueryResolvers['book'] = async ({ googleId }) => {
     ...b,
     coverUrl: `https://books.google.com/books/content?id=${b.googleId}&printsec=frontcover&img=1&zoom=3`,
   }
+}
+
+export const Book: BookRelationResolvers = {
+  userInfo: async (_obj, { root }) => {
+    if (context.currentUser) {
+      const favoritedBookCount = await db.favoritedBook.count({
+        where: { bookId: root.id, userId: context.currentUser.id },
+      })
+      const readBookCount = await db.readBook.count({
+        where: { bookId: root.id, userId: context.currentUser.id },
+      })
+      const toReadBookCount = await db.toReadBook.count({
+        where: { bookId: root.id, userId: context.currentUser.id },
+      })
+
+      return {
+        favorited: favoritedBookCount === 1,
+        read: readBookCount === 1,
+        inReadingList: toReadBookCount === 1,
+      }
+    }
+
+    return null
+  },
 }

@@ -10,6 +10,13 @@ export const schema = gql`
     publicationDate: Date
     subtitle: String
     title: String!
+    userInfo: BookUserInfo
+  }
+
+  type BookUserInfo {
+    favorited: Boolean!
+    read: Boolean!
+    inReadingList: Boolean!
   }
 
   type Query {
