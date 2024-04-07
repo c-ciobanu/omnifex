@@ -18,7 +18,7 @@ const DashboardPage = () => {
           <div className="flex items-center justify-between">
             <h2 className="font-medium">Recently added movies to watchlist</h2>
             <Link
-              to={routes.watchlistedMovies()}
+              to={routes.userMoviesWatchlist()}
               className="flex items-center gap-1 text-xs uppercase hover:text-black/50"
             >
               <span>See all</span>
@@ -32,7 +32,10 @@ const DashboardPage = () => {
         <div className="space-y-2 pb-4 pt-2">
           <div className="flex items-center justify-between">
             <h2 className="font-medium">Recently watched movies</h2>
-            <Link to={routes.watchedMovies()} className="flex items-center gap-1 text-xs uppercase hover:text-black/50">
+            <Link
+              to={routes.userWatchedMovies()}
+              className="flex items-center gap-1 text-xs uppercase hover:text-black/50"
+            >
               <span>See all</span>
               <FontAwesomeIcon icon={faArrowRight} />
             </Link>
@@ -45,7 +48,7 @@ const DashboardPage = () => {
           <div className="flex items-center justify-between">
             <h2 className="font-medium">Recently favorited movies</h2>
             <Link
-              to={routes.favoritedMovies()}
+              to={routes.userFavoriteMovies()}
               className="flex items-center gap-1 text-xs uppercase hover:text-black/50"
             >
               <span>See all</span>

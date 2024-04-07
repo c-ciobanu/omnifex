@@ -32,9 +32,9 @@ const Routes = () => {
 
         <PrivateSet unauthenticated="home">
           <Route path="/dashboard" page={DashboardPage} name="dashboard" />
-          <Route path="/dashboard/favorites" page={FavoritedMoviesPage} name="favoritedMovies" />
-          <Route path="/dashboard/history" page={WatchedMoviesPage} name="watchedMovies" />
-          <Route path="/dashboard/watchlist" page={WatchlistedMoviesPage} name="watchlistedMovies" />
+          <Route path="/dashboard/favorites/movies" page={UserFavoriteMoviesPage} name="userFavoriteMovies" />
+          <Route path="/dashboard/history/movies" page={UserWatchedMoviesPage} name="userWatchedMovies" />
+          <Route path="/dashboard/watchlist/movies" page={UserMoviesWatchlistPage} name="userMoviesWatchlist" />
         </PrivateSet>
       </Set>
 
