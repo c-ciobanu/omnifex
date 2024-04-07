@@ -6,6 +6,7 @@ import { Metadata } from '@redwoodjs/web'
 
 import FavoritedBooksCell from 'src/components/FavoritedBooksCell'
 import FavoritedMoviesCell from 'src/components/FavoritedMoviesCell'
+import ReadBooksCell from 'src/components/ReadBooksCell'
 import WatchedMoviesCell from 'src/components/WatchedMoviesCell'
 import WatchlistedMoviesCell from 'src/components/WatchlistedMoviesCell'
 
@@ -58,6 +59,18 @@ const DashboardPage = () => {
           </div>
 
           <FavoritedMoviesCell numberToShow={4} />
+        </div>
+
+        <div className="space-y-2 pb-4 pt-2">
+          <div className="flex items-center justify-between">
+            <h2 className="font-medium">Recently read books</h2>
+            <Link to={routes.userReadBooks()} className="flex items-center gap-1 text-xs uppercase hover:text-black/50">
+              <span>See all</span>
+              <FontAwesomeIcon icon={faArrowRight} />
+            </Link>
+          </div>
+
+          <ReadBooksCell numberToShow={4} />
         </div>
 
         <div className="space-y-2 pt-2">
