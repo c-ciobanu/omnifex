@@ -46,7 +46,7 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
 
   return (
     <>
-      <Metadata title="Reset Password" />
+      <Metadata title="Reset Password" robots="noindex" />
 
       <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Reset Password</h2>

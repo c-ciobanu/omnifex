@@ -32,7 +32,7 @@ const SignupPage = () => {
 
   return (
     <>
-      <Metadata title="Signup" />
+      <Metadata title="Sign up" />
 
       <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Sign up</h2>

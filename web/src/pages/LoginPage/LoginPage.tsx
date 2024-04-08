@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <Metadata title="Login" />
+      <Metadata title="Sign in" />
 
       <div className="min-h-main flex flex-col items-center justify-center space-y-10">
         <h2 className="text-2xl font-bold">Sign in to your account</h2>

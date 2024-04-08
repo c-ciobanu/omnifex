@@ -5,7 +5,7 @@ import ToReadBooksCell from 'src/components/ToReadBooksCell'
 const UserBooksReadingListPage = () => {
   return (
     <>
-      <Metadata title="UserBooksReadingList" description="UserBooksReadingList page" />
+      <Metadata title="My Books Reading List" robots="noindex" />
 
       <h2 className="mb-4 text-2xl font-bold">My Books Reading List</h2>
 

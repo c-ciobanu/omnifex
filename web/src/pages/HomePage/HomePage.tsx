@@ -5,7 +5,10 @@ import happyPopcorn from './happy-popcorn.svg'
 const HomePage = () => {
   return (
     <>
-      <Metadata title="Home" description="Home page" />
+      <Metadata
+        title="Movies & Books"
+        description="Track things you&#39;ve watched and read. Save those you want to see and read."
+      />
 
       <div className="min-h-main flex flex-col items-center justify-center">
         <p>Popcorn is ready!</p>

@@ -1,5 +1,3 @@
-import { Metadata } from '@redwoodjs/web'
-
 import BookCell from './BookCell'
 
 type BookPageProps = {
@@ -7,13 +5,7 @@ type BookPageProps = {
 }
 
 const BookPage = ({ googleId }: BookPageProps) => {
-  return (
-    <>
-      <Metadata title="Book" description="Book page" />
-
-      <BookCell googleId={googleId} />
-    </>
-  )
+  return <BookCell googleId={googleId} />
 }
 
 export default BookPage

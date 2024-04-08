@@ -1,5 +1,3 @@
-import { Metadata } from '@redwoodjs/web'
-
 import MovieCell from './MovieCell'
 
 type MoviePageProps = {
@@ -7,13 +5,7 @@ type MoviePageProps = {
 }
 
 const MoviePage = ({ tmdbId }: MoviePageProps) => {
-  return (
-    <>
-      <Metadata title="Movie" description="Movie page" />
-
-      <MovieCell tmdbId={tmdbId} />
-    </>
-  )
+  return <MovieCell tmdbId={tmdbId} />
 }
 
 export default MoviePage

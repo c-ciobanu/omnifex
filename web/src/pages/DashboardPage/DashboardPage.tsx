@@ -14,7 +14,7 @@ import WatchlistedMoviesCell from 'src/components/WatchlistedMoviesCell'
 const DashboardPage = () => {
   return (
     <>
-      <Metadata title="Dashboard" description="Dashboard page" />
+      <Metadata title="Dashboard" robots="noindex" />
 
       <div className="flex flex-col divide-y">
         <div className="space-y-2 pb-4">
