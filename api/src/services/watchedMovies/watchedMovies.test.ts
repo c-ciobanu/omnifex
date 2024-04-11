@@ -23,16 +23,16 @@ describeScenario<StandardScenario>('watchedMovies', (getScenario) => {
   it("creates a watched movie and removes it from the user's watchlist", async () => {
     mockCurrentUser({ id: scenario.user.john.id })
 
-    const watchlistedMovieCount = () =>
-      db.watchlistedMovie.count({
-        where: { movieId: scenario.watchlistedMovie.one.movieId, userId: scenario.user.john.id },
+    const toWatchMovieCount = () =>
+      db.toWatchMovie.count({
+        where: { movieId: scenario.toWatchMovie.one.movieId, userId: scenario.user.john.id },
       })
 
-    await expect(watchlistedMovieCount()).resolves.toBe(1)
+    await expect(toWatchMovieCount()).resolves.toBe(1)
 
-    await createWatchedMovie({ input: { movieId: scenario.watchlistedMovie.one.movieId } })
+    await createWatchedMovie({ input: { movieId: scenario.toWatchMovie.one.movieId } })
 
-    await expect(watchlistedMovieCount()).resolves.toBe(0)
+    await expect(toWatchMovieCount()).resolves.toBe(0)
   })
 
   it('does not allow a logged out user to create a watched movie', async () => {

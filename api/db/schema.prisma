@@ -21,7 +21,7 @@ model User {
 
   favoritedMovies FavoritedMovie[]
   watchedMovies   WatchedMovie[]
-  moviesToWatch   WatchlistedMovie[]
+  moviesToWatch   ToWatchMovie[]
   favoritedBooks  FavoritedBook[]
   readBooks       ReadBook[]
   booksToRead     ToReadBook[]
@@ -43,9 +43,9 @@ model Movie {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favorited   FavoritedMovie[]
-  watched     WatchedMovie[]
-  watchlisted WatchlistedMovie[]
+  favorited FavoritedMovie[]
+  watched   WatchedMovie[]
+  toWatch   ToWatchMovie[]
 }
 
 model FavoritedMovie {
@@ -74,7 +74,7 @@ model WatchedMovie {
   @@unique([movieId, userId])
 }
 
-model WatchlistedMovie {
+model ToWatchMovie {
   id Int @id @default(autoincrement())
 
   createdAt DateTime @default(now())

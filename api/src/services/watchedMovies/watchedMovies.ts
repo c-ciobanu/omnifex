@@ -3,7 +3,7 @@ import type { MutationResolvers, QueryResolvers } from 'types/graphql'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
-import { deleteWatchlistedMovie } from '../watchlistedMovies/watchlistedMovies'
+import { deleteToWatchMovie } from '../toWatchMovies/toWatchMovies'
 
 export const watchedMovies: QueryResolvers['watchedMovies'] = async ({ input }) => {
   requireAuth()
@@ -27,12 +27,12 @@ export const watchedMovies: QueryResolvers['watchedMovies'] = async ({ input }) 
 export const createWatchedMovie: MutationResolvers['createWatchedMovie'] = async ({ input }) => {
   requireAuth()
 
-  const watchlistedMovieCount = await db.watchlistedMovie.count({
+  const toWatchMovieCount = await db.toWatchMovie.count({
     where: { ...input, userId: context.currentUser.id },
   })
 
-  if (watchlistedMovieCount === 1) {
-    await deleteWatchlistedMovie(input)
+  if (toWatchMovieCount === 1) {
+    await deleteToWatchMovie(input)
   }
 
   return db.watchedMovie.create({

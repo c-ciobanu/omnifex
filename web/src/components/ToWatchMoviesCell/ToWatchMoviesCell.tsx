@@ -1,10 +1,10 @@
-import type { WatchlistedMoviesQuery, WatchlistedMoviesQueryVariables } from 'types/graphql'
+import type { ToWatchMoviesQuery, ToWatchMoviesQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
 
-export const QUERY: TypedDocumentNode<WatchlistedMoviesQuery, WatchlistedMoviesQueryVariables> = gql`
-  query WatchlistedMoviesQuery($numberToShow: Int) {
+export const QUERY: TypedDocumentNode<ToWatchMoviesQuery, ToWatchMoviesQueryVariables> = gql`
+  query ToWatchMoviesQuery($numberToShow: Int) {
     moviesWatchlist(input: { take: $numberToShow }) {
       id
       title
@@ -20,7 +20,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ moviesWatchlist }: CellSuccessProps<WatchlistedMoviesQuery>) => {
+export const Success = ({ moviesWatchlist }: CellSuccessProps<ToWatchMoviesQuery>) => {
   return (
     <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
       {moviesWatchlist.map((movie) => (

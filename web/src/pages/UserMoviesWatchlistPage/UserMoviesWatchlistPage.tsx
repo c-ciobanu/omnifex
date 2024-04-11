@@ -1,6 +1,6 @@
 import { Metadata } from '@redwoodjs/web'
 
-import WatchlistedMoviesCell from 'src/components/WatchlistedMoviesCell'
+import ToWatchMoviesCell from 'src/components/ToWatchMoviesCell'
 
 const UserMoviesWatchlistPage = () => {
   return (
@@ -9,7 +9,7 @@ const UserMoviesWatchlistPage = () => {
 
       <h2 className="mb-4 text-2xl font-bold">My Movies Watchlist</h2>
 
-      <WatchlistedMoviesCell />
+      <ToWatchMoviesCell />
     </>
   )
 }

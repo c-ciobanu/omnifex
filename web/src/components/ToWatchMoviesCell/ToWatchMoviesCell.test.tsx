@@ -1,9 +1,9 @@
 import { render } from '@redwoodjs/testing/web'
 
-import { Loading, Empty, Failure, Success } from './WatchlistedMoviesCell'
-import { standard } from './WatchlistedMoviesCell.mock'
+import { Loading, Empty, Failure, Success } from './ToWatchMoviesCell'
+import { standard } from './ToWatchMoviesCell.mock'
 
-describe('WatchlistedMoviesCell', () => {
+describe('ToWatchMoviesCell', () => {
   it('renders Loading successfully', () => {
     expect(() => {
       render(<Loading />)

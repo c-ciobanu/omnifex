@@ -8,8 +8,8 @@ import FavoritedBooksCell from 'src/components/FavoritedBooksCell'
 import FavoritedMoviesCell from 'src/components/FavoritedMoviesCell'
 import ReadBooksCell from 'src/components/ReadBooksCell'
 import ToReadBooksCell from 'src/components/ToReadBooksCell'
+import ToWatchMoviesCell from 'src/components/ToWatchMoviesCell'
 import WatchedMoviesCell from 'src/components/WatchedMoviesCell'
-import WatchlistedMoviesCell from 'src/components/WatchlistedMoviesCell'
 
 const DashboardPage = () => {
   return (
@@ -29,7 +29,7 @@ const DashboardPage = () => {
             </Link>
           </div>
 
-          <WatchlistedMoviesCell numberToShow={4} />
+          <ToWatchMoviesCell numberToShow={4} />
         </div>
 
         <div className="space-y-2 pb-4 pt-2">

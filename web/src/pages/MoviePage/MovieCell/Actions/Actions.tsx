@@ -53,17 +53,17 @@ const DELETE_WATCHED_MOVIE = gql`
   }
 `
 
-const CREATE_WATCHLISTED_MOVIE = gql`
-  mutation CreateWatchlistedMovieMutation($input: CreateWatchlistedMovieInput!) {
-    createWatchlistedMovie(input: $input) {
+const CREATE_TO_WATCH_MOVIE = gql`
+  mutation CreateToWatchMovieMutation($input: CreateToWatchMovieInput!) {
+    createToWatchMovie(input: $input) {
       id
     }
   }
 `
 
-const DELETE_WATCHLISTED_MOVIE = gql`
-  mutation DeleteWatchlistedMovieMutation($movieId: Int!) {
-    deleteWatchlistedMovie(movieId: $movieId) {
+const DELETE_TO_WATCH_MOVIE = gql`
+  mutation DeleteToWatchMovieMutation($movieId: Int!) {
+    deleteToWatchMovie(movieId: $movieId) {
       id
     }
   }
@@ -89,11 +89,11 @@ const Actions = ({ movie }: ActionsProps) => {
     variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
-  const [createWatchlisted, { loading: createWatchlistedLoading }] = useMutation(CREATE_WATCHLISTED_MOVIE, {
+  const [createToWatch, { loading: createToWatchLoading }] = useMutation(CREATE_TO_WATCH_MOVIE, {
     variables: { input: { movieId } },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
-  const [deleteWatchlisted, { loading: deleteWatchlistedLoading }] = useMutation(DELETE_WATCHLISTED_MOVIE, {
+  const [deleteToWatch, { loading: deleteToWatchLoading }] = useMutation(DELETE_TO_WATCH_MOVIE, {
     variables: { movieId },
     refetchQueries: [{ query: MovieQuery, variables: { tmdbId } }],
   })
@@ -114,11 +114,11 @@ const Actions = ({ movie }: ActionsProps) => {
     }
   }
 
-  const toggleWatchlistedStatus = () => {
+  const toggleToWatchStatus = () => {
     if (inWatchlist) {
-      deleteWatchlisted()
+      deleteToWatch()
     } else {
-      createWatchlisted()
+      createToWatch()
     }
   }
 
@@ -150,8 +150,8 @@ const Actions = ({ movie }: ActionsProps) => {
           <Tooltip>
             <TooltipTrigger asChild>
               <button
-                onClick={toggleWatchlistedStatus}
-                disabled={createWatchlistedLoading || deleteWatchlistedLoading}
+                onClick={toggleToWatchStatus}
+                disabled={createToWatchLoading || deleteToWatchLoading}
                 className={clsx(
                   'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
                   inWatchlist

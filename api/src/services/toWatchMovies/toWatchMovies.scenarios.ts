@@ -1,7 +1,7 @@
-import type { Prisma, Movie, User, WatchlistedMovie, WatchedMovie } from '@prisma/client'
+import type { Prisma, Movie, User, ToWatchMovie, WatchedMovie } from '@prisma/client'
 
 export const standard = defineScenario<
-  Prisma.MovieCreateArgs | Prisma.UserCreateArgs | Prisma.WatchlistedMovieCreateArgs | Prisma.WatchedMovieCreateArgs
+  Prisma.MovieCreateArgs | Prisma.UserCreateArgs | Prisma.ToWatchMovieCreateArgs | Prisma.WatchedMovieCreateArgs
 >({
   movie: {
     interstellar: {
@@ -59,7 +59,7 @@ export const standard = defineScenario<
       },
     },
   },
-  watchlistedMovie: {
+  toWatchMovie: {
     one: (scenario) => ({
       data: {
         movieId: scenario.movie.interstellar.id,
@@ -80,6 +80,6 @@ export const standard = defineScenario<
 export type StandardScenario = {
   movie: Record<'interstellar' | 'se7en' | 'parasite', Movie>
   user: Record<'john', User>
-  watchlistedMovie: Record<'one', WatchlistedMovie>
+  toWatchMovie: Record<'one', ToWatchMovie>
   watchedMovie: Record<'one', WatchedMovie>
 }

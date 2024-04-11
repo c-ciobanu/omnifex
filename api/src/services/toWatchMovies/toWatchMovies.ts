@@ -8,14 +8,14 @@ import { db } from 'src/lib/db'
 export const moviesWatchlist: QueryResolvers['moviesWatchlist'] = async ({ input }) => {
   requireAuth()
 
-  const watchlistedMovies = await db.watchlistedMovie.findMany({
+  const toWatchMovies = await db.toWatchMovie.findMany({
     where: { userId: context.currentUser.id },
     select: { movie: true },
     take: input.take,
     orderBy: { createdAt: 'desc' },
   })
 
-  const movies = watchlistedMovies.map((fm) => fm.movie)
+  const movies = toWatchMovies.map((fm) => fm.movie)
 
   return movies.map((m) => ({
     ...m,
@@ -24,7 +24,7 @@ export const moviesWatchlist: QueryResolvers['moviesWatchlist'] = async ({ input
   }))
 }
 
-export const createWatchlistedMovie: MutationResolvers['createWatchlistedMovie'] = async ({ input }) => {
+export const createToWatchMovie: MutationResolvers['createToWatchMovie'] = async ({ input }) => {
   requireAuth()
 
   await validateWith(async () => {
@@ -37,15 +37,15 @@ export const createWatchlistedMovie: MutationResolvers['createWatchlistedMovie']
     }
   })
 
-  return db.watchlistedMovie.create({
+  return db.toWatchMovie.create({
     data: { ...input, userId: context.currentUser.id },
   })
 }
 
-export const deleteWatchlistedMovie: MutationResolvers['deleteWatchlistedMovie'] = ({ movieId }) => {
+export const deleteToWatchMovie: MutationResolvers['deleteToWatchMovie'] = ({ movieId }) => {
   requireAuth()
 
-  return db.watchlistedMovie.delete({
+  return db.toWatchMovie.delete({
     where: { movieId_userId: { movieId, userId: context.currentUser.id } },
   })
 }
