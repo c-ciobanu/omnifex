@@ -22,7 +22,7 @@ type ActionsProps = {
 }
 
 const CREATE_FAVORITED_MOVIE = gql`
-  mutation CreateFavoritedMovieMutation($input: CreateFavoritedMovieInput!) {
+  mutation CreateFavoritedMovieMutation($input: CreateUserMovieInput!) {
     createFavoritedMovie(input: $input) {
       id
     }
@@ -38,7 +38,7 @@ const DELETE_FAVORITED_MOVIE = gql`
 `
 
 const CREATE_WATCHED_MOVIE = gql`
-  mutation CreateWatchedMovieMutation($input: CreateWatchedMovieInput!) {
+  mutation CreateWatchedMovieMutation($input: CreateUserMovieInput!) {
     createWatchedMovie(input: $input) {
       id
     }
@@ -54,7 +54,7 @@ const DELETE_WATCHED_MOVIE = gql`
 `
 
 const CREATE_TO_WATCH_MOVIE = gql`
-  mutation CreateToWatchMovieMutation($input: CreateToWatchMovieInput!) {
+  mutation CreateToWatchMovieMutation($input: CreateUserMovieInput!) {
     createToWatchMovie(input: $input) {
       id
     }

@@ -5,7 +5,7 @@ import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@red
 
 export const QUERY: TypedDocumentNode<ToWatchMoviesQuery, ToWatchMoviesQueryVariables> = gql`
   query ToWatchMoviesQuery($numberToShow: Int) {
-    moviesWatchlist(input: { take: $numberToShow }) {
+    toWatchMovies(input: { take: $numberToShow }) {
       id
       title
       tmdbId
@@ -20,10 +20,10 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ moviesWatchlist }: CellSuccessProps<ToWatchMoviesQuery>) => {
+export const Success = ({ toWatchMovies }: CellSuccessProps<ToWatchMoviesQuery>) => {
   return (
     <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
-      {moviesWatchlist.map((movie) => (
+      {toWatchMovies.map((movie) => (
         <li key={movie.id}>
           <Link to={routes.movie({ tmdbId: movie.tmdbId })} title={movie.title}>
             <img src={movie.posterUrl} alt={`${movie.title} poster`} />

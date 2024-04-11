@@ -1,5 +1,5 @@
 export const standard = () => ({
-  moviesWatchlist: [
+  toWatchMovies: [
     {
       id: 2,
       title: 'Interstellar',

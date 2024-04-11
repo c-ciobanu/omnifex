@@ -5,7 +5,7 @@ import { validateWith } from '@redwoodjs/api'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
-export const moviesWatchlist: QueryResolvers['moviesWatchlist'] = async ({ input }) => {
+export const toWatchMovies: QueryResolvers['toWatchMovies'] = async ({ input }) => {
   requireAuth()
 
   const toWatchMovies = await db.toWatchMovie.findMany({
