@@ -17,7 +17,10 @@ export const TooltipContent = React.forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={clsx('select-none rounded-md border bg-white px-3 py-1.5 text-sm text-black shadow-md', className)}
+      className={clsx(
+        'z-50 select-none rounded-md border bg-white px-3 py-1.5 text-sm text-black shadow-md',
+        className
+      )}
       {...props}
     />
   )
