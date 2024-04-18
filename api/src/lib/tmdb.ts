@@ -1,6 +1,6 @@
 import { fetch } from '@whatwg-node/fetch'
 
-interface TMDBMovie {
+export interface TMDBMovie {
   genres: { id: number; name: string }[]
   id: number
   imdb_id: string

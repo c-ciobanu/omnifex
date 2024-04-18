@@ -1,10 +1,14 @@
+import { Movie as PrismaMovie } from '@prisma/client'
 import type { MovieDetailsRelationResolvers, QueryResolvers } from 'types/graphql'
 
+import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
-import { searchTMDBMovies, getTMDBMovie } from 'src/lib/tmdb'
+import { searchTMDBMovies, getTMDBMovie, TMDBMovie } from 'src/lib/tmdb'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
-  const tmdbMovies = await searchTMDBMovies({ title })
+  const tmdbMovies: TMDBMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
+    expires: 60 * 60 * 24 * 7,
+  })
 
   return tmdbMovies.map((tmdbMovie) => ({
     tmdbId: tmdbMovie.id,
@@ -15,8 +19,19 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
   }))
 }
 
+type CachedPrismaMovie = Omit<PrismaMovie, 'releaseDate' | 'createdAt' | 'updatedAt' | 'rating'> & {
+  rating: string
+  releaseDate: string
+  createdAt: string
+  updatedAt: string
+}
+
 export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
-  let m = await db.movie.findUnique({ where: { tmdbId } })
+  let m: PrismaMovie | CachedPrismaMovie = await cache(
+    ['movie', tmdbId.toString()],
+    () => db.movie.findUnique({ where: { tmdbId } }),
+    { expires: 60 * 60 * 24 * 31 }
+  )
 
   if (!m) {
     const tmdbMovie = await getTMDBMovie(tmdbId)
@@ -39,8 +54,9 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
 
   return {
     ...m,
+    releaseDate: new Date(m.releaseDate),
     posterUrl: `http://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
-    rating: m.rating.toNumber(),
+    rating: Number(m.rating),
   }
 }
 
