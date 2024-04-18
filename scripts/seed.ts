@@ -5,7 +5,16 @@ import { hashPassword } from '@redwoodjs/auth-dbauth-api'
 export default async () => {
   try {
     const users = [
-      { email: 'john@doe.com', password: 'john1234' },
+      {
+        email: 'john@doe.com',
+        password: 'john1234',
+        favoritedMovies: { create: [{ movieId: 1 }] },
+        watchedMovies: { create: [{ movieId: 1 }, { movieId: 3 }] },
+        moviesToWatch: { create: [{ movieId: 2 }] },
+        favoritedBooks: { create: { bookId: 1 } },
+        readBooks: { create: [{ bookId: 1 }, { bookId: 3 }] },
+        booksToRead: { create: { bookId: 2 } },
+      },
       { email: 'jane@doe.com', password: 'jane1234' },
     ]
     const movies = [
@@ -51,32 +60,36 @@ export default async () => {
     ]
     const books = [
       {
-        authors: ['Robert C. Martin'],
+        authors: ['Bryan Cranston'],
         description:
-          'Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way. <br> <br>Noted software expert Robert C. Martin presents a revolutionary paradigm with <i><b>Clean Code: A Handbook of Agile Software Craftsmanship</b></i>. Martin has teamed up with his colleagues from Object Mentor to distill their best agile practice of cleaning code “on the fly” into a book that will instill within you the values of a software craftsman and make you a better programmer–but only if you work at it. <br> <br>What kind of work will you be doing? You’ll be reading code–lots of code. And you will be challenged to think about what’s right about that code, and what’s wrong with it. More importantly, you will be challenged to reassess your professional values and your commitment to your craft. <br> <br> <i><b>Clean Code</b></i> is divided into three parts. The first describes the principles, patterns, and practices of writing clean code. The second part consists of several case studies of increasing complexity. Each case study is an exercise in cleaning up code–of transforming a code base that has some problems into one that is sound and efficient. The third part is the payoff: a single chapter containing a list of heuristics and “smells” gathered while creating the case studies. The result is a knowledge base that describes the way we think when we write, read, and clean code. <br> <br>Readers will come away from this book understanding <br> <ul> <li>How to tell the difference between good and bad code </li> <li>How to write good code and how to transform bad code into good code </li> <li>How to create good names, good functions, good objects, and good classes </li> <li>How to format code for maximum readability </li> <li>How to implement complete error handling without obscuring code logic </li> <li>How to unit test and practice test-driven development</li> </ul>This book is a must for any developer, software engineer, project manager, team lead, or systems analyst with an interest in producing better code. <br>',
+          "<p><b>'A CINEMATIC RECORD OF HOW AN ACTOR SHAPES A CAREER' </b><i>Tom Hanks</i><br><b>'FUNNY, SAD AND HEARTFELT</b>' <i>Vince Gilligan</i><br><b>'GRITTY, FUNNY AND SAD' </b><i>Entertainment Weekly</i><br><b>'A SUPERB ANECDOTALIST'</b><i> Sunday Times Culture</i><br><b>'RIVETING... ENGROSSING' </b><i>Huffington Post<br></i><br>BRYAN CRANSTON maps his journey from abandoned son to beloved star, recalling the many odd parts he's played in real life, and chronicles his evolution on camera. For the first time he shares the story of his early years, from his time as a soap opera regular to his recurring spots on <i>Seinfeld </i>and his role as bumbling father Hal on <i>Malcolm in the Middle</i>, along with an inspiring account of how he prepared for the award-winning role of President Lyndon Johnson.<br><br>Of course, Cranston dives deep into the grittiest details of his greatest role, explaining how he searched inward for the personal darkness that would help him create one of the most memorable performances ever captured on screen: <b><i>Breaking Bad</i>'s Walter White</b>.<br><br><i><b>A LIFE IN PARTS</b></i> is a story about the joy, the necessity, and the transformative power of simple hard work.</p>",
         genres: [
-          'Computers / Software Development & Engineering / General',
-          'Computers / Software Development & Engineering / Quality Assurance & Testing',
+          'Biography & Autobiography / Entertainment & Performing Arts',
+          'Biography & Autobiography / Personal Memoirs',
+          'Self-Help / Substance Abuse & Addictions / Drugs',
+          'Performing Arts / Television / General',
+          'Business & Economics / Industries / Media & Communications',
+          'Social Science / Criminology',
         ],
-        googleId: '_i6bDeoCQzsC',
-        pages: 464,
-        publicationDate: new Date('2008-08-01'),
-        subtitle: 'A Handbook of Agile Software Craftsmanship',
-        title: 'Clean Code',
+        googleId: 'GAqNBwAAQBAJ',
+        pages: 288,
+        publicationDate: new Date('2016-10-20'),
+        title: 'A Life in Parts',
       },
       {
-        authors: ['Robert C. Martin'],
+        authors: ['Joey Diaz'],
         description:
-          '<p><b>Practical Software Architecture Solutions from the Legendary Robert C. Martin (“Uncle Bob”)</b></p> <p> </p> <p>By applying universal rules of software architecture, you can dramatically improve developer productivity throughout the life of any software system. Now, building upon the success of his best-selling books <i>Clean Code</i> and <i>The Clean Coder,</i> legendary software craftsman Robert C. Martin (“Uncle Bob”) reveals those rules and helps you apply them.</p> <p> </p> <p>Martin’s <i><b>Clean Architecture</b></i> doesn’t merely present options. Drawing on over a half-century of experience in software environments of every imaginable type, Martin tells you what choices to make and why they are critical to your success. As you’ve come to expect from Uncle Bob, this book is packed with direct, no-nonsense solutions for the real challenges you’ll face–the ones that will make or break your projects.</p> <ul> <li>Learn what software architects need to achieve–and core disciplines and practices for achieving it</li> <li>Master essential software design principles for addressing function, component separation, and data management</li> <li>See how programming paradigms impose discipline by restricting what developers can do</li> <li>Understand what’s critically important and what’s merely a “detail”</li> <li>Implement optimal, high-level structures for web, database, thick-client, console, and embedded applications</li> <li>Define appropriate boundaries and layers, and organize components and services</li> <li>See why designs and architectures go wrong, and how to prevent (or fix) these failures</li> </ul> <p><i><b>Clean Architecture</b></i> is essential reading for every current or aspiring software architect, systems analyst, system designer, and software manager–and for every programmer who must execute someone else’s designs.</p> <p><br></p> <p> </p> <p><i>Register your product for convenient access to downloads, updates, and/or corrections as they become available.</i></p>',
+          '<b><i>New York Times</i> Bestseller<br><br><br>Outsider. Misfit. Criminal. Convict. . . . Movie star. Family man. Comedy legend.<br><br>Joey Diaz has been called every name in the book (and then some). Now, for the first time, he shares the story of his unlikely rise to fame in his own words—with no punches pulled.</b><br><br>Today, he stars in hit films, headlines sold-out tours, hosts the popular <i>Uncle Joey’s Joint</i> podcast, and is a devoted father—but his life wasn’t always so picture-perfect. Joey “Coco” Diaz credits his success to his “immigrant mentality,” the work ethic his mother modeled for him and on which countless others have depended to survive the harsh landscape of being an outsider.<br><br>Diaz wasn’t always a star, but he was always a comedian—it just took him a while to figure it out. To be fair, he was pretty busy while he was young: helping his tough-as-nails mother in her bar, holding a gun for the first time at the age of six, and later dealing drugs and serving time.<br><br><i>Tremendous</i> is the story of Diaz’s life, from grueling childhood and misspent youth to finding his true calling in comedy. Immigrants, fans of celebrity tales, and comedy enthusiasts alike will be enthralled by this incredibly true, foul-mouthed, and funny memoir.<br><br>It’s not a story for the faint of heart, or for prudes who’ve never spent a week sleeping in a piece of playground equipment. From finding his mom’s body to high stakes crime, addiction and depression, there are plenty of dark episodes in this saga. Diaz shares it all with brutal honesty and humor, in the same inimitable voice he’d use talking to you from the stage or in a bar. He also shares the story of his improbable rise to the top and the bumpy road that led him there.<br><br>An inspiration to misfits everywhere, <i>Tremendous</i> is storytelling at its finest—and a reminder that the direst of circumstances can change in unimaginable, unpredictable ways.',
         genres: [
-          'Computers / Software Development & Engineering / General',
-          'Computers / Software Development & Engineering / Quality Assurance & Testing',
+          'Biography & Autobiography / Rich & Famous',
+          'Performing Arts / Comedy',
+          'Biography & Autobiography / Cultural, Ethnic & Regional / Hispanic & Latino',
         ],
-        googleId: 'uGE1DwAAQBAJ',
-        pages: 432,
-        publicationDate: new Date('2017-09-12'),
-        subtitle: "A Craftsman's Guide to Software Structure and Design",
-        title: 'Clean Architecture',
+        googleId: 'HRt_EAAAQBAJ',
+        pages: 280,
+        publicationDate: new Date('2023-05-02'),
+        subtitle: 'The Life of a Comedy Savage',
+        title: 'Tremendous',
       },
       {
         authors: ['Jim Gaffigan'],
@@ -90,19 +103,18 @@ export default async () => {
         googleId: 'FXiBAwAAQBAJ',
         pages: 352,
         publicationDate: new Date('2014-10-21'),
-        subtitle: null,
         title: 'Food: A Love Story',
       },
     ]
 
-    await db.user.createMany({
-      data: users.map((user) => {
-        const [hashedPassword, salt] = hashPassword(user.password)
-        return { email: user.email, hashedPassword, salt }
-      }),
-    })
     await db.movie.createMany({ data: movies })
     await db.book.createMany({ data: books })
+
+    for (const { password, ...user } of users) {
+      const [hashedPassword, salt] = hashPassword(password)
+
+      await db.user.create({ data: { ...user, hashedPassword, salt } })
+    }
   } catch (error) {
     console.warn('Please define your seed data.')
     console.error(error)
