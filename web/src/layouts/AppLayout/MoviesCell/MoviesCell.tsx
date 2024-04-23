@@ -23,14 +23,14 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 
 export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
   return (
-    <ul className="grid grid-cols-1 gap-6 divide-y divide-white sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid grid-cols-1 divide-y divide-white sm:grid-cols-2 sm:divide-none lg:grid-cols-3">
       {movies.map((movie) => {
         return (
           <li key={movie.tmdbId}>
             <Link
               to={routes.movie({ tmdbId: movie.tmdbId })}
               title={movie.title}
-              className="flex gap-x-6 py-5 hover:bg-white"
+              className="flex gap-x-6 py-6 hover:bg-white"
             >
               <img src={movie.posterUrl} alt={`${movie.title} poster`} />
               <div>

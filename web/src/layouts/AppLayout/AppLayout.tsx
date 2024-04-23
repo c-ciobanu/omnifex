@@ -171,7 +171,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
       </header>
 
-      <main>{title ? entities[searchEntity].mainComponent({ title }) : children}</main>
+      {title ? (
+        <div className="absolute z-10 bg-gray-100">{entities[searchEntity].mainComponent({ title })}</div>
+      ) : null}
+
+      <main>{children}</main>
 
       <footer className="space-y-2">
         <div className="flex items-center gap-2">
@@ -182,7 +186,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               className="w-28"
             />
           </Link>
-          <p>Data provided by TMDB</p>
+          <p>Movie data provided by TMDB</p>
         </div>
 
         <p>

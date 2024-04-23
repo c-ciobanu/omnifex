@@ -23,14 +23,14 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 
 export const Success = ({ books }: CellSuccessProps<BooksQuery>) => {
   return (
-    <ul className="grid grid-cols-1 gap-6 divide-y divide-white sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid grid-cols-1 divide-y divide-white sm:grid-cols-2 sm:divide-none lg:grid-cols-3">
       {books.map((book) => {
         return (
           <li key={book.googleId}>
             <Link
               to={routes.book({ googleId: book.googleId })}
               title={book.title}
-              className="flex gap-x-6 py-5 hover:bg-white"
+              className="flex gap-x-6 py-6 hover:bg-white"
             >
               <img src={book.coverUrl} alt={`${book.title} cover`} />
               <div>
