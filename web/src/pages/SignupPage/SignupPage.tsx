@@ -11,14 +11,13 @@ import { useAuth } from 'src/auth'
 const SignupPage = () => {
   const { signUp } = useAuth()
 
-  // focus on email box on page load
-  const emailRef = useRef<HTMLInputElement>(null)
+  const usernameRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    emailRef.current?.focus()
+    usernameRef.current?.focus()
   }, [])
 
   const onSubmit = async (data: Record<string, string>) => {
-    const response = await signUp({ username: data.email, password: data.password })
+    const response = await signUp({ username: data.username, password: data.password })
 
     if (response.message) {
       toast(response.message)
@@ -40,22 +39,23 @@ const SignupPage = () => {
         <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
             <fieldset>
-              <Label name="email" className="form-label" errorClassName="form-label form-label-error">
-                Email address
+              <Label name="username" className="form-label" errorClassName="form-label form-label-error">
+                Username
               </Label>
               <TextField
-                name="email"
+                name="username"
                 className="form-input"
                 errorClassName="form-input form-input-error"
-                ref={emailRef}
+                ref={usernameRef}
                 validation={{
-                  required: {
-                    value: true,
-                    message: 'Email is required',
+                  required: true,
+                  minLength: {
+                    value: 3,
+                    message: 'Username must be at least 3 characters',
                   },
                 }}
               />
-              <FieldError name="email" className="form-field-error" />
+              <FieldError name="username" className="form-field-error" />
             </fieldset>
 
             <fieldset>
@@ -68,10 +68,7 @@ const SignupPage = () => {
                 errorClassName="form-input form-input-error"
                 autoComplete="current-password"
                 validation={{
-                  required: {
-                    value: true,
-                    message: 'Password is required',
-                  },
+                  required: true,
                   minLength: {
                     value: 8,
                     message: 'Password must be at least 8 characters',

@@ -58,7 +58,7 @@ export const standard = defineScenario<
   user: {
     john: {
       data: {
-        email: 'john@doe.com',
+        username: 'john',
         hashedPassword: 'String',
         salt: 'String',
       },

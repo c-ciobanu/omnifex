@@ -43,7 +43,7 @@ export const standard = defineScenario<Prisma.BookCreateArgs | Prisma.UserCreate
   user: {
     john: {
       data: {
-        email: 'john@doe.com',
+        username: 'john',
         hashedPassword: 'String',
         salt: 'String',
       },

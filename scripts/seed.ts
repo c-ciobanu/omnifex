@@ -6,6 +6,7 @@ export default async () => {
   try {
     const users = [
       {
+        username: 'john',
         email: 'john@doe.com',
         password: 'john1234',
         favoritedMovies: { create: [{ movieId: 1 }] },
@@ -15,7 +16,7 @@ export default async () => {
         readBooks: { create: [{ bookId: 1 }, { bookId: 3 }] },
         booksToRead: { create: { bookId: 2 } },
       },
-      { email: 'jane@doe.com', password: 'jane1234' },
+      { username: 'jane', password: 'jane1234' },
     ]
     const movies = [
       {

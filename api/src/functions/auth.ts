@@ -1,5 +1,6 @@
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
 
+import { validate } from '@redwoodjs/api'
 import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError } from '@redwoodjs/auth-dbauth-api'
 
 import { db } from 'src/lib/db'
@@ -107,13 +108,9 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
     handler: ({ username, hashedPassword, salt }) => {
-      return db.user.create({
-        data: {
-          email: username,
-          hashedPassword: hashedPassword,
-          salt: salt,
-        },
-      })
+      validate(username, 'Username', { length: { min: 3, message: 'Username must be at least 3 characters' } })
+
+      return db.user.create({ data: { username, hashedPassword, salt } })
     },
 
     // Include any format checks for password here. Return `true` if the
@@ -147,7 +144,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     // something like `id` or `userId` or even `email`)
     authFields: {
       id: 'id',
-      username: 'email',
+      username: 'username',
       hashedPassword: 'hashedPassword',
       salt: 'salt',
       resetToken: 'resetToken',
