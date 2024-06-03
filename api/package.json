@@ -9,6 +9,10 @@
     "@redwoodjs/auth-dbauth-api": "7.6.2",
     "@redwoodjs/graphql-server": "7.6.2",
     "@whatwg-node/fetch": "^0.9.9",
+    "minio": "^8.0.0",
     "redis": "^4.6.13"
+  },
+  "devDependencies": {
+    "@types/minio": "^7.1.1"
   }
 }
