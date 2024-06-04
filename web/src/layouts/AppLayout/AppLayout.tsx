@@ -1,13 +1,12 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faMagnifyingGlass, faRightFromBracket, faRightToBracket, faX } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Listbox, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 
-import { Form, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
-import { Link, routes, useLocation } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
@@ -15,25 +14,19 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/co
 import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
 import batmanLogo from './batman-logo.svg'
-import BooksCell from './BooksCell'
 import lotrLogo from './lotr-logo.svg'
-import MoviesCell from './MoviesCell'
 
 const entities = {
   movie: {
     title: 'Gotham City',
+    href: () => routes.search({ entity: 'movie' }),
     logoSrc: batmanLogo,
-    mainComponent: MoviesCell,
   },
   book: {
     title: 'Minas Tirith',
+    href: () => routes.search({ entity: 'book' }),
     logoSrc: lotrLogo,
-    mainComponent: BooksCell,
   },
-}
-
-interface FormValues {
-  title: string
 }
 
 type AppLayoutProps = {
@@ -42,20 +35,7 @@ type AppLayoutProps = {
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   const { logOut, isAuthenticated } = useAuth()
-  const [showSearchInput, setShowSearchInput] = useState(false)
-  const [title, setTitle] = useState<string>()
   const [searchEntity, setSearchEntity] = useLocalStorage<'book' | 'movie'>('selectedEntity', 'movie')
-  const { pathname } = useLocation()
-  const formMethods = useForm()
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    setTitle(data.title)
-  }
-
-  useEffect(() => {
-    setShowSearchInput(false)
-    setTitle(undefined)
-  }, [pathname])
 
   return (
     <>
@@ -131,49 +111,13 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                 </Tooltip>
               </TooltipProvider>
 
-              <button type="button" className="icon-bg-dark">
-                <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth onClick={() => setShowSearchInput(true)} />
-              </button>
+              <Link to={entities[searchEntity].href()} className="icon-bg-dark">
+                <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth />
+              </Link>
             </div>
-
-            <Transition
-              className="absolute right-0 top-0 flex h-full items-center overflow-hidden bg-gray-800"
-              show={showSearchInput}
-              unmount={false}
-              enter="transition-width ease-out duration-500"
-              enterFrom="w-0"
-              enterTo="w-full"
-              leave="transition-width ease-in duration-500"
-              leaveFrom="w-full"
-              leaveTo="w-0"
-            >
-              <Form onSubmit={onSubmit} formMethods={formMethods} className="grow">
-                <TextField
-                  name="title"
-                  placeholder={`Search for a ${searchEntity}`}
-                  className="w-full bg-transparent placeholder-gray-300 outline-none"
-                  validation={{ required: true }}
-                />
-              </Form>
-
-              <button type="button" className="icon-bg-dark">
-                <FontAwesomeIcon
-                  icon={faX}
-                  fixedWidth
-                  onClick={() => {
-                    setShowSearchInput(false)
-                    setTitle(undefined)
-                  }}
-                />
-              </button>
-            </Transition>
           </nav>
         </div>
       </header>
-
-      {title ? (
-        <div className="absolute z-10 bg-gray-100">{entities[searchEntity].mainComponent({ title })}</div>
-      ) : null}
 
       <main>{children}</main>
 
