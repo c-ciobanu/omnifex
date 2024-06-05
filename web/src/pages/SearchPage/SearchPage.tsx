@@ -33,6 +33,10 @@ const SearchPage = (props: SearchPageProps) => {
     navigate(routes.search({ entity: data.entity, q: data.title }))
   }
 
+  useEffect(() => {
+    formMethods.resetField('entity', { defaultValue: props.entity })
+  }, [props.entity])
+
   return (
     <>
       <Metadata title="Movie Search" />
@@ -41,15 +45,15 @@ const SearchPage = (props: SearchPageProps) => {
         <TextField
           name="title"
           defaultValue={params.q}
-          placeholder="Search for a movie"
+          placeholder={`Search for a ${props.entity}`}
           className="form-input"
           ref={titleRef}
           validation={{ required: true, minLength: 1 }}
         />
 
         <SelectField name="entity" defaultValue={props.entity} className="form-input w-auto p-0">
-          <option value="movie">Movies</option>
-          <option value="book">Books</option>
+          <option value="movie">Movie</option>
+          <option value="book">Book</option>
         </SelectField>
 
         <Submit className="mt-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
