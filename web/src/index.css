@@ -14,28 +14,15 @@
 
 @layer base {
   body {
-    @apply mx-auto max-w-screen-2xl bg-gray-100 px-4 pb-8 pt-16 text-gray-900 sm:px-6 lg:px-8;
-  }
-
-  header {
-    @apply fixed left-0 top-0 z-20 h-16 w-full;
+    @apply bg-gray-100;
   }
 
   main {
-    @apply relative py-4;
     min-height: calc(100vh - theme('height.16'));
-  }
-
-  footer {
-    @apply border-t border-gray-200 pt-4;
   }
 }
 
 @layer components {
-  .icon-bg-dark {
-    @apply rounded-lg bg-gray-800 p-2 text-xl text-gray-300 hover:bg-gray-700 hover:text-white;
-  }
-
   .form-label {
     @apply block text-sm font-medium;
   }

@@ -1,33 +1,31 @@
-import { Fragment } from 'react'
-
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faMagnifyingGlass, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faFaceSmile } from '@fortawesome/free-regular-svg-icons'
+import { faBars, faMagnifyingGlass, faRightToBracket, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Listbox, Transition } from '@headlessui/react'
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from '@headlessui/react'
 import clsx from 'clsx'
 
-import { Link, routes } from '@redwoodjs/router'
+import { Link, routes, useLocation } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/dist/toast'
 
 import { useAuth } from 'src/auth'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
-import { useLocalStorage } from 'src/hooks/useLocalStorage/useLocalStorage'
 
-import batmanLogo from './batman-logo.svg'
-import lotrLogo from './lotr-logo.svg'
+const authenticatedNavigation = [
+  { name: 'Movies', href: () => routes.dashboard() },
+  { name: 'Books', href: () => routes.dashboard() },
+  { name: 'Documents', href: () => routes.documents() },
+]
 
-const entities = {
-  movie: {
-    title: 'Gotham City',
-    href: () => routes.search({ entity: 'movie' }),
-    logoSrc: batmanLogo,
-  },
-  book: {
-    title: 'Minas Tirith',
-    href: () => routes.search({ entity: 'book' }),
-    logoSrc: lotrLogo,
-  },
-}
+const userNavigation = []
 
 type AppLayoutProps = {
   children: React.ReactNode
@@ -35,93 +33,179 @@ type AppLayoutProps = {
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   const { logOut, isAuthenticated } = useAuth()
-  const [searchEntity, setSearchEntity] = useLocalStorage<'book' | 'movie'>('selectedEntity', 'movie')
+  const { pathname } = useLocation()
 
   return (
     <>
       <Toaster />
 
-      <header className="bg-gray-800">
-        <div className="mx-auto h-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <nav className="relative flex h-full w-full items-center justify-between text-gray-300">
-            <Listbox value={searchEntity} onChange={setSearchEntity}>
-              <div className="relative flex">
-                <Listbox.Button>
-                  <img
-                    src={entities[searchEntity].logoSrc}
-                    alt="Logo"
-                    className="animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_2]"
-                  />
-                </Listbox.Button>
+      <Disclosure as="nav" className="bg-gray-800">
+        {({ open, close }) => (
+          <>
+            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center">
+                <Link to={isAuthenticated ? routes.dashboard() : routes.home()} className="flex-shrink-0">
+                  <img className="h-8 w-8" src="img/logo.svg" alt="Popcorn Time" />
+                </Link>
 
-                <Transition
-                  as={Fragment}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <Listbox.Options className="absolute left-full ml-1 w-60 rounded-md border bg-white py-1.5 text-sm text-black shadow-md focus:outline-none">
-                    <Listbox.Option
-                      value={'movie'}
-                      disabled={searchEntity === 'movie'}
-                      className={({ active }) =>
-                        clsx('flex cursor-default items-center gap-2 px-4 py-2 text-gray-900', active && 'bg-amber-100')
-                      }
-                    >
-                      <img src={entities.movie.logoSrc} alt="Movies logo" />
-                      <span>Search movies</span>
-                    </Listbox.Option>
-
-                    <Listbox.Option
-                      value={'book'}
-                      disabled={searchEntity === 'book'}
-                      className={({ active }) =>
-                        clsx('flex cursor-default items-center gap-2 px-4 py-2 text-gray-900', active && 'bg-amber-100')
-                      }
-                    >
-                      <img src={entities.book.logoSrc} alt="Books logo" />
-                      <span>Search books</span>
-                    </Listbox.Option>
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
-
-            <Link to={isAuthenticated ? routes.dashboard() : routes.home()}>
-              <h1 className="text-xl hover:text-white">{entities[searchEntity].title}</h1>
-            </Link>
-
-            <div className="flex items-center gap-4">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    {isAuthenticated ? (
-                      <button type="button" onClick={logOut} className="icon-bg-dark">
-                        <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
-                      </button>
-                    ) : (
-                      <Link to={routes.login()} className="icon-bg-dark">
-                        <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
+                {isAuthenticated ? (
+                  <div className="ml-10 hidden items-baseline space-x-4 md:flex">
+                    {authenticatedNavigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href()}
+                        className={clsx(
+                          pathname === item.href()
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'rounded-md px-3 py-2 text-sm font-medium'
+                        )}
+                        aria-current={pathname === item.href() ? 'page' : undefined}
+                      >
+                        {item.name}
                       </Link>
-                    )}
-                  </TooltipTrigger>
-                  <TooltipContent side="left">
-                    <p>{isAuthenticated ? 'Sign Out' : 'Sign In'}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
 
-              <Link to={entities[searchEntity].href()} className="icon-bg-dark">
-                <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  to={routes.search({ entity: 'movie' })}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth className="text-xl" />
+                </Link>
+
+                {isAuthenticated ? (
+                  <>
+                    <div className="hidden md:block">
+                      <Menu as="div" className="relative">
+                        <div>
+                          <MenuButton className="-mr-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                            <FontAwesomeIcon icon={faFaceSmile} fixedWidth className="text-xl" />
+                          </MenuButton>
+                        </div>
+
+                        <Transition
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <MenuItems
+                            anchor="bottom end"
+                            className="absolute z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg"
+                          >
+                            {userNavigation.map((item) => (
+                              <MenuItem key={item.name}>
+                                {({ focus }) => (
+                                  <Link
+                                    to={item.href()}
+                                    className={clsx(
+                                      focus ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </Link>
+                                )}
+                              </MenuItem>
+                            ))}
+
+                            <MenuItem>
+                              {({ focus }) => (
+                                <button
+                                  onClick={logOut}
+                                  className={clsx(
+                                    focus ? 'bg-gray-100' : '',
+                                    'block w-full px-4 py-2 text-left text-sm text-gray-700'
+                                  )}
+                                >
+                                  Sign out
+                                </button>
+                              )}
+                            </MenuItem>
+                          </MenuItems>
+                        </Transition>
+                      </Menu>
+                    </div>
+
+                    <div className="-mr-2 md:hidden">
+                      <DisclosureButton className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                        {open ? (
+                          <FontAwesomeIcon icon={faX} fixedWidth className="text-xl" />
+                        ) : (
+                          <FontAwesomeIcon icon={faBars} fixedWidth className="text-xl" />
+                        )}
+                      </DisclosureButton>
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    to={routes.login()}
+                    className="-mr-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    <FontAwesomeIcon icon={faRightToBracket} fixedWidth className="text-xl" />
+                  </Link>
+                )}
+              </div>
             </div>
-          </nav>
-        </div>
-      </header>
 
-      <main>{children}</main>
+            {isAuthenticated ? (
+              <DisclosurePanel className="bg-gray-800 md:hidden">
+                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                  {authenticatedNavigation.map((item) => (
+                    <DisclosureButton
+                      key={item.name}
+                      className={clsx(
+                        pathname === item.href()
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'w-full rounded-md text-left text-base font-medium'
+                      )}
+                      aria-current={pathname === item.href() ? 'page' : undefined}
+                    >
+                      <Link to={item.href()} onClick={() => close()} className="block w-full px-3 py-2">
+                        {item.name}
+                      </Link>
+                    </DisclosureButton>
+                  ))}
+                </div>
 
-      <footer className="space-y-2">
+                <div className="border-t border-gray-700 pb-3 pt-4">
+                  <div className="space-y-1 px-2">
+                    {userNavigation.map((item) => (
+                      <DisclosureButton
+                        key={item.name}
+                        className="w-full rounded-md text-left text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        <Link to={item.href()} onClick={() => close()} className="block w-full px-3 py-2">
+                          {item.name}
+                        </Link>
+                      </DisclosureButton>
+                    ))}
+
+                    <DisclosureButton
+                      as="button"
+                      onClick={logOut}
+                      className="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    >
+                      Sign out
+                    </DisclosureButton>
+                  </div>
+                </div>
+              </DisclosurePanel>
+            ) : null}
+          </>
+        )}
+      </Disclosure>
+
+      <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">{children}</main>
+
+      <footer className="mx-auto max-w-7xl space-y-2 border-t border-gray-200 p-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
           <Link to="https://www.themoviedb.org" target="_blank">
             <img
