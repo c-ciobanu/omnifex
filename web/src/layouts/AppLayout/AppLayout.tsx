@@ -1,6 +1,6 @@
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faFaceSmile } from '@fortawesome/free-regular-svg-icons'
-import { faBars, faMagnifyingGlass, faRightToBracket, faX } from '@fortawesome/free-solid-svg-icons'
+import { faFaceFrown, faFaceSmile } from '@fortawesome/free-regular-svg-icons'
+import { faBars, faMagnifyingGlass, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Disclosure,
@@ -24,16 +24,27 @@ const authenticatedNavigation = [
   { name: 'Books', href: () => routes.dashboard() },
   { name: 'Documents', href: () => routes.documents() },
 ]
+const guestNavigation = [
+  { name: 'Search Movie', href: () => routes.search({ entity: 'movie' }) },
+  { name: 'Search Book', href: () => routes.search({ entity: 'book' }) },
+]
 
-const userNavigation = []
+const authenticatedMenu = []
+const guestMenu = [
+  { name: 'Sign in', href: () => routes.login() },
+  { name: 'Sign up', href: () => routes.signup() },
+]
 
 type AppLayoutProps = {
   children: React.ReactNode
 }
 
 const AppLayout = ({ children }: AppLayoutProps) => {
-  const { logOut, isAuthenticated } = useAuth()
+  const { logOut, isAuthenticated, currentUser } = useAuth()
   const { pathname } = useLocation()
+
+  const navigationLinks = isAuthenticated ? authenticatedNavigation : guestNavigation
+  const menuLinks = isAuthenticated ? authenticatedMenu : guestMenu
 
   return (
     <>
@@ -42,31 +53,29 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       <Disclosure as="nav" className="bg-gray-800">
         {({ open, close }) => (
           <>
-            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
               <div className="flex items-center">
                 <Link to={isAuthenticated ? routes.dashboard() : routes.home()} className="flex-shrink-0">
-                  <img className="h-8 w-8" src="img/logo.svg" alt="Popcorn Time" />
+                  <img className="h-8 w-8" src="/img/logo.svg" alt="Popcorn Time" />
                 </Link>
 
-                {isAuthenticated ? (
-                  <div className="ml-10 hidden items-baseline space-x-4 md:flex">
-                    {authenticatedNavigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href()}
-                        className={clsx(
-                          pathname === item.href()
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={pathname === item.href() ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                ) : null}
+                <div className="ml-10 hidden items-baseline space-x-4 md:flex">
+                  {navigationLinks.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href()}
+                      className={clsx(
+                        pathname === item.href()
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'rounded-md px-3 py-2 text-sm font-medium'
+                      )}
+                      aria-current={pathname === item.href() ? 'page' : undefined}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               <div className="flex items-center gap-2">
@@ -77,128 +86,119 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                   <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth className="text-xl" />
                 </Link>
 
-                {isAuthenticated ? (
-                  <>
-                    <div className="hidden md:block">
-                      <Menu as="div" className="relative">
-                        <div>
-                          <MenuButton className="-mr-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-                            <FontAwesomeIcon icon={faFaceSmile} fixedWidth className="text-xl" />
-                          </MenuButton>
-                        </div>
+                <div className="hidden md:block">
+                  <Menu as="div" className="relative">
+                    <div>
+                      <MenuButton className="-mr-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                        <FontAwesomeIcon
+                          icon={isAuthenticated ? faFaceSmile : faFaceFrown}
+                          fixedWidth
+                          className="text-xl"
+                        />
+                      </MenuButton>
+                    </div>
 
-                        <Transition
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          <MenuItems
-                            anchor="bottom end"
-                            className="absolute z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg"
+                    <Transition
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <MenuItems
+                        anchor="bottom end"
+                        className="absolute z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg"
+                      >
+                        {menuLinks.map((item) => (
+                          <Link
+                            key={item.name}
+                            to={item.href()}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           >
-                            {userNavigation.map((item) => (
-                              <MenuItem key={item.name}>
-                                {({ focus }) => (
-                                  <Link
-                                    to={item.href()}
-                                    className={clsx(
-                                      focus ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    {item.name}
-                                  </Link>
-                                )}
-                              </MenuItem>
-                            ))}
+                            <MenuItem as="span">{item.name}</MenuItem>
+                          </Link>
+                        ))}
 
-                            <MenuItem>
-                              {({ focus }) => (
-                                <button
-                                  onClick={logOut}
-                                  className={clsx(
-                                    focus ? 'bg-gray-100' : '',
-                                    'block w-full px-4 py-2 text-left text-sm text-gray-700'
-                                  )}
-                                >
-                                  Sign out
-                                </button>
-                              )}
-                            </MenuItem>
-                          </MenuItems>
-                        </Transition>
-                      </Menu>
-                    </div>
+                        {isAuthenticated ? (
+                          <MenuItem>
+                            <button
+                              onClick={logOut}
+                              className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100"
+                            >
+                              Sign out
+                            </button>
+                          </MenuItem>
+                        ) : null}
+                      </MenuItems>
+                    </Transition>
+                  </Menu>
+                </div>
 
-                    <div className="-mr-2 md:hidden">
-                      <DisclosureButton className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
-                        {open ? (
-                          <FontAwesomeIcon icon={faX} fixedWidth className="text-xl" />
-                        ) : (
-                          <FontAwesomeIcon icon={faBars} fixedWidth className="text-xl" />
-                        )}
-                      </DisclosureButton>
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    to={routes.login()}
-                    className="-mr-2 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                  >
-                    <FontAwesomeIcon icon={faRightToBracket} fixedWidth className="text-xl" />
-                  </Link>
-                )}
+                <div className="-mr-2 md:hidden">
+                  <DisclosureButton className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                    {open ? (
+                      <FontAwesomeIcon icon={faX} fixedWidth className="text-xl" />
+                    ) : (
+                      <FontAwesomeIcon icon={faBars} fixedWidth className="text-xl" />
+                    )}
+                  </DisclosureButton>
+                </div>
               </div>
             </div>
 
-            {isAuthenticated ? (
-              <DisclosurePanel className="bg-gray-800 md:hidden">
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                  {authenticatedNavigation.map((item) => (
+            <DisclosurePanel className="bg-gray-800 md:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                {navigationLinks.map((item) => (
+                  <DisclosureButton
+                    key={item.name}
+                    className={clsx(
+                      pathname === item.href()
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'w-full rounded-md text-left text-base font-medium'
+                    )}
+                    aria-current={pathname === item.href() ? 'page' : undefined}
+                  >
+                    <Link to={item.href()} onClick={() => close()} className="block w-full px-3 py-2">
+                      {item.name}
+                    </Link>
+                  </DisclosureButton>
+                ))}
+              </div>
+
+              <div className="space-y-2 border-t border-gray-700 py-4">
+                {isAuthenticated ? (
+                  <div className="flex items-center gap-2 px-5 text-white">
+                    <FontAwesomeIcon icon={faFaceSmile} fixedWidth className="text-xl" />
+
+                    <p className="text-base font-medium">{currentUser.username}</p>
+                  </div>
+                ) : null}
+
+                <div className="space-y-1 px-2">
+                  {menuLinks.map((item) => (
                     <DisclosureButton
                       key={item.name}
-                      className={clsx(
-                        pathname === item.href()
-                          ? 'bg-gray-900 text-white'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'w-full rounded-md text-left text-base font-medium'
-                      )}
-                      aria-current={pathname === item.href() ? 'page' : undefined}
+                      className="w-full rounded-md text-left text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                     >
                       <Link to={item.href()} onClick={() => close()} className="block w-full px-3 py-2">
                         {item.name}
                       </Link>
                     </DisclosureButton>
                   ))}
-                </div>
 
-                <div className="border-t border-gray-700 pb-3 pt-4">
-                  <div className="space-y-1 px-2">
-                    {userNavigation.map((item) => (
-                      <DisclosureButton
-                        key={item.name}
-                        className="w-full rounded-md text-left text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                      >
-                        <Link to={item.href()} onClick={() => close()} className="block w-full px-3 py-2">
-                          {item.name}
-                        </Link>
-                      </DisclosureButton>
-                    ))}
-
+                  {isAuthenticated ? (
                     <DisclosureButton
-                      as="button"
                       onClick={logOut}
                       className="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                     >
                       Sign out
                     </DisclosureButton>
-                  </div>
+                  ) : null}
                 </div>
-              </DisclosurePanel>
-            ) : null}
+              </div>
+            </DisclosurePanel>
           </>
         )}
       </Disclosure>

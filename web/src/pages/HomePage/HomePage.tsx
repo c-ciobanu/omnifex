@@ -12,7 +12,7 @@ const HomePage = () => {
         <p>Popcorn is ready!</p>
         <p>Want to watch a movie or maybe read a book?</p>
         <p>It&#39;s up to you.</p>
-        <img src="img/logo.svg" alt="Popcorn" title="Happy Popcorn!" />
+        <img src="/img/logo.svg" alt="Popcorn" title="Happy Popcorn!" />
       </div>
     </>
   )
