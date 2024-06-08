@@ -4,6 +4,6 @@ import SearchPage from './SearchPage'
 
 describe('SearchPage', () => {
   it('renders successfully', () => {
-    expect(() => render(<SearchPage />)).not.toThrow()
+    expect(() => render(<SearchPage entity="movie" />)).not.toThrow()
   })
 })
