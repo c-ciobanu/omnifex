@@ -22,6 +22,22 @@ interface EditorContext {
 
 const EditorContext = createContext<EditorContext | null>(null)
 
+export function createDoc(collection: DocCollection) {
+  const doc = collection.createDoc()
+
+  doc.load(() => {
+    const pageBlockId = doc.addBlock('affine:page', {})
+    doc.addBlock('affine:surface', {}, pageBlockId)
+    for (let index = 0; index < 3; index++) {
+      const noteId = doc.addBlock('affine:note', {}, pageBlockId)
+      doc.addBlock('affine:paragraph', {}, noteId)
+    }
+  })
+  doc.resetHistory()
+
+  return doc
+}
+
 async function initEditor(blob?: Blob) {
   const schema = new Schema().register(AffineSchemas)
   const collection = new DocCollection({ schema })
@@ -30,17 +46,7 @@ async function initEditor(blob?: Blob) {
   if (blob) {
     docs = await ZipTransformer.importDocs(collection, blob)
   } else {
-    docs = [collection.createDoc()]
-
-    const doc = docs[0]
-    doc.load(() => {
-      const pageBlockId = doc.addBlock('affine:page', {})
-      doc.addBlock('affine:surface', {}, pageBlockId)
-      for (let index = 0; index < 3; index++) {
-        const noteId = doc.addBlock('affine:note', {}, pageBlockId)
-        doc.addBlock('affine:paragraph', {}, noteId)
-      }
-    })
+    docs = [createDoc(collection)]
   }
 
   const editor = new AffineEditorContainer()

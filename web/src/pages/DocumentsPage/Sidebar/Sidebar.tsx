@@ -5,7 +5,7 @@ import { BlockCollection } from '@blocksuite/store'
 
 import { useMutation } from '@redwoodjs/web'
 
-import { useEditor } from '../EditorContext/EditorContext'
+import { createDoc, useEditor } from '../EditorContext/EditorContext'
 
 const CREATE_DOCUMENTS_UPLOAD_URL = gql`
   mutation CreateDocumentsUploadUrlMutation {
@@ -39,10 +39,17 @@ export const Sidebar = () => {
   }, [collection, editor])
 
   return (
-    <div>
+    <div className="space-y-4">
       <h2 className="text-2xl font-bold">My Docs</h2>
 
-      <div className="my-4 flex flex-col gap-2">
+      <button
+        onClick={() => createDoc(collection)}
+        className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+      >
+        New Doc
+      </button>
+
+      <div className="flex flex-col gap-2">
         {docs.map((doc) => (
           <button
             key={doc.id}
