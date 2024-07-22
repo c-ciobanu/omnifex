@@ -2,9 +2,9 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 
 import { Metadata } from '@redwoodjs/web'
 
-import FavoritedMoviesCell from 'src/components/FavoritedMoviesCell'
-import ToWatchMoviesCell from 'src/components/ToWatchMoviesCell'
-import WatchedMoviesCell from 'src/components/WatchedMoviesCell'
+import FavoritedMoviesCell from './FavoritedMoviesCell'
+import ToWatchMoviesCell from './ToWatchMoviesCell'
+import WatchedMoviesCell from './WatchedMoviesCell'
 
 const MoviesDashboardPage = () => {
   return (

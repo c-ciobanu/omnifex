@@ -2,9 +2,9 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 
 import { Metadata } from '@redwoodjs/web'
 
-import FavoritedBooksCell from 'src/components/FavoritedBooksCell'
-import ReadBooksCell from 'src/components/ReadBooksCell'
-import ToReadBooksCell from 'src/components/ToReadBooksCell'
+import FavoritedBooksCell from './FavoritedBooksCell'
+import ReadBooksCell from './ReadBooksCell'
+import ToReadBooksCell from './ToReadBooksCell'
 
 const BooksDashboardPage = () => {
   return (
