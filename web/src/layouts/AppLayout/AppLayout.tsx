@@ -21,7 +21,7 @@ import { useAuth } from 'src/auth'
 
 const authenticatedNavigation = [
   { name: 'Movies', href: () => routes.moviesDashboard() },
-  { name: 'Books', href: () => routes.dashboard() },
+  { name: 'Books', href: () => routes.booksDashboard() },
   { name: 'Documents', href: () => routes.documents() },
 ]
 const guestNavigation = [
