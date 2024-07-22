@@ -14,7 +14,7 @@ const UnauthenticatedRoute = ({ children }: UnauthenticatedRouteProps) => {
   }
 
   if (isAuthenticated) {
-    return <Redirect to={routes.dashboard()} options={{ replace: true }} />
+    return <Redirect to={routes.documents()} options={{ replace: true }} />
   }
 
   return children as React.JSX.Element

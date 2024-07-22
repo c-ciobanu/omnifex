@@ -32,15 +32,8 @@ const Routes = () => {
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
 
         <PrivateSet unauthenticated="home">
-          <Route path="/dashboard" page={DashboardPage} name="dashboard" />
           <Route path="/dashboard/movies" page={MoviesDashboardPage} name="moviesDashboard" />
           <Route path="/dashboard/books" page={BooksDashboardPage} name="booksDashboard" />
-          <Route path="/dashboard/favorites/movies" page={UserFavoriteMoviesPage} name="userFavoriteMovies" />
-          <Route path="/dashboard/history/movies" page={UserWatchedMoviesPage} name="userWatchedMovies" />
-          <Route path="/dashboard/watchlist/movies" page={UserMoviesWatchlistPage} name="userMoviesWatchlist" />
-          <Route path="/dashboard/favorites/books" page={UserFavoriteBooksPage} name="userFavoriteBooks" />
-          <Route path="/dashboard/history/books" page={UserReadBooksPage} name="userReadBooks" />
-          <Route path="/dashboard/readinglist/books" page={UserBooksReadingListPage} name="userBooksReadingList" />
           <Route path="/documents" page={DocumentsPage} name="documents" />
         </PrivateSet>
       </Set>
