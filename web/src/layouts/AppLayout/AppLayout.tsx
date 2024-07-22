@@ -20,7 +20,7 @@ import { Toaster } from '@redwoodjs/web/dist/toast'
 import { useAuth } from 'src/auth'
 
 const authenticatedNavigation = [
-  { name: 'Movies', href: () => routes.dashboard() },
+  { name: 'Movies', href: () => routes.moviesDashboard() },
   { name: 'Books', href: () => routes.dashboard() },
   { name: 'Documents', href: () => routes.documents() },
 ]
