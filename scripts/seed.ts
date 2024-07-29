@@ -4,20 +4,6 @@ import { hashPassword } from '@redwoodjs/auth-dbauth-api'
 
 export default async () => {
   try {
-    const users = [
-      {
-        username: 'john',
-        email: 'john@doe.com',
-        password: 'john1234',
-        favoritedMovies: { create: [{ movieId: 1 }] },
-        watchedMovies: { create: [{ movieId: 1 }, { movieId: 3 }] },
-        moviesToWatch: { create: [{ movieId: 2 }] },
-        favoritedBooks: { create: { bookId: 1 } },
-        readBooks: { create: [{ bookId: 1 }, { bookId: 3 }] },
-        booksToRead: { create: { bookId: 2 } },
-      },
-      { username: 'jane', password: 'jane1234' },
-    ]
     const movies = [
       {
         genres: ['Drama'],
@@ -107,9 +93,60 @@ export default async () => {
         title: 'Food: A Love Story',
       },
     ]
-
     await db.movie.createMany({ data: movies })
     await db.book.createMany({ data: books })
+
+    const users = [
+      {
+        username: 'john',
+        email: 'john@doe.com',
+        password: 'john1234',
+        favoritedMovies: { create: [{ movieId: 1 }] },
+        watchedMovies: { create: [{ movieId: 1 }, { movieId: 3 }] },
+        moviesToWatch: { create: [{ movieId: 2 }] },
+        favoritedBooks: { create: { bookId: 1 } },
+        readBooks: { create: [{ bookId: 1 }, { bookId: 3 }] },
+        booksToRead: { create: { bookId: 2 } },
+        metrics: {
+          create: [
+            {
+              name: 'Weight',
+              unit: 'Kg',
+              entries: {
+                create: [
+                  { value: '100', date: new Date('2020-01-01') },
+                  { value: '90', date: new Date('2021-01-01') },
+                  { value: '80', date: new Date('2022-01-01') },
+                ],
+              },
+            },
+            {
+              name: 'Bench Press 10 Reps MAX',
+              unit: 'Kg',
+              entries: {
+                create: [
+                  { value: '50', date: new Date('2024-01-01') },
+                  { value: '55', date: new Date('2024-02-01') },
+                  { value: '60', date: new Date('2024-03-01') },
+                ],
+              },
+            },
+            {
+              name: 'Leg Press 10 Reps MAX',
+              unit: 'Kg',
+              entries: {
+                create: [
+                  { value: '100', date: new Date('2024-01-01') },
+                  { value: '110', date: new Date('2024-02-01') },
+                  { value: '120', date: new Date('2024-03-01') },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      { username: 'jane', password: 'jane1234' },
+    ]
 
     for (const { password, ...user } of users) {
       const [hashedPassword, salt] = hashPassword(password)
