@@ -11,9 +11,6 @@
     ]
   },
   "dependencies": {
-    "@blocksuite/blocks": "^0.15.0-canary-202405221444-2192806",
-    "@blocksuite/presets": "^0.15.0-canary-202405221444-2192806",
-    "@blocksuite/store": "^0.15.0-canary-202405221444-2192806",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
@@ -28,8 +25,7 @@
     "@redwoodjs/web-server": "7.7.3",
     "clsx": "^2.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "yjs": "^13.6.15"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@redwoodjs/vite": "7.7.3",
