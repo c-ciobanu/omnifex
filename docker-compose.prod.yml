@@ -1,9 +1,6 @@
 services:
   api:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: api_serve
+    image: ghcr.io/c-ciobanu/popcorn-time-api:latest
     ports:
       - "8911:8911"
     environment:
@@ -19,10 +16,7 @@ services:
       - MINIO_BUCKET_NAME=${MINIO_BUCKET_NAME}
 
   web:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: web_serve
+    image: ghcr.io/c-ciobanu/popcorn-time-web:latest
     ports:
       - "8910:8910"
     depends_on:
