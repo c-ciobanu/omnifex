@@ -14,7 +14,7 @@ describeScenario<StandardScenario>('toReadBooks', (getScenario) => {
   })
 
   it("adds a book to the user's reading list", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const result = await createToReadBook({ input: { bookId: scenario.book.theBerryPickers.id } })
 
     expect(result.bookId).toEqual(scenario.book.theBerryPickers.id)
@@ -28,7 +28,7 @@ describeScenario<StandardScenario>('toReadBooks', (getScenario) => {
   })
 
   it("does not add a book to the user's reading list if the book is read", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
 
     await expect(
       async () => await createToReadBook({ input: { bookId: scenario.readBook.one.bookId } })
@@ -36,7 +36,7 @@ describeScenario<StandardScenario>('toReadBooks', (getScenario) => {
   })
 
   it("removes a book from the user's reading list", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const original = await deleteToReadBook({ bookId: scenario.toReadBook.one.bookId })
     const result = await db.toReadBook.findUnique({ where: { id: original.id } })
 

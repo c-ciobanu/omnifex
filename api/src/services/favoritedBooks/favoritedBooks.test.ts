@@ -7,7 +7,7 @@ import type { StandardScenario } from './favoritedBooks.scenarios'
 
 describe('favoritedBooks', () => {
   scenario('creates a favorited book', async (scenario: StandardScenario) => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const result = await createFavoritedBook({ input: { bookId: scenario.book.thePassenger.id } })
 
     expect(result.bookId).toEqual(scenario.book.thePassenger.id)
@@ -21,7 +21,7 @@ describe('favoritedBooks', () => {
   })
 
   scenario('deletes a favorited book', async (scenario: StandardScenario) => {
-    mockCurrentUser({ id: scenario.favoritedBook.one.userId })
+    mockCurrentUser(scenario.user.john)
     const original = await deleteFavoritedBook({ bookId: scenario.favoritedBook.one.bookId })
     const result = await db.favoritedBook.findUnique({ where: { id: original.id } })
 

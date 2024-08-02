@@ -14,7 +14,7 @@ describeScenario<StandardScenario>('toWatchMovies', (getScenario) => {
   })
 
   it("adds a movie to the user's watchlist", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const result = await createToWatchMovie({ input: { movieId: scenario.movie.parasite.id } })
 
     expect(result.movieId).toEqual(scenario.movie.parasite.id)
@@ -28,7 +28,7 @@ describeScenario<StandardScenario>('toWatchMovies', (getScenario) => {
   })
 
   it("does not add a movie to the user's watchlist if the movie is watched", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
 
     await expect(
       async () => await createToWatchMovie({ input: { movieId: scenario.watchedMovie.one.movieId } })
@@ -36,7 +36,7 @@ describeScenario<StandardScenario>('toWatchMovies', (getScenario) => {
   })
 
   it("removes a movie from the user's watchlist", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const original = await deleteToWatchMovie({ movieId: scenario.toWatchMovie.one.movieId })
     const result = await db.toWatchMovie.findUnique({ where: { id: original.id } })
 

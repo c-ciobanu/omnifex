@@ -13,7 +13,7 @@ describeScenario<StandardScenario>('readBooks', (getScenario) => {
   })
 
   it('creates a read book', async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const result = await createReadBook({ input: { bookId: scenario.book.theBerryPickers.id } })
 
     expect(result.bookId).toEqual(scenario.book.theBerryPickers.id)
@@ -21,7 +21,7 @@ describeScenario<StandardScenario>('readBooks', (getScenario) => {
   })
 
   it("creates a read book and removes it from the user's reading list", async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
 
     const toReadBookCount = () =>
       db.toReadBook.count({
@@ -42,7 +42,7 @@ describeScenario<StandardScenario>('readBooks', (getScenario) => {
   })
 
   it('deletes a read book', async () => {
-    mockCurrentUser({ id: scenario.user.john.id })
+    mockCurrentUser(scenario.user.john)
     const original = await deleteReadBook({ bookId: scenario.readBook.one.bookId })
     const result = await db.readBook.findUnique({ where: { id: original.id } })
 
