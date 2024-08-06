@@ -23,6 +23,7 @@ const authenticatedNavigation = [
   { name: 'Movies', href: () => routes.moviesDashboard() },
   { name: 'Books', href: () => routes.booksDashboard() },
   { name: 'Documents', href: () => routes.documents() },
+  { name: 'Tracker', href: () => routes.tracker() },
 ]
 const guestNavigation = [
   { name: 'Search Movie', href: () => routes.search({ entity: 'movie' }) },
