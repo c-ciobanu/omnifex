@@ -4,13 +4,13 @@ export const schema = gql`
     name: String!
     unit: String
     entries: [MetricEntry!]!
-    latestEntry: MetricEntry
+    latestEntry: MetricEntry!
   }
 
   type MetricEntry {
     id: Int!
     value: String!
-    date: DateTime!
+    date: Date!
   }
 
   type Query {
