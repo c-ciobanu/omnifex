@@ -35,4 +35,12 @@ export const deleteMetric: MutationResolvers['deleteMetric'] = ({ id }) => {
 
 export const Metric: MetricRelationResolvers = {
   entries: (_obj, { root }) => db.metric.findUnique({ where: { id: root.id } }).entries(),
+  latestEntry: async (_obj, { root }) => {
+    const metrics = await db.metric.findUnique({ where: { id: root.id } }).entries({
+      take: 1,
+      orderBy: { date: 'desc' },
+    })
+
+    return metrics[0]
+  },
 }
