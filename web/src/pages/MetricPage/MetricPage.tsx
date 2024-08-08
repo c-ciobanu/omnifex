@@ -1,11 +1,11 @@
 import MetricCell from './MetricCell'
 
 type MetricPageProps = {
-  metricId: number
+  id: number
 }
 
-const MetricPage = ({ metricId }: MetricPageProps) => {
-  return <MetricCell id={metricId} />
+const MetricPage = ({ id }: MetricPageProps) => {
+  return <MetricCell id={id} />
 }
 
 export default MetricPage

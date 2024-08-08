@@ -4,6 +4,6 @@ import MetricPage from './MetricPage'
 
 describe('MetricPage', () => {
   it('renders successfully', () => {
-    expect(() => render(<MetricPage metricId={1} />)).not.toThrow()
+    expect(() => render(<MetricPage id={1} />)).not.toThrow()
   })
 })

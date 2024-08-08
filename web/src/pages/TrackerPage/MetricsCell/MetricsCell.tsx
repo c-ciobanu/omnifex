@@ -30,7 +30,7 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
       {metrics.map((metric) => (
         <li key={metric.id}>
           <Link
-            to={routes.metric({ metricId: metric.id })}
+            to={routes.metric({ id: metric.id })}
             title={metric.name}
             className="flex items-center justify-between gap-6 py-4"
           >
