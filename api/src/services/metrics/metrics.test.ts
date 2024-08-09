@@ -1,4 +1,15 @@
-import { metrics, metric, createMetric, updateMetric, deleteMetric } from './metrics'
+import { db } from 'src/lib/db'
+
+import {
+  metrics,
+  metric,
+  createMetric,
+  updateMetric,
+  deleteMetric,
+  createMetricEntry,
+  updateMetricEntry,
+  deleteMetricEntry,
+} from './metrics'
 import type { StandardScenario } from './metrics.scenarios'
 
 describe('metrics', () => {
@@ -37,5 +48,32 @@ describe('metrics', () => {
     const result = await metric({ id: original.id })
 
     expect(result).toEqual(null)
+  })
+
+  scenario('creates a metricEntry', async (scenario: StandardScenario) => {
+    mockCurrentUser(scenario.user.john)
+
+    const result = await createMetricEntry({
+      input: { value: 'String', date: new Date('2024-08-05'), metricId: scenario.metric.two.id },
+    })
+
+    expect(result.value).toEqual('String')
+    expect(result.date).toEqual(new Date('2024-08-05'))
+  })
+
+  scenario('updates a metricEntry', async (scenario: StandardScenario) => {
+    mockCurrentUser(scenario.user.john)
+
+    const result = await updateMetricEntry({ id: scenario.metric.two.entries[0].id, input: { value: 'String2' } })
+
+    expect(result.value).toEqual('String2')
+  })
+
+  scenario('deletes a metricEntry', async (scenario: StandardScenario) => {
+    mockCurrentUser(scenario.user.john)
+
+    await deleteMetricEntry({ id: scenario.metric.two.entries[0].id })
+
+    await expect(db.metricEntry.count({ where: { id: scenario.metric.two.entries[0].id } })).resolves.toBe(0)
   })
 })

@@ -28,9 +28,23 @@ export const schema = gql`
     unit: String
   }
 
+  input CreateMetricEntryInput {
+    value: String!
+    date: Date!
+    metricId: Int!
+  }
+
+  input UpdateMetricEntryInput {
+    value: String
+    date: Date
+  }
+
   type Mutation {
     createMetric(input: CreateMetricInput!): Metric! @requireAuth
     updateMetric(id: Int!, input: UpdateMetricInput!): Metric! @requireAuth
     deleteMetric(id: Int!): Metric! @requireAuth
+    createMetricEntry(input: CreateMetricEntryInput!): MetricEntry! @requireAuth
+    updateMetricEntry(id: Int!, input: UpdateMetricEntryInput!): MetricEntry! @requireAuth
+    deleteMetricEntry(id: Int!): MetricEntry! @requireAuth
   }
 `

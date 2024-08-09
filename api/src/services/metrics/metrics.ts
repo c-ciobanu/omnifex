@@ -33,6 +33,24 @@ export const deleteMetric: MutationResolvers['deleteMetric'] = ({ id }) => {
   return db.metric.delete({ where: { id, userId: context.currentUser.id } })
 }
 
+export const createMetricEntry: MutationResolvers['createMetricEntry'] = ({ input }) => {
+  requireAuth()
+
+  return db.metricEntry.create({ data: input })
+}
+
+export const updateMetricEntry: MutationResolvers['updateMetricEntry'] = ({ id, input }) => {
+  requireAuth()
+
+  return db.metricEntry.update({ data: input, where: { id } })
+}
+
+export const deleteMetricEntry: MutationResolvers['deleteMetricEntry'] = ({ id }) => {
+  requireAuth()
+
+  return db.metricEntry.delete({ where: { id } })
+}
+
 export const Metric: MetricRelationResolvers = {
   entries: (_obj, { root }) => db.metric.findUnique({ where: { id: root.id } }).entries({ orderBy: { date: 'desc' } }),
   latestEntry: async (_obj, { root }) => {

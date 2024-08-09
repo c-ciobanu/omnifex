@@ -170,7 +170,7 @@ model MetricEntry {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  metric   Metric @relation(fields: [metricId], references: [id])
+  metric   Metric @relation(fields: [metricId], references: [id], onDelete: Cascade)
   metricId Int
 
   @@unique([metricId, date])
