@@ -7,7 +7,10 @@ describe('NewMetricEntryModal', () => {
     expect(() =>
       render(
         <NewMetricEntryModal
-          trigger={(onClick) => <button onClick={onClick}>Open</button>}
+          isOpen={false}
+          onClose={() => {}}
+          onSubmit={() => {}}
+          isSubmitting={false}
           defaultValue="100"
           valueUnit="Kg"
         />
