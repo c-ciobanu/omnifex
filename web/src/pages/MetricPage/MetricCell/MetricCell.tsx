@@ -1,6 +1,10 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { MetricQuery, MetricQueryVariables } from 'types/graphql'
 
 import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, Metadata } from '@redwoodjs/web'
+
+import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 
 export const QUERY: TypedDocumentNode<MetricQuery, MetricQueryVariables> = gql`
   query MetricQuery($id: Int!) {
@@ -30,7 +34,23 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
     <>
       <Metadata title={`${metric.name} Tracker`} />
 
-      <h2 className="mb-4 text-2xl font-bold">{metric.name}</h2>
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h2 className="text-2xl font-bold">{metric.name}</h2>
+
+        <NewMetricEntryModal
+          trigger={(onClick) => (
+            <button
+              onClick={onClick}
+              className="flex shrink-0 items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              Add Entry
+            </button>
+          )}
+          defaultValue={metric.entries[0].value}
+          valueUnit={metric.unit}
+        />
+      </div>
 
       <ul className="divide-y divide-white">
         {metric.entries.map((entry) => (
