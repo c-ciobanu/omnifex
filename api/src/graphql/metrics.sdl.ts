@@ -18,9 +18,15 @@ export const schema = gql`
     metric(id: Int!): Metric @requireAuth
   }
 
+  input MetricEntryInput {
+    value: String!
+    date: Date!
+  }
+
   input CreateMetricInput {
     name: String!
     unit: String
+    entry: MetricEntryInput
   }
 
   input UpdateMetricInput {

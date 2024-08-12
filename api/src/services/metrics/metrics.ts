@@ -18,7 +18,15 @@ export const metric: QueryResolvers['metric'] = ({ id }) => {
 export const createMetric: MutationResolvers['createMetric'] = ({ input }) => {
   requireAuth()
 
-  return db.metric.create({ data: { ...input, userId: context.currentUser.id } })
+  const { entry, ...metricData } = input
+
+  return db.metric.create({
+    data: {
+      ...metricData,
+      userId: context.currentUser.id,
+      entries: { create: [entry] },
+    },
+  })
 }
 
 export const updateMetric: MutationResolvers['updateMetric'] = ({ id, input }) => {

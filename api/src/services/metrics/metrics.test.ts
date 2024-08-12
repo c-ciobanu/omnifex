@@ -29,7 +29,9 @@ describe('metrics', () => {
 
   scenario('creates a metric', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
-    const result = await createMetric({ input: { name: 'String' } })
+    const result = await createMetric({
+      input: { name: 'String', unit: 'String', entry: { value: 'String', date: new Date('2024-08-05') } },
+    })
 
     expect(result.name).toEqual('String')
   })
