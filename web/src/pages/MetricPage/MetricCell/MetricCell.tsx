@@ -73,7 +73,7 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
         <NewMetricEntryModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          onSubmit={({ value, date }: { value: string; date: Date }) =>
+          onSubmit={({ value, date }) =>
             createMetricEntry({
               variables: { input: { metricId: metric.id, value, date: date.toISOString().substring(0, 10) } },
             })
