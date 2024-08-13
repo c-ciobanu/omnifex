@@ -26,7 +26,7 @@ export const Success = ({ favoritedBooks }: CellSuccessProps<FavoritedBooksQuery
       {favoritedBooks.map((book) => (
         <li key={book.id}>
           <Link to={routes.book({ googleId: book.googleId })} title={book.title}>
-            <img src={book.coverUrl} alt={`${book.title} cover`} />
+            <img src={book.coverUrl} alt={`${book.title} cover`} className="h-full w-full" />
           </Link>
         </li>
       ))}

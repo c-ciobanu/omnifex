@@ -26,7 +26,7 @@ export const Success = ({ favoriteMovies }: CellSuccessProps<FavoritedMoviesQuer
       {favoriteMovies.map((movie) => (
         <li key={movie.id}>
           <Link to={routes.movie({ tmdbId: movie.tmdbId })} title={movie.title}>
-            <img src={movie.posterUrl} alt={`${movie.title} poster`} />
+            <img src={movie.posterUrl} alt={`${movie.title} poster`} className="h-full w-full" />
           </Link>
         </li>
       ))}
