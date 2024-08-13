@@ -12,8 +12,8 @@ jobs:
       packages: write
       attestations: write
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Docker Buildx API
         uses: docker/setup-buildx-action@v3
@@ -37,7 +37,9 @@ jobs:
           target: api_serve
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/${{ github.repository }}-api:latest
+          tags: |
+            ghcr.io/${{ github.repository }}-api:latest
+            ghcr.io/${{ github.repository }}-api:${{ github.sha }}
 
       - name: Build and push Web
         uses: docker/build-push-action@v6
@@ -46,7 +48,9 @@ jobs:
           target: web_serve
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/${{ github.repository }}-web:latest
+          tags: |
+            ghcr.io/${{ github.repository }}-web:latest
+            ghcr.io/${{ github.repository }}-web:${{ github.sha }}
 
   deploy:
     needs: build-and-push-images
