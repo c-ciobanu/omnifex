@@ -86,7 +86,7 @@ const NewMetricModal = (props: NewMetricModalProps) => {
                 disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-auto"
               >
-                Add
+                Create
               </Submit>
 
               <button

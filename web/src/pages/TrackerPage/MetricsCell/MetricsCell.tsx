@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { MetricsQuery, MetricsQueryVariables } from 'types/graphql'
 
@@ -31,13 +31,7 @@ const CREATE_METRIC = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
-
-export const Empty = () => <div>Empty</div>
-
-export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
-
-export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
+const NewMetric = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [createMetric, { loading: createMetricLoading }] = useMutation(CREATE_METRIC, {
@@ -49,27 +43,51 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-end gap-4">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="flex shrink-0 items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          Add Metric
-        </button>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="flex shrink-0 items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        New Metric
+      </button>
 
-        <NewMetricModal
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          onSubmit={(data) =>
-            createMetric({
-              variables: {
-                input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
-              },
-            })
-          }
-          isSubmitting={createMetricLoading}
-        />
+      <NewMetricModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onSubmit={(data) =>
+          createMetric({
+            variables: {
+              input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
+            },
+          })
+        }
+        isSubmitting={createMetricLoading}
+      />
+    </>
+  )
+}
+
+export const Loading = () => <div>Loading...</div>
+
+export const Empty = () => (
+  <div className="min-h-main flex flex-col items-center justify-center">
+    <FontAwesomeIcon icon={faChartLine} className="text-4xl" />
+
+    <h4 className="mt-4 text-sm font-semibold text-gray-900">No metrics tracked</h4>
+
+    <p className="mb-6 mt-1 text-sm text-gray-500">Get started by creating a new metric.</p>
+
+    <NewMetric />
+  </div>
+)
+
+export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
+
+export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
+  return (
+    <>
+      <div className="mb-4 flex items-center justify-end gap-4">
+        <NewMetric />
       </div>
 
       <ul className="divide-y divide-white">
