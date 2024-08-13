@@ -68,10 +68,11 @@ const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
                 disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-auto"
               >
-                Add
+                Save
               </Submit>
 
               <button
+                type="button"
                 data-autofocus
                 onClick={onClose}
                 className="w-full rounded-md bg-white px-4 py-2 text-center text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:w-auto"

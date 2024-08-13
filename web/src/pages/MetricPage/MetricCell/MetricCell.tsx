@@ -67,7 +67,7 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
           className="flex shrink-0 items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
         >
           <FontAwesomeIcon icon={faPlus} />
-          Add Entry
+          New Entry
         </button>
 
         <NewMetricEntryModal
