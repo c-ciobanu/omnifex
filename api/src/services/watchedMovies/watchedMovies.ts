@@ -20,7 +20,6 @@ export const watchedMovies: QueryResolvers['watchedMovies'] = async ({ input }) 
   return movies.map((m) => ({
     ...m,
     posterUrl: `http://image.tmdb.org/t/p/w185${m.tmdbPosterPath}`,
-    rating: m.rating.toNumber(),
   }))
 }
 

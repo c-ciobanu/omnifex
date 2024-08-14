@@ -1,5 +1,6 @@
+import { Prisma } from '@prisma/client'
 import { Movie as PrismaMovie } from '@prisma/client'
-import type { MovieDetailsRelationResolvers, QueryResolvers } from 'types/graphql'
+import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
@@ -56,11 +57,11 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
     ...m,
     releaseDate: new Date(m.releaseDate),
     posterUrl: `http://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
-    rating: Number(m.rating),
+    rating: new Prisma.Decimal(m.rating),
   }
 }
 
-export const MovieDetails: MovieDetailsRelationResolvers = {
+export const Movie: MovieRelationResolvers = {
   userInfo: async (_obj, { root }) => {
     if (context.currentUser) {
       const favoritedMovieCount = await db.favoritedMovie.count({

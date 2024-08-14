@@ -7,9 +7,10 @@ export const schema = gql`
     title: String!
   }
 
-  type MovieDetails {
+  type Movie {
     id: Int!
     genres: [String!]!
+    imdbId: String!
     overview: String!
     posterUrl: String!
     rating: Float!
@@ -28,7 +29,7 @@ export const schema = gql`
   }
 
   type Query {
-    movie(tmdbId: Int!): MovieDetails @skipAuth
     movies(title: String!): [SearchMovie!]! @skipAuth
+    movie(tmdbId: Int!): Movie @skipAuth
   }
 `

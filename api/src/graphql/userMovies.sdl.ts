@@ -11,9 +11,9 @@ export const schema = gql`
   }
 
   type Query {
-    favoriteMovies(input: UserMoviesInput!): [MovieDetails!]! @requireAuth
-    watchedMovies(input: UserMoviesInput!): [MovieDetails!]! @requireAuth
-    toWatchMovies(input: UserMoviesInput!): [MovieDetails!]! @requireAuth
+    favoriteMovies(input: UserMoviesInput!): [Movie!]! @requireAuth
+    watchedMovies(input: UserMoviesInput!): [Movie!]! @requireAuth
+    toWatchMovies(input: UserMoviesInput!): [Movie!]! @requireAuth
   }
 
   input CreateUserMovieInput {
