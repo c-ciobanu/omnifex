@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import { faChartLine, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faEllipsisVertical, faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import type { MetricsQuery, MetricsQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -92,24 +93,52 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
 
       <ul className="divide-y divide-white">
         {metrics.map((metric) => (
-          <li key={metric.id}>
-            <Link
-              to={routes.metric({ id: metric.id })}
-              title={metric.name}
-              className="flex items-center justify-between gap-6 py-4"
-            >
+          <li key={metric.id} className="flex items-center justify-between gap-6 py-4">
+            <div>
               <p className="text-sm font-semibold text-gray-900">{metric.name}</p>
 
-              <div className="flex shrink-0 flex-col items-end">
-                <p className="text-sm leading-6 text-gray-900">
+              <p className="mt-1 text-xs text-gray-500">
+                <time dateTime={metric.latestEntry.date}>{metric.latestEntry.date}</time>
+                {' • '}
+                <span className="text-gray-900">
                   {metric.latestEntry.value} {metric.unit}
-                </p>
+                </span>
+              </p>
+            </div>
 
-                <p className="mt-1 text-xs leading-5 text-gray-500">
-                  <time dateTime={metric.latestEntry.date}>{metric.latestEntry.date}</time>
-                </p>
-              </div>
-            </Link>
+            <div className="shrink-0 space-x-4">
+              <Link to={routes.metric({ id: metric.id })} title={metric.name}>
+                <button className="rounded-md border px-4 py-2 text-sm font-semibold shadow-sm hover:bg-gray-200">
+                  View Metric
+                </button>
+              </Link>
+
+              <Menu>
+                <MenuButton className="rounded-md px-4 py-2 text-sm hover:bg-gray-200 hover:shadow-sm">
+                  <FontAwesomeIcon icon={faEllipsisVertical} />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  anchor="bottom end"
+                  className="w-32 origin-top-right rounded-xl border border-white/5 bg-white p-1 text-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
+                >
+                  <MenuItem>
+                    <button className="flex w-full items-center gap-2 px-4 py-2 data-[focus]:bg-gray-200">
+                      <FontAwesomeIcon icon={faPen} fixedWidth />
+                      Edit
+                    </button>
+                  </MenuItem>
+
+                  <MenuItem>
+                    <button className="flex w-full items-center gap-2 px-4 py-2 data-[focus]:bg-gray-200">
+                      <FontAwesomeIcon icon={faTrash} fixedWidth />
+                      Delete
+                    </button>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
           </li>
         ))}
       </ul>
