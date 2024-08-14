@@ -30,9 +30,9 @@ export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
             <Link
               to={routes.movie({ tmdbId: movie.tmdbId })}
               title={movie.title}
-              className="flex gap-x-6 py-6 hover:bg-white"
+              className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-white"
             >
-              <img src={movie.posterUrl} alt={`${movie.title} poster`} />
+              <img src={movie.posterUrl} alt={`${movie.title} poster`} className="h-44 w-full" />
               <div>
                 <p>{movie.title}</p>
                 <p className="text-gray-500">{movie.releaseYear}</p>

@@ -16,6 +16,11 @@ interface FormValues {
   entity: 'book' | 'movie'
 }
 
+const titles = {
+  book: 'Book',
+  movie: 'Movie',
+}
+
 type SearchPageProps = {
   entity: FormValues['entity']
 }
@@ -39,7 +44,7 @@ const SearchPage = (props: SearchPageProps) => {
 
   return (
     <>
-      <Metadata title="Movie Search" />
+      <Metadata title={`${titles[props.entity]} Search`} />
 
       <Form onSubmit={onSubmit} formMethods={formMethods} className="mb-4 flex gap-2">
         <TextField

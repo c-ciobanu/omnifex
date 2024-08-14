@@ -13,7 +13,7 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
   return tmdbMovies.map((tmdbMovie) => ({
     tmdbId: tmdbMovie.id,
     overview: tmdbMovie.overview,
-    posterUrl: `http://image.tmdb.org/t/p/w92${tmdbMovie.poster_path}`,
+    posterUrl: `http://image.tmdb.org/t/p/w154${tmdbMovie.poster_path}`,
     releaseYear: Number(tmdbMovie.release_date.split('-')[0]),
     title: tmdbMovie.title,
   }))

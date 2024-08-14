@@ -30,9 +30,9 @@ export const Success = ({ books }: CellSuccessProps<BooksQuery>) => {
             <Link
               to={routes.book({ googleId: book.googleId })}
               title={book.title}
-              className="flex gap-x-6 py-6 hover:bg-white"
+              className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-white"
             >
-              <img src={book.coverUrl} alt={`${book.title} cover`} />
+              <img src={book.coverUrl} alt={`${book.title} cover`} className="h-44 w-full" />
               <div>
                 <p>{book.title}</p>
                 <p className="text-gray-500">{book.publicationDate?.split('-')[0]}</p>
