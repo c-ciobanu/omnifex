@@ -5,13 +5,12 @@ import { validateWith } from '@redwoodjs/api'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
-export const toReadBooks: QueryResolvers['toReadBooks'] = async ({ input }) => {
+export const toReadBooks: QueryResolvers['toReadBooks'] = async () => {
   requireAuth()
 
   const toReadBooks = await db.toReadBook.findMany({
     where: { userId: context.currentUser.id },
     select: { book: true },
-    take: input.take,
     orderBy: { createdAt: 'desc' },
   })
 

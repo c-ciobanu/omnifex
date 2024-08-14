@@ -4,8 +4,8 @@ import { Link, routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
 
 export const QUERY: TypedDocumentNode<FavoritedBooksQuery, FavoritedBooksQueryVariables> = gql`
-  query FavoritedBooksQuery($numberToShow: Int) {
-    favoritedBooks(input: { take: $numberToShow }) {
+  query FavoritedBooksQuery {
+    favoritedBooks {
       id
       title
       googleId

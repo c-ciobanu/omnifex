@@ -6,14 +6,10 @@ export const schema = gql`
     userId: Int!
   }
 
-  input UserMoviesInput {
-    take: Int
-  }
-
   type Query {
-    favoriteMovies(input: UserMoviesInput!): [Movie!]! @requireAuth
-    watchedMovies(input: UserMoviesInput!): [Movie!]! @requireAuth
-    toWatchMovies(input: UserMoviesInput!): [Movie!]! @requireAuth
+    favoriteMovies: [Movie!]! @requireAuth
+    watchedMovies: [Movie!]! @requireAuth
+    toWatchMovies: [Movie!]! @requireAuth
   }
 
   input CreateUserMovieInput {

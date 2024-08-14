@@ -3,13 +3,12 @@ import type { MutationResolvers, QueryResolvers } from 'types/graphql'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
-export const favoriteMovies: QueryResolvers['favoriteMovies'] = async ({ input }) => {
+export const favoriteMovies: QueryResolvers['favoriteMovies'] = async () => {
   requireAuth()
 
   const favoritedMovies = await db.favoritedMovie.findMany({
     where: { userId: context.currentUser.id },
     select: { movie: true },
-    take: input.take,
     orderBy: { createdAt: 'desc' },
   })
 

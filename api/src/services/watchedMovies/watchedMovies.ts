@@ -5,13 +5,12 @@ import { db } from 'src/lib/db'
 
 import { deleteToWatchMovie } from '../toWatchMovies/toWatchMovies'
 
-export const watchedMovies: QueryResolvers['watchedMovies'] = async ({ input }) => {
+export const watchedMovies: QueryResolvers['watchedMovies'] = async () => {
   requireAuth()
 
   const watchedMovies = await db.watchedMovie.findMany({
     where: { userId: context.currentUser.id },
     select: { movie: true },
-    take: input.take,
     orderBy: { createdAt: 'desc' },
   })
 

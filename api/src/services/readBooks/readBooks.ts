@@ -5,13 +5,12 @@ import { db } from 'src/lib/db'
 
 import { deleteToReadBook } from '../toReadBooks/toReadBooks'
 
-export const readBooks: QueryResolvers['readBooks'] = async ({ input }) => {
+export const readBooks: QueryResolvers['readBooks'] = async () => {
   requireAuth()
 
   const readBooks = await db.readBook.findMany({
     where: { userId: context.currentUser.id },
     select: { book: true },
-    take: input.take,
     orderBy: { createdAt: 'desc' },
   })
 
