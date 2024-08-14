@@ -22,7 +22,7 @@ describe('BooksCell', () => {
 
     books.forEach((book) => {
       expect(screen.getByText(book.title)).toBeInTheDocument()
-      expect(screen.getByText(book.publicationDate.split('-')[0])).toBeInTheDocument()
+      expect(screen.getByText(book.publicationYear)).toBeInTheDocument()
     })
   })
 })

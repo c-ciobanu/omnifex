@@ -73,7 +73,7 @@ export const Success = ({ book }: CellSuccessProps<BookQuery>) => {
           </div>
         </div>
 
-        {isAuthenticated && book.id ? (
+        {isAuthenticated ? (
           <div className="lg:w-72 lg:flex-shrink-0">
             <Actions book={book} />
           </div>
