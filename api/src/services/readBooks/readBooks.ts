@@ -19,7 +19,7 @@ export const readBooks: QueryResolvers['readBooks'] = async ({ input }) => {
 
   return books.map((b) => ({
     ...b,
-    coverUrl: `https://books.google.com/books/content?id=${b.googleId}&printsec=frontcover&img=1&zoom=3`,
+    coverUrl: `https://books.google.com/books/content?id=${b.googleId}&printsec=frontcover&img=1&zoom=1`,
   }))
 }
 
