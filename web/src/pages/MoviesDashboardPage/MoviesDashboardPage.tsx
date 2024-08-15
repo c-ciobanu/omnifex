@@ -1,6 +1,6 @@
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-
 import { Metadata } from '@redwoodjs/web'
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
 import FavoritedMoviesCell from './FavoritedMoviesCell'
 import ToWatchMoviesCell from './ToWatchMoviesCell'
@@ -11,31 +11,23 @@ const MoviesDashboardPage = () => {
     <>
       <Metadata title="Movies Dashboard" robots="noindex" />
 
-      <TabGroup>
-        <TabList className="mb-4 inline-block space-x-5 border-b-2">
-          <Tab className="-mb-[2px] border-b-2 pb-2 data-[hover]:border-gray-400 data-[selected]:border-blue-600">
-            Watchlist
-          </Tab>
-          <Tab className="-mb-[2px] border-b-2 pb-2 data-[hover]:border-gray-400 data-[selected]:border-blue-600">
-            Watched
-          </Tab>
-          <Tab className="-mb-[2px] border-b-2 pb-2 data-[hover]:border-gray-400 data-[selected]:border-blue-600">
-            Favorites
-          </Tab>
-        </TabList>
+      <Tabs defaultValue="watchlist">
+        <TabsList>
+          <TabsTrigger value="watchlist">Watchlist</TabsTrigger>
+          <TabsTrigger value="watched">Watched</TabsTrigger>
+          <TabsTrigger value="favorites">Favorites</TabsTrigger>
+        </TabsList>
 
-        <TabPanels>
-          <TabPanel>
-            <ToWatchMoviesCell />
-          </TabPanel>
-          <TabPanel>
-            <WatchedMoviesCell />
-          </TabPanel>
-          <TabPanel>
-            <FavoritedMoviesCell />
-          </TabPanel>
-        </TabPanels>
-      </TabGroup>
+        <TabsContent value="watchlist">
+          <ToWatchMoviesCell />
+        </TabsContent>
+        <TabsContent value="watched">
+          <WatchedMoviesCell />
+        </TabsContent>
+        <TabsContent value="favorites">
+          <FavoritedMoviesCell />
+        </TabsContent>
+      </Tabs>
     </>
   )
 }
