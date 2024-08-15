@@ -1,19 +1,9 @@
-import {
-  faEye as faRegularEye,
-  faHeart as faRegularHeart,
-  faRectangleList as faRegularRectangleList,
-} from '@fortawesome/free-regular-svg-icons'
-import {
-  faEye as faSolidEye,
-  faHeart as faSolidHeart,
-  faRectangleList as faSolidRectangleList,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import clsx from 'clsx'
+import { Eye, EyeOff, Heart, HeartOff, ListMinus, ListPlus } from 'lucide-react'
 import { Book } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
+import { cn } from 'src/lib/utils'
 import { QUERY as BookQuery } from 'src/pages/BookPage/BookCell/BookCell'
 
 type ActionsProps = {
@@ -126,14 +116,14 @@ const Actions = ({ book }: ActionsProps) => {
       <button
         onClick={toggleReadStatus}
         disabled={createReadLoading || deleteReadLoading}
-        className={clsx(
-          'flex items-center gap-2 rounded-sm border border-teal-500 px-2 py-3 uppercase',
+        className={cn(
+          'flex items-center gap-4 rounded-sm border border-teal-500 px-2 py-3 uppercase',
           read
             ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
             : 'text-teal-500 hover:bg-teal-500 hover:text-white'
         )}
       >
-        <FontAwesomeIcon icon={read ? faSolidEye : faRegularEye} className="text-3xl" />
+        {read ? <Eye /> : <EyeOff />}
         <span className="whitespace-nowrap font-medium">{read ? 'Read' : 'Set as read'}</span>
       </button>
 
@@ -141,14 +131,14 @@ const Actions = ({ book }: ActionsProps) => {
         <button
           onClick={toggleToReadStatus}
           disabled={createToReadLoading || deleteToReadLoading}
-          className={clsx(
-            'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+          className={cn(
+            'flex items-center gap-4 rounded-sm border border-sky-500 px-2 py-3 uppercase',
             inReadingList
               ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
               : 'text-sky-500 hover:bg-sky-500 hover:text-white'
           )}
         >
-          <FontAwesomeIcon icon={inReadingList ? faSolidRectangleList : faRegularRectangleList} className="text-3xl" />
+          {inReadingList ? <ListPlus /> : <ListMinus />}
           <span className="whitespace-nowrap font-medium">
             {inReadingList ? 'Listed on reading list' : 'Add to reading list'}
           </span>
@@ -158,14 +148,14 @@ const Actions = ({ book }: ActionsProps) => {
       <button
         onClick={toggleFavoritedStatus}
         disabled={createFavoritedLoading || deleteFavoritedLoading}
-        className={clsx(
-          'flex items-center gap-2 rounded-sm border border-red-500 px-2 py-3 uppercase',
+        className={cn(
+          'flex items-center gap-4 rounded-sm border border-red-500 px-2 py-3 uppercase',
           favorited
             ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
             : 'text-red-500 hover:bg-red-500 hover:text-white'
         )}
       >
-        <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} className="text-3xl" />
+        {favorited ? <Heart /> : <HeartOff />}
         <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
       </button>
     </div>

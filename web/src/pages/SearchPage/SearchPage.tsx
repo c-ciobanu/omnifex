@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react'
 
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Search } from 'lucide-react'
 
 import { Form, SelectField, Submit, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
 import { navigate, useParams } from '@redwoodjs/router'
 import { routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
+
+import { Button } from 'src/components/ui/button'
 
 import BooksCell from './BooksCell'
 import MoviesCell from './MoviesCell'
@@ -61,9 +62,11 @@ const SearchPage = (props: SearchPageProps) => {
           <option value="book">Book</option>
         </SelectField>
 
-        <Submit className="mt-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
-          <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth />
-        </Submit>
+        <Button asChild size="icon" className="mt-2 shrink-0">
+          <Submit>
+            <Search className="h-5 w-5" />
+          </Submit>
+        </Button>
       </Form>
 
       {params.q ? props.entity === 'movie' ? <MoviesCell title={params.q} /> : <BooksCell title={params.q} /> : null}

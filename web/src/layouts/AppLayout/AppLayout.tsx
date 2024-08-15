@@ -51,7 +51,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <nav>
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center">
-              <Button asChild variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+              <Button asChild variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="-ml-1">
                 <Link to={isAuthenticated ? routes.documents() : routes.home()}>
                   <img className="h-8 w-8" src="/img/logo.svg" alt="Popcorn Time" />
                 </Link>
@@ -82,7 +82,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               </Button>
 
               <DropdownMenu>
-                <Button asChild variant="ghost" size="icon" className="hidden text-gray-300 md:inline-flex">
+                <Button asChild variant="ghost" size="icon" className="-mr-2 hidden text-gray-300 md:inline-flex">
                   <DropdownMenuTrigger>{isAuthenticated ? <Smile /> : <Frown />}</DropdownMenuTrigger>
                 </Button>
 

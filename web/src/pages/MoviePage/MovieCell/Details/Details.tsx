@@ -1,5 +1,4 @@
-import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Star } from 'lucide-react'
 import { MovieQuery } from 'types/graphql'
 
 export const formatMinutesToHoursAndMinutes = (minutes: number) => {
@@ -18,9 +17,12 @@ const Details = ({ movie }: DetailsProps) => {
     <div>
       <h2 className="text-2xl font-bold">{movie.title}</h2>
       <q>{movie.tagline}</q>
-      <h4 className="text-gray-400">
-        {movie.releaseDate.split('-')[0]} · {formatMinutesToHoursAndMinutes(movie.runtime)} ·{' '}
-        <FontAwesomeIcon icon={faStar} className="text-yellow-300" />{' '}
+      <h4 className="flex items-center text-gray-400">
+        {movie.releaseDate.split('-')[0]}
+        {' · '}
+        {formatMinutesToHoursAndMinutes(movie.runtime)}
+        {' ·  '}
+        <Star className="mx-1 h-5 w-5 fill-yellow-300 text-yellow-300" />
         <span className="text-lg font-bold text-gray-900">{movie.rating}</span>/10
       </h4>
 
