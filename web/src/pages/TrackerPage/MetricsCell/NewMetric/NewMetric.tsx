@@ -1,4 +1,10 @@
+import { useState } from 'react'
+
+import { Plus } from 'lucide-react'
+import { CreateMetricMutation, CreateMetricMutationVariables } from 'types/graphql'
+
 import { DateField, FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import {
@@ -11,20 +17,56 @@ import {
   DialogTrigger,
 } from 'src/components/ui/dialog'
 
-type NewMetricModalProps = {
-  trigger: React.ReactNode
-  isOpen: boolean
-  setIsOpen: (open: boolean) => void
-  onSubmit: ({ name, unit, entry }: { name: string; unit?: string; entry: { value: string; date: Date } }) => void
-  isSubmitting: boolean
-}
+import { QUERY } from '../MetricsCell'
 
-const NewMetricModal = (props: NewMetricModalProps) => {
-  const { trigger, isOpen, setIsOpen, onSubmit, isSubmitting } = props
+const CREATE_METRIC = gql`
+  mutation CreateMetricMutation($input: CreateMetricInput!) {
+    createMetric(input: $input) {
+      id
+      name
+      unit
+      latestEntry {
+        id
+        value
+        date
+      }
+    }
+  }
+`
+
+const NewMetric = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const [createMetric, { loading }] = useMutation<CreateMetricMutation, CreateMetricMutationVariables>(CREATE_METRIC, {
+    onCompleted: () => {
+      setIsOpen(false)
+    },
+    update(cache, { data: { createMetric } }) {
+      const data = cache.readQuery({ query: QUERY })
+
+      cache.writeQuery({
+        query: QUERY,
+        data: { ...data, metrics: data.metrics.concat([createMetric]) },
+      })
+    },
+  })
+
+  function onSubmit(data: { name: string; unit?: string; entry: { value: string; date: Date } }) {
+    createMetric({
+      variables: {
+        input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
+      },
+    })
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger asChild>
+        <Button className="gap-2">
+          <Plus className="h-4 w-4" />
+          New Metric
+        </Button>
+      </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <Form onSubmit={onSubmit}>
@@ -90,7 +132,7 @@ const NewMetricModal = (props: NewMetricModalProps) => {
             </DialogClose>
 
             <Button asChild>
-              <Submit disabled={isSubmitting}>Save</Submit>
+              <Submit disabled={loading}>Save</Submit>
             </Button>
           </DialogFooter>
         </Form>
@@ -99,4 +141,4 @@ const NewMetricModal = (props: NewMetricModalProps) => {
   )
 }
 
-export default NewMetricModal
+export default NewMetric

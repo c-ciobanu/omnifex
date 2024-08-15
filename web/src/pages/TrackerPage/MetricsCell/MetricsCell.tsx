@@ -1,10 +1,10 @@
-import { useReducer, useState } from 'react'
+import { useReducer } from 'react'
 
-import { ChartLine, MoreVertical, Plus } from 'lucide-react'
+import { ChartLine, MoreVertical } from 'lucide-react'
 import type { MetricsQuery, MetricsQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import {
@@ -17,7 +17,7 @@ import {
 } from 'src/components/ui/dropdown-menu'
 
 import EditMetricModal from './EditMetricModal/EditMetricModal'
-import NewMetricModal from './NewMetricModal/NewMetricModal'
+import NewMetric from './NewMetric/NewMetric'
 
 export const QUERY: TypedDocumentNode<MetricsQuery, MetricsQueryVariables> = gql`
   query MetricsQuery {
@@ -33,45 +33,6 @@ export const QUERY: TypedDocumentNode<MetricsQuery, MetricsQueryVariables> = gql
     }
   }
 `
-const CREATE_METRIC = gql`
-  mutation CreateMetricMutation($input: CreateMetricInput!) {
-    createMetric(input: $input) {
-      id
-    }
-  }
-`
-
-const NewMetric = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const [createMetric, { loading: createMetricLoading }] = useMutation(CREATE_METRIC, {
-    onCompleted: () => {
-      setIsOpen(false)
-    },
-    refetchQueries: [{ query: QUERY }],
-  })
-
-  return (
-    <NewMetricModal
-      trigger={
-        <Button onClick={() => setIsOpen(true)} className="gap-2">
-          <Plus className="h-4 w-4" />
-          New Metric
-        </Button>
-      }
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      onSubmit={(data) =>
-        createMetric({
-          variables: {
-            input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
-          },
-        })
-      }
-      isSubmitting={createMetricLoading}
-    />
-  )
-}
 
 export const Loading = () => <div>Loading...</div>
 
