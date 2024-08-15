@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 
 import { ChartLine, MoreVertical, Plus } from 'lucide-react'
 import type { MetricsQuery, MetricsQueryVariables } from 'types/graphql'
@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
 
+import EditMetricModal from './EditMetricModal/EditMetricModal'
 import NewMetricModal from './NewMetricModal/NewMetricModal'
 
 export const QUERY: TypedDocumentNode<MetricsQuery, MetricsQueryVariables> = gql`
@@ -85,7 +86,28 @@ export const Empty = () => (
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
+function editMetricReducer(state, action) {
+  switch (action.type) {
+    case 'setIsOpen': {
+      return {
+        metricIndex: state.metricIndex,
+        isOpen: action.nextIsOpen,
+      }
+    }
+    case 'open': {
+      return {
+        metricIndex: action.nextMetricIndex,
+        isOpen: true,
+      }
+    }
+  }
+
+  throw Error('Unknown action: ' + action.type)
+}
+
 export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
+  const [state, dispatch] = useReducer(editMetricReducer, { isOpen: false, metricIndex: 0 })
+
   return (
     <>
       <div className="mb-4 flex justify-end">
@@ -93,7 +115,7 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
       </div>
 
       <ul className="divide-y divide-white">
-        {metrics.map((metric) => (
+        {metrics.map((metric, index) => (
           <li key={metric.id} className="flex items-center justify-between gap-6 py-4">
             <div className="space-y-1">
               <p className="text-sm font-medium">{metric.name}</p>
@@ -121,7 +143,9 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => dispatch({ type: 'open', nextMetricIndex: index })}>
+                    Edit
+                  </DropdownMenuItem>
                   <DropdownMenuItem>Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -129,6 +153,12 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
           </li>
         ))}
       </ul>
+
+      <EditMetricModal
+        isOpen={state.isOpen}
+        setIsOpen={(open: boolean) => dispatch({ type: 'setIsOpen', nextIsOpen: open })}
+        metric={metrics[state.metricIndex]}
+      />
     </>
   )
 }
