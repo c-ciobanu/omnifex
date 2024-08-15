@@ -1,12 +1,20 @@
 import { useState } from 'react'
 
-import { faChartLine, faEllipsisVertical, faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChartLine, MoreVertical, Plus } from 'lucide-react'
 import type { MetricsQuery, MetricsQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
+
+import { Button } from 'src/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'src/components/ui/dropdown-menu'
 
 import NewMetricModal from './NewMetricModal/NewMetricModal'
 
@@ -43,41 +51,34 @@ const NewMetric = () => {
   })
 
   return (
-    <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex shrink-0 items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
-      >
-        <FontAwesomeIcon icon={faPlus} />
-        New Metric
-      </button>
-
-      <NewMetricModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onSubmit={(data) =>
-          createMetric({
-            variables: {
-              input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
-            },
-          })
-        }
-        isSubmitting={createMetricLoading}
-      />
-    </>
+    <NewMetricModal
+      trigger={
+        <Button onClick={() => setIsOpen(true)} className="gap-2">
+          <Plus className="h-4 w-4" />
+          New Metric
+        </Button>
+      }
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      onSubmit={(data) =>
+        createMetric({
+          variables: {
+            input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
+          },
+        })
+      }
+      isSubmitting={createMetricLoading}
+    />
   )
 }
 
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => (
-  <div className="min-h-main flex flex-col items-center justify-center">
-    <FontAwesomeIcon icon={faChartLine} className="text-4xl" />
-
-    <h4 className="mt-4 text-sm font-semibold text-gray-900">No metrics tracked</h4>
-
-    <p className="mb-6 mt-1 text-sm text-gray-500">Get started by creating a new metric.</p>
-
+  <div className="min-h-main flex flex-col items-center justify-center gap-2">
+    <ChartLine className="h-12 w-12" />
+    <h3 className="text-2xl font-bold tracking-tight">No metrics tracked</h3>
+    <p className="mb-4 text-sm text-muted-foreground">Get started by creating a new metric.</p>
     <NewMetric />
   </div>
 )
@@ -87,57 +88,43 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
   return (
     <>
-      <div className="mb-4 flex items-center justify-end gap-4">
+      <div className="mb-4 flex justify-end">
         <NewMetric />
       </div>
 
       <ul className="divide-y divide-white">
         {metrics.map((metric) => (
           <li key={metric.id} className="flex items-center justify-between gap-6 py-4">
-            <div>
-              <p className="text-sm font-semibold text-gray-900">{metric.name}</p>
-
-              <p className="mt-1 text-xs text-gray-500">
+            <div className="space-y-1">
+              <p className="text-sm font-medium">{metric.name}</p>
+              <p className="text-xs text-muted-foreground">
                 <time dateTime={metric.latestEntry.date}>{metric.latestEntry.date}</time>
                 {' • '}
-                <span className="text-gray-900">
-                  {metric.latestEntry.value} {metric.unit}
-                </span>
+                {metric.latestEntry.value} {metric.unit}
               </p>
             </div>
 
-            <div className="shrink-0 space-x-4">
-              <Link to={routes.metric({ id: metric.id })} title={metric.name}>
-                <button className="rounded-md border px-4 py-2 text-sm font-semibold shadow-sm hover:bg-gray-200">
+            <div className="flex shrink-0 items-center gap-4">
+              <Button asChild variant="outline">
+                <Link to={routes.metric({ id: metric.id })} title={metric.name}>
                   View Metric
-                </button>
-              </Link>
+                </Link>
+              </Button>
 
-              <Menu>
-                <MenuButton className="rounded-md px-4 py-2 text-sm hover:bg-gray-200 hover:shadow-sm">
-                  <FontAwesomeIcon icon={faEllipsisVertical} />
-                </MenuButton>
+              <DropdownMenu>
+                <Button asChild variant="ghost" size="icon">
+                  <DropdownMenuTrigger>
+                    <MoreVertical className="h-4 w-4" />
+                  </DropdownMenuTrigger>
+                </Button>
 
-                <MenuItems
-                  transition
-                  anchor="bottom end"
-                  className="w-32 origin-top-right rounded-xl border border-white/5 bg-white p-1 text-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-                >
-                  <MenuItem>
-                    <button className="flex w-full items-center gap-2 px-4 py-2 data-[focus]:bg-gray-200">
-                      <FontAwesomeIcon icon={faPen} fixedWidth />
-                      Edit
-                    </button>
-                  </MenuItem>
-
-                  <MenuItem>
-                    <button className="flex w-full items-center gap-2 px-4 py-2 data-[focus]:bg-gray-200">
-                      <FontAwesomeIcon icon={faTrash} fixedWidth />
-                      Delete
-                    </button>
-                  </MenuItem>
-                </MenuItems>
-              </Menu>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </li>
         ))}
