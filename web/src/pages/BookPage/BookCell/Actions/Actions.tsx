@@ -14,7 +14,6 @@ import { Book } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 import { QUERY as BookQuery } from 'src/pages/BookPage/BookCell/BookCell'
 
 type ActionsProps = {
@@ -124,77 +123,51 @@ const Actions = ({ book }: ActionsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={toggleReadStatus}
-              disabled={createReadLoading || deleteReadLoading}
-              className={clsx(
-                'flex items-center gap-2 rounded-sm border border-teal-500 px-2 py-3 uppercase',
-                read
-                  ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
-                  : 'text-teal-500 hover:bg-teal-500 hover:text-white'
-              )}
-            >
-              <FontAwesomeIcon icon={read ? faSolidEye : faRegularEye} className="text-3xl" />
-              <span className="whitespace-nowrap font-medium">{read ? 'Read' : 'Set as read'}</span>
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{read ? 'Remove from read books' : 'Set as read'}</p>
-          </TooltipContent>
-        </Tooltip>
-
-        {read ? null : (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={toggleToReadStatus}
-                disabled={createToReadLoading || deleteToReadLoading}
-                className={clsx(
-                  'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
-                  inReadingList
-                    ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
-                    : 'text-sky-500 hover:bg-sky-500 hover:text-white'
-                )}
-              >
-                <FontAwesomeIcon
-                  icon={inReadingList ? faSolidRectangleList : faRegularRectangleList}
-                  className="text-3xl"
-                />
-                <span className="whitespace-nowrap font-medium">
-                  {inReadingList ? 'Listed on reading list' : 'Add to reading list'}
-                </span>
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{inReadingList ? 'Remove from books reading list' : 'Add to reading list'}</p>
-            </TooltipContent>
-          </Tooltip>
+      <button
+        onClick={toggleReadStatus}
+        disabled={createReadLoading || deleteReadLoading}
+        className={clsx(
+          'flex items-center gap-2 rounded-sm border border-teal-500 px-2 py-3 uppercase',
+          read
+            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
+            : 'text-teal-500 hover:bg-teal-500 hover:text-white'
         )}
+      >
+        <FontAwesomeIcon icon={read ? faSolidEye : faRegularEye} className="text-3xl" />
+        <span className="whitespace-nowrap font-medium">{read ? 'Read' : 'Set as read'}</span>
+      </button>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={toggleFavoritedStatus}
-              disabled={createFavoritedLoading || deleteFavoritedLoading}
-              className={clsx(
-                'flex items-center gap-2 rounded-sm border border-red-500 px-2 py-3 uppercase',
-                favorited
-                  ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
-                  : 'text-red-500 hover:bg-red-500 hover:text-white'
-              )}
-            >
-              <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} className="text-3xl" />
-              <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="w-full">
-            <p>{favorited ? 'Remove from favorites' : 'Add to favorites'}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {read ? null : (
+        <button
+          onClick={toggleToReadStatus}
+          disabled={createToReadLoading || deleteToReadLoading}
+          className={clsx(
+            'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+            inReadingList
+              ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
+              : 'text-sky-500 hover:bg-sky-500 hover:text-white'
+          )}
+        >
+          <FontAwesomeIcon icon={inReadingList ? faSolidRectangleList : faRegularRectangleList} className="text-3xl" />
+          <span className="whitespace-nowrap font-medium">
+            {inReadingList ? 'Listed on reading list' : 'Add to reading list'}
+          </span>
+        </button>
+      )}
+
+      <button
+        onClick={toggleFavoritedStatus}
+        disabled={createFavoritedLoading || deleteFavoritedLoading}
+        className={clsx(
+          'flex items-center gap-2 rounded-sm border border-red-500 px-2 py-3 uppercase',
+          favorited
+            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
+            : 'text-red-500 hover:bg-red-500 hover:text-white'
+        )}
+      >
+        <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} className="text-3xl" />
+        <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
+      </button>
     </div>
   )
 }

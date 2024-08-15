@@ -14,7 +14,6 @@ import { MovieQuery } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'src/components/Tooltip'
 import { QUERY as MovieCellQuery } from 'src/pages/MoviePage/MovieCell/MovieCell'
 
 type ActionsProps = {
@@ -124,77 +123,51 @@ const Actions = ({ movie }: ActionsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={toggleWatchedStatus}
-              disabled={createWatchedLoading || deleteWatchedLoading}
-              className={clsx(
-                'flex items-center gap-2 rounded-sm border border-teal-500 px-2 py-3 uppercase',
-                watched
-                  ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
-                  : 'text-teal-500 hover:bg-teal-500 hover:text-white'
-              )}
-            >
-              <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} className="text-3xl" />
-              <span className="whitespace-nowrap font-medium">{watched ? 'Watched' : 'Set as watched'}</span>
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{watched ? 'Remove from watched movies' : 'Set as watched'}</p>
-          </TooltipContent>
-        </Tooltip>
-
-        {watched ? null : (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={toggleToWatchStatus}
-                disabled={createToWatchLoading || deleteToWatchLoading}
-                className={clsx(
-                  'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
-                  inWatchlist
-                    ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
-                    : 'text-sky-500 hover:bg-sky-500 hover:text-white'
-                )}
-              >
-                <FontAwesomeIcon
-                  icon={inWatchlist ? faSolidRectangleList : faRegularRectangleList}
-                  className="text-3xl"
-                />
-                <span className="whitespace-nowrap font-medium">
-                  {inWatchlist ? 'Listed on watchlist' : 'Add to watchlist'}
-                </span>
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{inWatchlist ? 'Remove from movies watchlist' : 'Add to watchlist'}</p>
-            </TooltipContent>
-          </Tooltip>
+      <button
+        onClick={toggleWatchedStatus}
+        disabled={createWatchedLoading || deleteWatchedLoading}
+        className={clsx(
+          'flex items-center gap-2 rounded-sm border border-teal-500 px-2 py-3 uppercase',
+          watched
+            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
+            : 'text-teal-500 hover:bg-teal-500 hover:text-white'
         )}
+      >
+        <FontAwesomeIcon icon={watched ? faSolidEye : faRegularEye} className="text-3xl" />
+        <span className="whitespace-nowrap font-medium">{watched ? 'Watched' : 'Set as watched'}</span>
+      </button>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={toggleFavoritedStatus}
-              disabled={createFavoritedLoading || deleteFavoritedLoading}
-              className={clsx(
-                'flex items-center gap-2 rounded-sm border border-red-500 px-2 py-3 uppercase',
-                favorited
-                  ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
-                  : 'text-red-500 hover:bg-red-500 hover:text-white'
-              )}
-            >
-              <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} className="text-3xl" />
-              <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="w-full">
-            <p>{favorited ? 'Remove from favorites' : 'Add to favorites'}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {watched ? null : (
+        <button
+          onClick={toggleToWatchStatus}
+          disabled={createToWatchLoading || deleteToWatchLoading}
+          className={clsx(
+            'flex items-center gap-2 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+            inWatchlist
+              ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
+              : 'text-sky-500 hover:bg-sky-500 hover:text-white'
+          )}
+        >
+          <FontAwesomeIcon icon={inWatchlist ? faSolidRectangleList : faRegularRectangleList} className="text-3xl" />
+          <span className="whitespace-nowrap font-medium">
+            {inWatchlist ? 'Listed on watchlist' : 'Add to watchlist'}
+          </span>
+        </button>
+      )}
+
+      <button
+        onClick={toggleFavoritedStatus}
+        disabled={createFavoritedLoading || deleteFavoritedLoading}
+        className={clsx(
+          'flex items-center gap-2 rounded-sm border border-red-500 px-2 py-3 uppercase',
+          favorited
+            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
+            : 'text-red-500 hover:bg-red-500 hover:text-white'
+        )}
+      >
+        <FontAwesomeIcon icon={favorited ? faSolidHeart : faRegularHeart} className="text-3xl" />
+        <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
+      </button>
     </div>
   )
 }
