@@ -1,17 +1,8 @@
-import { useState } from 'react'
-
-import { MoreVertical, Plus } from 'lucide-react'
+import { MoreVertical } from 'lucide-react'
 import type { MetricQuery, MetricQueryVariables } from 'types/graphql'
 
-import {
-  type CellSuccessProps,
-  type CellFailureProps,
-  type TypedDocumentNode,
-  Metadata,
-  useMutation,
-} from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, Metadata } from '@redwoodjs/web'
 
-import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import { Button } from 'src/components/ui/button'
 import {
   DropdownMenu,
@@ -21,6 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+
+import NewMetricEntry from './NewMetricEntry/NewMetricEntry'
 
 export const QUERY: TypedDocumentNode<MetricQuery, MetricQueryVariables> = gql`
   query MetricQuery($id: Int!) {
@@ -37,14 +30,6 @@ export const QUERY: TypedDocumentNode<MetricQuery, MetricQueryVariables> = gql`
   }
 `
 
-const CREATE_METRIC_ENTRY = gql`
-  mutation CreateMetricEntryMutation($input: CreateMetricEntryInput!) {
-    createMetricEntry(input: $input) {
-      id
-    }
-  }
-`
-
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -54,15 +39,6 @@ export const Failure = ({ error }: CellFailureProps<MetricQueryVariables>) => (
 )
 
 export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVariables>) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const [createMetricEntry, { loading: createMetricEntryLoading }] = useMutation(CREATE_METRIC_ENTRY, {
-    onCompleted: () => {
-      setIsOpen(false)
-    },
-    refetchQueries: [{ query: QUERY, variables: { id: metric.id } }],
-  })
-
   return (
     <>
       <Metadata title={`${metric.name} Tracker`} />
@@ -70,24 +46,7 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold md:text-2xl">{metric.name}</h2>
 
-        <NewMetricEntryModal
-          trigger={
-            <Button onClick={() => setIsOpen(true)} className="gap-2">
-              <Plus className="h-4 w-4" />
-              New Entry
-            </Button>
-          }
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          onSubmit={({ value, date }) =>
-            createMetricEntry({
-              variables: { input: { metricId: metric.id, value, date: date.toISOString().substring(0, 10) } },
-            })
-          }
-          isSubmitting={createMetricEntryLoading}
-          defaultValue={metric.entries[0].value}
-          valueUnit={metric.unit}
-        />
+        <NewMetricEntry metric={metric} />
       </div>
 
       <ul className="divide-y divide-white">

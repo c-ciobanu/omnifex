@@ -1,4 +1,10 @@
+import { useState } from 'react'
+
+import { Plus } from 'lucide-react'
+import { CreateMetricEntryMutation, CreateMetricEntryMutationVariables, MetricQuery } from 'types/graphql'
+
 import { DateField, FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import {
@@ -11,22 +17,48 @@ import {
   DialogTrigger,
 } from 'src/components/ui/dialog'
 
-type NewMetricEntryModalProps = {
-  trigger: React.ReactNode
-  isOpen: boolean
-  setIsOpen: (open: boolean) => void
-  onSubmit: ({ value, date }: { value: string; date: Date }) => void
-  isSubmitting: boolean
-  defaultValue: string
-  valueUnit: string
+import { QUERY } from '../MetricCell'
+
+const CREATE_METRIC_ENTRY = gql`
+  mutation CreateMetricEntryMutation($input: CreateMetricEntryInput!) {
+    createMetricEntry(input: $input) {
+      id
+    }
+  }
+`
+
+type NewMetricEntryProps = {
+  metric: MetricQuery['metric']
 }
 
-const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
-  const { trigger, isOpen, setIsOpen, onSubmit, isSubmitting, defaultValue, valueUnit } = props
+const NewMetricEntry = (props: NewMetricEntryProps) => {
+  const { metric } = props
+  const [isOpen, setIsOpen] = useState(false)
+
+  const [createMetricEntry, { loading }] = useMutation<CreateMetricEntryMutation, CreateMetricEntryMutationVariables>(
+    CREATE_METRIC_ENTRY,
+    {
+      onCompleted: () => {
+        setIsOpen(false)
+      },
+      refetchQueries: [{ query: QUERY, variables: { id: metric.id } }],
+    }
+  )
+
+  function onSubmit({ value, date }: { value: string; date: Date }) {
+    createMetricEntry({
+      variables: { input: { metricId: metric.id, value, date: date.toISOString().substring(0, 10) } },
+    })
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger asChild>
+        <Button className="gap-2">
+          <Plus className="h-4 w-4" />
+          New Entry
+        </Button>
+      </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <Form onSubmit={onSubmit}>
@@ -37,11 +69,11 @@ const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
           <div className="space-y-6 py-6">
             <fieldset>
               <Label name="value" className="form-label" errorClassName="form-label form-label-error">
-                Value [ {valueUnit} ]
+                Value [ {metric.unit} ]
               </Label>
               <TextField
                 name="value"
-                defaultValue={defaultValue}
+                defaultValue={metric.entries[0].value}
                 className="form-input"
                 errorClassName="form-input form-input-error"
                 validation={{ required: true }}
@@ -72,7 +104,7 @@ const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
             </DialogClose>
 
             <Button asChild>
-              <Submit disabled={isSubmitting}>Save</Submit>
+              <Submit disabled={loading}>Save</Submit>
             </Button>
           </DialogFooter>
         </Form>
@@ -81,4 +113,4 @@ const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
   )
 }
 
-export default NewMetricEntryModal
+export default NewMetricEntry
