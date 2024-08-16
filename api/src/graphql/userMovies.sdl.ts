@@ -21,14 +21,21 @@ export const schema = gql`
 
   input CreateUserMovieInput {
     movieId: Int!
+    type: UserMovieType!
+  }
+
+  input OldCreateUserMovieInput {
+    movieId: Int!
   }
 
   type Mutation {
-    createFavoritedMovie(input: CreateUserMovieInput!): UserMovie! @requireAuth
+    createUserMovie(input: CreateUserMovieInput!): UserMovie! @requireAuth
+    deleteUserMovie(movieId: Int!, type: UserMovieType!): UserMovie! @requireAuth
+    createFavoritedMovie(input: OldCreateUserMovieInput!): UserMovie! @requireAuth
     deleteFavoritedMovie(movieId: Int!): UserMovie! @requireAuth
-    createWatchedMovie(input: CreateUserMovieInput!): UserMovie! @requireAuth
+    createWatchedMovie(input: OldCreateUserMovieInput!): UserMovie! @requireAuth
     deleteWatchedMovie(movieId: Int!): UserMovie! @requireAuth
-    createToWatchMovie(input: CreateUserMovieInput!): UserMovie! @requireAuth
+    createToWatchMovie(input: OldCreateUserMovieInput!): UserMovie! @requireAuth
     deleteToWatchMovie(movieId: Int!): UserMovie! @requireAuth
   }
 `

@@ -10,49 +10,17 @@ type ActionsProps = {
   movie: MovieQuery['movie']
 }
 
-const CREATE_FAVORITED_MOVIE = gql`
-  mutation CreateFavoritedMovieMutation($input: CreateUserMovieInput!) {
-    createFavoritedMovie(input: $input) {
+const CREATE_USER_MOVIE = gql`
+  mutation CreateUserMovieMutation($input: CreateUserMovieInput!) {
+    createUserMovie(input: $input) {
       id
     }
   }
 `
 
-const DELETE_FAVORITED_MOVIE = gql`
-  mutation DeleteFavoritedMovieMutation($movieId: Int!) {
-    deleteFavoritedMovie(movieId: $movieId) {
-      id
-    }
-  }
-`
-
-const CREATE_WATCHED_MOVIE = gql`
-  mutation CreateWatchedMovieMutation($input: CreateUserMovieInput!) {
-    createWatchedMovie(input: $input) {
-      id
-    }
-  }
-`
-
-const DELETE_WATCHED_MOVIE = gql`
-  mutation DeleteWatchedMovieMutation($movieId: Int!) {
-    deleteWatchedMovie(movieId: $movieId) {
-      id
-    }
-  }
-`
-
-const CREATE_TO_WATCH_MOVIE = gql`
-  mutation CreateToWatchMovieMutation($input: CreateUserMovieInput!) {
-    createToWatchMovie(input: $input) {
-      id
-    }
-  }
-`
-
-const DELETE_TO_WATCH_MOVIE = gql`
-  mutation DeleteToWatchMovieMutation($movieId: Int!) {
-    deleteToWatchMovie(movieId: $movieId) {
+const DELETE_USER_MOVIE = gql`
+  mutation DeleteUserMovieMutation($movieId: Int!, $type: UserMovieType!) {
+    deleteUserMovie(movieId: $movieId, type: $type) {
       id
     }
   }
@@ -62,28 +30,28 @@ const Actions = ({ movie }: ActionsProps) => {
   const { id: movieId, tmdbId, userInfo } = movie
   const { favorited, watched, inWatchlist } = userInfo
 
-  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_MOVIE, {
-    variables: { input: { movieId } },
+  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_USER_MOVIE, {
+    variables: { input: { movieId, type: 'FAVORITED' } },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
-  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED_MOVIE, {
-    variables: { movieId },
+  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_USER_MOVIE, {
+    variables: { movieId, type: 'FAVORITED' },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
-  const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_WATCHED_MOVIE, {
-    variables: { input: { movieId } },
+  const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_USER_MOVIE, {
+    variables: { input: { movieId, type: 'WATCHED' } },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
-  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_WATCHED_MOVIE, {
-    variables: { movieId },
+  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_USER_MOVIE, {
+    variables: { movieId, type: 'WATCHED' },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
-  const [createToWatch, { loading: createToWatchLoading }] = useMutation(CREATE_TO_WATCH_MOVIE, {
-    variables: { input: { movieId } },
+  const [createToWatch, { loading: createToWatchLoading }] = useMutation(CREATE_USER_MOVIE, {
+    variables: { input: { movieId, type: 'TO_WATCH' } },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
-  const [deleteToWatch, { loading: deleteToWatchLoading }] = useMutation(DELETE_TO_WATCH_MOVIE, {
-    variables: { movieId },
+  const [deleteToWatch, { loading: deleteToWatchLoading }] = useMutation(DELETE_USER_MOVIE, {
+    variables: { movieId, type: 'TO_WATCH' },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
 
