@@ -51,11 +51,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <nav>
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center">
-              <Button asChild variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="-ml-1">
-                <Link to={isAuthenticated ? routes.documents() : routes.home()}>
-                  <img className="h-8 w-8" src="/img/logo.svg" alt="Popcorn Time" />
-                </Link>
-              </Button>
+              <Link to={isAuthenticated ? routes.documents() : routes.home()} onClick={() => setIsOpen(false)}>
+                <img className="h-8 w-8" src="/img/logo.svg" alt="Popcorn Time" />
+              </Link>
 
               <div className="ml-10 hidden items-baseline space-x-4 md:flex">
                 {navigationLinks.map((item) => (
