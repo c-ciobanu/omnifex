@@ -1,15 +1,22 @@
 export const schema = gql`
   type UserMovie {
     id: Int!
-    movieId: Int!
     createdAt: DateTime!
+    movieId: Int!
     userId: Int!
+  }
+
+  enum UserMovieType {
+    FAVORITED
+    WATCHED
+    TO_WATCH
   }
 
   type Query {
     favoriteMovies: [Movie!]! @requireAuth
     watchedMovies: [Movie!]! @requireAuth
     toWatchMovies: [Movie!]! @requireAuth
+    userMovies(type: UserMovieType!): [Movie!]! @requireAuth
   }
 
   input CreateUserMovieInput {
