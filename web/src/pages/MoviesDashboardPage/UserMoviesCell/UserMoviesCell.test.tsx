@@ -3,7 +3,7 @@ import { render } from '@redwoodjs/testing/web'
 import { Loading, Empty, Failure, Success } from './UserMoviesCell'
 import { standard } from './UserMoviesCell.mock'
 
-describe('FavoritedMoviesCell', () => {
+describe('UserMoviesCell', () => {
   it('renders Loading successfully', () => {
     expect(() => {
       render(<Loading />)

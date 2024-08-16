@@ -10,6 +10,7 @@ import UserMoviesCell from './UserMoviesCell'
 
 const MoviesDashboardPage = () => {
   const [tab, setTab] = useState<UserMovieType>('TO_WATCH')
+
   return (
     <>
       <Metadata title="Movies Dashboard" robots="noindex" />
