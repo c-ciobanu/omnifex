@@ -1,10 +1,10 @@
-import { QueryResolvers } from 'types/graphql'
+import { MutationResolvers, QueryResolvers } from 'types/graphql'
 
 import { requireAuth } from 'src/lib/auth'
 
-import { favoritedBooks } from '../favoritedBooks/favoritedBooks'
-import { readBooks } from '../readBooks/readBooks'
-import { toReadBooks } from '../toReadBooks/toReadBooks'
+import { createFavoritedBook, deleteFavoritedBook, favoritedBooks } from '../favoritedBooks/favoritedBooks'
+import { createReadBook, deleteReadBook, readBooks } from '../readBooks/readBooks'
+import { createToReadBook, deleteToReadBook, toReadBooks } from '../toReadBooks/toReadBooks'
 
 export const userBooks: QueryResolvers['userBooks'] = ({ type }) => {
   requireAuth()
@@ -15,5 +15,29 @@ export const userBooks: QueryResolvers['userBooks'] = ({ type }) => {
     return readBooks()
   } else {
     return toReadBooks()
+  }
+}
+
+export const createUserBook: MutationResolvers['createUserBook'] = ({ input: { bookId, type } }) => {
+  requireAuth()
+
+  if (type === 'FAVORITED') {
+    return createFavoritedBook({ input: { bookId } })
+  } else if (type === 'READ') {
+    return createReadBook({ input: { bookId } })
+  } else {
+    return createToReadBook({ input: { bookId } })
+  }
+}
+
+export const deleteUserBook: MutationResolvers['deleteUserBook'] = ({ bookId, type }) => {
+  requireAuth()
+
+  if (type === 'FAVORITED') {
+    return deleteFavoritedBook({ bookId })
+  } else if (type === 'READ') {
+    return deleteReadBook({ bookId })
+  } else {
+    return deleteToReadBook({ bookId })
   }
 }

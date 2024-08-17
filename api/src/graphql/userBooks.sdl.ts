@@ -21,14 +21,21 @@ export const schema = gql`
 
   input CreateUserBookInput {
     bookId: Int!
+    type: UserBookType!
+  }
+
+  input OldCreateUserBookInput {
+    bookId: Int!
   }
 
   type Mutation {
-    createFavoritedBook(input: CreateUserBookInput!): UserBook! @requireAuth
+    createUserBook(input: CreateUserBookInput!): UserBook! @requireAuth
+    deleteUserBook(bookId: Int!, type: UserBookType!): UserBook! @requireAuth
+    createFavoritedBook(input: OldCreateUserBookInput!): UserBook! @requireAuth
     deleteFavoritedBook(bookId: Int!): UserBook! @requireAuth
-    createReadBook(input: CreateUserBookInput!): UserBook! @requireAuth
+    createReadBook(input: OldCreateUserBookInput!): UserBook! @requireAuth
     deleteReadBook(bookId: Int!): UserBook! @requireAuth
-    createToReadBook(input: CreateUserBookInput!): UserBook! @requireAuth
+    createToReadBook(input: OldCreateUserBookInput!): UserBook! @requireAuth
     deleteToReadBook(bookId: Int!): UserBook! @requireAuth
   }
 `

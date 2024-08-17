@@ -10,49 +10,17 @@ type ActionsProps = {
   book: Book
 }
 
-const CREATE_FAVORITED_BOOK = gql`
-  mutation CreateFavoritedBookMutation($input: CreateUserBookInput!) {
-    createFavoritedBook(input: $input) {
+const CREATE_USER_BOOK = gql`
+  mutation CreateUserBookMutation($input: CreateUserBookInput!) {
+    createUserBook(input: $input) {
       id
     }
   }
 `
 
-const DELETE_FAVORITED_BOOK = gql`
-  mutation DeleteFavoritedBookMutation($bookId: Int!) {
-    deleteFavoritedBook(bookId: $bookId) {
-      id
-    }
-  }
-`
-
-const CREATE_READ_BOOK = gql`
-  mutation CreateReadBookMutation($input: CreateUserBookInput!) {
-    createReadBook(input: $input) {
-      id
-    }
-  }
-`
-
-const DELETE_READ_BOOK = gql`
-  mutation DeleteReadBookMutation($bookId: Int!) {
-    deleteReadBook(bookId: $bookId) {
-      id
-    }
-  }
-`
-
-const CREATE_TO_READ_BOOK = gql`
-  mutation CreateToReadBookMutation($input: CreateUserBookInput!) {
-    createToReadBook(input: $input) {
-      id
-    }
-  }
-`
-
-const DELETE_TO_READ_BOOK = gql`
-  mutation DeleteToReadBookMutation($bookId: Int!) {
-    deleteToReadBook(bookId: $bookId) {
+const DELETE_USER_BOOK = gql`
+  mutation DeleteUserBookMutation($bookId: Int!, $type: UserBookType!) {
+    deleteUserBook(bookId: $bookId, type: $type) {
       id
     }
   }
@@ -62,28 +30,28 @@ const Actions = ({ book }: ActionsProps) => {
   const { id: bookId, googleId, userInfo } = book
   const { favorited, read, inReadingList } = userInfo
 
-  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_FAVORITED_BOOK, {
-    variables: { input: { bookId } },
+  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_USER_BOOK, {
+    variables: { input: { bookId, type: 'FAVORITED' } },
     refetchQueries: [{ query: BookQuery, variables: { googleId } }],
   })
-  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_FAVORITED_BOOK, {
-    variables: { bookId },
+  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_USER_BOOK, {
+    variables: { bookId, type: 'FAVORITED' },
     refetchQueries: [{ query: BookQuery, variables: { googleId } }],
   })
-  const [createRead, { loading: createReadLoading }] = useMutation(CREATE_READ_BOOK, {
-    variables: { input: { bookId } },
+  const [createRead, { loading: createReadLoading }] = useMutation(CREATE_USER_BOOK, {
+    variables: { input: { bookId, type: 'READ' } },
     refetchQueries: [{ query: BookQuery, variables: { googleId } }],
   })
-  const [deleteRead, { loading: deleteReadLoading }] = useMutation(DELETE_READ_BOOK, {
-    variables: { bookId },
+  const [deleteRead, { loading: deleteReadLoading }] = useMutation(DELETE_USER_BOOK, {
+    variables: { bookId, type: 'READ' },
     refetchQueries: [{ query: BookQuery, variables: { googleId } }],
   })
-  const [createToRead, { loading: createToReadLoading }] = useMutation(CREATE_TO_READ_BOOK, {
-    variables: { input: { bookId } },
+  const [createToRead, { loading: createToReadLoading }] = useMutation(CREATE_USER_BOOK, {
+    variables: { input: { bookId, type: 'TO_READ' } },
     refetchQueries: [{ query: BookQuery, variables: { googleId } }],
   })
-  const [deleteToRead, { loading: deleteToReadLoading }] = useMutation(DELETE_TO_READ_BOOK, {
-    variables: { bookId },
+  const [deleteToRead, { loading: deleteToReadLoading }] = useMutation(DELETE_USER_BOOK, {
+    variables: { bookId, type: 'TO_READ' },
     refetchQueries: [{ query: BookQuery, variables: { googleId } }],
   })
 
