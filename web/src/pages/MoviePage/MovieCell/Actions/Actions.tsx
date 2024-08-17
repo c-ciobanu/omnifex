@@ -3,6 +3,7 @@ import { MovieQuery } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
+import { Button } from 'src/components/ui/button'
 import { cn } from 'src/lib/utils'
 import { QUERY as MovieCellQuery } from 'src/pages/MoviePage/MovieCell/MovieCell'
 
@@ -81,51 +82,55 @@ const Actions = ({ movie }: ActionsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <button
+      <Button
         onClick={toggleWatchedStatus}
         disabled={createWatchedLoading || deleteWatchedLoading}
+        variant="outline"
+        size="xl"
         className={cn(
-          'flex items-center gap-4 rounded-sm border border-teal-500 px-2 py-3 uppercase',
+          'justify-start gap-4 border-teal-500 px-2 text-base uppercase',
           watched
-            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
+            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600 hover:text-white'
             : 'text-teal-500 hover:bg-teal-500 hover:text-white'
         )}
       >
         {watched ? <Eye /> : <EyeOff />}
-        <span className="whitespace-nowrap font-medium">{watched ? 'Watched' : 'Set as watched'}</span>
-      </button>
+        <span>{watched ? 'Watched' : 'Set as watched'}</span>
+      </Button>
 
       {watched ? null : (
-        <button
+        <Button
           onClick={toggleToWatchStatus}
           disabled={createToWatchLoading || deleteToWatchLoading}
+          variant="outline"
+          size="xl"
           className={cn(
-            'flex items-center gap-4 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+            'justify-start gap-4 border-sky-500 px-2 text-base uppercase',
             inWatchlist
-              ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
+              ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600 hover:text-white'
               : 'text-sky-500 hover:bg-sky-500 hover:text-white'
           )}
         >
           {inWatchlist ? <ListPlus /> : <ListMinus />}
-          <span className="whitespace-nowrap font-medium">
-            {inWatchlist ? 'Listed on watchlist' : 'Add to watchlist'}
-          </span>
-        </button>
+          <span>{inWatchlist ? 'Listed on watchlist' : 'Add to watchlist'}</span>
+        </Button>
       )}
 
-      <button
+      <Button
         onClick={toggleFavoritedStatus}
         disabled={createFavoritedLoading || deleteFavoritedLoading}
+        variant="outline"
+        size="xl"
         className={cn(
-          'flex items-center gap-4 rounded-sm border border-red-500 px-2 py-3 uppercase',
+          'justify-start gap-4 border-red-500 px-2 text-base uppercase',
           favorited
-            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
+            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600 hover:text-white'
             : 'text-red-500 hover:bg-red-500 hover:text-white'
         )}
       >
         {favorited ? <Heart /> : <HeartOff />}
-        <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
-      </button>
+        <span>{favorited ? 'Favorited' : 'Add to favorites'}</span>
+      </Button>
     </div>
   )
 }

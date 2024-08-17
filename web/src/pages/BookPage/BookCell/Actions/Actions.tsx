@@ -3,6 +3,7 @@ import { Book } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
+import { Button } from 'src/components/ui/button'
 import { cn } from 'src/lib/utils'
 import { QUERY as BookQuery } from 'src/pages/BookPage/BookCell/BookCell'
 
@@ -81,51 +82,55 @@ const Actions = ({ book }: ActionsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <button
+      <Button
         onClick={toggleReadStatus}
         disabled={createReadLoading || deleteReadLoading}
+        variant="outline"
+        size="xl"
         className={cn(
-          'flex items-center gap-4 rounded-sm border border-teal-500 px-2 py-3 uppercase',
+          'justify-start gap-4 border-teal-500 px-2 text-base uppercase',
           read
-            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600'
+            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600 hover:text-white'
             : 'text-teal-500 hover:bg-teal-500 hover:text-white'
         )}
       >
         {read ? <Eye /> : <EyeOff />}
-        <span className="whitespace-nowrap font-medium">{read ? 'Read' : 'Set as read'}</span>
-      </button>
+        <span>{read ? 'Read' : 'Set as read'}</span>
+      </Button>
 
       {read ? null : (
-        <button
+        <Button
           onClick={toggleToReadStatus}
           disabled={createToReadLoading || deleteToReadLoading}
+          variant="outline"
+          size="xl"
           className={cn(
-            'flex items-center gap-4 rounded-sm border border-sky-500 px-2 py-3 uppercase',
+            'justify-start gap-4 border-sky-500 px-2 text-base uppercase',
             inReadingList
-              ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600'
+              ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600 hover:text-white'
               : 'text-sky-500 hover:bg-sky-500 hover:text-white'
           )}
         >
           {inReadingList ? <ListPlus /> : <ListMinus />}
-          <span className="whitespace-nowrap font-medium">
-            {inReadingList ? 'Listed on reading list' : 'Add to reading list'}
-          </span>
-        </button>
+          <span>{inReadingList ? 'Listed on reading list' : 'Add to reading list'}</span>
+        </Button>
       )}
 
-      <button
+      <Button
         onClick={toggleFavoritedStatus}
         disabled={createFavoritedLoading || deleteFavoritedLoading}
+        variant="outline"
+        size="xl"
         className={cn(
-          'flex items-center gap-4 rounded-sm border border-red-500 px-2 py-3 uppercase',
+          'justify-start gap-4 border-red-500 px-2 text-base uppercase',
           favorited
-            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600'
+            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600 hover:text-white'
             : 'text-red-500 hover:bg-red-500 hover:text-white'
         )}
       >
         {favorited ? <Heart /> : <HeartOff />}
-        <span className="whitespace-nowrap font-medium">{favorited ? 'Favorited' : 'Add to favorites'}</span>
-      </button>
+        <span>{favorited ? 'Favorited' : 'Add to favorites'}</span>
+      </Button>
     </div>
   )
 }
