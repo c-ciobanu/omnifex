@@ -103,4 +103,8 @@
   .min-h-main {
     min-height: calc(100vh - theme('height.14') - theme('height.8'));
   }
+
+  .underline-line-through {
+    text-decoration: underline line-through;
+  }
 }

@@ -11,11 +11,13 @@
     ]
   },
   "dependencies": {
+    "@lexical/react": "^0.17.0",
     "@radix-ui/react-collapsible": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
+    "@radix-ui/react-toggle": "^1.1.0",
     "@redwoodjs/auth-dbauth-web": "7.7.3",
     "@redwoodjs/forms": "7.7.3",
     "@redwoodjs/router": "7.7.3",
@@ -23,6 +25,7 @@
     "@redwoodjs/web-server": "7.7.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "lexical": "^0.17.0",
     "lucide-react": "^0.427.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
