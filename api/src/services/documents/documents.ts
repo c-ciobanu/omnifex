@@ -2,15 +2,6 @@ import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
-import { generatePresignedGetUrl, generatePresignedPutUrl } from 'src/lib/minio'
-
-export const documentsUrl: QueryResolvers['documentsUrl'] = async () => {
-  requireAuth()
-
-  const url = await generatePresignedGetUrl(context.currentUser.id.toString())
-
-  return url
-}
 
 export const documents: QueryResolvers['documents'] = () => {
   requireAuth()
@@ -22,14 +13,6 @@ export const document: QueryResolvers['document'] = ({ id }) => {
   requireAuth()
 
   return db.document.findUnique({ where: { id, userId: context.currentUser.id } })
-}
-
-export const createDocumentsUploadUrl: MutationResolvers['createDocumentsUploadUrl'] = async () => {
-  requireAuth()
-
-  const url = await generatePresignedPutUrl(context.currentUser.id.toString())
-
-  return url
 }
 
 export const createDocument: MutationResolvers['createDocument'] = ({ input }) => {

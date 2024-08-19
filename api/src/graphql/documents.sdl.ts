@@ -6,7 +6,6 @@ export const schema = gql`
   }
 
   type Query {
-    documentsUrl: String! @requireAuth
     documents: [Document!]! @requireAuth
     document(id: String!): Document @requireAuth
   }
@@ -22,7 +21,6 @@ export const schema = gql`
   }
 
   type Mutation {
-    createDocumentsUploadUrl: String! @requireAuth
     createDocument(input: CreateDocumentInput!): Document! @requireAuth
     updateDocument(id: String!, input: UpdateDocumentInput!): Document! @requireAuth
     deleteDocument(id: String!): Document! @requireAuth
