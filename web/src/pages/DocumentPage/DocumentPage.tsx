@@ -1,19 +1,11 @@
-import { Metadata } from '@redwoodjs/web'
-
-import LexicalEditor from './LexicalEditor/LexicalEditor'
+import DocumentCell from './DocumentCell'
 
 type DocumentPageProps = {
   id: string
 }
 
 const DocumentPage = ({ id }: DocumentPageProps) => {
-  return (
-    <>
-      <Metadata title={`Document ${id}`} />
-
-      <LexicalEditor />
-    </>
-  )
+  return <DocumentCell id={id} />
 }
 
 export default DocumentPage
