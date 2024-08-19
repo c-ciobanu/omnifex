@@ -29,7 +29,7 @@ export const Success = ({ document }: CellSuccessProps<DocumentQuery, DocumentQu
 
       <h2 className="mb-4 text-lg font-semibold md:text-2xl">{document.title}</h2>
 
-      <LexicalEditor />
+      <LexicalEditor document={document} />
     </>
   )
 }
