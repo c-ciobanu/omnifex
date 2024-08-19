@@ -38,7 +38,7 @@ const LexicalEditor = (props: LexicalEditorProps) => {
 
   return (
     <LexicalComposer initialConfig={{ ...editorConfig, editorState: document.body ?? undefined }}>
-      <ToolbarPlugin />
+      <ToolbarPlugin documentId={document.id} />
 
       <div className="relative rounded-b-md bg-white">
         <RichTextPlugin

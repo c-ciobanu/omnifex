@@ -24,9 +24,13 @@ import {
   Italic,
   RotateCcw,
   RotateCw,
+  Save,
   Strikethrough,
   Underline,
 } from 'lucide-react'
+import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
+
+import { useMutation } from '@redwoodjs/web'
 
 import { Toggle } from 'src/components/ui/toggle'
 
@@ -36,7 +40,21 @@ function Divider() {
   return <div className="mx-1 w-px bg-[#eee]" />
 }
 
-const ToolbarPlugin = () => {
+const UPDATE_DOCUMENT = gql`
+  mutation UpdateDocumentMutation($id: String!, $input: UpdateDocumentInput!) {
+    updateDocument(id: $id, input: $input) {
+      id
+      title
+      body
+    }
+  }
+`
+
+type ToolbarPluginProps = {
+  documentId: string
+}
+
+const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
   const [editor] = useLexicalComposerContext()
   const [canUndo, setCanUndo] = useState(false)
   const [canRedo, setCanRedo] = useState(false)
@@ -45,6 +63,17 @@ const ToolbarPlugin = () => {
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
   const [alignment, setAlignment] = useState<ElementFormatType>('left')
+
+  const [updateDocument, { loading }] = useMutation<UpdateDocumentMutation, UpdateDocumentMutationVariables>(
+    UPDATE_DOCUMENT
+  )
+
+  function onSaveClick() {
+    const editorState = editor.getEditorState()
+    const jsonString = JSON.stringify(editorState)
+
+    updateDocument({ variables: { id: documentId, input: { body: jsonString } } })
+  }
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection()
@@ -95,7 +124,13 @@ const ToolbarPlugin = () => {
   }, [editor, $updateToolbar])
 
   return (
-    <div className="mb-px flex space-x-[2px] rounded-t-md bg-white p-1">
+    <div className="mb-px flex space-x-[2px] overflow-auto rounded-t-md bg-white p-1">
+      <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={loading}>
+        <Save className="h-4 w-4" />
+      </Toggle>
+
+      <Divider />
+
       <Toggle
         aria-label="Undo"
         size="sm"
