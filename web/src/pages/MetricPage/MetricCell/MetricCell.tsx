@@ -75,13 +75,13 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
 
       <ul className="divide-y divide-white">
         {metric.entries.map((entry, index) => (
-          <li key={entry.id} className="flex items-center justify-between gap-6 py-4 text-sm">
-            <time dateTime={entry.date} className="font-medium">
+          <li key={entry.id} className="flex items-center justify-between gap-6 py-4 ">
+            <time dateTime={entry.date} className="text-sm font-medium">
               {entry.date}
             </time>
 
             <div className="flex shrink-0 items-center gap-4">
-              <p className="text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 {entry.value} {metric.unit}
               </p>
 
