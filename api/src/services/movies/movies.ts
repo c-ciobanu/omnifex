@@ -4,7 +4,7 @@ import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
-import { searchTMDBMovies, getTMDBMovie, TMDBSearchMovie } from 'src/lib/tmdb'
+import { searchTMDBMovies, getTMDBMovie, TMDBSearchMovie, getTMDBMovieDirector } from 'src/lib/tmdb'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const tmdbMovies: TMDBSearchMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
@@ -35,17 +35,20 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
   )
 
   if (!m) {
-    const tmdbMovie = await getTMDBMovie(tmdbId)
+    const [tmdbMovie, movieDirector] = await Promise.all([getTMDBMovie(tmdbId), getTMDBMovieDirector(tmdbId)])
 
     m = await db.movie.create({
       data: {
+        director: movieDirector,
         genres: tmdbMovie.genres.map((genre) => genre.name),
         imdbId: tmdbMovie.imdb_id,
+        originalLanguage: tmdbMovie.original_language,
+        originalTitle: tmdbMovie.original_title,
         overview: tmdbMovie.overview,
         rating: Math.round(tmdbMovie.vote_average * 10) / 10,
         releaseDate: new Date(tmdbMovie.release_date),
         runtime: tmdbMovie.runtime,
-        tagline: tmdbMovie.tagline,
+        tagline: tmdbMovie.tagline || undefined,
         title: tmdbMovie.title,
         tmdbId: tmdbMovie.id,
         tmdbPosterPath: tmdbMovie.poster_path,

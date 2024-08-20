@@ -9,14 +9,17 @@ export const schema = gql`
 
   type Movie {
     id: Int!
+    director: String
     genres: [String!]!
     imdbId: String!
+    originalLanguage: String
+    originalTitle: String
     overview: String!
     posterUrl: String!
     rating: Float!
     releaseDate: Date!
     runtime: Int!
-    tagline: String!
+    tagline: String
     title: String!
     tmdbId: Int!
     userInfo: MovieUserInfo
