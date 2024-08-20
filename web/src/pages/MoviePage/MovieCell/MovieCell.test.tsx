@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render, screen } from '@redwoodjs/testing/web'
 
-import { Loading, Empty, Failure, Success } from './MovieCell'
+import { Loading, Empty, Failure, Success, formatMinutesToHoursAndMinutes } from './MovieCell'
 import { standard } from './MovieCell.mock'
 
 describe('MovieCell', () => {
@@ -17,6 +17,13 @@ describe('MovieCell', () => {
   })
 
   it('renders Success successfully', async () => {
-    expect(() => render(<Success movie={standard().movie} />)).not.toThrow()
+    const movie = standard().movie
+    render(<Success movie={standard().movie} />)
+
+    const runtimeText = formatMinutesToHoursAndMinutes(movie.runtime)
+
+    expect(screen.getByText(movie.title)).toBeInTheDocument()
+    expect(screen.queryByText(movie.runtime)).not.toBeInTheDocument()
+    expect(screen.queryByText(runtimeText, { exact: false })).toBeInTheDocument()
   })
 })
