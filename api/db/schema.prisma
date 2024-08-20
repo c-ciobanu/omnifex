@@ -31,17 +31,20 @@ model User {
 }
 
 model Movie {
-  id             Int      @id @default(autoincrement())
-  genres         String[]
-  imdbId         String   @unique
-  overview       String
-  rating         Decimal  @db.Decimal(3, 1)
-  releaseDate    DateTime @db.Date
-  runtime        Int
-  tagline        String
-  title          String
-  tmdbId         Int      @unique
-  tmdbPosterPath String
+  id               Int      @id @default(autoincrement())
+  director         String?
+  genres           String[]
+  imdbId           String   @unique
+  originalLanguage String?
+  originalTitle    String?
+  overview         String
+  rating           Decimal  @db.Decimal(3, 1)
+  releaseDate      DateTime @db.Date
+  runtime          Int
+  tagline          String?
+  title            String
+  tmdbId           Int      @unique
+  tmdbPosterPath   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
