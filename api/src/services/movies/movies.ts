@@ -4,10 +4,10 @@ import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
-import { searchTMDBMovies, getTMDBMovie, TMDBMovie } from 'src/lib/tmdb'
+import { searchTMDBMovies, getTMDBMovie, TMDBSearchMovie } from 'src/lib/tmdb'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
-  const tmdbMovies: TMDBMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
+  const tmdbMovies: TMDBSearchMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
     expires: 60 * 60 * 24 * 7,
   })
 
