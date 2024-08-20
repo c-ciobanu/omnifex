@@ -39,7 +39,7 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => (
   <div className="min-h-main flex flex-col items-center justify-center gap-2">
     <ChartLine className="h-12 w-12" />
-    <h3 className="text-2xl font-bold tracking-tight">No metrics tracked</h3>
+    <h3 className="text-2xl font-bold tracking-tight">You have no tracked metrics</h3>
     <p className="mb-4 text-sm text-muted-foreground">Get started by creating a new metric.</p>
     <NewMetric />
   </div>
