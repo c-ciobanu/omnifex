@@ -1,10 +1,6 @@
 services:
   console:
     image: ghcr.io/c-ciobanu/popcorn-time-console:${COMMIT_SHA}
-    user: root
-    tmpfs:
-      - /tmp
-    command: /bin/bash
     stdin_open: true
     tty: true
     environment:
