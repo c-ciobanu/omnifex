@@ -68,7 +68,7 @@ export const Success = ({ book }: CellSuccessProps<BookQuery>) => {
                   ))}
                 </div>
               ) : null}
-              <div dangerouslySetInnerHTML={{ __html: book.description }} />
+              <div dangerouslySetInnerHTML={{ __html: book.description }} className="prose max-w-none" />
             </div>
           </div>
         </div>

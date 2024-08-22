@@ -76,7 +76,7 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
                   </span>
                 ))}
               </div>
-              <p>{movie.overview}</p>
+              <p className="prose max-w-none">{movie.overview}</p>
             </div>
           </div>
         </div>
