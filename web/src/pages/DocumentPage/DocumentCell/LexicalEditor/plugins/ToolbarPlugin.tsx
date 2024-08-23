@@ -1,13 +1,24 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { mergeRegister } from '@lexical/utils'
 import {
+  $isListNode,
+  INSERT_CHECK_LIST_COMMAND,
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  ListNode,
+} from '@lexical/list'
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { $setBlocksType } from '@lexical/selection'
+import { $findMatchingParent, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
+import {
+  $createParagraphNode,
   $getSelection,
   $isElementNode,
   $isRangeSelection,
+  $isRootOrShadowRoot,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
+  COMMAND_PRIORITY_LOW,
   ElementFormatType,
   FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
@@ -21,23 +32,62 @@ import {
   AlignLeft,
   AlignRight,
   Bold,
+  ChevronDown,
   Italic,
+  List,
+  ListOrdered,
+  ListTodo,
   RotateCcw,
   RotateCw,
   Save,
   Strikethrough,
+  Text,
   Underline,
 } from 'lucide-react'
 import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from 'src/components/ui/dropdown-menu'
 import { Toggle } from 'src/components/ui/toggle'
-
-const LowPriority = 1
 
 function Divider() {
   return <div className="mx-1 w-px bg-[#eee]" />
+}
+
+const blockTypeElements = {
+  paragraph: (
+    <>
+      <Text className="h-4 w-4" /> Paragraph
+    </>
+  ),
+  bullet: (
+    <>
+      <List className="h-4 w-4" /> Bulleted list
+    </>
+  ),
+  number: (
+    <>
+      <ListOrdered className="h-4 w-4" /> Numbered list
+    </>
+  ),
+  check: (
+    <>
+      <ListTodo className="h-4 w-4" /> Checklist
+    </>
+  ),
+}
+
+const blockTypeCommands = {
+  bullet: INSERT_UNORDERED_LIST_COMMAND,
+  number: INSERT_ORDERED_LIST_COMMAND,
+  check: INSERT_CHECK_LIST_COMMAND,
 }
 
 const UPDATE_DOCUMENT = gql`
@@ -56,6 +106,7 @@ type ToolbarPluginProps = {
 
 const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
   const [editor] = useLexicalComposerContext()
+  const [blockType, setBlockType] = useState<keyof typeof blockTypeElements>('paragraph')
   const [canUndo, setCanUndo] = useState(false)
   const [canRedo, setCanRedo] = useState(false)
   const [isBold, setIsBold] = useState(false)
@@ -88,6 +139,34 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
       const parent = node.getParent()
 
       setAlignment($isElementNode(node) ? node.getFormatType() : parent.getFormatType() || 'left')
+
+      let element =
+        node.getKey() === 'root'
+          ? node
+          : $findMatchingParent(node, (e) => {
+              const parent = e.getParent()
+              return parent !== null && $isRootOrShadowRoot(parent)
+            })
+
+      if (element === null) {
+        element = node.getTopLevelElementOrThrow()
+      }
+
+      const elementKey = element.getKey()
+      const elementDOM = editor.getElementByKey(elementKey)
+
+      if (elementDOM) {
+        if ($isListNode(element)) {
+          const parentList = $getNearestNodeOfType<ListNode>(node, ListNode)
+          const type = parentList ? parentList.getListType() : element.getListType()
+          setBlockType(type)
+        } else {
+          const type = element.getType()
+          if (type in blockTypeElements) {
+            setBlockType(type as keyof typeof blockTypeElements)
+          }
+        }
+      }
     }
   }, [])
 
@@ -102,7 +181,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
           $updateToolbar()
           return false
         },
-        LowPriority
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerCommand(
         CAN_UNDO_COMMAND,
@@ -110,7 +189,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
           setCanUndo(payload)
           return false
         },
-        LowPriority
+        COMMAND_PRIORITY_LOW
       ),
       editor.registerCommand(
         CAN_REDO_COMMAND,
@@ -118,13 +197,29 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
           setCanRedo(payload)
           return false
         },
-        LowPriority
+        COMMAND_PRIORITY_LOW
       )
     )
   }, [editor, $updateToolbar])
 
+  function formatParagraph() {
+    editor.update(() => {
+      const selection = $getSelection()
+
+      if ($isRangeSelection(selection)) {
+        $setBlocksType(selection, $createParagraphNode)
+      }
+    })
+  }
+
+  const formatList = (type: keyof typeof blockTypeCommands) => {
+    if (blockType !== type) {
+      editor.dispatchCommand(blockTypeCommands[type], undefined)
+    }
+  }
+
   return (
-    <div className="mb-px flex space-x-[2px] overflow-auto rounded-t-md bg-white p-1">
+    <div className="mb-px flex space-x-1 overflow-auto rounded-t-md bg-white p-1">
       <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={loading}>
         <Save className="h-4 w-4" />
       </Toggle>
@@ -150,6 +245,33 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
       >
         <RotateCw className="h-4 w-4" />
       </Toggle>
+
+      <Divider />
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Toggle aria-label="Text style formatting options" size="sm" pressed={false} className="gap-2 font-normal">
+            {blockTypeElements[blockType]} <ChevronDown className="h-4 w-4" />
+          </Toggle>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent>
+          <DropdownMenuRadioGroup value={blockType}>
+            <DropdownMenuRadioItem className="gap-2" value="paragraph" onClick={formatParagraph}>
+              {blockTypeElements['paragraph']}
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="gap-2" value="bullet" onClick={() => formatList('bullet')}>
+              {blockTypeElements['bullet']}
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="gap-2" value="number" onClick={() => formatList('number')}>
+              {blockTypeElements['number']}
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem className="gap-2" value="check" onClick={() => formatList('check')}>
+              {blockTypeElements['check']}
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <Divider />
 
