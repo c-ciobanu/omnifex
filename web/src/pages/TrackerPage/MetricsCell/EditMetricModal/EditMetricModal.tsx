@@ -37,7 +37,7 @@ const EditMetricModal = (props: EditMetricModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <Form onSubmit={onSubmit}>
           <DialogHeader>
             <DialogTitle>Edit Metric</DialogTitle>
@@ -72,12 +72,8 @@ const EditMetricModal = (props: EditMetricModalProps) => {
             </fieldset>
           </div>
 
-          <DialogFooter className="gap-4">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
-            </DialogClose>
+          <DialogFooter>
+            <DialogClose>Close</DialogClose>
 
             <Button asChild>
               <Submit disabled={loading}>Save</Submit>

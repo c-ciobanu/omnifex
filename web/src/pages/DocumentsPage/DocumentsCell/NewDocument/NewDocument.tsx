@@ -61,7 +61,7 @@ const NewDocument = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <Form onSubmit={onSubmit}>
           <DialogHeader>
             <DialogTitle>New Document</DialogTitle>
@@ -82,12 +82,8 @@ const NewDocument = () => {
             </fieldset>
           </div>
 
-          <DialogFooter className="gap-4">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
-            </DialogClose>
+          <DialogFooter>
+            <DialogClose>Close</DialogClose>
 
             <Button asChild>
               <Submit disabled={loading}>Save</Submit>

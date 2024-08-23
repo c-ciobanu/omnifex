@@ -3,6 +3,7 @@ import * as React from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
+import { buttonVariants } from 'src/components/ui/button'
 import { cn } from 'src/lib/utils'
 
 const Dialog = DialogPrimitive.Root
@@ -10,8 +11,6 @@ const Dialog = DialogPrimitive.Root
 const DialogTrigger = DialogPrimitive.Trigger
 
 const DialogPortal = DialogPrimitive.Portal
-
-const DialogClose = DialogPrimitive.Close
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -81,6 +80,18 @@ const DialogDescription = React.forwardRef<
   <DialogPrimitive.Description ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
+
+const DialogClose = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Close>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Close
+    ref={ref}
+    className={cn(buttonVariants({ variant: 'outline' }), 'mt-2 sm:mt-0', className)}
+    {...props}
+  />
+))
+DialogClose.displayName = DialogPrimitive.Close.displayName
 
 export {
   Dialog,
