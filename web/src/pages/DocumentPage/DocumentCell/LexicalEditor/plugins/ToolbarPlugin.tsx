@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { TOGGLE_LINK_COMMAND, $isLinkNode } from '@lexical/link'
 import {
   $isListNode,
   INSERT_CHECK_LIST_COMMAND,
@@ -18,6 +19,7 @@ import {
   $isRootOrShadowRoot,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
+  CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   ElementFormatType,
   FORMAT_ELEMENT_COMMAND,
@@ -43,11 +45,16 @@ import {
   Strikethrough,
   Text,
   Underline,
+  Link,
+  Unlink,
 } from 'lucide-react'
 import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
 
+import { FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
+import { Button } from 'src/components/ui/button'
+import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -114,6 +121,8 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
   const [alignment, setAlignment] = useState<ElementFormatType>('left')
+  const [isLink, setIsLink] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const [updateDocument, { loading }] = useMutation<UpdateDocumentMutation, UpdateDocumentMutationVariables>(
     UPDATE_DOCUMENT
@@ -139,6 +148,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
       const parent = node.getParent()
 
       setAlignment($isElementNode(node) ? node.getFormatType() : parent.getFormatType() || 'left')
+      setIsLink($isLinkNode(parent) || $isLinkNode(node))
 
       let element =
         node.getKey() === 'root'
@@ -198,6 +208,25 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
           return false
         },
         COMMAND_PRIORITY_LOW
+      ),
+      editor.registerCommand(
+        CLICK_COMMAND,
+        (payload) => {
+          const selection = $getSelection()
+
+          if ($isRangeSelection(selection)) {
+            const node = selection.anchor.getNode()
+            const linkNode = $findMatchingParent(node, $isLinkNode)
+
+            if ($isLinkNode(linkNode) && (payload.metaKey || payload.ctrlKey)) {
+              window.open(linkNode.getURL(), '_blank')
+              return true
+            }
+          }
+
+          return false
+        },
+        COMMAND_PRIORITY_LOW
       )
     )
   }, [editor, $updateToolbar])
@@ -218,134 +247,190 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
     }
   }
 
+  function onSubmit(data) {
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, { url: data.link, title: data.title })
+    setIsOpen(false)
+  }
+
   return (
-    <div className="mb-px flex space-x-1 overflow-auto rounded-t-md bg-white p-1">
-      <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={loading}>
-        <Save className="h-4 w-4" />
-      </Toggle>
+    <>
+      <div className="mb-px flex space-x-1 overflow-auto rounded-t-md bg-white p-1">
+        <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={loading}>
+          <Save className="h-4 w-4" />
+        </Toggle>
 
-      <Divider />
+        <Divider />
 
-      <Toggle
-        aria-label="Undo"
-        size="sm"
-        onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)}
-        pressed={false}
-        disabled={!canUndo}
-      >
-        <RotateCcw className="h-4 w-4" />
-      </Toggle>
+        <Toggle
+          aria-label="Undo"
+          size="sm"
+          onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)}
+          pressed={false}
+          disabled={!canUndo}
+        >
+          <RotateCcw className="h-4 w-4" />
+        </Toggle>
 
-      <Toggle
-        aria-label="Redo"
-        size="sm"
-        onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)}
-        pressed={false}
-        disabled={!canRedo}
-      >
-        <RotateCw className="h-4 w-4" />
-      </Toggle>
+        <Toggle
+          aria-label="Redo"
+          size="sm"
+          onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)}
+          pressed={false}
+          disabled={!canRedo}
+        >
+          <RotateCw className="h-4 w-4" />
+        </Toggle>
 
-      <Divider />
+        <Divider />
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Toggle aria-label="Text style formatting options" size="sm" pressed={false} className="gap-2 font-normal">
-            {blockTypeElements[blockType]} <ChevronDown className="h-4 w-4" />
-          </Toggle>
-        </DropdownMenuTrigger>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Toggle
+              aria-label="Text style formatting options"
+              size="sm"
+              pressed={false}
+              className="gap-2 whitespace-nowrap font-normal"
+            >
+              {blockTypeElements[blockType]} <ChevronDown className="h-4 w-4" />
+            </Toggle>
+          </DropdownMenuTrigger>
 
-        <DropdownMenuContent>
-          <DropdownMenuRadioGroup value={blockType}>
-            <DropdownMenuRadioItem className="gap-2" value="paragraph" onClick={formatParagraph}>
-              {blockTypeElements['paragraph']}
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem className="gap-2" value="bullet" onClick={() => formatList('bullet')}>
-              {blockTypeElements['bullet']}
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem className="gap-2" value="number" onClick={() => formatList('number')}>
-              {blockTypeElements['number']}
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem className="gap-2" value="check" onClick={() => formatList('check')}>
-              {blockTypeElements['check']}
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          <DropdownMenuContent>
+            <DropdownMenuRadioGroup value={blockType}>
+              <DropdownMenuRadioItem className="gap-2" value="paragraph" onClick={formatParagraph}>
+                {blockTypeElements['paragraph']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="bullet" onClick={() => formatList('bullet')}>
+                {blockTypeElements['bullet']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="number" onClick={() => formatList('number')}>
+                {blockTypeElements['number']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="check" onClick={() => formatList('check')}>
+                {blockTypeElements['check']}
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-      <Divider />
+        <Divider />
 
-      <Toggle
-        aria-label="Format Bold"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')}
-        pressed={isBold}
-      >
-        <Bold className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        aria-label="Format Italics"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')}
-        pressed={isItalic}
-      >
-        <Italic className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        aria-label="Format Underline"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')}
-        pressed={isUnderline}
-      >
-        <Underline className="h-4 w-4" />
-      </Toggle>
-      <Toggle
-        aria-label="Format Strikethrough"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')}
-        pressed={isStrikethrough}
-      >
-        <Strikethrough className="h-4 w-4" />
-      </Toggle>
+        <Toggle
+          aria-label="Format Bold"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')}
+          pressed={isBold}
+        >
+          <Bold className="h-4 w-4" />
+        </Toggle>
+        <Toggle
+          aria-label="Format Italics"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')}
+          pressed={isItalic}
+        >
+          <Italic className="h-4 w-4" />
+        </Toggle>
+        <Toggle
+          aria-label="Format Underline"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')}
+          pressed={isUnderline}
+        >
+          <Underline className="h-4 w-4" />
+        </Toggle>
+        <Toggle
+          aria-label="Format Strikethrough"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')}
+          pressed={isStrikethrough}
+        >
+          <Strikethrough className="h-4 w-4" />
+        </Toggle>
 
-      <Divider />
+        <Toggle
+          aria-label={isLink ? 'Insert link' : 'Unlink'}
+          size="sm"
+          onClick={() => {
+            if (isLink) {
+              editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+            } else {
+              setIsOpen(true)
+            }
+          }}
+          pressed={false}
+        >
+          {isLink ? <Unlink className="h-4 w-4" /> : <Link className="h-4 w-4" />}
+        </Toggle>
 
-      <Toggle
-        aria-label="Left Align"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')}
-        pressed={alignment === 'left'}
-      >
-        <AlignLeft className="h-4 w-4" />
-      </Toggle>
+        <Divider />
 
-      <Toggle
-        aria-label="Center Align"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')}
-        pressed={alignment === 'center'}
-      >
-        <AlignCenter className="h-4 w-4" />
-      </Toggle>
+        <Toggle
+          aria-label="Left Align"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')}
+          pressed={alignment === 'left'}
+        >
+          <AlignLeft className="h-4 w-4" />
+        </Toggle>
 
-      <Toggle
-        aria-label="Right Align"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')}
-        pressed={alignment === 'right'}
-      >
-        <AlignRight className="h-4 w-4" />
-      </Toggle>
+        <Toggle
+          aria-label="Center Align"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')}
+          pressed={alignment === 'center'}
+        >
+          <AlignCenter className="h-4 w-4" />
+        </Toggle>
 
-      <Toggle
-        aria-label="Justify Align"
-        size="sm"
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')}
-        pressed={alignment === 'justify'}
-      >
-        <AlignJustify className="h-4 w-4" />
-      </Toggle>
-    </div>
+        <Toggle
+          aria-label="Right Align"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')}
+          pressed={alignment === 'right'}
+        >
+          <AlignRight className="h-4 w-4" />
+        </Toggle>
+
+        <Toggle
+          aria-label="Justify Align"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')}
+          pressed={alignment === 'justify'}
+        >
+          <AlignJustify className="h-4 w-4" />
+        </Toggle>
+      </div>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent>
+          <Form onSubmit={onSubmit}>
+            <div className="py-6">
+              <fieldset>
+                <Label name="url" className="form-label" errorClassName="form-label form-label-error">
+                  Link
+                </Label>
+                <TextField
+                  name="url"
+                  className="form-input"
+                  errorClassName="form-input form-input-error"
+                  validation={{ required: true }}
+                />
+                <FieldError name="url" className="form-field-error" />
+              </fieldset>
+            </div>
+
+            <DialogFooter>
+              <DialogClose>Close</DialogClose>
+
+              <Button asChild>
+                <Submit>Save</Submit>
+              </Button>
+            </DialogFooter>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 
