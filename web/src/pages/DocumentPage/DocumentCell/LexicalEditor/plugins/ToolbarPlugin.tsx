@@ -50,7 +50,7 @@ import {
 } from 'lucide-react'
 import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
 
-import { FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -62,6 +62,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+import { FormField, FormInput } from 'src/components/ui/form'
 import { Toggle } from 'src/components/ui/toggle'
 
 function Divider() {
@@ -106,6 +107,10 @@ const UPDATE_DOCUMENT = gql`
     }
   }
 `
+
+interface FormValues {
+  url: string
+}
 
 type ToolbarPluginProps = {
   documentId: string
@@ -247,8 +252,8 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
     }
   }
 
-  function onSubmit(data) {
-    editor.dispatchCommand(TOGGLE_LINK_COMMAND, { url: data.link, title: data.title })
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, data.url)
     setIsOpen(false)
   }
 
@@ -404,28 +409,15 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
-          <Form onSubmit={onSubmit}>
-            <div className="py-6">
-              <fieldset>
-                <Label name="url" className="form-label" errorClassName="form-label form-label-error">
-                  Link
-                </Label>
-                <TextField
-                  name="url"
-                  className="form-input"
-                  errorClassName="form-input form-input-error"
-                  validation={{ required: true }}
-                />
-                <FieldError name="url" className="form-field-error" />
-              </fieldset>
-            </div>
+          <Form onSubmit={onSubmit} className="space-y-6">
+            <FormField name="url" label="Link">
+              <FormInput name="url" type="url" validation={{ required: true }} />
+            </FormField>
 
             <DialogFooter>
               <DialogClose>Close</DialogClose>
 
-              <Button asChild>
-                <Submit>Save</Submit>
-              </Button>
+              <Button type="submit">Save</Button>
             </DialogFooter>
           </Form>
         </DialogContent>

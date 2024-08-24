@@ -1,21 +1,27 @@
 import { useEffect, useRef } from 'react'
 
-import { Form, Label, TextField, Submit, FieldError } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
+import { Button } from 'src/components/ui/button'
+import { FormField, FormInput } from 'src/components/ui/form'
+
+interface FormValues {
+  email: string
+}
 
 const ForgotPasswordPage = () => {
   const { forgotPassword } = useAuth()
-
   const emailRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     emailRef?.current?.focus()
   }, [])
 
-  const onSubmit = async (data: { email: string }) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await forgotPassword(data.email)
 
     if (response.error) {
@@ -38,15 +44,11 @@ const ForgotPasswordPage = () => {
 
         <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
-            <fieldset>
-              <Label name="email" className="form-label" errorClassName="form-label form-label-error">
-                Email address
-              </Label>
-              <TextField
-                name="email"
-                className="form-input"
-                errorClassName="form-input form-input-error"
+            <FormField name="email" label="Email Address">
+              <FormInput
                 ref={emailRef}
+                name="email"
+                type="email"
                 validation={{
                   required: {
                     value: true,
@@ -54,12 +56,11 @@ const ForgotPasswordPage = () => {
                   },
                 }}
               />
-              <FieldError name="email" className="form-field-error" />
-            </fieldset>
+            </FormField>
 
-            <Submit className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
+            <Button type="submit" className="w-full">
               Submit
-            </Submit>
+            </Button>
           </Form>
         </div>
       </div>

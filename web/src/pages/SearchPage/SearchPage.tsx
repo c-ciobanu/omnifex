@@ -2,24 +2,25 @@ import { useEffect, useRef } from 'react'
 
 import { Search } from 'lucide-react'
 
-import { Form, SelectField, Submit, SubmitHandler, TextField, useForm } from '@redwoodjs/forms'
+import { Form, SubmitHandler, useForm } from '@redwoodjs/forms'
 import { navigate, useParams } from '@redwoodjs/router'
 import { routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
+import { FormField, FormInput, FormSelect } from 'src/components/ui/form'
 
 import BooksCell from './BooksCell'
 import MoviesCell from './MoviesCell'
 
+const entityLabels = {
+  book: 'Book',
+  movie: 'Movie',
+}
+
 interface FormValues {
   title: string
   entity: 'book' | 'movie'
-}
-
-const titles = {
-  book: 'Book',
-  movie: 'Movie',
 }
 
 type SearchPageProps = {
@@ -45,27 +46,31 @@ const SearchPage = (props: SearchPageProps) => {
 
   return (
     <>
-      <Metadata title={`${titles[props.entity]} Search`} />
+      <Metadata title={`${entityLabels[props.entity]} Search`} />
 
       <Form onSubmit={onSubmit} formMethods={formMethods} className="mb-4 flex gap-2">
-        <TextField
-          name="title"
-          defaultValue={params.q}
-          placeholder={`Search for a ${props.entity}`}
-          className="form-input"
-          ref={titleRef}
-          validation={{ required: true, minLength: 1 }}
-        />
+        <FormField name="title" className="w-full">
+          <FormInput
+            ref={titleRef}
+            name="title"
+            defaultValue={params.q}
+            placeholder={`Search for a ${props.entity}`}
+            validation={{ required: true }}
+          />
+        </FormField>
 
-        <SelectField name="entity" defaultValue={props.entity} className="form-input w-auto p-0">
-          <option value="movie">Movie</option>
-          <option value="book">Book</option>
-        </SelectField>
+        <FormField name="entity">
+          <FormSelect
+            name="entity"
+            options={Object.keys(entityLabels).map((k) => ({ value: k, label: entityLabels[k] }))}
+            defaultValue={props.entity}
+            validation={{ required: true }}
+            className="w-24 shrink-0"
+          />
+        </FormField>
 
-        <Button asChild size="icon" className="mt-2 shrink-0">
-          <Submit>
-            <Search className="h-5 w-5" />
-          </Submit>
+        <Button type="submit" size="icon" className="shrink-0">
+          <Search className="h-5 w-5" />
         </Button>
       </Form>
 

@@ -1,22 +1,29 @@
 import { useRef } from 'react'
 import { useEffect } from 'react'
 
-import { Form, Label, TextField, PasswordField, Submit, FieldError } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
+import { Button } from 'src/components/ui/button'
+import { FormField, FormInput } from 'src/components/ui/form'
+
+interface FormValues {
+  username: string
+  password: string
+}
 
 const LoginPage = () => {
   const { logIn } = useAuth()
-
   const usernameRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     usernameRef.current?.focus()
   }, [])
 
-  const onSubmit = async (data: Record<string, string>) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await logIn({ username: data.username, password: data.password })
 
     if (response.message) {
@@ -37,34 +44,19 @@ const LoginPage = () => {
 
         <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
-            <fieldset>
-              <Label name="username" className="form-label" errorClassName="form-label form-label-error">
-                Username
-              </Label>
-              <TextField
-                name="username"
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                ref={usernameRef}
-                validation={{ required: true }}
-              />
-              <FieldError name="username" className="form-field-error" />
-            </fieldset>
+            <FormField name="username" label="Username">
+              <FormInput ref={usernameRef} name="username" validation={{ required: true }} />
+            </FormField>
 
             <div>
-              <fieldset>
-                <Label name="password" className="form-label" errorClassName="form-label form-label-error">
-                  Password
-                </Label>
-                <PasswordField
+              <FormField name="password" label="Password">
+                <FormInput
                   name="password"
-                  className="form-input"
-                  errorClassName="form-input form-input-error"
+                  type="password"
                   autoComplete="current-password"
                   validation={{ required: true }}
                 />
-                <FieldError name="password" className="form-field-error" />
-              </fieldset>
+              </FormField>
 
               {/* <div className="mt-2 block text-right">
                 <Link to={routes.forgotPassword()} className="text-sm font-semibold text-blue-600 hover:text-blue-500">
@@ -73,9 +65,9 @@ const LoginPage = () => {
               </div> */}
             </div>
 
-            <Submit className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
+            <Button type="submit" className="w-full">
               Sign in to your account
-            </Submit>
+            </Button>
           </Form>
         </div>
 

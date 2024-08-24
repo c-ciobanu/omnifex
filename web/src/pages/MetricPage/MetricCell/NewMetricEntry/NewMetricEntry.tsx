@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { CreateMetricEntryMutation, CreateMetricEntryMutationVariables, MetricQuery } from 'types/graphql'
 
-import { DateField, FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'src/components/ui/dialog'
+import { FormField, FormInput } from 'src/components/ui/form'
 
 import { QUERY } from '../MetricCell'
 
@@ -26,6 +27,11 @@ const CREATE_METRIC_ENTRY = gql`
     }
   }
 `
+
+interface FormValues {
+  value: string
+  date: string
+}
 
 type NewMetricEntryProps = {
   metric: MetricQuery['metric']
@@ -45,10 +51,8 @@ const NewMetricEntry = (props: NewMetricEntryProps) => {
     }
   )
 
-  function onSubmit({ value, date }: { value: string; date: Date }) {
-    createMetricEntry({
-      variables: { input: { metricId: metric.id, value, date: date.toISOString().substring(0, 10) } },
-    })
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    createMetricEntry({ variables: { input: { metricId: metric.id, ...data } } })
   }
 
   return (
@@ -61,46 +65,30 @@ const NewMetricEntry = (props: NewMetricEntryProps) => {
       </DialogTrigger>
 
       <DialogContent>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} className="space-y-6">
           <DialogHeader>
             <DialogTitle>New Entry</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-6 py-6">
-            <fieldset>
-              <Label name="value" className="form-label" errorClassName="form-label form-label-error">
-                Value [ {metric.unit} ]
-              </Label>
-              <TextField
-                name="value"
-                defaultValue={metric.entries[0].value}
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="value" className="form-field-error" />
-            </fieldset>
+          <FormField name="value" label={`Value [ ${metric.unit} ]`}>
+            <FormInput name="value" defaultValue={metric.entries[0].value} validation={{ required: true }} />
+          </FormField>
 
-            <fieldset>
-              <Label name="date" className="form-label" errorClassName="form-label form-label-error">
-                Date
-              </Label>
-              <DateField
-                name="date"
-                defaultValue={new Date().toISOString().substring(0, 10)}
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="date" className="form-field-error" />
-            </fieldset>
-          </div>
+          <FormField name="date" label="Date">
+            <FormInput
+              name="date"
+              type="date"
+              defaultValue={new Date().toISOString().substring(0, 10)}
+              max={new Date().toISOString().substring(0, 10)}
+              validation={{ required: true }}
+            />
+          </FormField>
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button asChild>
-              <Submit disabled={loading}>Save</Submit>
+            <Button type="submit" disabled={loading}>
+              Save
             </Button>
           </DialogFooter>
         </Form>

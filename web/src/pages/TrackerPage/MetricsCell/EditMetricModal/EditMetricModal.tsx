@@ -1,10 +1,11 @@
 import type { MetricsQuery, UpdateMetricMutation, UpdateMetricMutationVariables } from 'types/graphql'
 
-import { FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
+import { FormField, FormInput } from 'src/components/ui/form'
 
 const UPDATE_METRIC = gql`
   mutation UpdateMetricMutation($id: Int!, $input: UpdateMetricInput!) {
@@ -15,6 +16,11 @@ const UPDATE_METRIC = gql`
     }
   }
 `
+
+interface FormValues {
+  name: string
+  unit?: string
+}
 
 type EditMetricModalProps = {
   isOpen: boolean
@@ -31,52 +37,31 @@ const EditMetricModal = (props: EditMetricModalProps) => {
     },
   })
 
-  function onSubmit(data: { name: string; unit?: string }) {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     updateMetric({ variables: { id: metric.id, input: data } })
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} className="space-y-6">
           <DialogHeader>
             <DialogTitle>Edit Metric</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-6 py-6">
-            <fieldset>
-              <Label name="name" className="form-label" errorClassName="form-label form-label-error">
-                Name
-              </Label>
-              <TextField
-                name="name"
-                defaultValue={metric.name}
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="name" className="form-field-error" />
-            </fieldset>
+          <FormField name="name" label="Name">
+            <FormInput name="name" defaultValue={metric.name} validation={{ required: true }} />
+          </FormField>
 
-            <fieldset>
-              <Label name="unit" className="form-label" errorClassName="form-label form-label-error">
-                Unit
-              </Label>
-              <TextField
-                name="unit"
-                defaultValue={metric.unit}
-                className="form-input"
-                errorClassName="form-input form-input-error"
-              />
-              <FieldError name="unit" className="form-field-error" />
-            </fieldset>
-          </div>
+          <FormField name="unit" label="Unit">
+            <FormInput name="unit" defaultValue={metric.unit} />
+          </FormField>
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button asChild>
-              <Submit disabled={loading}>Save</Submit>
+            <Button type="submit" disabled={loading}>
+              Save
             </Button>
           </DialogFooter>
         </Form>

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { CreateDocumentMutation, CreateDocumentMutationVariables } from 'types/graphql'
 
-import { FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'src/components/ui/dialog'
+import { FormField, FormInput } from 'src/components/ui/form'
 
 import { QUERY } from '../DocumentsCell'
 
@@ -27,6 +28,10 @@ const CREATE_DOCUMENT = gql`
     }
   }
 `
+
+interface FormValues {
+  title: string
+}
 
 const NewDocument = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -48,7 +53,7 @@ const NewDocument = () => {
     }
   )
 
-  function onSubmit(data: { title: string }) {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     createMetric({ variables: { input: data } })
   }
 
@@ -62,31 +67,20 @@ const NewDocument = () => {
       </DialogTrigger>
 
       <DialogContent>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} className="space-y-6">
           <DialogHeader>
             <DialogTitle>New Document</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-6 py-6">
-            <fieldset>
-              <Label name="title" className="form-label" errorClassName="form-label form-label-error">
-                Title
-              </Label>
-              <TextField
-                name="title"
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="title" className="form-field-error" />
-            </fieldset>
-          </div>
+          <FormField name="title" label="Title">
+            <FormInput name="title" validation={{ required: true }} />
+          </FormField>
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button asChild>
-              <Submit disabled={loading}>Save</Submit>
+            <Button type="submit" disabled={loading}>
+              Save
             </Button>
           </DialogFooter>
         </Form>

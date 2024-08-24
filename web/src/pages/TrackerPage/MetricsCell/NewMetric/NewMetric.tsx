@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { CreateMetricMutation, CreateMetricMutationVariables } from 'types/graphql'
 
-import { DateField, FieldError, Form, Label, Submit, TextField } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -16,8 +16,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'src/components/ui/dialog'
+import { FormField, FormInput } from 'src/components/ui/form'
 
 import { QUERY } from '../MetricsCell'
+
+interface FormValues {
+  name: string
+  unit?: string
+  entry: { value: string; date: string }
+}
 
 const CREATE_METRIC = gql`
   mutation CreateMetricMutation($input: CreateMetricInput!) {
@@ -51,12 +58,8 @@ const NewMetric = () => {
     },
   })
 
-  function onSubmit(data: { name: string; unit?: string; entry: { value: string; date: Date } }) {
-    createMetric({
-      variables: {
-        input: { ...data, entry: { ...data.entry, date: data.entry.date.toISOString().substring(0, 10) } },
-      },
-    })
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    createMetric({ variables: { input: data } })
   }
 
   return (
@@ -69,66 +72,38 @@ const NewMetric = () => {
       </DialogTrigger>
 
       <DialogContent>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} className="space-y-6">
           <DialogHeader>
             <DialogTitle>New Metric</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-6 py-6">
-            <fieldset>
-              <Label name="name" className="form-label" errorClassName="form-label form-label-error">
-                Name
-              </Label>
-              <TextField
-                name="name"
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="name" className="form-field-error" />
-            </fieldset>
+          <FormField name="name" label="Name">
+            <FormInput name="name" validation={{ required: true }} />
+          </FormField>
 
-            <fieldset>
-              <Label name="unit" className="form-label" errorClassName="form-label form-label-error">
-                Unit
-              </Label>
-              <TextField name="unit" className="form-input" errorClassName="form-input form-input-error" />
-              <FieldError name="unit" className="form-field-error" />
-            </fieldset>
+          <FormField name="unit" label="Unit">
+            <FormInput name="unit" />
+          </FormField>
 
-            <fieldset>
-              <Label name="entry.value" className="form-label" errorClassName="form-label form-label-error">
-                Entry Value
-              </Label>
-              <TextField
-                name="entry.value"
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="entry.value" className="form-field-error" />
-            </fieldset>
+          <FormField name="entry.value" label="Entry Value">
+            <FormInput name="entry.value" validation={{ required: true }} />
+          </FormField>
 
-            <fieldset>
-              <Label name="entry.date" className="form-label" errorClassName="form-label form-label-error">
-                Entry Date
-              </Label>
-              <DateField
-                name="entry.date"
-                defaultValue={new Date().toISOString().substring(0, 10)}
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                validation={{ required: true }}
-              />
-              <FieldError name="entry.date" className="form-field-error" />
-            </fieldset>
-          </div>
+          <FormField name="entry.date" label="Entry Date">
+            <FormInput
+              name="entry.date"
+              type="date"
+              defaultValue={new Date().toISOString().substring(0, 10)}
+              max={new Date().toISOString().substring(0, 10)}
+              validation={{ required: true }}
+            />
+          </FormField>
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button asChild>
-              <Submit disabled={loading}>Save</Submit>
+            <Button type="submit" disabled={loading}>
+              Save
             </Button>
           </DialogFooter>
         </Form>

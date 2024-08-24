@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Form, Label, PasswordField, Submit, FieldError } from '@redwoodjs/forms'
+import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
+import { Button } from 'src/components/ui/button'
+import { FormField, FormInput } from 'src/components/ui/form'
+
+interface FormValues {
+  password: string
+}
 
 const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
   const { reauthenticate, validateResetToken, resetPassword } = useAuth()
   const [enabled, setEnabled] = useState(true)
+  const passwordRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const validateToken = async () => {
@@ -24,12 +31,11 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
     validateToken()
   }, [resetToken, validateResetToken])
 
-  const passwordRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
     passwordRef.current?.focus()
   }, [])
 
-  const onSubmit = async (data: Record<string, string>) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await resetPassword({
       resetToken,
       password: data.password,
@@ -53,17 +59,13 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
 
         <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
-            <fieldset>
-              <Label name="password" className="form-label" errorClassName="form-label form-label-error">
-                New Password
-              </Label>
-              <PasswordField
-                name="password"
-                className="form-input"
-                errorClassName="form-input form-input-error"
-                autoComplete="new-password"
-                disabled={!enabled}
+            <FormField name="password" label="New Password">
+              <FormInput
                 ref={passwordRef}
+                name="password"
+                type="password"
+                disabled={!enabled}
+                autoComplete="new-password"
                 validation={{
                   required: {
                     value: true,
@@ -71,15 +73,11 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
                   },
                 }}
               />
-              <FieldError name="password" className="form-field-error" />
-            </fieldset>
+            </FormField>
 
-            <Submit
-              className="w-full rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
-              disabled={!enabled}
-            >
+            <Button type="submit" className="w-full" disabled={!enabled}>
               Submit
-            </Submit>
+            </Button>
           </Form>
         </div>
       </div>
