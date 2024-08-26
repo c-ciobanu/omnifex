@@ -1,18 +1,25 @@
-import { LinkNode, AutoLinkNode } from '@lexical/link'
-import { ListNode, ListItemNode } from '@lexical/list'
+import { CodeHighlightNode, CodeNode } from '@lexical/code'
+import { HashtagNode } from '@lexical/hashtag'
+import { AutoLinkNode, LinkNode } from '@lexical/link'
+import { ListItemNode, ListNode } from '@lexical/list'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin'
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
+import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
+import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { DocumentQuery } from 'types/graphql'
 
+import CodeHighlightPlugin from './plugins/CodeHighlightPlugin'
 import ToolbarPlugin from './plugins/ToolbarPlugin'
 
 const URL_REGEX =
@@ -30,7 +37,18 @@ const placeholder = 'Enter some text...'
 
 const editorConfig = {
   namespace: 'lexical-editor',
-  nodes: [LinkNode, AutoLinkNode, ListNode, ListItemNode],
+  nodes: [
+    AutoLinkNode,
+    CodeHighlightNode,
+    CodeNode,
+    HashtagNode,
+    HeadingNode,
+    HorizontalRuleNode,
+    LinkNode,
+    ListItemNode,
+    ListNode,
+    QuoteNode,
+  ],
   onError(error: Error) {
     throw error
   },
@@ -39,6 +57,7 @@ const editorConfig = {
     rtl: 'text-right',
     text: {
       bold: 'font-bold',
+      code: 'bg-slate-100 px-1 py-px font-[Menlo,Consolas,Monaco,monospace] text-[90%]',
       italic: 'italic',
       strikethrough: 'line-through',
       underline: 'underline',
@@ -59,6 +78,8 @@ const editorConfig = {
       ol: 'p-0',
       ul: 'p-0',
     },
+    hashtag: 'border-b border-solid border-b-blue-300 bg-blue-200',
+    code: 'tab-size-2 relative m-0 my-2 block overflow-x-auto bg-slate-100 py-2 pl-12 pr-2 font-[Menlo,Consolas,Monaco,monospace] text-sm font-normal leading-6 text-gray-900 before:absolute before:left-0 before:top-0 before:min-w-[40px] before:whitespace-pre-wrap before:border-r before:border-solid before:border-r-zinc-200 before:bg-gray-100 before:p-2 before:text-right before:text-zinc-500 before:content-[attr(data-gutter)]',
   },
 }
 
@@ -88,15 +109,17 @@ const LexicalEditor = (props: LexicalEditorProps) => {
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-
         <HistoryPlugin />
         <AutoFocusPlugin defaultSelection="rootStart" />
         <TabIndentationPlugin />
+        <MarkdownShortcutPlugin />
 
-        <LinkPlugin />
         <AutoLinkPlugin matchers={MATCHERS} />
-        <ListPlugin />
         <CheckListPlugin />
+        <CodeHighlightPlugin />
+        <HashtagPlugin />
+        <LinkPlugin />
+        <ListPlugin />
       </div>
     </LexicalComposer>
   )

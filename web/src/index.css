@@ -92,4 +92,8 @@
   .underline-line-through {
     text-decoration: underline line-through;
   }
+
+  .tab-size-2 {
+    tab-size: 2;
+  }
 }
