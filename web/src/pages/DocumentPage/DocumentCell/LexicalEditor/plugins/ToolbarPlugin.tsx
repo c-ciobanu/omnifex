@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { $createCodeNode } from '@lexical/code'
 import { TOGGLE_LINK_COMMAND, $isLinkNode } from '@lexical/link'
 import {
   $isListNode,
@@ -9,6 +10,8 @@ import {
   ListNode,
 } from '@lexical/list'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { INSERT_HORIZONTAL_RULE_COMMAND } from '@lexical/react/LexicalHorizontalRuleNode'
+import { $createHeadingNode, $createQuoteNode, $isHeadingNode, HeadingTagType } from '@lexical/rich-text'
 import { $setBlocksType } from '@lexical/selection'
 import { $findMatchingParent, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import {
@@ -47,6 +50,15 @@ import {
   Underline,
   Link,
   Unlink,
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  Heading5,
+  Heading6,
+  Minus,
+  MessageSquareQuote,
+  Code,
 } from 'lucide-react'
 import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
 
@@ -75,6 +87,36 @@ const blockTypeElements = {
       <Text className="h-4 w-4" /> Paragraph
     </>
   ),
+  h1: (
+    <>
+      <Heading1 className="h-4 w-4" /> Heading 1
+    </>
+  ),
+  h2: (
+    <>
+      <Heading2 className="h-4 w-4" /> Heading 2
+    </>
+  ),
+  h3: (
+    <>
+      <Heading3 className="h-4 w-4" /> Heading 3
+    </>
+  ),
+  h4: (
+    <>
+      <Heading4 className="h-4 w-4" /> Heading 4
+    </>
+  ),
+  h5: (
+    <>
+      <Heading5 className="h-4 w-4" /> Heading 5
+    </>
+  ),
+  h6: (
+    <>
+      <Heading6 className="h-4 w-4" /> Heading 6
+    </>
+  ),
   bullet: (
     <>
       <List className="h-4 w-4" /> Bulleted list
@@ -90,9 +132,19 @@ const blockTypeElements = {
       <ListTodo className="h-4 w-4" /> Checklist
     </>
   ),
+  quote: (
+    <>
+      <MessageSquareQuote className="h-4 w-4" /> Quote
+    </>
+  ),
+  code: (
+    <>
+      <Code className="h-4 w-4" /> Code Block
+    </>
+  ),
 }
 
-const blockTypeCommands = {
+const listTypeCommands = {
   bullet: INSERT_UNORDERED_LIST_COMMAND,
   number: INSERT_ORDERED_LIST_COMMAND,
   check: INSERT_CHECK_LIST_COMMAND,
@@ -126,6 +178,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
   const [alignment, setAlignment] = useState<ElementFormatType>('left')
+  const [isCode, setIsCode] = useState(false)
   const [isLink, setIsLink] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -148,6 +201,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
       setIsItalic(selection.hasFormat('italic'))
       setIsUnderline(selection.hasFormat('underline'))
       setIsStrikethrough(selection.hasFormat('strikethrough'))
+      setIsCode(selection.hasFormat('code'))
 
       const node = selection.anchor.getNode()
       const parent = node.getParent()
@@ -176,7 +230,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
           const type = parentList ? parentList.getListType() : element.getListType()
           setBlockType(type)
         } else {
-          const type = element.getType()
+          const type = $isHeadingNode(element) ? element.getTag() : element.getType()
           if (type in blockTypeElements) {
             setBlockType(type as keyof typeof blockTypeElements)
           }
@@ -246,9 +300,49 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
     })
   }
 
-  const formatList = (type: keyof typeof blockTypeCommands) => {
+  const formatList = (type: keyof typeof listTypeCommands) => {
     if (blockType !== type) {
-      editor.dispatchCommand(blockTypeCommands[type], undefined)
+      editor.dispatchCommand(listTypeCommands[type], undefined)
+    }
+  }
+
+  const formatHeading = (headingType: HeadingTagType) => {
+    if (blockType !== headingType) {
+      editor.update(() => {
+        const selection = $getSelection()
+        $setBlocksType(selection, () => $createHeadingNode(headingType))
+      })
+    }
+  }
+
+  const formatQuote = () => {
+    if (blockType !== 'quote') {
+      editor.update(() => {
+        const selection = $getSelection()
+        $setBlocksType(selection, () => $createQuoteNode())
+      })
+    }
+  }
+
+  const formatCode = () => {
+    if (blockType !== 'code') {
+      editor.update(() => {
+        let selection = $getSelection()
+
+        if (selection !== null) {
+          if (selection.isCollapsed()) {
+            $setBlocksType(selection, () => $createCodeNode())
+          } else {
+            const textContent = selection.getTextContent()
+            const codeNode = $createCodeNode()
+            selection.insertNodes([codeNode])
+            selection = $getSelection()
+            if ($isRangeSelection(selection)) {
+              selection.insertRawText(textContent)
+            }
+          }
+        }
+      })
     }
   }
 
@@ -305,6 +399,15 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
               <DropdownMenuRadioItem className="gap-2" value="paragraph" onClick={formatParagraph}>
                 {blockTypeElements['paragraph']}
               </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="h1" onClick={() => formatHeading('h1')}>
+                {blockTypeElements['h1']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="h2" onClick={() => formatHeading('h2')}>
+                {blockTypeElements['h2']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="h3" onClick={() => formatHeading('h3')}>
+                {blockTypeElements['h3']}
+              </DropdownMenuRadioItem>
               <DropdownMenuRadioItem className="gap-2" value="bullet" onClick={() => formatList('bullet')}>
                 {blockTypeElements['bullet']}
               </DropdownMenuRadioItem>
@@ -313,6 +416,12 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem className="gap-2" value="check" onClick={() => formatList('check')}>
                 {blockTypeElements['check']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="quote" onClick={formatQuote}>
+                {blockTypeElements['quote']}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem className="gap-2" value="code" onClick={formatCode}>
+                {blockTypeElements['code']}
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
@@ -354,7 +463,16 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
         </Toggle>
 
         <Toggle
-          aria-label={isLink ? 'Insert link' : 'Unlink'}
+          aria-label="Format Code"
+          size="sm"
+          onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')}
+          pressed={isCode}
+        >
+          <Code className="h-4 w-4" />
+        </Toggle>
+
+        <Toggle
+          aria-label={isLink ? 'Insert Link' : 'Unlink'}
           size="sm"
           onClick={() => {
             if (isLink) {
@@ -404,6 +522,17 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
           pressed={alignment === 'justify'}
         >
           <AlignJustify className="h-4 w-4" />
+        </Toggle>
+
+        <Divider />
+
+        <Toggle
+          aria-label="Insert Horizontal Rule"
+          size="sm"
+          onClick={() => editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined)}
+          pressed={false}
+        >
+          <Minus className="h-4 w-4" />
         </Toggle>
       </div>
 

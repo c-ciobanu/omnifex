@@ -11,6 +11,7 @@ import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
+import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin'
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
@@ -130,6 +131,7 @@ const LexicalEditor = (props: LexicalEditorProps) => {
         <HashtagPlugin />
         <LinkPlugin />
         <ListPlugin />
+        <HorizontalRulePlugin />
       </div>
     </LexicalComposer>
   )
