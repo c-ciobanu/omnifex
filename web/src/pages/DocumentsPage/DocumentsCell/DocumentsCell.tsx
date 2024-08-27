@@ -25,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
 
+import EditDocumentModal from './EditDocumentModal/EditDocumentModal'
 import NewDocument from './NewDocument/NewDocument'
 
 export const QUERY: TypedDocumentNode<DocumentsQuery> = gql`
@@ -57,7 +58,7 @@ export const Empty = () => (
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-function deleteDocumentReducer(state, action) {
+function actionDocumentReducer(state, action) {
   switch (action.type) {
     case 'setIsOpen': {
       return {
@@ -77,14 +78,15 @@ function deleteDocumentReducer(state, action) {
 }
 
 export const Success = ({ documents }: CellSuccessProps<DocumentsQuery>) => {
-  const [state, dispatch] = useReducer(deleteDocumentReducer, { isOpen: false, documentIndex: 0 })
+  const [deleteState, deleteDispatch] = useReducer(actionDocumentReducer, { isOpen: false, documentIndex: 0 })
+  const [editState, editDispatch] = useReducer(actionDocumentReducer, { isOpen: false, documentIndex: 0 })
 
   const [deleteDocument, { loading }] = useMutation<DeleteDocumentMutation, DeleteDocumentMutationVariables>(
     DELETE_DOCUMENT,
     {
-      variables: { id: documents[state.documentIndex]?.id },
+      variables: { id: documents[deleteState.documentIndex]?.id },
       onCompleted: () => {
-        dispatch({ type: 'setIsOpen', nextIsOpen: false })
+        deleteDispatch({ type: 'setIsOpen', nextIsOpen: false })
       },
       update(cache, { data: { deleteDocument } }) {
         const data = cache.readQuery({ query: QUERY })
@@ -125,8 +127,10 @@ export const Success = ({ documents }: CellSuccessProps<DocumentsQuery>) => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => dispatch({ type: 'open', nextDocumentIndex: index })}>
+                  <DropdownMenuItem onClick={() => editDispatch({ type: 'open', nextDocumentIndex: index })}>
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => deleteDispatch({ type: 'open', nextDocumentIndex: index })}>
                     Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -136,12 +140,21 @@ export const Success = ({ documents }: CellSuccessProps<DocumentsQuery>) => {
         ))}
       </ul>
 
-      <AlertDialog open={state.isOpen} onOpenChange={(open) => dispatch({ type: 'setIsOpen', nextIsOpen: open })}>
+      <EditDocumentModal
+        isOpen={editState.isOpen}
+        setIsOpen={(open: boolean) => editDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+        document={documents[editState.documentIndex]}
+      />
+
+      <AlertDialog
+        open={deleteState.isOpen}
+        onOpenChange={(open) => deleteDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Document?</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete the document &#34;{documents[state.documentIndex]?.title}&#34;?
+              Are you sure you want to delete the document &#34;{documents[deleteState.documentIndex]?.title}&#34;?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
