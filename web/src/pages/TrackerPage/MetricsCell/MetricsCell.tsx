@@ -102,7 +102,7 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
 
       cache.writeQuery({
         query: QUERY,
-        data: { ...data, metrics: data.metrics.filter((d) => d.id !== deleteMetric.id) },
+        data: { ...data, metrics: data.metrics.filter((m) => m.id !== deleteMetric.id) },
       })
     },
   })

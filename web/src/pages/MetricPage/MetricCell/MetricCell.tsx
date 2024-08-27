@@ -1,10 +1,30 @@
 import { useReducer } from 'react'
 
 import { MoreVertical } from 'lucide-react'
-import type { MetricQuery, MetricQueryVariables } from 'types/graphql'
+import type {
+  DeleteMetricEntryMutation,
+  DeleteMetricEntryMutationVariables,
+  MetricQuery,
+  MetricQueryVariables,
+} from 'types/graphql'
 
-import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, Metadata } from '@redwoodjs/web'
+import {
+  type CellSuccessProps,
+  type CellFailureProps,
+  type TypedDocumentNode,
+  Metadata,
+  useMutation,
+} from '@redwoodjs/web'
 
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from 'src/components/ui/alert-dialog'
 import { Button } from 'src/components/ui/button'
 import {
   DropdownMenu,
@@ -33,6 +53,14 @@ export const QUERY: TypedDocumentNode<MetricQuery, MetricQueryVariables> = gql`
   }
 `
 
+const DELETE_METRIC_ENTRY = gql`
+  mutation DeleteMetricEntryMutation($id: Int!) {
+    deleteMetricEntry(id: $id) {
+      id
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -41,7 +69,7 @@ export const Failure = ({ error }: CellFailureProps<MetricQueryVariables>) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
-function editMetricEntryReducer(state, action) {
+function actionMetricEntryReducer(state, action) {
   switch (action.type) {
     case 'setIsOpen': {
       return {
@@ -61,7 +89,32 @@ function editMetricEntryReducer(state, action) {
 }
 
 export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVariables>) => {
-  const [state, dispatch] = useReducer(editMetricEntryReducer, { isOpen: false, metricEntryIndex: 0 })
+  const [deleteState, deleteDispatch] = useReducer(actionMetricEntryReducer, { isOpen: false, metricEntryIndex: 0 })
+  const [editState, editDispatch] = useReducer(actionMetricEntryReducer, { isOpen: false, metricEntryIndex: 0 })
+
+  const [deleteMetricEntry, { loading }] = useMutation<DeleteMetricEntryMutation, DeleteMetricEntryMutationVariables>(
+    DELETE_METRIC_ENTRY,
+    {
+      variables: { id: metric.entries[deleteState.metricEntryIndex]?.id },
+      onCompleted: () => {
+        deleteDispatch({ type: 'setIsOpen', nextIsOpen: false })
+      },
+      update(cache, { data: { deleteMetricEntry } }) {
+        const data = cache.readQuery({ query: QUERY, variables: { id: metric.id } })
+
+        cache.writeQuery({
+          query: QUERY,
+          data: {
+            ...data,
+            metric: {
+              ...data.metric,
+              entries: data.metric.entries.filter((e) => e.id !== deleteMetricEntry.id),
+            },
+          },
+        })
+      },
+    }
+  )
 
   return (
     <>
@@ -95,10 +148,12 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => dispatch({ type: 'open', nextMetricEntryIndex: index })}>
+                  <DropdownMenuItem onClick={() => editDispatch({ type: 'open', nextMetricEntryIndex: index })}>
                     Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => deleteDispatch({ type: 'open', nextMetricEntryIndex: index })}>
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -107,11 +162,31 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
       </ul>
 
       <EditMetricEntryModal
-        isOpen={state.isOpen}
-        setIsOpen={(open: boolean) => dispatch({ type: 'setIsOpen', nextIsOpen: open })}
+        isOpen={editState.isOpen}
+        setIsOpen={(open: boolean) => editDispatch({ type: 'setIsOpen', nextIsOpen: open })}
         metric={metric}
-        metricEntry={metric.entries[state.metricEntryIndex]}
+        metricEntry={metric.entries[editState.metricEntryIndex]}
       />
+
+      <AlertDialog
+        open={deleteState.isOpen}
+        onOpenChange={(open) => deleteDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Metric Entry?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete the {metric.entries[deleteState.metricEntryIndex]?.date} metric entry?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <Button variant="destructive" onClick={() => deleteMetricEntry()} disabled={loading}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }
