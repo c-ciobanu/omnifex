@@ -1,11 +1,25 @@
 import { useReducer } from 'react'
 
 import { ChartLine, MoreVertical } from 'lucide-react'
-import type { MetricsQuery, MetricsQueryVariables } from 'types/graphql'
+import type {
+  DeleteMetricMutation,
+  DeleteMetricMutationVariables,
+  MetricsQuery,
+  MetricsQueryVariables,
+} from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode } from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
 
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from 'src/components/ui/alert-dialog'
 import { Button } from 'src/components/ui/button'
 import {
   DropdownMenu,
@@ -34,6 +48,14 @@ export const QUERY: TypedDocumentNode<MetricsQuery, MetricsQueryVariables> = gql
   }
 `
 
+const DELETE_METRIC = gql`
+  mutation DeleteMetricMutation($id: Int!) {
+    deleteMetric(id: $id) {
+      id
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => (
@@ -47,7 +69,7 @@ export const Empty = () => (
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-function editMetricReducer(state, action) {
+function actionMetricReducer(state, action) {
   switch (action.type) {
     case 'setIsOpen': {
       return {
@@ -67,7 +89,23 @@ function editMetricReducer(state, action) {
 }
 
 export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
-  const [state, dispatch] = useReducer(editMetricReducer, { isOpen: false, metricIndex: 0 })
+  const [deleteState, deleteDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
+  const [editState, editDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
+
+  const [deleteMetric, { loading }] = useMutation<DeleteMetricMutation, DeleteMetricMutationVariables>(DELETE_METRIC, {
+    variables: { id: metrics[deleteState.metricIndex]?.id },
+    onCompleted: () => {
+      deleteDispatch({ type: 'setIsOpen', nextIsOpen: false })
+    },
+    update(cache, { data: { deleteMetric } }) {
+      const data = cache.readQuery({ query: QUERY })
+
+      cache.writeQuery({
+        query: QUERY,
+        data: { ...data, metrics: data.metrics.filter((d) => d.id !== deleteMetric.id) },
+      })
+    },
+  })
 
   return (
     <>
@@ -104,10 +142,12 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => dispatch({ type: 'open', nextMetricIndex: index })}>
+                  <DropdownMenuItem onClick={() => editDispatch({ type: 'open', nextMetricIndex: index })}>
                     Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => deleteDispatch({ type: 'open', nextMetricIndex: index })}>
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -116,10 +156,30 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
       </ul>
 
       <EditMetricModal
-        isOpen={state.isOpen}
-        setIsOpen={(open: boolean) => dispatch({ type: 'setIsOpen', nextIsOpen: open })}
-        metric={metrics[state.metricIndex]}
+        isOpen={editState.isOpen}
+        setIsOpen={(open: boolean) => editDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+        metric={metrics[editState.metricIndex]}
       />
+
+      <AlertDialog
+        open={deleteState.isOpen}
+        onOpenChange={(open) => deleteDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Metric?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete the metric &#34;{metrics[deleteState.metricIndex]?.name}&#34;?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <Button variant="destructive" onClick={() => deleteMetric()} disabled={loading}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }
