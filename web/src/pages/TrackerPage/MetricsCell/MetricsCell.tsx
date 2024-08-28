@@ -10,7 +10,9 @@ import type {
 
 import { Link, routes } from '@redwoodjs/router'
 import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
+import { useCache } from '@redwoodjs/web/dist/apollo'
 
+import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -91,6 +93,8 @@ function actionMetricReducer(state, action) {
 export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
   const [deleteState, deleteDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
   const [editState, editDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
+  const [newEntryState, newEntryDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
+  const { modify } = useCache()
 
   const [deleteMetric, { loading }] = useMutation<DeleteMetricMutation, DeleteMetricMutationVariables>(DELETE_METRIC, {
     variables: { id: metrics[deleteState.metricIndex]?.id },
@@ -142,6 +146,9 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => newEntryDispatch({ type: 'open', nextMetricIndex: index })}>
+                    Add Entry
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => editDispatch({ type: 'open', nextMetricIndex: index })}>
                     Edit
                   </DropdownMenuItem>
@@ -154,6 +161,18 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
           </li>
         ))}
       </ul>
+
+      <NewMetricEntryModal
+        isOpen={newEntryState.isOpen}
+        setIsOpen={(open: boolean) => newEntryDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+        metric={metrics[newEntryState.metricIndex]}
+        latestEntry={metrics[newEntryState.metricIndex]?.latestEntry}
+        onCompleted={(newEntry) => {
+          if (Date.parse(newEntry.date) > Date.parse(metrics[newEntryState.metricIndex].latestEntry.date)) {
+            modify(metrics[newEntryState.metricIndex], { latestEntry: () => newEntry })
+          }
+        }}
+      />
 
       <EditMetricModal
         isOpen={editState.isOpen}

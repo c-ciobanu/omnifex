@@ -1,6 +1,6 @@
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 
-import { MoreVertical } from 'lucide-react'
+import { MoreVertical, Plus } from 'lucide-react'
 import type {
   DeleteMetricEntryMutation,
   DeleteMetricEntryMutationVariables,
@@ -15,7 +15,9 @@ import {
   Metadata,
   useMutation,
 } from '@redwoodjs/web'
+import { useCache } from '@redwoodjs/web/dist/apollo'
 
+import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -36,7 +38,6 @@ import {
 } from 'src/components/ui/dropdown-menu'
 
 import EditMetricEntryModal from './EditMetricEntryModal/EditMetricEntryModal'
-import NewMetricEntry from './NewMetricEntry/NewMetricEntry'
 
 export const QUERY: TypedDocumentNode<MetricQuery, MetricQueryVariables> = gql`
   query MetricQuery($id: Int!) {
@@ -91,6 +92,8 @@ function actionMetricEntryReducer(state, action) {
 export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVariables>) => {
   const [deleteState, deleteDispatch] = useReducer(actionMetricEntryReducer, { isOpen: false, metricEntryIndex: 0 })
   const [editState, editDispatch] = useReducer(actionMetricEntryReducer, { isOpen: false, metricEntryIndex: 0 })
+  const [isOpen, setIsOpen] = useState(false)
+  const { modify } = useCache()
 
   const [deleteMetricEntry, { loading }] = useMutation<DeleteMetricEntryMutation, DeleteMetricEntryMutationVariables>(
     DELETE_METRIC_ENTRY,
@@ -123,7 +126,10 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold md:text-2xl">{metric.name}</h2>
 
-        <NewMetricEntry metric={metric} />
+        <Button className="gap-2" onClick={() => setIsOpen(true)}>
+          <Plus className="h-4 w-4" />
+          New Entry
+        </Button>
       </div>
 
       <ul className="divide-y divide-white">
@@ -160,6 +166,18 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
           </li>
         ))}
       </ul>
+
+      <NewMetricEntryModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        metric={metric}
+        latestEntry={metric.entries[0]}
+        onCompleted={(newEntry) => {
+          modify(metric, {
+            entries: () => metric.entries.concat([newEntry]).sort((a, b) => Date.parse(b.date) - Date.parse(a.date)),
+          })
+        }}
+      />
 
       <EditMetricEntryModal
         isOpen={editState.isOpen}
