@@ -64,6 +64,7 @@ import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/g
 
 import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/toast'
 
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog'
@@ -183,7 +184,12 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [updateDocument, { loading }] = useMutation<UpdateDocumentMutation, UpdateDocumentMutationVariables>(
-    UPDATE_DOCUMENT
+    UPDATE_DOCUMENT,
+    {
+      onCompleted: () => {
+        toast.success('Changes saved!')
+      },
+    }
   )
 
   function onSaveClick() {

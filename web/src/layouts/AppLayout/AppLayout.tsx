@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Frown, Menu, Search, Smile, X } from 'lucide-react'
 
 import { Link, NavLink, routes } from '@redwoodjs/router'
-import { Toaster } from '@redwoodjs/web/dist/toast'
+import { Toaster } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 import { Button } from 'src/components/ui/button'
