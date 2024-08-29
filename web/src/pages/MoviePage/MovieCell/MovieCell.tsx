@@ -11,7 +11,9 @@ export const QUERY = gql`
   query MovieQuery($tmdbId: Int!) {
     movie(tmdbId: $tmdbId) {
       id
+      director
       genres
+      originalTitle
       overview
       posterUrl
       rating
@@ -52,7 +54,13 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-8">
         <div>
           <h2 className="text-2xl font-bold">{movie.title}</h2>
+
           {movie.tagline ? <q>{movie.tagline}</q> : null}
+
+          {movie.originalTitle !== movie.title ? <p>Original title: {movie.originalTitle}</p> : null}
+
+          <p>Director: {movie.director}</p>
+
           <h4 className="flex items-center text-gray-400">
             {movie.releaseDate.split('-')[0]}
             {' · '}
