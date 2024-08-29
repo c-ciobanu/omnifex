@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { HashtagNode } from '@lexical/hashtag'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
@@ -15,6 +17,7 @@ import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
@@ -100,10 +103,11 @@ type LexicalEditorProps = {
 
 const LexicalEditor = (props: LexicalEditorProps) => {
   const { document } = props
+  const [editorState, setEditorState] = useState(document.body ?? undefined)
 
   return (
-    <LexicalComposer initialConfig={{ ...editorConfig, editorState: document.body ?? undefined }}>
-      <ToolbarPlugin documentId={document.id} />
+    <LexicalComposer initialConfig={{ ...editorConfig, editorState }}>
+      <ToolbarPlugin documentId={document.id} saveDisabled={editorState === document.body} />
 
       <div className="relative rounded-b-md bg-white">
         <RichTextPlugin
@@ -120,18 +124,23 @@ const LexicalEditor = (props: LexicalEditorProps) => {
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <HistoryPlugin />
-        <AutoFocusPlugin defaultSelection="rootStart" />
-        <TabIndentationPlugin />
-        <MarkdownShortcutPlugin />
 
+        <HistoryPlugin />
+        <OnChangePlugin
+          onChange={(editorState) => setEditorState(JSON.stringify(editorState.toJSON()))}
+          ignoreSelectionChange
+        />
+
+        <AutoFocusPlugin defaultSelection="rootStart" />
         <AutoLinkPlugin matchers={MATCHERS} />
         <CheckListPlugin />
         <CodeHighlightPlugin />
         <HashtagPlugin />
+        <HorizontalRulePlugin />
         <LinkPlugin />
         <ListPlugin />
-        <HorizontalRulePlugin />
+        <MarkdownShortcutPlugin />
+        <TabIndentationPlugin />
       </div>
     </LexicalComposer>
   )

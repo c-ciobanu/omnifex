@@ -167,9 +167,10 @@ interface FormValues {
 
 type ToolbarPluginProps = {
   documentId: string
+  saveDisabled: boolean
 }
 
-const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
+const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
   const [editor] = useLexicalComposerContext()
   const [blockType, setBlockType] = useState<keyof typeof blockTypeElements>('paragraph')
   const [canUndo, setCanUndo] = useState(false)
@@ -360,7 +361,7 @@ const ToolbarPlugin = ({ documentId }: ToolbarPluginProps) => {
   return (
     <>
       <div className="mb-px flex space-x-1 overflow-auto rounded-t-md bg-white p-1">
-        <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={loading}>
+        <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={saveDisabled || loading}>
           <Save className="h-4 w-4" />
         </Toggle>
 
