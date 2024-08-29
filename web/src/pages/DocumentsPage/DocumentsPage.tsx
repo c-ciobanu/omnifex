@@ -5,7 +5,7 @@ import DocumentsCell from './DocumentsCell'
 const DocumentsPage = () => {
   return (
     <>
-      <Metadata title="Documents" />
+      <Metadata title="Documents" robots="noindex" />
 
       <DocumentsCell />
     </>

@@ -25,7 +25,7 @@ export const Failure = ({ error }: CellFailureProps<DocumentQueryVariables>) => 
 export const Success = ({ document }: CellSuccessProps<DocumentQuery, DocumentQueryVariables>) => {
   return (
     <>
-      <Metadata title={document.title} />
+      <Metadata title={document.title} robots="noindex" />
 
       <h2 className="mb-4 text-lg font-semibold md:text-2xl">{document.title}</h2>
 

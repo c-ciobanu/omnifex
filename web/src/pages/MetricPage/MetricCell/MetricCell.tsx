@@ -121,7 +121,7 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
 
   return (
     <>
-      <Metadata title={`${metric.name} Tracker`} />
+      <Metadata title={`${metric.name} Tracker`} robots="noindex" />
 
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold md:text-2xl">{metric.name}</h2>

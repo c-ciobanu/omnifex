@@ -5,7 +5,7 @@ import MetricsCell from './MetricsCell'
 const TrackerPage = () => {
   return (
     <>
-      <Metadata title="Tracker" />
+      <Metadata title="Tracker" robots="noindex" />
 
       <MetricsCell />
     </>
