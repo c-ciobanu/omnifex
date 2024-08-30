@@ -49,6 +49,7 @@ const SignupPage = () => {
               <FormInput
                 ref={usernameRef}
                 name="username"
+                autoComplete="username"
                 validation={{
                   required: true,
                   minLength: {
@@ -63,7 +64,7 @@ const SignupPage = () => {
               <FormInput
                 name="password"
                 type="password"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 validation={{
                   required: true,
                   minLength: {

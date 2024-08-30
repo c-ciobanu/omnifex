@@ -45,7 +45,7 @@ const LoginPage = () => {
         <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
           <Form onSubmit={onSubmit} className="space-y-6">
             <FormField name="username" label="Username">
-              <FormInput ref={usernameRef} name="username" validation={{ required: true }} />
+              <FormInput ref={usernameRef} name="username" autoComplete="username" validation={{ required: true }} />
             </FormField>
 
             <div>

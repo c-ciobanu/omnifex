@@ -49,6 +49,7 @@ const ForgotPasswordPage = () => {
                 ref={emailRef}
                 name="email"
                 type="email"
+                autoComplete="email"
                 validation={{
                   required: {
                     value: true,
