@@ -6,7 +6,7 @@ import { Link, NavLink, routes } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import { Button } from 'src/components/ui/button'
+import { Button, buttonVariants } from 'src/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
   DropdownMenu,
@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+import { cn } from 'src/lib/utils'
 
 const authenticatedNavigation = [
   { name: 'Movies', href: () => routes.moviesDashboard() },
@@ -57,17 +58,14 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
               <div className="ml-10 hidden items-baseline space-x-4 md:flex">
                 {navigationLinks.map((item) => (
-                  <Button
+                  <NavLink
                     key={item.name}
-                    asChild
-                    variant="ghost"
-                    onClick={() => setIsOpen(false)}
-                    className="text-gray-300"
+                    to={item.href()}
+                    className={cn(buttonVariants({ variant: 'ghost' }), 'text-gray-300')}
+                    activeClassName={cn(buttonVariants({ variant: 'ghost' }), 'bg-gray-900 text-white')}
                   >
-                    <NavLink to={item.href()} activeClassName="bg-gray-900 text-white">
-                      {item.name}
-                    </NavLink>
-                  </Button>
+                    {item.name}
+                  </NavLink>
                 ))}
               </div>
             </div>
@@ -106,17 +104,18 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           <CollapsibleContent className="bg-gray-800 px-4 md:hidden">
             <div className="space-y-1 py-3">
               {navigationLinks.map((item) => (
-                <Button
+                <NavLink
                   key={item.name}
-                  asChild
-                  variant="ghost"
+                  to={item.href()}
+                  className={cn(buttonVariants({ variant: 'ghost' }), 'flex justify-start text-gray-300')}
+                  activeClassName={cn(
+                    buttonVariants({ variant: 'ghost' }),
+                    'flex justify-start bg-gray-900 text-white'
+                  )}
                   onClick={() => setIsOpen(false)}
-                  className="flex justify-start text-gray-300"
                 >
-                  <NavLink to={item.href()} activeClassName="bg-gray-900 text-white">
-                    {item.name}
-                  </NavLink>
-                </Button>
+                  {item.name}
+                </NavLink>
               ))}
             </div>
 
@@ -130,17 +129,18 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
               <div className="space-y-1">
                 {menuLinks.map((item) => (
-                  <Button
+                  <NavLink
                     key={item.name}
-                    asChild
-                    variant="ghost"
+                    to={item.href()}
+                    className={cn(buttonVariants({ variant: 'ghost' }), 'flex justify-start text-gray-400')}
+                    activeClassName={cn(
+                      buttonVariants({ variant: 'ghost' }),
+                      'flex justify-start bg-gray-900 text-white'
+                    )}
                     onClick={() => setIsOpen(false)}
-                    className="flex justify-start text-gray-400"
                   >
-                    <NavLink to={item.href()} activeClassName="bg-gray-900 text-white">
-                      {item.name}
-                    </NavLink>
-                  </Button>
+                    {item.name}
+                  </NavLink>
                 ))}
 
                 {isAuthenticated ? (

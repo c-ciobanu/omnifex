@@ -10,7 +10,7 @@ import type {
 
 import { Link, routes } from '@redwoodjs/router'
 import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
-import { useCache } from '@redwoodjs/web/dist/apollo'
+import { useCache } from '@redwoodjs/web/apollo'
 
 import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {

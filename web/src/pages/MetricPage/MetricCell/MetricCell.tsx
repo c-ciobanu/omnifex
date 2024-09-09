@@ -15,7 +15,7 @@ import {
   Metadata,
   useMutation,
 } from '@redwoodjs/web'
-import { useCache } from '@redwoodjs/web/dist/apollo'
+import { useCache } from '@redwoodjs/web/apollo'
 
 import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {
@@ -134,7 +134,7 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
 
       <ul className="divide-y divide-white">
         {metric.entries.map((entry, index) => (
-          <li key={entry.id} className="flex items-center justify-between gap-6 py-4 ">
+          <li key={entry.id} className="flex items-center justify-between gap-6 py-4">
             <time dateTime={entry.date} className="text-sm font-medium">
               {entry.date}
             </time>

@@ -18,10 +18,10 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/auth-dbauth-setup": "7.7.3",
-    "@redwoodjs/core": "7.7.3",
-    "@redwoodjs/project-config": "7.7.3",
-    "prettier-plugin-tailwindcss": "^0.4.1"
+    "@redwoodjs/auth-dbauth-setup": "8.0.0",
+    "@redwoodjs/core": "8.0.0",
+    "@redwoodjs/project-config": "8.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.6"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
@@ -33,5 +33,5 @@
   "prisma": {
     "seed": "yarn rw exec seed"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.4.0"
 }
