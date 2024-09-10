@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority'
 
 import { FieldError, Label, RegisterOptions, Controller } from '@redwoodjs/forms'
 
+import { Checkbox } from 'src/components/ui/checkbox'
 import { Input, InputProps } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { cn } from 'src/lib/utils'
@@ -11,12 +12,13 @@ import { cn } from 'src/lib/utils'
 interface FormFieldProps extends PropsWithChildren {
   className?: string
   label?: string
+  description?: string
   name: string
 }
 
 const labelVariants = cva('text-sm font-medium leading-none')
 
-const FormField = ({ className, label, name, children }: FormFieldProps) => {
+const FormField = ({ className, label, description, name, children }: FormFieldProps) => {
   return (
     <fieldset className={cn('space-y-2', className)}>
       {label ? (
@@ -26,6 +28,8 @@ const FormField = ({ className, label, name, children }: FormFieldProps) => {
       ) : null}
 
       {children}
+
+      {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
 
       <FieldError name={name} className="block text-sm font-medium text-destructive" />
     </fieldset>
@@ -85,4 +89,34 @@ const FormSelect = React.forwardRef<React.ElementRef<typeof SelectTrigger>, Form
 })
 FormSelect.displayName = 'FormSelect'
 
-export { FormField, FormInput, FormSelect }
+interface FormCheckboxProps extends Omit<React.ComponentPropsWithoutRef<typeof Checkbox>, 'defaultValue'> {
+  validation?: RegisterOptions
+  defaultValue?: boolean
+  label: string
+}
+
+const FormCheckbox = React.forwardRef<React.ElementRef<typeof Checkbox>, FormCheckboxProps>((props, ref) => {
+  const { name, defaultValue, validation, label, ...propsRest } = props
+
+  return (
+    <Controller
+      name={name}
+      defaultValue={defaultValue}
+      rules={validation}
+      render={({ field }) => (
+        <div className="flex items-center gap-2">
+          <Checkbox checked={field.value} onCheckedChange={field.onChange} id={name} {...propsRest} ref={ref} />
+          <label
+            htmlFor={name}
+            className={cn(labelVariants(), 'peer-disabled:cursor-not-allowed peer-disabled:opacity-70')}
+          >
+            {label}
+          </label>
+        </div>
+      )}
+    />
+  )
+})
+FormCheckbox.displayName = 'FormCheckbox'
+
+export { FormField, FormInput, FormSelect, FormCheckbox }
