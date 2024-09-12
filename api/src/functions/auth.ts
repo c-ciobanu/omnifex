@@ -116,13 +116,49 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     handler: async ({ username, hashedPassword, salt, userAttributes }) => {
       validate(username, 'Username', { length: { min: 3, message: 'Username must be at least 3 characters' } })
 
-      const user = await db.user.create({ data: { username, hashedPassword, salt } })
-
       if (userAttributes.isTemporary) {
+        const testUser = await db.user.findUnique({
+          where: { username: 'test' },
+          select: {
+            favoritedMovies: true,
+            watchedMovies: true,
+            moviesToWatch: true,
+            favoritedBooks: true,
+            readBooks: true,
+            booksToRead: true,
+            metrics: { include: { entries: true } },
+            documents: true,
+          },
+        })
+
+        const user = await db.user.create({
+          data: {
+            username,
+            hashedPassword,
+            salt,
+            favoritedMovies: { create: testUser.favoritedMovies.map((m) => ({ movieId: m.movieId })) },
+            watchedMovies: { create: testUser.watchedMovies.map((m) => ({ movieId: m.movieId })) },
+            moviesToWatch: { create: testUser.moviesToWatch.map((m) => ({ movieId: m.movieId })) },
+            favoritedBooks: { create: testUser.favoritedBooks.map((b) => ({ bookId: b.bookId })) },
+            readBooks: { create: testUser.readBooks.map((b) => ({ bookId: b.bookId })) },
+            booksToRead: { create: testUser.booksToRead.map((b) => ({ bookId: b.bookId })) },
+            metrics: {
+              create: testUser.metrics.map((m) => ({
+                name: m.name,
+                unit: m.unit,
+                entries: { create: m.entries.map((e) => ({ value: e.value, date: e.date })) },
+              })),
+            },
+            documents: { create: testUser.documents.map((d) => ({ title: d.title, body: d.body })) },
+          },
+        })
+
         await later(DeleteTemporaryUserJob, [user.id], { wait: 60 * 60 * 24 })
+
+        return user
       }
 
-      return user
+      return db.user.create({ data: { username, hashedPassword, salt } })
     },
 
     // Include any format checks for password here. Return `true` if the
