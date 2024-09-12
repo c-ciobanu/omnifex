@@ -8,11 +8,12 @@ import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 import { Button } from 'src/components/ui/button'
-import { FormField, FormInput } from 'src/components/ui/form'
+import { FormCheckbox, FormField, FormInput } from 'src/components/ui/form'
 
-interface FormValues {
+type FormValues = {
   username: string
   password: string
+  isTemporary: boolean
 }
 
 const SignupPage = () => {
@@ -24,7 +25,7 @@ const SignupPage = () => {
   }, [])
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const response = await signUp({ username: data.username, password: data.password })
+    const response = await signUp(data)
 
     if (response.message) {
       toast(response.message)
@@ -73,6 +74,13 @@ const SignupPage = () => {
                   },
                 }}
               />
+            </FormField>
+
+            <FormField
+              name="isTemporary"
+              description="Select this option if you don't like committing to something without first trying it."
+            >
+              <FormCheckbox name="isTemporary" label="Temporary Account (Expires in 24 Hours)" defaultValue={false} />
             </FormField>
 
             <Button type="submit" className="w-full">

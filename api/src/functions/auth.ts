@@ -1,9 +1,11 @@
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
 
 import { validate } from '@redwoodjs/api'
-import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError } from '@redwoodjs/auth-dbauth-api'
+import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError, UserType } from '@redwoodjs/auth-dbauth-api'
 
+import { DeleteTemporaryUserJob } from 'src/jobs/DeleteTemporaryUserJob'
 import { db } from 'src/lib/db'
+import { later } from 'src/lib/jobs'
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   const forgotPasswordOptions: DbAuthHandlerOptions['forgotPassword'] = {
@@ -91,7 +93,11 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     },
   }
 
-  const signupOptions: DbAuthHandlerOptions['signup'] = {
+  interface UserAttributes {
+    isTemporary: boolean
+  }
+
+  const signupOptions: DbAuthHandlerOptions<UserType, UserAttributes>['signup'] = {
     // Whatever you want to happen to your data on new user signup. Redwood will
     // check for duplicate usernames before calling this handler. At a minimum
     // you need to save the `username`, `hashedPassword` and `salt` to your
@@ -107,10 +113,16 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     //
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
-    handler: ({ username, hashedPassword, salt }) => {
+    handler: async ({ username, hashedPassword, salt, userAttributes }) => {
       validate(username, 'Username', { length: { min: 3, message: 'Username must be at least 3 characters' } })
 
-      return db.user.create({ data: { username, hashedPassword, salt } })
+      const user = await db.user.create({ data: { username, hashedPassword, salt } })
+
+      if (userAttributes.isTemporary) {
+        await later(DeleteTemporaryUserJob, [user.id], { wait: 60 * 60 * 24 })
+      }
+
+      return user
     },
 
     // Include any format checks for password here. Return `true` if the
