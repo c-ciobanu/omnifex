@@ -11,13 +11,15 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
     expires: 60 * 60 * 24 * 7,
   })
 
-  return tmdbMovies.map((tmdbMovie) => ({
-    tmdbId: tmdbMovie.id,
-    overview: tmdbMovie.overview,
-    posterUrl: `http://image.tmdb.org/t/p/w154${tmdbMovie.poster_path}`,
-    releaseYear: Number(tmdbMovie.release_date.split('-')[0]),
-    title: tmdbMovie.title,
-  }))
+  return tmdbMovies
+    .filter((tmdbMovie) => tmdbMovie.release_date)
+    .map((tmdbMovie) => ({
+      tmdbId: tmdbMovie.id,
+      overview: tmdbMovie.overview,
+      posterUrl: `http://image.tmdb.org/t/p/w154${tmdbMovie.poster_path}`,
+      releaseYear: Number(tmdbMovie.release_date.split('-')[0]),
+      title: tmdbMovie.title,
+    }))
 }
 
 type CachedPrismaMovie = Omit<PrismaMovie, 'releaseDate' | 'createdAt' | 'updatedAt' | 'rating'> & {
