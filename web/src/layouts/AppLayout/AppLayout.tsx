@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Frown, Menu, Search, Smile, X } from 'lucide-react'
 
@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+import Sentry from 'src/lib/sentry'
 import { cn } from 'src/lib/utils'
 
 const authenticatedNavigation = [
@@ -43,6 +44,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   const navigationLinks = isAuthenticated ? authenticatedNavigation : guestNavigation
   const menuLinks = isAuthenticated ? authenticatedMenu : guestMenu
+
+  useEffect(() => Sentry.setUser(currentUser), [currentUser])
 
   return (
     <>

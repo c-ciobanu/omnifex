@@ -26,6 +26,8 @@
     "@redwoodjs/router": "8.1.1",
     "@redwoodjs/web": "8.1.1",
     "@redwoodjs/web-server": "8.1.1",
+    "@sentry/browser": "7",
+    "@sentry/react": "7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lexical": "^0.17.0",

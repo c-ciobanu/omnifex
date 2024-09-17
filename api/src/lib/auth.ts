@@ -2,6 +2,7 @@ import type { Decoded } from '@redwoodjs/api'
 import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
 
 import { db } from './db'
+import Sentry from './sentry'
 
 /**
  * The session object sent in as the first argument to getCurrentUser() will
@@ -25,10 +26,14 @@ export const getCurrentUser = async (session: Decoded) => {
     throw new Error('Invalid session')
   }
 
-  return await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: { id: session.id },
     select: { id: true, username: true },
   })
+
+  Sentry.setUser(user)
+
+  return user
 }
 
 /**

@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@envelop/sentry": "5",
     "@googleapis/books": "^2.0.0",
     "@redwoodjs/api": "8.1.1",
     "@redwoodjs/api-server": "8.1.1",
     "@redwoodjs/auth-dbauth-api": "8.1.1",
     "@redwoodjs/graphql-server": "8.1.1",
     "@redwoodjs/jobs": "8.1.1",
+    "@sentry/node": "7",
     "@whatwg-node/fetch": "^0.9.9",
     "redis": "^4.6.13"
   }

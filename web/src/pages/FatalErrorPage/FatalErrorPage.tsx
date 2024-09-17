@@ -10,12 +10,13 @@
 // This import will be automatically removed when building for production
 import { DevFatalErrorPage } from '@redwoodjs/web/dist/components/DevFatalErrorPage'
 
-export default DevFatalErrorPage ||
-  (() => (
-    <main>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
+import Sentry from 'src/lib/sentry'
+
+const FatalErrorPage = () => (
+  <main>
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
               html, body {
                 margin: 0;
               }
@@ -46,12 +47,15 @@ export default DevFatalErrorPage ||
                 color: #2D3748;
               }
             `,
-        }}
-      />
-      <section>
-        <h1>
-          <span>Something went wrong</span>
-        </h1>
-      </section>
-    </main>
-  ))
+      }}
+    />
+
+    <section>
+      <h1>
+        <span>Something went wrong</span>
+      </h1>
+    </section>
+  </main>
+)
+
+export default (DevFatalErrorPage as unknown as Sentry.FallbackRender) || FatalErrorPage
