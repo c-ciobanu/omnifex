@@ -360,7 +360,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
 
   return (
     <>
-      <div className="mb-px flex space-x-1 overflow-auto rounded-t-md bg-white p-1">
+      <div className="sticky top-0 z-10 mb-px flex space-x-1 overflow-auto rounded-t-md bg-white p-1">
         <Toggle aria-label="Save" size="sm" onClick={onSaveClick} pressed={false} disabled={saveDisabled || loading}>
           <Save className="h-4 w-4" />
         </Toggle>
