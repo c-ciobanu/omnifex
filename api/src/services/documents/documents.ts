@@ -6,7 +6,7 @@ import { db } from 'src/lib/db'
 export const documents: QueryResolvers['documents'] = () => {
   requireAuth()
 
-  return db.document.findMany({ where: { userId: context.currentUser.id } })
+  return db.document.findMany({ where: { userId: context.currentUser.id }, orderBy: { updatedAt: 'desc' } })
 }
 
 export const document: QueryResolvers['document'] = ({ id }) => {
