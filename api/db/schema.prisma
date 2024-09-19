@@ -28,6 +28,8 @@ model User {
   booksToRead     ToReadBook[]
   metrics         Metric[]
   documents       Document[]
+  movieLists      MovieList[]
+  bookLists       BookList[]
 }
 
 model Movie {
@@ -52,6 +54,34 @@ model Movie {
   favorited FavoritedMovie[]
   watched   WatchedMovie[]
   toWatch   ToWatchMovie[]
+  listed    MovieListItem[]
+}
+
+model MovieList {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  movies MovieListItem[]
+
+  @@unique([userId, name])
+}
+
+model MovieListItem {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  list    MovieList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId  Int
+  movie   Movie     @relation(fields: [movieId], references: [id])
+  movieId Int
+
+  @@unique([listId, movieId])
 }
 
 model FavoritedMovie {
@@ -110,6 +140,34 @@ model Book {
   favorited FavoritedBook[]
   read      ReadBook[]
   toRead    ToReadBook[]
+  listed    BookListItem[]
+}
+
+model BookList {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  books  BookListItem[]
+
+  @@unique([userId, name])
+}
+
+model BookListItem {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  list   BookList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId Int
+  book   Book     @relation(fields: [bookId], references: [id])
+  bookId Int
+
+  @@unique([listId, bookId])
 }
 
 model FavoritedBook {
