@@ -158,7 +158,15 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
         return user
       }
 
-      return db.user.create({ data: { username, hashedPassword, salt } })
+      return db.user.create({
+        data: {
+          username,
+          hashedPassword,
+          salt,
+          movieLists: { create: [{ name: 'Watchlist' }, { name: 'Watched' }, { name: 'Favorites' }] },
+          bookLists: { create: [{ name: 'Reading List' }, { name: 'Read' }, { name: 'Favorites' }] },
+        },
+      })
     },
 
     // Include any format checks for password here. Return `true` if the

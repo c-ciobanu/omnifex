@@ -689,6 +689,20 @@ export default async () => {
         favoritedBooks: { create: range(1, 4).map((n) => ({ bookId: n })) },
         readBooks: { create: range(1, 8).map((n) => ({ bookId: n })) },
         booksToRead: { create: range(9, 12).map((n) => ({ bookId: n })) },
+        movieLists: {
+          create: [
+            { name: 'Watchlist', movies: { create: range(21, 30).map((n) => ({ movieId: n })) } },
+            { name: 'Watched', movies: { create: range(1, 20).map((n) => ({ movieId: n })) } },
+            { name: 'Favorites', movies: { create: range(1, 10).map((n) => ({ movieId: n })) } },
+          ],
+        },
+        bookLists: {
+          create: [
+            { name: 'Reading List', books: { create: range(9, 12).map((n) => ({ bookId: n })) } },
+            { name: 'Read', books: { create: range(1, 8).map((n) => ({ bookId: n })) } },
+            { name: 'Favorites', books: { create: range(1, 4).map((n) => ({ bookId: n })) } },
+          ],
+        },
         metrics: {
           create: [
             {
@@ -723,8 +737,18 @@ export default async () => {
           ],
         },
       },
-      { username: 'john', password: 'john1234' },
-      { username: 'jane', password: 'jane1234' },
+      {
+        username: 'john',
+        password: 'john1234',
+        movieLists: { create: [{ name: 'Watchlist' }, { name: 'Watched' }, { name: 'Favorites' }] },
+        bookLists: { create: [{ name: 'Reading List' }, { name: 'Read' }, { name: 'Favorites' }] },
+      },
+      {
+        username: 'jane',
+        password: 'jane1234',
+        movieLists: { create: [{ name: 'Watchlist' }, { name: 'Watched' }, { name: 'Favorites' }] },
+        bookLists: { create: [{ name: 'Reading List' }, { name: 'Read' }, { name: 'Favorites' }] },
+      },
     ]
 
     for (const { password, ...user } of users) {
