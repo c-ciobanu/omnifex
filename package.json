@@ -8,6 +8,7 @@
     "jobs": "rw jobs work",
     "migrate:dev": "rw prisma migrate dev",
     "migrate:reset": "rw prisma migrate reset",
+    "migrate:data": "rw data-migrate up",
     "test": "rw test",
     "type-check": "rw type-check",
     "lint": "rw lint --fix"
