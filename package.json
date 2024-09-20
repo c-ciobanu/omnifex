@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@redwoodjs/auth-dbauth-setup": "8.1.1",
+    "@redwoodjs/cli-data-migrate": "8.1.1",
     "@redwoodjs/core": "8.1.1",
     "@redwoodjs/project-config": "8.1.1",
     "prettier-plugin-tailwindcss": "^0.6.6"

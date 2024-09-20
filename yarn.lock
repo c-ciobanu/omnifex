@@ -5469,6 +5469,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/cli-data-migrate@npm:8.1.1":
+  version: 8.1.1
+  resolution: "@redwoodjs/cli-data-migrate@npm:8.1.1"
+  dependencies:
+    "@redwoodjs/babel-config": "npm:8.1.1"
+    "@redwoodjs/project-config": "npm:8.1.1"
+    chalk: "npm:4.1.2"
+    dotenv-defaults: "npm:5.0.2"
+    execa: "npm:5.1.1"
+    fs-extra: "npm:11.2.0"
+    listr2: "npm:6.6.1"
+    terminal-link: "npm:2.1.1"
+    yargs: "npm:17.7.2"
+  bin:
+    up: ./dist/bin.js
+  checksum: 10c0/b225300ef4f49b7f8efa250f97cfddb5a169d9eb325b9d359d23ef0f2f83010f72d07541554985c4bfe488d574cd6c16899eaabb87274e5c35cfa119bd38c818
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/cli-helpers@npm:8.1.1":
   version: 8.1.1
   resolution: "@redwoodjs/cli-helpers@npm:8.1.1"
@@ -15780,6 +15799,7 @@ __metadata:
   resolution: "popcorn-time@workspace:."
   dependencies:
     "@redwoodjs/auth-dbauth-setup": "npm:8.1.1"
+    "@redwoodjs/cli-data-migrate": "npm:8.1.1"
     "@redwoodjs/core": "npm:8.1.1"
     "@redwoodjs/project-config": "npm:8.1.1"
     prettier-plugin-tailwindcss: "npm:^0.6.6"
