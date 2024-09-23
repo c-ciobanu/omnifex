@@ -62,7 +62,18 @@ export const userMovies: QueryResolvers['userMovies'] = ({ type }) => {
   }
 }
 
-const createFavoritedMovie = (movieId: number) => {
+const createMovieListItem = async (listName: string, movieId: number) => {
+  const list = await db.movieList.findFirst({
+    where: { userId: context.currentUser.id, name: listName },
+    select: { id: true },
+  })
+
+  await db.movieListItem.create({ data: { movieId, listId: list.id } })
+}
+
+const createFavoritedMovie = async (movieId: number) => {
+  await createMovieListItem('Favorites', movieId)
+
   return db.favoritedMovie.create({
     data: { movieId, userId: context.currentUser.id },
   })
@@ -74,8 +85,12 @@ const createWatchedMovie = async (movieId: number) => {
   })
 
   if (toWatchMovieCount === 1) {
+    await deleteMovieListItem('Watchlist', movieId)
+
     await deleteToWatchMovie(movieId)
   }
+
+  await createMovieListItem('Watched', movieId)
 
   return db.watchedMovie.create({
     data: { movieId, userId: context.currentUser.id },
@@ -92,6 +107,8 @@ const createToWatchMovie = async (movieId: number) => {
       throw new Error('Unable to add a watched movie to the watchlist')
     }
   })
+
+  await createMovieListItem('Watchlist', movieId)
 
   return db.toWatchMovie.create({
     data: { movieId, userId: context.currentUser.id },
@@ -110,19 +127,34 @@ export const createUserMovie: MutationResolvers['createUserMovie'] = ({ input: {
   }
 }
 
-const deleteFavoritedMovie = (movieId: number) => {
+const deleteMovieListItem = async (listName: string, movieId: number) => {
+  const list = await db.movieList.findFirst({
+    where: { userId: context.currentUser.id, name: listName },
+    select: { id: true },
+  })
+
+  await db.movieListItem.deleteMany({ where: { movieId, listId: list.id } })
+}
+
+const deleteFavoritedMovie = async (movieId: number) => {
+  await deleteMovieListItem('Favorites', movieId)
+
   return db.favoritedMovie.delete({
     where: { movieId_userId: { movieId, userId: context.currentUser.id } },
   })
 }
 
-const deleteWatchedMovie = (movieId: number) => {
+const deleteWatchedMovie = async (movieId: number) => {
+  await deleteMovieListItem('Watched', movieId)
+
   return db.watchedMovie.delete({
     where: { movieId_userId: { movieId, userId: context.currentUser.id } },
   })
 }
 
-const deleteToWatchMovie = (movieId: number) => {
+const deleteToWatchMovie = async (movieId: number) => {
+  await deleteMovieListItem('Watchlist', movieId)
+
   return db.toWatchMovie.delete({
     where: { movieId_userId: { movieId, userId: context.currentUser.id } },
   })

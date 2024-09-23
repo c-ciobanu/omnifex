@@ -62,7 +62,18 @@ export const userBooks: QueryResolvers['userBooks'] = ({ type }) => {
   }
 }
 
-const createFavoritedBook = (bookId: number) => {
+const createBookListItem = async (listName: string, bookId: number) => {
+  const list = await db.bookList.findFirst({
+    where: { userId: context.currentUser.id, name: listName },
+    select: { id: true },
+  })
+
+  await db.bookListItem.create({ data: { bookId, listId: list.id } })
+}
+
+const createFavoritedBook = async (bookId: number) => {
+  await createBookListItem('Favorites', bookId)
+
   return db.favoritedBook.create({ data: { bookId, userId: context.currentUser.id } })
 }
 
@@ -70,8 +81,12 @@ const createReadBook = async (bookId: number) => {
   const toReadBookCount = await db.toReadBook.count({ where: { bookId, userId: context.currentUser.id } })
 
   if (toReadBookCount === 1) {
+    await deleteBookListItem('Reading List', bookId)
+
     await deleteToReadBook(bookId)
   }
+
+  await createBookListItem('Read', bookId)
 
   return db.readBook.create({ data: { bookId, userId: context.currentUser.id } })
 }
@@ -84,6 +99,8 @@ const createToReadBook = async (bookId: number) => {
       throw new Error('Unable to add a read book to the reading list')
     }
   })
+
+  await createBookListItem('Reading List', bookId)
 
   return db.toReadBook.create({ data: { bookId, userId: context.currentUser.id } })
 }
@@ -100,15 +117,30 @@ export const createUserBook: MutationResolvers['createUserBook'] = ({ input: { b
   }
 }
 
-const deleteFavoritedBook = (bookId) => {
+const deleteBookListItem = async (listName: string, bookId: number) => {
+  const list = await db.bookList.findFirst({
+    where: { userId: context.currentUser.id, name: listName },
+    select: { id: true },
+  })
+
+  await db.bookListItem.deleteMany({ where: { bookId, listId: list.id } })
+}
+
+const deleteFavoritedBook = async (bookId) => {
+  await deleteBookListItem('Favorites', bookId)
+
   return db.favoritedBook.delete({ where: { bookId_userId: { bookId, userId: context.currentUser.id } } })
 }
 
-const deleteReadBook = (bookId) => {
+const deleteReadBook = async (bookId) => {
+  await deleteBookListItem('Read', bookId)
+
   return db.readBook.delete({ where: { bookId_userId: { bookId, userId: context.currentUser.id } } })
 }
 
-const deleteToReadBook = (bookId) => {
+const deleteToReadBook = async (bookId) => {
+  await deleteBookListItem('Reading List', bookId)
+
   return db.toReadBook.delete({ where: { bookId_userId: { bookId, userId: context.currentUser.id } } })
 }
 
