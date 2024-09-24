@@ -126,6 +126,8 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
             favoritedBooks: true,
             readBooks: true,
             booksToRead: true,
+            movieLists: { include: { movies: true } },
+            bookLists: { include: { books: true } },
             metrics: { include: { entries: true } },
             documents: true,
           },
@@ -142,6 +144,18 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
             favoritedBooks: { create: testUser.favoritedBooks.map((b) => ({ bookId: b.bookId })) },
             readBooks: { create: testUser.readBooks.map((b) => ({ bookId: b.bookId })) },
             booksToRead: { create: testUser.booksToRead.map((b) => ({ bookId: b.bookId })) },
+            movieLists: {
+              create: testUser.movieLists.map((l) => ({
+                name: l.name,
+                movies: { create: l.movies.map((m) => ({ movieId: m.movieId })) },
+              })),
+            },
+            bookLists: {
+              create: testUser.bookLists.map((l) => ({
+                name: l.name,
+                books: { create: l.books.map((b) => ({ bookId: b.bookId })) },
+              })),
+            },
             metrics: {
               create: testUser.metrics.map((m) => ({
                 name: m.name,
