@@ -1,10 +1,10 @@
-import { Prisma } from '@prisma/client'
-import { Movie as PrismaMovie } from '@prisma/client'
+import { Prisma, Movie as PrismaMovie } from '@prisma/client'
 import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { searchTMDBMovies, getTMDBMovie, TMDBSearchMovie, getTMDBMovieDirector } from 'src/lib/tmdb'
+import { userDefaultMovieLists, DefaultMovieLists } from 'src/services/movieLists/movieLists'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const tmdbMovies: TMDBSearchMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
@@ -69,14 +69,16 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
 export const Movie: MovieRelationResolvers = {
   userInfo: async (_obj, { root }) => {
     if (context.currentUser) {
-      const favoritedMovieCount = await db.favoritedMovie.count({
-        where: { movieId: root.id, userId: context.currentUser.id },
+      const userLists = await userDefaultMovieLists()
+
+      const favoritedMovieCount = await db.movieListItem.count({
+        where: { movieId: root.id, listId: userLists[DefaultMovieLists.Favorites].id },
       })
-      const watchedMovieCount = await db.watchedMovie.count({
-        where: { movieId: root.id, userId: context.currentUser.id },
+      const watchedMovieCount = await db.movieListItem.count({
+        where: { movieId: root.id, listId: userLists[DefaultMovieLists.Watched].id },
       })
-      const toWatchMovieCount = await db.toWatchMovie.count({
-        where: { movieId: root.id, userId: context.currentUser.id },
+      const toWatchMovieCount = await db.movieListItem.count({
+        where: { movieId: root.id, listId: userLists[DefaultMovieLists.Watchlist].id },
       })
 
       return {
