@@ -24,7 +24,7 @@
     "@redwoodjs/cli-data-migrate": "8.3.0",
     "@redwoodjs/core": "8.3.0",
     "@redwoodjs/project-config": "8.3.0",
-    "prettier-plugin-tailwindcss": "^0.6.6"
+    "prettier-plugin-tailwindcss": "^0.6.8"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
@@ -36,5 +36,5 @@
   "prisma": {
     "seed": "yarn rw exec seed"
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.5.0"
 }
