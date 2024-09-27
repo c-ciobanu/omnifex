@@ -5,6 +5,7 @@ import type { BookRelationResolvers, QueryResolvers } from 'types/graphql'
 import { cache, deleteCacheKey } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getGoogleBook, searchGoogleBooks } from 'src/lib/googleBooks'
+import { DefaultBookLists, userDefaultBookLists } from 'src/services//bookLists/bookLists'
 
 export const books: QueryResolvers['books'] = async ({ title }) => {
   const googleBooks: books_v1.Schema$Volume[] = await cache(
@@ -83,14 +84,16 @@ export const book: QueryResolvers['book'] = async ({ googleId }) => {
 export const Book: BookRelationResolvers = {
   userInfo: async (_obj, { root }) => {
     if (context.currentUser) {
-      const favoritedBookCount = await db.favoritedBook.count({
-        where: { bookId: root.id, userId: context.currentUser.id },
+      const userLists = await userDefaultBookLists()
+
+      const favoritedBookCount = await db.bookListItem.count({
+        where: { bookId: root.id, listId: userLists[DefaultBookLists.Favorites].id },
       })
-      const readBookCount = await db.readBook.count({
-        where: { bookId: root.id, userId: context.currentUser.id },
+      const readBookCount = await db.bookListItem.count({
+        where: { bookId: root.id, listId: userLists[DefaultBookLists.Read].id },
       })
-      const toReadBookCount = await db.toReadBook.count({
-        where: { bookId: root.id, userId: context.currentUser.id },
+      const toReadBookCount = await db.bookListItem.count({
+        where: { bookId: root.id, listId: userLists[DefaultBookLists.ReadingList].id },
       })
 
       return {
