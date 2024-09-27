@@ -683,12 +683,6 @@ export default async () => {
       {
         username: 'test',
         password: 'test1234',
-        favoritedMovies: { create: range(1, 10).map((n) => ({ movieId: n })) },
-        watchedMovies: { create: range(1, 20).map((n) => ({ movieId: n })) },
-        moviesToWatch: { create: range(21, 30).map((n) => ({ movieId: n })) },
-        favoritedBooks: { create: range(1, 4).map((n) => ({ bookId: n })) },
-        readBooks: { create: range(1, 8).map((n) => ({ bookId: n })) },
-        booksToRead: { create: range(9, 12).map((n) => ({ bookId: n })) },
         movieLists: {
           create: [
             { name: 'Watchlist', movies: { create: range(21, 30).map((n) => ({ movieId: n })) } },

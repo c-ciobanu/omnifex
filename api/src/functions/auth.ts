@@ -120,12 +120,6 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
         const testUser = await db.user.findUnique({
           where: { username: 'test' },
           select: {
-            favoritedMovies: true,
-            watchedMovies: true,
-            moviesToWatch: true,
-            favoritedBooks: true,
-            readBooks: true,
-            booksToRead: true,
             movieLists: { include: { movies: true } },
             bookLists: { include: { books: true } },
             metrics: { include: { entries: true } },
@@ -138,12 +132,6 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
             username,
             hashedPassword,
             salt,
-            favoritedMovies: { create: testUser.favoritedMovies.map((m) => ({ movieId: m.movieId })) },
-            watchedMovies: { create: testUser.watchedMovies.map((m) => ({ movieId: m.movieId })) },
-            moviesToWatch: { create: testUser.moviesToWatch.map((m) => ({ movieId: m.movieId })) },
-            favoritedBooks: { create: testUser.favoritedBooks.map((b) => ({ bookId: b.bookId })) },
-            readBooks: { create: testUser.readBooks.map((b) => ({ bookId: b.bookId })) },
-            booksToRead: { create: testUser.booksToRead.map((b) => ({ bookId: b.bookId })) },
             movieLists: {
               create: testUser.movieLists.map((l) => ({
                 name: l.name,
