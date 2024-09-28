@@ -20,16 +20,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favoritedMovies FavoritedMovie[]
-  watchedMovies   WatchedMovie[]
-  moviesToWatch   ToWatchMovie[]
-  favoritedBooks  FavoritedBook[]
-  readBooks       ReadBook[]
-  booksToRead     ToReadBook[]
-  metrics         Metric[]
-  documents       Document[]
-  movieLists      MovieList[]
-  bookLists       BookList[]
+  metrics    Metric[]
+  documents  Document[]
+  movieLists MovieList[]
+  bookLists  BookList[]
 }
 
 model Movie {
@@ -51,10 +45,7 @@ model Movie {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favorited FavoritedMovie[]
-  watched   WatchedMovie[]
-  toWatch   ToWatchMovie[]
-  listed    MovieListItem[]
+  listed MovieListItem[]
 }
 
 model MovieList {
@@ -84,45 +75,6 @@ model MovieListItem {
   @@unique([listId, movieId])
 }
 
-model FavoritedMovie {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  movie   Movie @relation(fields: [movieId], references: [id])
-  movieId Int
-  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  Int
-
-  @@unique([movieId, userId])
-}
-
-model WatchedMovie {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  movie   Movie @relation(fields: [movieId], references: [id])
-  movieId Int
-  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  Int
-
-  @@unique([movieId, userId])
-}
-
-model ToWatchMovie {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  movie   Movie @relation(fields: [movieId], references: [id])
-  movieId Int
-  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  Int
-
-  @@unique([movieId, userId])
-}
-
 model Book {
   id              Int      @id @default(autoincrement())
   authors         String[]
@@ -137,10 +89,7 @@ model Book {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favorited FavoritedBook[]
-  read      ReadBook[]
-  toRead    ToReadBook[]
-  listed    BookListItem[]
+  listed BookListItem[]
 }
 
 model BookList {
@@ -168,45 +117,6 @@ model BookListItem {
   bookId Int
 
   @@unique([listId, bookId])
-}
-
-model FavoritedBook {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  book   Book @relation(fields: [bookId], references: [id])
-  bookId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@unique([bookId, userId])
-}
-
-model ReadBook {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  book   Book @relation(fields: [bookId], references: [id])
-  bookId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@unique([bookId, userId])
-}
-
-model ToReadBook {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  book   Book @relation(fields: [bookId], references: [id])
-  bookId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@unique([bookId, userId])
 }
 
 model Metric {
