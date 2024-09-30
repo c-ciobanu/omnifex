@@ -20,7 +20,7 @@ const labelVariants = cva('text-sm font-medium leading-none')
 
 const FormField = ({ className, label, description, name, children }: FormFieldProps) => {
   return (
-    <fieldset className={cn('space-y-2', className)}>
+    <div className={cn('space-y-2', className)}>
       {label ? (
         <Label name={name} className={labelVariants()} errorClassName={cn(labelVariants(), 'text-destructive')}>
           {label}
@@ -32,7 +32,7 @@ const FormField = ({ className, label, description, name, children }: FormFieldP
       {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
 
       <FieldError name={name} className="block text-sm font-medium text-destructive" />
-    </fieldset>
+    </div>
   )
 }
 FormField.displayName = 'FormField'
