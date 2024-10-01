@@ -7,6 +7,7 @@ import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 import { Button } from 'src/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { FormField, FormInput } from 'src/components/ui/form'
 
 interface FormValues {
@@ -39,31 +40,37 @@ const ForgotPasswordPage = () => {
     <>
       <Metadata title="Forgot Password" />
 
-      <div className="min-h-main flex flex-col items-center justify-center space-y-10">
-        <h2 className="text-2xl font-bold">Forgot Password</h2>
+      <div className="min-h-main flex flex-col items-center justify-center">
+        <Card>
+          <CardHeader>
+            <CardTitle>Forgot Password</CardTitle>
+          </CardHeader>
 
-        <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
-          <Form onSubmit={onSubmit} className="space-y-6">
-            <FormField name="email" label="Email Address">
-              <FormInput
-                ref={emailRef}
-                name="email"
-                type="email"
-                autoComplete="email"
-                validation={{
-                  required: {
-                    value: true,
-                    message: 'Email is required',
-                  },
-                }}
-              />
-            </FormField>
+          <Form onSubmit={onSubmit}>
+            <CardContent className="space-y-6">
+              <FormField name="email" label="Email Address">
+                <FormInput
+                  ref={emailRef}
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: 'Email is required',
+                    },
+                  }}
+                />
+              </FormField>
+            </CardContent>
 
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
+            <CardFooter>
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            </CardFooter>
           </Form>
-        </div>
+        </Card>
       </div>
     </>
   )

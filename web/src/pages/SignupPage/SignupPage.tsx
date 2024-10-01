@@ -8,6 +8,7 @@ import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 import { Button } from 'src/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 import { FormCheckbox, FormField, FormInput } from 'src/components/ui/form'
 
 type FormValues = {
@@ -42,52 +43,58 @@ const SignupPage = () => {
       <Metadata title="Sign up" />
 
       <div className="min-h-main flex flex-col items-center justify-center space-y-10">
-        <h2 className="text-2xl font-bold">Sign up</h2>
+        <Card>
+          <CardHeader>
+            <CardTitle>Sign up</CardTitle>
+          </CardHeader>
 
-        <div className="rounded-lg bg-white p-6 shadow sm:w-full sm:max-w-md sm:p-12">
-          <Form onSubmit={onSubmit} className="space-y-6">
-            <FormField name="username" label="Username">
-              <FormInput
-                ref={usernameRef}
-                name="username"
-                autoComplete="username"
-                validation={{
-                  required: true,
-                  minLength: {
-                    value: 3,
-                    message: 'Username must be at least 3 characters',
-                  },
-                }}
-              />
-            </FormField>
+          <Form onSubmit={onSubmit}>
+            <CardContent className="space-y-6">
+              <FormField name="username" label="Username">
+                <FormInput
+                  ref={usernameRef}
+                  name="username"
+                  autoComplete="username"
+                  validation={{
+                    required: true,
+                    minLength: {
+                      value: 3,
+                      message: 'Username must be at least 3 characters',
+                    },
+                  }}
+                />
+              </FormField>
 
-            <FormField name="password" label="Password">
-              <FormInput
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                validation={{
-                  required: true,
-                  minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters',
-                  },
-                }}
-              />
-            </FormField>
+              <FormField name="password" label="Password">
+                <FormInput
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  validation={{
+                    required: true,
+                    minLength: {
+                      value: 8,
+                      message: 'Password must be at least 8 characters',
+                    },
+                  }}
+                />
+              </FormField>
 
-            <FormField
-              name="isTemporary"
-              description="Select this option if you don't like committing to something without first trying it."
-            >
-              <FormCheckbox name="isTemporary" label="Temporary Account (Expires in 24 Hours)" defaultValue={false} />
-            </FormField>
+              <FormField
+                name="isTemporary"
+                description="Select this option if you don't like committing to something without first trying it."
+              >
+                <FormCheckbox name="isTemporary" label="Temporary Account (Expires in 24 Hours)" defaultValue={false} />
+              </FormField>
+            </CardContent>
 
-            <Button type="submit" className="w-full">
-              Sign up
-            </Button>
+            <CardFooter>
+              <Button type="submit" className="w-full">
+                Sign up
+              </Button>
+            </CardFooter>
           </Form>
-        </div>
+        </Card>
 
         <div>
           <span className="text-sm text-gray-500">Already have an account?</span>{' '}
