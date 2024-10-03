@@ -12,7 +12,15 @@ const formatSecondsToMinutesAndSeconds = (seconds: number) => {
   return `${m.padStart(2, '0')}:${s.padStart(2, '0')}`
 }
 
-enum Cycle {
+const sendNotification = (title: string, body: string) => {
+  if (!Notification) {
+    return
+  }
+
+  return new Notification(title, { body })
+}
+
+enum Phase {
   Pomodoro = 'Pomodoro',
   ShortBreak = 'Short break',
   LongBreak = 'Long break',
@@ -23,26 +31,43 @@ export type PomodoroTimerProps = {
 }
 
 const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
-  const [currentCycle, setCurrentCycle] = useState(Cycle.Pomodoro)
+  const [currentPhase, setCurrentPhase] = useState(Phase.Pomodoro)
   const [secondsLeft, setSecondsLeft] = useState(settings.pomodoro * 60)
-  const [runningCycle, setRunningCycle] = useState(1)
+  const [runningPhase, setRunningPhase] = useState(1)
 
   useInterval(
     () => {
-      if (runningCycle === 12 && secondsLeft === 1) {
+      const nextPhase = runningPhase === 7 ? Phase.LongBreak : Phase.ShortBreak
+      const secondsToNextPhase = secondsLeft - 1
+
+      if (runningPhase === 12 && secondsToNextPhase === 0) {
         setSecondsLeft(0)
-      } else if (secondsLeft === 1) {
-        if (currentCycle === Cycle.Pomodoro) {
-          setCurrentCycle(() => (runningCycle === 7 ? Cycle.LongBreak : Cycle.ShortBreak))
-          setSecondsLeft(() => (runningCycle === 7 ? settings.longBreak * 60 : settings.shortBreak * 60))
+
+        sendNotification('You did it!', 'You made it to the end! Keep up the great work! 💪')
+      } else if (secondsToNextPhase === 0) {
+        if (currentPhase === Phase.Pomodoro) {
+          setCurrentPhase(nextPhase)
+          setSecondsLeft((nextPhase === Phase.LongBreak ? settings.longBreak : settings.shortBreak) * 60)
+
+          sendNotification('Well done!', `Time to take a ${nextPhase.toLowerCase()} now.`)
         } else {
-          setCurrentCycle(Cycle.Pomodoro)
+          setCurrentPhase(Phase.Pomodoro)
           setSecondsLeft(settings.pomodoro * 60)
+
+          sendNotification('Hope you are well rested now!', `It's time to go at it again.`)
         }
 
-        setRunningCycle((state) => state + 1)
+        setRunningPhase((state) => state + 1)
       } else {
-        setSecondsLeft((state) => state - 1)
+        setSecondsLeft(secondsToNextPhase)
+
+        if (currentPhase === Phase.Pomodoro && secondsToNextPhase === 300) {
+          sendNotification('Pomodoro ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 5 minutes.`)
+        } else if (currentPhase === Phase.Pomodoro && secondsToNextPhase === 60) {
+          sendNotification('Pomodoro ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 1 minute.`)
+        } else if (secondsToNextPhase === 60) {
+          sendNotification('Break ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 1 minute.`)
+        }
       }
     },
     secondsLeft === 0 ? null : 1000
@@ -56,7 +81,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
 
       <Card className="border-2 border-dashed py-10">
         <CardHeader>
-          <CardDescription className="text-center">{currentCycle}</CardDescription>
+          <CardDescription className="text-center">{currentPhase}</CardDescription>
         </CardHeader>
 
         <CardContent>

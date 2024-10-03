@@ -21,6 +21,10 @@ const PomodoroPage = () => {
   const [settings, setSettings] = useState<PomodoroTimerProps['settings']>()
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    if (Notification && Notification.permission !== 'granted') {
+      Notification.requestPermission()
+    }
+
     setSettings({
       pomodoro: Number(data.pomodoro),
       shortBreak: Number(data.shortBreak),
