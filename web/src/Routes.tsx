@@ -30,7 +30,7 @@ const Routes = () => {
         <Route path="/search/{entity:String}" page={SearchPage} name="search" />
         <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
-        <Route path="/pomodoro" page={PomodoroPage} name="pomodoro" />
+        <Route path="/tools/pomodoro" page={PomodoroPage} name="pomodoro" />
 
         <PrivateSet unauthenticated="home">
           <Route path="/dashboard/movies" page={MoviesDashboardPage} name="moviesDashboard" />

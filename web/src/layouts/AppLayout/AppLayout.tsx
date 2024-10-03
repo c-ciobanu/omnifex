@@ -22,10 +22,12 @@ const authenticatedNavigation = [
   { name: 'Books', href: () => routes.booksDashboard() },
   { name: 'Documents', href: () => routes.documents() },
   { name: 'Tracker', href: () => routes.tracker() },
+  { name: 'Pomodoro', href: () => routes.pomodoro() },
 ]
 const guestNavigation = [
   { name: 'Search Movie', href: () => routes.search({ entity: 'movie' }) },
   { name: 'Search Book', href: () => routes.search({ entity: 'book' }) },
+  { name: 'Pomodoro', href: () => routes.pomodoro() },
 ]
 
 const authenticatedMenu = []
