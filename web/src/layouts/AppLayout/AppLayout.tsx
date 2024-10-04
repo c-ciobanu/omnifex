@@ -185,6 +185,17 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </a>
         </p>
 
+        <p>
+          Sound effects from{' '}
+          <a
+            href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=30968"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Pixabay
+          </a>
+        </p>
+
         <div className="flex items-center justify-between">
           <p>© {new Date().getFullYear()} Cristi Ciobanu</p>
           <a href="https://github.com/c-ciobanu/popcorn-time" target="_blank" rel="noreferrer">

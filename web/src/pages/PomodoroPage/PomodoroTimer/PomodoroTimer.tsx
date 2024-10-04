@@ -5,6 +5,14 @@ import { Metadata } from '@redwoodjs/web'
 import { Card, CardContent, CardDescription, CardHeader } from 'src/components/ui/card'
 import { useInterval } from 'src/hooks/useInterval/useInterval'
 
+import alarm from './alarm.mp3'
+import end from './end.mp3'
+import ticking from './ticking.mp3'
+
+const alarmSound = new Audio(alarm)
+const endSound = new Audio(end)
+const tickingSound = new Audio(ticking)
+
 const formatSecondsToMinutesAndSeconds = (seconds: number) => {
   const m = Math.floor(seconds / 60).toString()
   const s = (seconds % 60).toString()
@@ -44,6 +52,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
         setSecondsLeft(0)
 
         sendNotification('You did it!', 'You made it to the end! Keep up the great work! 💪')
+        endSound.play()
       } else if (secondsToNextPhase === 0) {
         if (currentPhase === Phase.Pomodoro) {
           setCurrentPhase(nextPhase)
@@ -58,6 +67,8 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
         }
 
         setRunningPhase((state) => state + 1)
+
+        alarmSound.play()
       } else {
         setSecondsLeft(secondsToNextPhase)
 
@@ -67,6 +78,8 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
           sendNotification('Pomodoro ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 1 minute.`)
         } else if (secondsToNextPhase === 60) {
           sendNotification('Break ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 1 minute.`)
+        } else if (secondsToNextPhase === 5) {
+          tickingSound.play()
         }
       }
     },
