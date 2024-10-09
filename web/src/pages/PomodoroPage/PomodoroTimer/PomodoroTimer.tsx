@@ -33,14 +33,29 @@ enum Phase {
   LongBreak = 'Long break',
 }
 
+const phases = [
+  Phase.Pomodoro,
+  Phase.ShortBreak,
+  Phase.Pomodoro,
+  Phase.ShortBreak,
+  Phase.Pomodoro,
+  Phase.ShortBreak,
+  Phase.Pomodoro,
+  Phase.LongBreak,
+  Phase.Pomodoro,
+  Phase.ShortBreak,
+  Phase.Pomodoro,
+  Phase.ShortBreak,
+]
+
 export type PomodoroTimerProps = {
   settings: { pomodoro: number; shortBreak: number; longBreak: number }
 }
 
 const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
-  const [currentPhase, setCurrentPhase] = useState(Phase.Pomodoro)
+  const [currentPhaseNumber, setCurrentPhaseNumber] = useState(0)
+  const [currentPhaseName, setCurrentPhaseName] = useState(phases[currentPhaseNumber])
   const [secondsLeft, setSecondsLeft] = useState(settings.pomodoro * 60)
-  const [runningPhase, setRunningPhase] = useState(1)
   const workerRef = useRef<Worker>()
   const tickRef = useRef(tick)
 
@@ -59,10 +74,10 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
   }, [])
 
   function tick() {
-    const nextPhase = runningPhase === 7 ? Phase.LongBreak : Phase.ShortBreak
+    const nextPhaseName = phases[currentPhaseNumber + 1]
     const secondsToNextPhase = secondsLeft - 1
 
-    if (runningPhase === 12 && secondsToNextPhase === 0) {
+    if (!nextPhaseName && secondsToNextPhase === 0) {
       workerRef.current?.terminate()
 
       setSecondsLeft(0)
@@ -70,30 +85,30 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
       sendNotification('You did it!', 'You made it to the end! Keep up the great work! 💪')
       endSound.play()
     } else if (secondsToNextPhase === 0) {
-      if (currentPhase === Phase.Pomodoro) {
-        setCurrentPhase(nextPhase)
-        setSecondsLeft((nextPhase === Phase.LongBreak ? settings.longBreak : settings.shortBreak) * 60)
+      if (currentPhaseName === Phase.Pomodoro) {
+        setCurrentPhaseName(nextPhaseName)
+        setSecondsLeft((nextPhaseName === Phase.LongBreak ? settings.longBreak : settings.shortBreak) * 60)
 
-        sendNotification('Well done!', `Time to take a ${nextPhase.toLowerCase()} now.`)
+        sendNotification('Well done!', `Time to take a ${nextPhaseName.toLowerCase()} now.`)
       } else {
-        setCurrentPhase(Phase.Pomodoro)
+        setCurrentPhaseName(Phase.Pomodoro)
         setSecondsLeft(settings.pomodoro * 60)
 
         sendNotification('Hope you are well rested now!', `It's time to go at it again.`)
       }
 
-      setRunningPhase((state) => state + 1)
+      setCurrentPhaseNumber((state) => state + 1)
 
       alarmSound.play()
     } else {
       setSecondsLeft(secondsToNextPhase)
 
-      if (currentPhase === Phase.Pomodoro && secondsToNextPhase === 300) {
-        sendNotification('Pomodoro ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 5 minutes.`)
-      } else if (currentPhase === Phase.Pomodoro && secondsToNextPhase === 60) {
-        sendNotification('Pomodoro ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 1 minute.`)
+      if (currentPhaseName === Phase.Pomodoro && secondsToNextPhase === 300) {
+        sendNotification('Pomodoro ending soon!', `A ${nextPhaseName.toLowerCase()} is coming next in 5 minutes.`)
+      } else if (currentPhaseName === Phase.Pomodoro && secondsToNextPhase === 60) {
+        sendNotification('Pomodoro ending soon!', `A ${nextPhaseName.toLowerCase()} is coming next in 1 minute.`)
       } else if (secondsToNextPhase === 60) {
-        sendNotification('Break ending soon!', `A ${nextPhase.toLowerCase()} is coming next in 1 minute.`)
+        sendNotification('Break ending soon!', `A ${nextPhaseName.toLowerCase()} is coming next in 1 minute.`)
       } else if (secondsToNextPhase === 5) {
         tickingSound.play()
       }
@@ -108,7 +123,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
 
       <Card className="border-2 border-dashed py-10">
         <CardHeader>
-          <CardDescription className="text-center">{currentPhase}</CardDescription>
+          <CardDescription className="text-center">{currentPhaseName}</CardDescription>
         </CardHeader>
 
         <CardContent>
