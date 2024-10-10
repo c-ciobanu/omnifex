@@ -24,7 +24,7 @@ const sendNotification = (title: string, body: string) => {
     return
   }
 
-  return new Notification(title, { body })
+  return new Notification(title, { body, tag: 'popcorn-time-pomodoro' })
 }
 
 enum Phase {
