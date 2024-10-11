@@ -47,7 +47,7 @@ const NewDocument = () => {
 
         cache.writeQuery({
           query: QUERY,
-          data: { ...data, documents: data.documents.concat([createDocument]) },
+          data: { ...data, documents: [createDocument].concat(data.documents) },
         })
       },
     }
