@@ -27,6 +27,12 @@ const sendNotification = (title: string, body: string) => {
   return new Notification(title, { body, tag: 'popcorn-time-pomodoro' })
 }
 
+const updateDocumentTitle = (secondsLeft: number) => {
+  const formattedTimeLeft = formatSecondsToMinutesAndSeconds(secondsLeft)
+
+  document.title = `${formattedTimeLeft} | Popcorn Time`
+}
+
 enum Phase {
   Pomodoro = 'Pomodoro',
   ShortBreak = 'Short break',
@@ -113,6 +119,8 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
         tickingSound.play()
       }
     }
+
+    updateDocumentTitle(secondsToNextPhase)
   }
 
   const formattedTimeLeft = formatSecondsToMinutesAndSeconds(secondsLeft)
