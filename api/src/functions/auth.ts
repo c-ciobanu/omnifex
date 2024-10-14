@@ -176,7 +176,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     // Import the error along with `DbAuthHandler` from `@redwoodjs/api` above.
     passwordValidation: (password) => {
       if (password.length < 8) {
-        throw new PasswordValidationError('Password must be at least 8 characters')
+        throw new PasswordValidationError('Password must be at least 8 characters.')
       }
 
       return true

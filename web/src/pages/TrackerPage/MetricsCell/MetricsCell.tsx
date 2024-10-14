@@ -87,7 +87,7 @@ function actionMetricReducer(state, action) {
     }
   }
 
-  throw Error('Unknown action: ' + action.type)
+  throw Error(`Unknown action: ${action.type}.`)
 }
 
 export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {

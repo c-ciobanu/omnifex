@@ -105,7 +105,7 @@ export const createMovieListItem: MutationResolvers['createMovieListItem'] = asy
       })
 
       if (watchedMovieCount === 1) {
-        throw new Error('Unable to add a watched movie to the watchlist')
+        throw new Error('Unable to add a watched movie to the watchlist.')
       }
     })
   }

@@ -86,7 +86,7 @@ function actionMetricEntryReducer(state, action) {
     }
   }
 
-  throw Error('Unknown action: ' + action.type)
+  throw Error(`Unknown action: ${action.type}.`)
 }
 
 export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVariables>) => {

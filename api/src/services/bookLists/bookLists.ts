@@ -103,7 +103,7 @@ export const createBookListItem: MutationResolvers['createBookListItem'] = async
       })
 
       if (readBookCount === 1) {
-        throw new Error('Unable to add a read book to the reading list')
+        throw new Error('Unable to add a read book to the reading list.')
       }
     })
   }

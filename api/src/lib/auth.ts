@@ -23,7 +23,7 @@ import Sentry from './sentry'
  */
 export const getCurrentUser = async (session: Decoded) => {
   if (!session || typeof session.id !== 'number') {
-    throw new Error('Invalid session')
+    throw new Error('Invalid session.')
   }
 
   const user = await db.user.findUnique({
