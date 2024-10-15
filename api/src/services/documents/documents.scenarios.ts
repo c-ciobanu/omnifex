@@ -9,6 +9,13 @@ export const standard = defineScenario<Prisma.DocumentCreateArgs | Prisma.UserCr
         salt: 'String',
       },
     },
+    jane: {
+      data: {
+        username: 'jane',
+        hashedPassword: 'String',
+        salt: 'String',
+      },
+    },
   },
   document: {
     one: (scenario) => ({
@@ -24,10 +31,17 @@ export const standard = defineScenario<Prisma.DocumentCreateArgs | Prisma.UserCr
         userId: scenario.user.john.id,
       },
     }),
+    public: (scenario) => ({
+      data: {
+        title: 'String 3',
+        isPublic: true,
+        userId: scenario.user.jane.id,
+      },
+    }),
   },
 })
 
 export type StandardScenario = {
-  user: Record<'john', User>
-  document: Record<'one' | 'two', Document>
+  user: Record<'john' | 'jane', User>
+  document: Record<'one' | 'two' | 'public', Document>
 }

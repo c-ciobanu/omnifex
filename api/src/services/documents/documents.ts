@@ -9,10 +9,14 @@ export const documents: QueryResolvers['documents'] = () => {
   return db.document.findMany({ where: { userId: context.currentUser.id }, orderBy: { updatedAt: 'desc' } })
 }
 
-export const document: QueryResolvers['document'] = ({ id }) => {
-  requireAuth()
+export const document: QueryResolvers['document'] = async ({ id }) => {
+  const document = await db.document.findUnique({ where: { id } })
 
-  return db.document.findUnique({ where: { id, userId: context.currentUser.id } })
+  if (document && (document.isPublic || document.userId === context.currentUser?.id)) {
+    return document
+  }
+
+  return null
 }
 
 export const createDocument: MutationResolvers['createDocument'] = ({ input }) => {

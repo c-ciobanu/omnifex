@@ -6,14 +6,27 @@ describe('documents', () => {
     mockCurrentUser(scenario.user.john)
     const result = await documents()
 
-    expect(result.length).toEqual(Object.keys(scenario.document).length)
+    expect(result.length).toEqual(2)
   })
 
-  scenario('returns a single document', async (scenario: StandardScenario) => {
+  scenario('returns a document owned by the authenticated user', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
     const result = await document({ id: scenario.document.one.id })
 
     expect(result).toEqual(scenario.document.one)
+  })
+
+  scenario('returns a public document', async (scenario: StandardScenario) => {
+    const result = await document({ id: scenario.document.public.id })
+
+    expect(result).toEqual(scenario.document.public)
+  })
+
+  scenario('returns null if the user is not authorised to access the document.', async (scenario: StandardScenario) => {
+    mockCurrentUser(scenario.user.jane)
+    const result = await document({ id: scenario.document.one.id })
+
+    expect(result).toEqual(null)
   })
 
   scenario('creates a document', async (scenario: StandardScenario) => {
