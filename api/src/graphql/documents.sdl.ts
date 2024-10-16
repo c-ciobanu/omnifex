@@ -3,6 +3,7 @@ export const schema = gql`
     id: String!
     title: String!
     body: String
+    isEditable: Boolean
   }
 
   type Query {

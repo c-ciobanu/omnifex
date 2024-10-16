@@ -10,6 +10,7 @@ export const QUERY: TypedDocumentNode<DocumentQuery, DocumentQueryVariables> = g
       id
       title
       body
+      isEditable
     }
   }
 `

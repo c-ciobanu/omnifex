@@ -106,8 +106,10 @@ const LexicalEditor = (props: LexicalEditorProps) => {
   const [editorState, setEditorState] = useState(document.body ?? undefined)
 
   return (
-    <LexicalComposer initialConfig={{ ...editorConfig, editorState }}>
-      <ToolbarPlugin documentId={document.id} saveDisabled={editorState === document.body} />
+    <LexicalComposer initialConfig={{ ...editorConfig, editorState, editable: document.isEditable }}>
+      {document.isEditable ? (
+        <ToolbarPlugin documentId={document.id} saveDisabled={editorState === document.body} />
+      ) : null}
 
       <div className="relative rounded-b-md bg-white">
         <RichTextPlugin

@@ -13,13 +13,15 @@ describe('documents', () => {
     mockCurrentUser(scenario.user.john)
     const result = await document({ id: scenario.document.one.id })
 
-    expect(result).toEqual(scenario.document.one)
+    expect(result.id).toEqual(scenario.document.one.id)
+    expect(result.isEditable).toEqual(true)
   })
 
   scenario('returns a public document', async (scenario: StandardScenario) => {
     const result = await document({ id: scenario.document.public.id })
 
-    expect(result).toEqual(scenario.document.public)
+    expect(result.id).toEqual(scenario.document.public.id)
+    expect(result.isEditable).toEqual(false)
   })
 
   scenario('returns null if the user is not authorised to access the document.', async (scenario: StandardScenario) => {

@@ -1,3 +1,3 @@
 export const standard = () => ({
-  document: { id: 'String 1', title: 'String 1' },
+  document: { id: 'String 1', title: 'String 1', isEditable: false },
 })

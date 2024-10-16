@@ -13,7 +13,7 @@ export const document: QueryResolvers['document'] = async ({ id }) => {
   const document = await db.document.findUnique({ where: { id } })
 
   if (document && (document.isPublic || document.userId === context.currentUser?.id)) {
-    return document
+    return { ...document, isEditable: document.userId === context.currentUser?.id }
   }
 
   return null
