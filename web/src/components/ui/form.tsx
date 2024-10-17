@@ -7,6 +7,7 @@ import { FieldError, Label, RegisterOptions, Controller } from '@redwoodjs/forms
 import { Checkbox } from 'src/components/ui/checkbox'
 import { Input, InputProps } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
+import { Switch } from 'src/components/ui/switch'
 import { cn } from 'src/lib/utils'
 
 interface FormFieldProps extends PropsWithChildren {
@@ -119,4 +120,34 @@ const FormCheckbox = React.forwardRef<React.ElementRef<typeof Checkbox>, FormChe
 })
 FormCheckbox.displayName = 'FormCheckbox'
 
-export { FormField, FormInput, FormSelect, FormCheckbox }
+interface FormSwitchProps extends Omit<React.ComponentPropsWithoutRef<typeof Switch>, 'defaultValue'> {
+  validation?: RegisterOptions
+  defaultValue?: boolean
+  label: string
+}
+
+const FormSwitch = React.forwardRef<React.ElementRef<typeof Checkbox>, FormSwitchProps>((props, ref) => {
+  const { name, defaultValue, validation, label, ...propsRest } = props
+
+  return (
+    <Controller
+      name={name}
+      defaultValue={defaultValue}
+      rules={validation}
+      render={({ field }) => (
+        <div className="flex flex-row-reverse items-center justify-between gap-2">
+          <Switch checked={field.value} onCheckedChange={field.onChange} id={name} {...propsRest} ref={ref} />
+          <label
+            htmlFor={name}
+            className={cn(labelVariants(), 'peer-disabled:cursor-not-allowed peer-disabled:opacity-70')}
+          >
+            {label}
+          </label>
+        </div>
+      )}
+    />
+  )
+})
+FormSwitch.displayName = 'FormSwitch'
+
+export { FormField, FormInput, FormSelect, FormCheckbox, FormSwitch }
