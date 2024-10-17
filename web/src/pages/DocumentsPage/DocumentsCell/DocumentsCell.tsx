@@ -33,6 +33,7 @@ export const QUERY: TypedDocumentNode<DocumentsQuery> = gql`
     documents {
       id
       title
+      isPublic
     }
   }
 `

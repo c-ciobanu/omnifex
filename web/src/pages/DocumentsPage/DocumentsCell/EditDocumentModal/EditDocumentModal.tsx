@@ -5,19 +5,21 @@ import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
-import { FormField, FormInput } from 'src/components/ui/form'
+import { FormField, FormInput, FormSwitch } from 'src/components/ui/form'
 
 const UPDATE_DOCUMENT = gql`
   mutation UpdateDocumentTitleMutation($id: String!, $input: UpdateDocumentInput!) {
     updateDocument(id: $id, input: $input) {
       id
       title
+      isPublic
     }
   }
 `
 
 interface FormValues {
   title: string
+  isPublic: boolean
 }
 
 type EditDocumentModalProps = {
@@ -52,6 +54,10 @@ const EditDocumentModal = (props: EditDocumentModalProps) => {
 
           <FormField name="title" label="Title">
             <FormInput name="title" defaultValue={document.title} validation={{ required: true }} />
+          </FormField>
+
+          <FormField name="isPublic" description="Anyone on the Internet with the link will be able to view it.">
+            <FormSwitch name="isPublic" label="Public Access" defaultValue={document.isPublic} />
           </FormField>
 
           <DialogFooter>

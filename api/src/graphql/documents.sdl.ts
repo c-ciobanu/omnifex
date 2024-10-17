@@ -3,6 +3,7 @@ export const schema = gql`
     id: String!
     title: String!
     body: String
+    isPublic: Boolean!
     isEditable: Boolean
   }
 
@@ -19,6 +20,7 @@ export const schema = gql`
   input UpdateDocumentInput {
     title: String
     body: String
+    isPublic: Boolean
   }
 
   type Mutation {
