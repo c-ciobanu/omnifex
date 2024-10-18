@@ -22,7 +22,6 @@ import {
   $isRootOrShadowRoot,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
-  CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   ElementFormatType,
   FORMAT_ELEMENT_COMMAND,
@@ -271,25 +270,6 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
         CAN_REDO_COMMAND,
         (payload) => {
           setCanRedo(payload)
-          return false
-        },
-        COMMAND_PRIORITY_LOW
-      ),
-      editor.registerCommand(
-        CLICK_COMMAND,
-        (payload) => {
-          const selection = $getSelection()
-
-          if ($isRangeSelection(selection)) {
-            const node = selection.anchor.getNode()
-            const linkNode = $findMatchingParent(node, $isLinkNode)
-
-            if ($isLinkNode(linkNode) && (payload.metaKey || payload.ctrlKey)) {
-              window.open(linkNode.getURL(), '_blank')
-              return true
-            }
-          }
-
           return false
         },
         COMMAND_PRIORITY_LOW

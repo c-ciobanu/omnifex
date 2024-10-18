@@ -7,6 +7,7 @@ import { ListItemNode, ListNode } from '@lexical/list'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin'
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin'
+import { ClickableLinkPlugin } from '@lexical/react/LexicalClickableLinkPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
@@ -14,7 +15,6 @@ import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
 import { HorizontalRulePlugin } from '@lexical/react/LexicalHorizontalRulePlugin'
-import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { ListPlugin } from '@lexical/react/LexicalListPlugin'
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
@@ -24,6 +24,7 @@ import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { DocumentQuery } from 'types/graphql'
 
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin'
+import LinkPlugin from './plugins/LinkPlugin'
 import ToolbarPlugin from './plugins/ToolbarPlugin'
 
 const URL_REGEX =
@@ -140,6 +141,7 @@ const LexicalEditor = (props: LexicalEditorProps) => {
         <HashtagPlugin />
         <HorizontalRulePlugin />
         <LinkPlugin />
+        <ClickableLinkPlugin disabled={document.isEditable} />
         <ListPlugin />
         <MarkdownShortcutPlugin />
         <TabIndentationPlugin />
