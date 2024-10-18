@@ -26,7 +26,7 @@ type EditMetricEntryModalProps = {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
   metric: MetricQuery['metric']
-  metricEntry: MetricQuery['metric']['entries'][0]
+  metricEntry: MetricQuery['metric']['entries'][number]
 }
 
 const EditMetricEntryModal = (props: EditMetricEntryModalProps) => {

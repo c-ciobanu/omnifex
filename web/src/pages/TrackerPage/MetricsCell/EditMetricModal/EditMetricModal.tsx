@@ -25,7 +25,7 @@ interface FormValues {
 type EditMetricModalProps = {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
-  metric: MetricsQuery['metrics'][0]
+  metric: MetricsQuery['metrics'][number]
 }
 
 const EditMetricModal = (props: EditMetricModalProps) => {

@@ -25,7 +25,7 @@ interface FormValues {
 type EditDocumentModalProps = {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
-  document: DocumentsQuery['documents'][0]
+  document: DocumentsQuery['documents'][number]
 }
 
 const EditDocumentModal = (props: EditDocumentModalProps) => {
