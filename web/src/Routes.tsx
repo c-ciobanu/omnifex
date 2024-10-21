@@ -31,7 +31,7 @@ const Routes = () => {
         <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
         <Route path="/documents/{id:String}" page={DocumentPage} name="document" />
-        <Route path="/tools/pomodoro" page={PomodoroPage} name="pomodoro" />
+        <Route path="/tools/pomodoro" page={PomodoroTimerPage} name="pomodoro" />
 
         <PrivateSet unauthenticated="home">
           <Route path="/dashboard/movies" page={MoviesDashboardPage} name="moviesDashboard" />

@@ -19,7 +19,7 @@ type FormValues = {
   longBreak: string
 }
 
-const PomodoroPage = () => {
+const PomodoroTimerPage = () => {
   const { isAuthenticated } = useAuth()
   const [settings, setSettings] = useState<PomodoroTimerProps['settings']>()
 
@@ -37,7 +37,7 @@ const PomodoroPage = () => {
 
   return (
     <>
-      <Metadata title="Pomodoro" />
+      <Metadata title="Pomodoro Timer" />
 
       <div className="min-h-main flex flex-col items-center justify-center">
         <div className="space-y-6 text-center xl:hidden">
@@ -86,4 +86,4 @@ const PomodoroPage = () => {
   )
 }
 
-export default PomodoroPage
+export default PomodoroTimerPage
