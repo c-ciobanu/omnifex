@@ -40,7 +40,6 @@ const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
         onCompleted(createMetricEntry)
         setIsOpen(false)
       },
-      // refetchQueries: [{ query: QUERY, variables: { id: metric.id } }],
     }
   )
 
@@ -66,7 +65,7 @@ const NewMetricEntryModal = (props: NewMetricEntryModalProps) => {
               type="date"
               defaultValue={new Date().toISOString().substring(0, 10)}
               max={new Date().toISOString().substring(0, 10)}
-              validation={{ required: true }}
+              validation={{ required: true, setValueAs: (s) => s }}
             />
           </FormField>
 

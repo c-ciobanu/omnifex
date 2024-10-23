@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 import { cva } from 'class-variance-authority'
 
-import { FieldError, Label, RegisterOptions, Controller } from '@redwoodjs/forms'
+import { FieldError, Label, RegisterOptions, Controller, useRegister } from '@redwoodjs/forms'
 
 import { Checkbox } from 'src/components/ui/checkbox'
 import { Input, InputProps } from 'src/components/ui/input'
@@ -40,19 +40,15 @@ FormField.displayName = 'FormField'
 
 interface FormInputProps extends InputProps {
   validation?: RegisterOptions
+  emptyAs?: null | 'undefined' | 0 | ''
 }
 
 const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>((props, ref) => {
-  const { name, defaultValue, validation, ...propsRest } = props
+  const { name, validation, type, onBlur, onChange, emptyAs, ...propsRest } = props
 
-  return (
-    <Controller
-      name={name}
-      defaultValue={defaultValue}
-      rules={validation}
-      render={({ field }) => <Input id={name} {...propsRest} {...field} ref={ref} />}
-    />
-  )
+  const register = useRegister({ name, validation, type, onBlur, onChange }, ref, emptyAs)
+
+  return <Input id={name} type={type} {...propsRest} {...register} />
 })
 FormInput.displayName = 'FormInput'
 

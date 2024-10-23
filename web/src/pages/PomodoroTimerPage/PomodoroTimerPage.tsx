@@ -12,9 +12,9 @@ import { FormField, FormInput } from 'src/components/ui/form'
 import PomodoroTimer, { PomodoroTimerProps } from './PomodoroTimer'
 
 type FormValues = {
-  pomodoro: string
-  shortBreak: string
-  longBreak: string
+  pomodoro: number
+  shortBreak: number
+  longBreak: number
 }
 
 const PomodoroTimerPage = () => {
@@ -25,11 +25,7 @@ const PomodoroTimerPage = () => {
       Notification.requestPermission()
     }
 
-    setSettings({
-      pomodoro: Number(data.pomodoro),
-      shortBreak: Number(data.shortBreak),
-      longBreak: Number(data.longBreak),
-    })
+    setSettings(data)
   }
 
   return (
@@ -48,15 +44,15 @@ const PomodoroTimerPage = () => {
             <Form onSubmit={onSubmit}>
               <CardContent className="space-y-6">
                 <FormField name="pomodoro" label="Pomodoro">
-                  <FormInput name="pomodoro" type="number" validation={{ required: true }} defaultValue="50" />
+                  <FormInput name="pomodoro" type="number" validation={{ required: true }} defaultValue={50} />
                 </FormField>
 
                 <FormField name="shortBreak" label="Short break">
-                  <FormInput name="shortBreak" type="number" validation={{ required: true }} defaultValue="10" />
+                  <FormInput name="shortBreak" type="number" validation={{ required: true }} defaultValue={10} />
                 </FormField>
 
                 <FormField name="longBreak" label="Long break">
-                  <FormInput name="longBreak" type="number" validation={{ required: true }} defaultValue="30" />
+                  <FormInput name="longBreak" type="number" validation={{ required: true }} defaultValue={30} />
                 </FormField>
               </CardContent>
 

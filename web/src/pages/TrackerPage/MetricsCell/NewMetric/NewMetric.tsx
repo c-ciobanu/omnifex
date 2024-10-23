@@ -95,7 +95,7 @@ const NewMetric = () => {
               type="date"
               defaultValue={new Date().toISOString().substring(0, 10)}
               max={new Date().toISOString().substring(0, 10)}
-              validation={{ required: true }}
+              validation={{ required: true, setValueAs: (s) => s }}
             />
           </FormField>
 

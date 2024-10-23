@@ -63,7 +63,7 @@ const EditMetricEntryModal = (props: EditMetricEntryModalProps) => {
               type="date"
               defaultValue={metricEntry.date}
               max={new Date().toISOString().substring(0, 10)}
-              validation={{ required: true }}
+              validation={{ required: true, setValueAs: (s) => s }}
             />
           </FormField>
 
