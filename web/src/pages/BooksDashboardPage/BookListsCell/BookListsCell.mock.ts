@@ -8,9 +8,5 @@ export const standard = () => ({
       id: 2,
       name: 'Read',
     },
-    {
-      id: 3,
-      name: 'Favorites',
-    },
   ],
 })

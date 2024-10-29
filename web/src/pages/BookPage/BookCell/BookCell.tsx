@@ -20,7 +20,6 @@ export const QUERY = gql`
       subtitle
       title
       userInfo {
-        favorited
         read
         inReadingList
       }

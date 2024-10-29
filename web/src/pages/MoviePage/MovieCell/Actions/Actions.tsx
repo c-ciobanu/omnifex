@@ -1,4 +1,4 @@
-import { Eye, EyeOff, Heart, HeartOff, ListMinus, ListPlus } from 'lucide-react'
+import { Eye, EyeOff, ListMinus, ListPlus } from 'lucide-react'
 import { MovieQuery } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
@@ -29,16 +29,8 @@ const DELETE_MOVIE_LIST_ITEM = gql`
 
 const Actions = ({ movie }: ActionsProps) => {
   const { id: movieId, tmdbId, userInfo } = movie
-  const { favorited, watched, inWatchlist } = userInfo
+  const { watched, inWatchlist } = userInfo
 
-  const [createFavorited, { loading: createFavoritedLoading }] = useMutation(CREATE_MOVIE_LIST_ITEM, {
-    variables: { input: { movieId, listName: 'Favorites' } },
-    refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
-  })
-  const [deleteFavorited, { loading: deleteFavoritedLoading }] = useMutation(DELETE_MOVIE_LIST_ITEM, {
-    variables: { movieId, listName: 'Favorites' },
-    refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
-  })
   const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_MOVIE_LIST_ITEM, {
     variables: { input: { movieId, listName: 'Watched' } },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
@@ -55,14 +47,6 @@ const Actions = ({ movie }: ActionsProps) => {
     variables: { movieId, listName: 'Watchlist' },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
-
-  const toggleFavoritedStatus = () => {
-    if (favorited) {
-      deleteFavorited()
-    } else {
-      createFavorited()
-    }
-  }
 
   const toggleWatchedStatus = () => {
     if (watched) {
@@ -115,22 +99,6 @@ const Actions = ({ movie }: ActionsProps) => {
           <span>{inWatchlist ? 'Listed on watchlist' : 'Add to watchlist'}</span>
         </Button>
       )}
-
-      <Button
-        onClick={toggleFavoritedStatus}
-        disabled={createFavoritedLoading || deleteFavoritedLoading}
-        variant="outline"
-        size="xl"
-        className={cn(
-          'justify-start gap-4 border-red-500 px-2 text-base uppercase',
-          favorited
-            ? 'bg-red-500 text-white hover:border-red-600 hover:bg-red-600 hover:text-white'
-            : 'text-red-500 hover:bg-red-500 hover:text-white'
-        )}
-      >
-        {favorited ? <Heart /> : <HeartOff />}
-        <span>{favorited ? 'Favorited' : 'Add to favorites'}</span>
-      </Button>
     </div>
   )
 }

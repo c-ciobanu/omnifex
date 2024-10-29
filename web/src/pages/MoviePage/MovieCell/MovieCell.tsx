@@ -23,7 +23,6 @@ export const QUERY = gql`
       title
       tmdbId
       userInfo {
-        favorited
         watched
         inWatchlist
       }
