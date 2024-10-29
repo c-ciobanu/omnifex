@@ -17,7 +17,6 @@ const requireBookListOwner = async (listId: number) => {
 export enum DefaultBookLists {
   ReadingList = 0,
   Read = 1,
-  Favorites = 2,
 }
 
 /**
@@ -37,7 +36,7 @@ export const userDefaultBookLists = () => {
   requireAuth()
 
   return db.bookList.findMany({
-    where: { userId: context.currentUser.id, name: { in: ['Reading List', 'Read', 'Favorites'] } },
+    where: { userId: context.currentUser.id, name: { in: ['Reading List', 'Read'] } },
     select: { id: true, name: true },
     orderBy: { name: 'desc' },
   })

@@ -19,7 +19,7 @@ describe('bookLists', () => {
     mockCurrentUser(scenario.user.john)
     const result = await bookLists()
 
-    expect(result.length).toEqual(3)
+    expect(result.length).toEqual(2)
   })
 
   scenario('creates a bookList', async (scenario: StandardScenario) => {
@@ -77,19 +77,6 @@ describe('bookListItems', () => {
     const result = await db.bookListItem.findUnique({ where: { id: original.id } })
 
     expect(result).toEqual(null)
-  })
-
-  describe('Favorites', () => {
-    scenario('adds a book to the Favorites list', async (scenario: StandardScenario) => {
-      mockCurrentUser(scenario.user.john)
-      const result = await createBookListItem({ input: { bookId: scenario.book.theWinners.id, listName: 'Favorites' } })
-
-      expect(result.bookId).toEqual(scenario.book.theWinners.id)
-
-      const listItems = await bookListItems({ listId: result.listId })
-
-      expect(listItems.length).toEqual(1)
-    })
   })
 
   describe('Read', () => {

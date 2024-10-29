@@ -86,9 +86,6 @@ export const Book: BookRelationResolvers = {
     if (context.currentUser) {
       const userLists = await userDefaultBookLists()
 
-      const favoritedBookCount = await db.bookListItem.count({
-        where: { bookId: root.id, listId: userLists[DefaultBookLists.Favorites].id },
-      })
       const readBookCount = await db.bookListItem.count({
         where: { bookId: root.id, listId: userLists[DefaultBookLists.Read].id },
       })
@@ -97,7 +94,6 @@ export const Book: BookRelationResolvers = {
       })
 
       return {
-        favorited: favoritedBookCount === 1,
         read: readBookCount === 1,
         inReadingList: toReadBookCount === 1,
       }

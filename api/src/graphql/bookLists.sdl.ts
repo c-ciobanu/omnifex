@@ -17,7 +17,6 @@ export const schema = gql`
   enum DefaultBookList {
     Reading_List
     Read
-    Favorites
   }
 
   type Query {

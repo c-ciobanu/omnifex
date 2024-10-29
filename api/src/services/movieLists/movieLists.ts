@@ -17,7 +17,6 @@ const requireMovieListOwner = async (listId: number) => {
 export enum DefaultMovieLists {
   Watchlist = 0,
   Watched = 1,
-  Favorites = 2,
 }
 
 /**
@@ -37,7 +36,7 @@ export const userDefaultMovieLists = () => {
   requireAuth()
 
   return db.movieList.findMany({
-    where: { userId: context.currentUser.id, name: { in: ['Watchlist', 'Watched', 'Favorites'] } },
+    where: { userId: context.currentUser.id, name: { in: ['Watchlist', 'Watched'] } },
     select: { id: true, name: true },
     orderBy: { name: 'desc' },
   })

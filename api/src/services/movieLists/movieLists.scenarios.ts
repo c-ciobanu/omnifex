@@ -67,10 +67,7 @@ export const standard = defineScenario<
         hashedPassword: 'String',
         salt: 'String',
         movieLists: {
-          create: [
-            { name: 'Watched', movies: { create: { movieId: scenario.movie.broker.id } } },
-            { name: 'Favorites' },
-          ],
+          create: [{ name: 'Watched', movies: { create: { movieId: scenario.movie.broker.id } } }],
         },
       },
     }),

@@ -52,10 +52,7 @@ export const standard = defineScenario<
         hashedPassword: 'String',
         salt: 'String',
         bookLists: {
-          create: [
-            { name: 'Read', books: { create: { bookId: scenario.book.nonaTheNinth.id } } },
-            { name: 'Favorites' },
-          ],
+          create: [{ name: 'Read', books: { create: { bookId: scenario.book.nonaTheNinth.id } } }],
         },
       },
     }),

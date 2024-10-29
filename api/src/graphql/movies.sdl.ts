@@ -26,7 +26,6 @@ export const schema = gql`
   }
 
   type MovieUserInfo {
-    favorited: Boolean!
     watched: Boolean!
     inWatchlist: Boolean!
   }

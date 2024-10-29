@@ -22,7 +22,6 @@ export const schema = gql`
   }
 
   type BookUserInfo {
-    favorited: Boolean!
     read: Boolean!
     inReadingList: Boolean!
   }

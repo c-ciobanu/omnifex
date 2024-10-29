@@ -17,7 +17,6 @@ export const schema = gql`
   enum DefaultMovieList {
     Watchlist
     Watched
-    Favorites
   }
 
   type Query {

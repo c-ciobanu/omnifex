@@ -19,7 +19,7 @@ describe('movieLists', () => {
     mockCurrentUser(scenario.user.john)
     const result = await movieLists()
 
-    expect(result.length).toEqual(3)
+    expect(result.length).toEqual(2)
   })
 
   scenario('creates a movieList', async (scenario: StandardScenario) => {
@@ -77,19 +77,6 @@ describe('movieListItems', () => {
     const result = await db.movieListItem.findUnique({ where: { id: original.id } })
 
     expect(result).toEqual(null)
-  })
-
-  describe('Favorites', () => {
-    scenario('adds a movie to the Favorites list', async (scenario: StandardScenario) => {
-      mockCurrentUser(scenario.user.john)
-      const result = await createMovieListItem({ input: { movieId: scenario.movie.se7en.id, listName: 'Favorites' } })
-
-      expect(result.movieId).toEqual(scenario.movie.se7en.id)
-
-      const listItems = await movieListItems({ listId: result.listId })
-
-      expect(listItems.length).toEqual(1)
-    })
   })
 
   describe('Watched', () => {

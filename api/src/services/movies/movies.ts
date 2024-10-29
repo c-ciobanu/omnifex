@@ -71,9 +71,6 @@ export const Movie: MovieRelationResolvers = {
     if (context.currentUser) {
       const userLists = await userDefaultMovieLists()
 
-      const favoritedMovieCount = await db.movieListItem.count({
-        where: { movieId: root.id, listId: userLists[DefaultMovieLists.Favorites].id },
-      })
       const watchedMovieCount = await db.movieListItem.count({
         where: { movieId: root.id, listId: userLists[DefaultMovieLists.Watched].id },
       })
@@ -82,7 +79,6 @@ export const Movie: MovieRelationResolvers = {
       })
 
       return {
-        favorited: favoritedMovieCount === 1,
         watched: watchedMovieCount === 1,
         inWatchlist: toWatchMovieCount === 1,
       }
