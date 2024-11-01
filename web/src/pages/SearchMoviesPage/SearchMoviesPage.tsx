@@ -1,16 +1,17 @@
 import { Form, SubmitHandler } from '@redwoodjs/forms'
-import { navigate, routes } from '@redwoodjs/router'
+import { navigate, routes, useParams } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/ui/form'
 
-import MovieListsCell from '../MoviesDashboardPage/MovieListsCell'
+import MoviesCell from '../SearchPage/MoviesCell'
 
 interface FormValues {
   title: string
 }
+const SearchMoviesPage = () => {
+  const params = useParams()
 
-const MoviesPage = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (data.title.length >= 1) {
       navigate(routes.searchMovies({ q: data.title }))
@@ -19,15 +20,15 @@ const MoviesPage = () => {
 
   return (
     <>
-      <Metadata title="Movies" robots="noindex" />
+      <Metadata title="Search Movies" />
 
       <Form onSubmit={onSubmit} className="mb-4">
-        <FormInput type="search" name="title" placeholder="Search for a movie" />
+        <FormInput type="search" name="title" defaultValue={params.q} placeholder="Search for a movie" />
       </Form>
 
-      <MovieListsCell />
+      {params.q ? <MoviesCell title={params.q} /> : null}
     </>
   )
 }
 
-export default MoviesPage
+export default SearchMoviesPage
