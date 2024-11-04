@@ -12,7 +12,7 @@ interface FormValues {
 const BooksPage = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (data.title.length >= 1) {
-      navigate(routes.search({ entity: 'book', q: data.title }))
+      navigate(routes.searchBooks({ q: data.title }))
     }
   }
 

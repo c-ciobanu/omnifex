@@ -4,32 +4,32 @@ import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/ui/form'
 
-import MoviesCell from '../SearchPage/MoviesCell'
+import BooksCell from '../SearchPage/BooksCell'
 
 interface FormValues {
   title: string
 }
 
-const SearchMoviesPage = () => {
+const SearchBooksPage = () => {
   const params = useParams()
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (data.title.length >= 1) {
-      navigate(routes.searchMovies({ q: data.title }))
+      navigate(routes.searchBooks({ q: data.title }))
     }
   }
 
   return (
     <>
-      <Metadata title="Search Movies" />
+      <Metadata title="Search Books" />
 
       <Form onSubmit={onSubmit} className="mb-4">
-        <FormInput type="search" name="title" defaultValue={params.q} placeholder="Search for a movie" />
+        <FormInput type="search" name="title" defaultValue={params.q} placeholder="Search for a book" />
       </Form>
 
-      {params.q ? <MoviesCell title={params.q} /> : null}
+      {params.q ? <BooksCell title={params.q} /> : null}
     </>
   )
 }
 
-export default SearchMoviesPage
+export default SearchBooksPage
