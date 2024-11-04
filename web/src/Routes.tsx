@@ -37,6 +37,7 @@ const Routes = () => {
 
         <PrivateSet unauthenticated="home">
           <Route path="/movies" page={MoviesPage} name="movies" />
+          <Route path="/books" page={BooksPage} name="books" />
           <Route path="/dashboard/movies" page={MoviesDashboardPage} name="moviesDashboard" />
           <Route path="/dashboard/books" page={BooksDashboardPage} name="booksDashboard" />
           <Route path="/documents" page={DocumentsPage} name="documents" />
