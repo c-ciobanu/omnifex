@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Frown, Menu, Search, Smile, X } from 'lucide-react'
+import { Frown, Menu, Smile, X } from 'lucide-react'
 
 import { Link, NavLink, routes } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/toast'
@@ -18,15 +18,15 @@ import Sentry from 'src/lib/sentry'
 import { cn } from 'src/lib/utils'
 
 const authenticatedNavigation = [
-  { name: 'Movies', href: () => routes.moviesDashboard() },
-  { name: 'Books', href: () => routes.booksDashboard() },
+  { name: 'Movies', href: () => routes.movies() },
+  { name: 'Books', href: () => routes.books() },
   { name: 'Documents', href: () => routes.documents() },
   { name: 'Tracker', href: () => routes.tracker() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
 ]
 const guestNavigation = [
-  { name: 'Search Movie', href: () => routes.search({ entity: 'movie' }) },
-  { name: 'Search Book', href: () => routes.search({ entity: 'book' }) },
+  { name: 'Search Movies', href: () => routes.searchMovies() },
+  { name: 'Search Books', href: () => routes.searchBooks() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
 ]
 
@@ -76,12 +76,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             </div>
 
             <div className="flex items-center gap-2">
-              <Button asChild variant="ghost" size="icon" className="text-gray-300" onClick={() => setIsOpen(false)}>
-                <Link to={routes.search({ entity: 'movie' })}>
-                  <Search />
-                </Link>
-              </Button>
-
               <DropdownMenu>
                 <Button asChild variant="ghost" size="icon" className="-mr-2 hidden text-gray-300 md:inline-flex">
                   <DropdownMenuTrigger>{isAuthenticated ? <Smile /> : <Frown />}</DropdownMenuTrigger>
