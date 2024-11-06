@@ -4,11 +4,12 @@ import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/ui/form'
 
-import BookListsCell from '../BooksDashboardPage/BookListsCell'
+import BookListsCell from './BookListsCell'
 
 interface FormValues {
   title: string
 }
+
 const BooksPage = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (data.title.length >= 1) {
