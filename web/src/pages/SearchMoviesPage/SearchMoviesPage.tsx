@@ -4,7 +4,7 @@ import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/ui/form'
 
-import MoviesCell from '../SearchPage/MoviesCell'
+import MoviesCell from './MoviesCell'
 
 interface FormValues {
   title: string
