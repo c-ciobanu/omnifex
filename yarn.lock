@@ -9161,6 +9161,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"common@workspace:packages/common":
+  version: 0.0.0-use.local
+  resolution: "common@workspace:packages/common"
+  dependencies:
+    typescript: "npm:5.6.2"
+  languageName: unknown
+  linkType: soft
+
 "commondir@npm:^1.0.1":
   version: 1.0.1
   resolution: "commondir@npm:1.0.1"
