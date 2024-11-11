@@ -14,11 +14,6 @@ export const schema = gql`
     movieId: Int!
   }
 
-  enum DefaultMovieList {
-    Watchlist
-    Watched
-  }
-
   type Query {
     movieLists: [MovieList!]! @requireAuth
     movieListItems(listId: Int!): [Movie!]! @requireAuth
@@ -33,7 +28,7 @@ export const schema = gql`
   }
 
   input CreateMovieListItemInput {
-    listName: DefaultMovieList!
+    listName: String!
     movieId: Int!
   }
 
@@ -42,6 +37,6 @@ export const schema = gql`
     updateMovieList(id: Int!, input: UpdateMovieListInput!): MovieList! @requireAuth
     deleteMovieList(id: Int!): MovieList! @requireAuth
     createMovieListItem(input: CreateMovieListItemInput!): MovieListItem! @requireAuth
-    deleteMovieListItem(listName: DefaultMovieList!, movieId: Int!): MovieListItem! @requireAuth
+    deleteMovieListItem(listName: String!, movieId: Int!): MovieListItem! @requireAuth
   }
 `

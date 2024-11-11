@@ -1,3 +1,4 @@
+import { DefaultMovieLists } from 'common'
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
 import { validateWith } from '@redwoodjs/api'
@@ -14,11 +15,6 @@ const requireMovieListOwner = async (listId: number) => {
   }
 }
 
-export enum DefaultMovieLists {
-  Watchlist = 0,
-  Watched = 1,
-}
-
 /**
  * Returns information about the 3 default movie lists of a user.
  *
@@ -32,14 +28,16 @@ export enum DefaultMovieLists {
  * ```
  */
 
-export const userDefaultMovieLists = () => {
+export const userDefaultMovieLists = async () => {
   requireAuth()
 
-  return db.movieList.findMany({
-    where: { userId: context.currentUser.id, name: { in: ['Watchlist', 'Watched'] } },
+  const movieLists = await db.movieList.findMany({
+    where: { userId: context.currentUser.id, name: { in: [DefaultMovieLists.Watchlist, DefaultMovieLists.Watched] } },
     select: { id: true, name: true },
     orderBy: { name: 'desc' },
   })
+
+  return { [DefaultMovieLists.Watchlist]: movieLists[0], [DefaultMovieLists.Watched]: movieLists[1] }
 }
 
 export const movieLists: QueryResolvers['movieLists'] = () => {
@@ -89,18 +87,18 @@ export const createMovieListItem: MutationResolvers['createMovieListItem'] = asy
 }) => {
   requireAuth()
 
-  if (listName === 'Watched') {
+  if (listName === DefaultMovieLists.Watched) {
     const watchlistMovieCount = await db.movieListItem.count({
-      where: { movieId, list: { userId: context.currentUser.id, name: 'Watchlist' } },
+      where: { movieId, list: { userId: context.currentUser.id, name: DefaultMovieLists.Watchlist } },
     })
 
     if (watchlistMovieCount === 1) {
-      await deleteMovieListItem({ listName: 'Watchlist', movieId })
+      await deleteMovieListItem({ listName: DefaultMovieLists.Watchlist, movieId })
     }
-  } else if (listName === 'Watchlist') {
+  } else if (listName === DefaultMovieLists.Watchlist) {
     await validateWith(async () => {
       const watchedMovieCount = await db.movieListItem.count({
-        where: { movieId, list: { userId: context.currentUser.id, name: 'Watched' } },
+        where: { movieId, list: { userId: context.currentUser.id, name: DefaultMovieLists.Watched } },
       })
 
       if (watchedMovieCount === 1) {

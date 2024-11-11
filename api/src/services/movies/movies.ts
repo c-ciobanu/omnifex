@@ -1,10 +1,11 @@
 import { Prisma, Movie as PrismaMovie } from '@prisma/client'
+import { DefaultMovieLists } from 'common'
 import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { searchTMDBMovies, getTMDBMovie, TMDBSearchMovie, getTMDBMovieDirector } from 'src/lib/tmdb'
-import { userDefaultMovieLists, DefaultMovieLists } from 'src/services/movieLists/movieLists'
+import { userDefaultMovieLists } from 'src/services/movieLists/movieLists'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const tmdbMovies: TMDBSearchMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
@@ -78,10 +79,7 @@ export const Movie: MovieRelationResolvers = {
         where: { movieId: root.id, listId: userLists[DefaultMovieLists.Watchlist].id },
       })
 
-      return {
-        watched: watchedMovieCount === 1,
-        inWatchlist: toWatchMovieCount === 1,
-      }
+      return { watched: watchedMovieCount === 1, inWatchlist: toWatchMovieCount === 1 }
     }
 
     return null

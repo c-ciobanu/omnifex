@@ -1,3 +1,5 @@
+import { DefaultMovieLists } from 'common'
+
 import { ServiceValidationError } from '@redwoodjs/api'
 import { AuthenticationError } from '@redwoodjs/graphql-server'
 
@@ -57,7 +59,7 @@ describe('movieListItems', () => {
   scenario('does not allow a logged out user to create a movie list item', async () => {
     mockCurrentUser(null)
 
-    expect(() => createMovieListItem({ input: { movieId: 1, listName: 'Watchlist' } })).rejects.toThrow(
+    expect(() => createMovieListItem({ input: { movieId: 1, listName: DefaultMovieLists.Watchlist } })).rejects.toThrow(
       AuthenticationError
     )
   })
@@ -65,24 +67,28 @@ describe('movieListItems', () => {
   scenario('does not allow a logged out user to delete a movie list item', async () => {
     mockCurrentUser(null)
 
-    expect(() => deleteMovieListItem({ movieId: 1, listName: 'Watchlist' })).rejects.toThrow(AuthenticationError)
+    expect(() => deleteMovieListItem({ movieId: 1, listName: DefaultMovieLists.Watchlist })).rejects.toThrow(
+      AuthenticationError
+    )
   })
 
   scenario('deletes a movie list item', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
     const original = await deleteMovieListItem({
       movieId: scenario.movieListItem.one.movieId,
-      listName: 'Watchlist',
+      listName: DefaultMovieLists.Watchlist,
     })
     const result = await db.movieListItem.findUnique({ where: { id: original.id } })
 
     expect(result).toEqual(null)
   })
 
-  describe('Watched', () => {
+  describe(DefaultMovieLists.Watched, () => {
     scenario('adds a movie to the Watched list', async (scenario: StandardScenario) => {
       mockCurrentUser(scenario.user.john)
-      const result = await createMovieListItem({ input: { movieId: scenario.movie.se7en.id, listName: 'Watched' } })
+      const result = await createMovieListItem({
+        input: { movieId: scenario.movie.se7en.id, listName: DefaultMovieLists.Watched },
+      })
 
       expect(result.movieId).toEqual(scenario.movie.se7en.id)
 
@@ -100,17 +106,21 @@ describe('movieListItems', () => {
 
         expect(movieListItemCount()).resolves.toBe(1)
 
-        await createMovieListItem({ input: { movieId: scenario.movieListItem.one.movieId, listName: 'Watched' } })
+        await createMovieListItem({
+          input: { movieId: scenario.movieListItem.one.movieId, listName: DefaultMovieLists.Watched },
+        })
 
         expect(movieListItemCount()).resolves.toBe(0)
       }
     )
   })
 
-  describe('Watchlist', () => {
+  describe(DefaultMovieLists.Watchlist, () => {
     scenario('adds a movie to the Watchlist list', async (scenario: StandardScenario) => {
       mockCurrentUser(scenario.user.john)
-      const result = await createMovieListItem({ input: { movieId: scenario.movie.se7en.id, listName: 'Watchlist' } })
+      const result = await createMovieListItem({
+        input: { movieId: scenario.movie.se7en.id, listName: DefaultMovieLists.Watchlist },
+      })
 
       expect(result.movieId).toEqual(scenario.movie.se7en.id)
 
@@ -125,7 +135,7 @@ describe('movieListItems', () => {
         mockCurrentUser(scenario.user.john)
 
         expect(() =>
-          createMovieListItem({ input: { movieId: scenario.movie.broker.id, listName: 'Watchlist' } })
+          createMovieListItem({ input: { movieId: scenario.movie.broker.id, listName: DefaultMovieLists.Watchlist } })
         ).rejects.toThrow(ServiceValidationError)
       }
     )

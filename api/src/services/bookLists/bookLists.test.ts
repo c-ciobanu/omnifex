@@ -1,3 +1,5 @@
+import { DefaultBookLists } from 'common'
+
 import { ServiceValidationError } from '@redwoodjs/api'
 import { AuthenticationError } from '@redwoodjs/graphql-server'
 
@@ -57,7 +59,7 @@ describe('bookListItems', () => {
   scenario('does not allow a logged out user to create a book list item', async () => {
     mockCurrentUser(null)
 
-    expect(() => createBookListItem({ input: { bookId: 1, listName: 'Reading_List' } })).rejects.toThrow(
+    expect(() => createBookListItem({ input: { bookId: 1, listName: DefaultBookLists.ReadingList } })).rejects.toThrow(
       AuthenticationError
     )
   })
@@ -65,24 +67,28 @@ describe('bookListItems', () => {
   scenario('does not allow a logged out user to delete a book list item', async () => {
     mockCurrentUser(null)
 
-    expect(() => deleteBookListItem({ bookId: 1, listName: 'Reading_List' })).rejects.toThrow(AuthenticationError)
+    expect(() => deleteBookListItem({ bookId: 1, listName: DefaultBookLists.ReadingList })).rejects.toThrow(
+      AuthenticationError
+    )
   })
 
   scenario('deletes a book list item', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
     const original = await deleteBookListItem({
       bookId: scenario.bookListItem.one.bookId,
-      listName: 'Reading_List',
+      listName: DefaultBookLists.ReadingList,
     })
     const result = await db.bookListItem.findUnique({ where: { id: original.id } })
 
     expect(result).toEqual(null)
   })
 
-  describe('Read', () => {
+  describe(DefaultBookLists.Read, () => {
     scenario('adds a book to the Read list', async (scenario: StandardScenario) => {
       mockCurrentUser(scenario.user.john)
-      const result = await createBookListItem({ input: { bookId: scenario.book.theWinners.id, listName: 'Read' } })
+      const result = await createBookListItem({
+        input: { bookId: scenario.book.theWinners.id, listName: DefaultBookLists.Read },
+      })
 
       expect(result.bookId).toEqual(scenario.book.theWinners.id)
 
@@ -100,18 +106,20 @@ describe('bookListItems', () => {
 
         expect(bookListItemCount()).resolves.toBe(1)
 
-        await createBookListItem({ input: { bookId: scenario.bookListItem.one.bookId, listName: 'Read' } })
+        await createBookListItem({
+          input: { bookId: scenario.bookListItem.one.bookId, listName: DefaultBookLists.Read },
+        })
 
         expect(bookListItemCount()).resolves.toBe(0)
       }
     )
   })
 
-  describe('Reading List', () => {
+  describe(DefaultBookLists.ReadingList, () => {
     scenario('adds a book to the Reading List list', async (scenario: StandardScenario) => {
       mockCurrentUser(scenario.user.john)
       const result = await createBookListItem({
-        input: { bookId: scenario.book.theWinners.id, listName: 'Reading_List' },
+        input: { bookId: scenario.book.theWinners.id, listName: DefaultBookLists.ReadingList },
       })
 
       expect(result.bookId).toEqual(scenario.book.theWinners.id)
@@ -127,7 +135,9 @@ describe('bookListItems', () => {
         mockCurrentUser(scenario.user.john)
 
         expect(() =>
-          createBookListItem({ input: { bookId: scenario.book.nonaTheNinth.id, listName: 'Reading_List' } })
+          createBookListItem({
+            input: { bookId: scenario.book.nonaTheNinth.id, listName: DefaultBookLists.ReadingList },
+          })
         ).rejects.toThrow(ServiceValidationError)
       }
     )

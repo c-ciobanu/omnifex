@@ -1,11 +1,12 @@
 import { books_v1 } from '@googleapis/books'
 import { Book as PrismaBook } from '@prisma/client'
+import { DefaultBookLists } from 'common'
 import type { BookRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache, deleteCacheKey } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getGoogleBook, searchGoogleBooks } from 'src/lib/googleBooks'
-import { DefaultBookLists, userDefaultBookLists } from 'src/services//bookLists/bookLists'
+import { userDefaultBookLists } from 'src/services//bookLists/bookLists'
 
 export const books: QueryResolvers['books'] = async ({ title }) => {
   const googleBooks: books_v1.Schema$Volume[] = await cache(
@@ -93,10 +94,7 @@ export const Book: BookRelationResolvers = {
         where: { bookId: root.id, listId: userLists[DefaultBookLists.ReadingList].id },
       })
 
-      return {
-        read: readBookCount === 1,
-        inReadingList: toReadBookCount === 1,
-      }
+      return { read: readBookCount === 1, inReadingList: toReadBookCount === 1 }
     }
 
     return null

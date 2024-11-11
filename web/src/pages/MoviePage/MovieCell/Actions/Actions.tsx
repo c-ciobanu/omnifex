@@ -1,3 +1,4 @@
+import { DefaultMovieLists } from 'common'
 import { Eye, EyeOff, ListMinus, ListPlus } from 'lucide-react'
 import { MovieQuery } from 'types/graphql'
 
@@ -20,7 +21,7 @@ const CREATE_MOVIE_LIST_ITEM = gql`
 `
 
 const DELETE_MOVIE_LIST_ITEM = gql`
-  mutation DeleteMovieListItemMutation($listName: DefaultMovieList!, $movieId: Int!) {
+  mutation DeleteMovieListItemMutation($listName: String!, $movieId: Int!) {
     deleteMovieListItem(listName: $listName, movieId: $movieId) {
       id
     }
@@ -32,19 +33,19 @@ const Actions = ({ movie }: ActionsProps) => {
   const { watched, inWatchlist } = userInfo
 
   const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_MOVIE_LIST_ITEM, {
-    variables: { input: { movieId, listName: 'Watched' } },
+    variables: { input: { movieId, listName: DefaultMovieLists.Watched } },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
   const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_MOVIE_LIST_ITEM, {
-    variables: { movieId, listName: 'Watched' },
+    variables: { movieId, listName: DefaultMovieLists.Watched },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
   const [createToWatch, { loading: createToWatchLoading }] = useMutation(CREATE_MOVIE_LIST_ITEM, {
-    variables: { input: { movieId, listName: 'Watchlist' } },
+    variables: { input: { movieId, listName: DefaultMovieLists.Watchlist } },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
   const [deleteToWatch, { loading: deleteToWatchLoading }] = useMutation(DELETE_MOVIE_LIST_ITEM, {
-    variables: { movieId, listName: 'Watchlist' },
+    variables: { movieId, listName: DefaultMovieLists.Watchlist },
     refetchQueries: [{ query: MovieCellQuery, variables: { tmdbId } }],
   })
 

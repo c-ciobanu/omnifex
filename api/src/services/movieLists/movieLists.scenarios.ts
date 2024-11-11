@@ -1,4 +1,5 @@
 import type { Prisma, Movie, User, MovieList } from '@prisma/client'
+import { DefaultMovieLists } from 'common'
 import { MovieListItem } from 'types/graphql'
 
 export const standard = defineScenario<
@@ -67,7 +68,7 @@ export const standard = defineScenario<
         hashedPassword: 'String',
         salt: 'String',
         movieLists: {
-          create: [{ name: 'Watched', movies: { create: { movieId: scenario.movie.broker.id } } }],
+          create: [{ name: DefaultMovieLists.Watched, movies: { create: { movieId: scenario.movie.broker.id } } }],
         },
       },
     }),
@@ -82,13 +83,13 @@ export const standard = defineScenario<
   movieList: {
     one: (scenario) => ({
       data: {
-        name: 'Watchlist',
+        name: DefaultMovieLists.Watchlist,
         userId: scenario.user.john.id,
       },
     }),
     two: (scenario) => ({
       data: {
-        name: 'Watchlist',
+        name: DefaultMovieLists.Watchlist,
         userId: scenario.user.jane.id,
         movies: {
           create: [

@@ -1,4 +1,5 @@
 import type { Prisma, Book, User, BookList } from '@prisma/client'
+import { DefaultBookLists } from 'common'
 import { BookListItem } from 'types/graphql'
 
 export const standard = defineScenario<
@@ -52,7 +53,7 @@ export const standard = defineScenario<
         hashedPassword: 'String',
         salt: 'String',
         bookLists: {
-          create: [{ name: 'Read', books: { create: { bookId: scenario.book.nonaTheNinth.id } } }],
+          create: [{ name: DefaultBookLists.Read, books: { create: { bookId: scenario.book.nonaTheNinth.id } } }],
         },
       },
     }),
@@ -67,13 +68,13 @@ export const standard = defineScenario<
   bookList: {
     one: (scenario) => ({
       data: {
-        name: 'Reading List',
+        name: DefaultBookLists.ReadingList,
         userId: scenario.user.john.id,
       },
     }),
     two: (scenario) => ({
       data: {
-        name: 'Reading List',
+        name: DefaultBookLists.ReadingList,
         userId: scenario.user.jane.id,
         books: {
           create: [

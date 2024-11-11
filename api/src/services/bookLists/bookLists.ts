@@ -1,4 +1,5 @@
-import type { QueryResolvers, MutationResolvers } from 'types/graphql'
+import { DefaultBookLists } from 'common'
+import type { MutationResolvers, QueryResolvers } from 'types/graphql'
 
 import { validateWith } from '@redwoodjs/api'
 import { AuthenticationError } from '@redwoodjs/graphql-server'
@@ -14,11 +15,6 @@ const requireBookListOwner = async (listId: number) => {
   }
 }
 
-export enum DefaultBookLists {
-  ReadingList = 0,
-  Read = 1,
-}
-
 /**
  * Returns information about the 3 default book lists of a user.
  *
@@ -32,14 +28,16 @@ export enum DefaultBookLists {
  * ```
  */
 
-export const userDefaultBookLists = () => {
+export const userDefaultBookLists = async () => {
   requireAuth()
 
-  return db.bookList.findMany({
-    where: { userId: context.currentUser.id, name: { in: ['Reading List', 'Read'] } },
+  const bookLists = await db.bookList.findMany({
+    where: { userId: context.currentUser.id, name: { in: [DefaultBookLists.ReadingList, DefaultBookLists.Read] } },
     select: { id: true, name: true },
     orderBy: { name: 'desc' },
   })
+
+  return { [DefaultBookLists.ReadingList]: bookLists[0], [DefaultBookLists.Read]: bookLists[1] }
 }
 
 export const bookLists: QueryResolvers['bookLists'] = () => {
@@ -87,18 +85,18 @@ export const bookListItems: QueryResolvers['bookListItems'] = async ({ listId })
 export const createBookListItem: MutationResolvers['createBookListItem'] = async ({ input: { listName, bookId } }) => {
   requireAuth()
 
-  if (listName === 'Read') {
+  if (listName === DefaultBookLists.Read) {
     const readingListBookCount = await db.bookListItem.count({
-      where: { bookId, list: { userId: context.currentUser.id, name: 'Reading List' } },
+      where: { bookId, list: { userId: context.currentUser.id, name: DefaultBookLists.ReadingList } },
     })
 
     if (readingListBookCount === 1) {
-      await deleteBookListItem({ listName: 'Reading_List', bookId })
+      await deleteBookListItem({ listName: DefaultBookLists.ReadingList, bookId })
     }
-  } else if (listName === 'Reading_List') {
+  } else if (listName === DefaultBookLists.ReadingList) {
     await validateWith(async () => {
       const readBookCount = await db.bookListItem.count({
-        where: { bookId, list: { userId: context.currentUser.id, name: 'Read' } },
+        where: { bookId, list: { userId: context.currentUser.id, name: DefaultBookLists.Read } },
       })
 
       if (readBookCount === 1) {
@@ -108,7 +106,7 @@ export const createBookListItem: MutationResolvers['createBookListItem'] = async
   }
 
   const list = await db.bookList.findFirst({
-    where: { userId: context.currentUser.id, name: listName === 'Reading_List' ? 'Reading List' : listName },
+    where: { userId: context.currentUser.id, name: listName },
     select: { id: true },
   })
 
@@ -119,7 +117,7 @@ export const deleteBookListItem: MutationResolvers['deleteBookListItem'] = async
   requireAuth()
 
   const list = await db.bookList.findFirst({
-    where: { userId: context.currentUser.id, name: listName === 'Reading_List' ? 'Reading List' : listName },
+    where: { userId: context.currentUser.id, name: listName },
     select: { id: true },
   })
 

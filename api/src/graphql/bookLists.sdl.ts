@@ -14,11 +14,6 @@ export const schema = gql`
     bookId: Int!
   }
 
-  enum DefaultBookList {
-    Reading_List
-    Read
-  }
-
   type Query {
     bookLists: [BookList!]! @requireAuth
     bookListItems(listId: Int!): [Book!]! @requireAuth
@@ -33,7 +28,7 @@ export const schema = gql`
   }
 
   input CreateBookListItemInput {
-    listName: DefaultBookList!
+    listName: String!
     bookId: Int!
   }
 
@@ -42,6 +37,6 @@ export const schema = gql`
     updateBookList(id: Int!, input: UpdateBookListInput!): BookList! @requireAuth
     deleteBookList(id: Int!): BookList! @requireAuth
     createBookListItem(input: CreateBookListItemInput!): BookListItem! @requireAuth
-    deleteBookListItem(listName: DefaultBookList!, bookId: Int!): BookListItem! @requireAuth
+    deleteBookListItem(listName: String!, bookId: Int!): BookListItem! @requireAuth
   }
 `

@@ -1,4 +1,6 @@
 import { db } from 'api/src/lib/db'
+import { DefaultBookLists } from 'common'
+import { DefaultMovieLists } from 'common'
 
 import { hashPassword } from '@redwoodjs/auth-dbauth-api'
 
@@ -685,14 +687,14 @@ export default async () => {
         password: 'test1234',
         movieLists: {
           create: [
-            { name: 'Watchlist', movies: { create: range(21, 30).map((n) => ({ movieId: n })) } },
-            { name: 'Watched', movies: { create: range(1, 20).map((n) => ({ movieId: n })) } },
+            { name: DefaultMovieLists.Watchlist, movies: { create: range(21, 30).map((n) => ({ movieId: n })) } },
+            { name: DefaultMovieLists.Watched, movies: { create: range(1, 20).map((n) => ({ movieId: n })) } },
           ],
         },
         bookLists: {
           create: [
-            { name: 'Reading List', books: { create: range(9, 12).map((n) => ({ bookId: n })) } },
-            { name: 'Read', books: { create: range(1, 8).map((n) => ({ bookId: n })) } },
+            { name: DefaultBookLists.ReadingList, books: { create: range(9, 12).map((n) => ({ bookId: n })) } },
+            { name: DefaultBookLists.Read, books: { create: range(1, 8).map((n) => ({ bookId: n })) } },
           ],
         },
         metrics: {
@@ -732,14 +734,14 @@ export default async () => {
       {
         username: 'john',
         password: 'john1234',
-        movieLists: { create: [{ name: 'Watchlist' }, { name: 'Watched' }] },
-        bookLists: { create: [{ name: 'Reading List' }, { name: 'Read' }] },
+        movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
+        bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
       },
       {
         username: 'jane',
         password: 'jane1234',
-        movieLists: { create: [{ name: 'Watchlist' }, { name: 'Watched' }] },
-        bookLists: { create: [{ name: 'Reading List' }, { name: 'Read' }] },
+        movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
+        bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
       },
     ]
 
