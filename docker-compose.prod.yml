@@ -10,6 +10,7 @@ services:
       - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN}
       - GOOGLE_BOOKS_API_KEY=${GOOGLE_BOOKS_API_KEY}
       - LOG_LEVEL=${LOG_LEVEL}
+      - SENTRY_DSN=${SENTRY_DSN}
 
   web:
     image: ghcr.io/c-ciobanu/popcorn-time-web:${COMMIT_SHA}
@@ -19,3 +20,4 @@ services:
       - api
     environment:
       - API_PROXY_TARGET=http://api:8911
+      - SENTRY_DSN=${SENTRY_DSN}
