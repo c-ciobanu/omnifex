@@ -7611,6 +7611,7 @@ __metadata:
     "@redwoodjs/jobs": "npm:8.4.0"
     "@sentry/node": "npm:7"
     "@whatwg-node/fetch": "npm:^0.9.21"
+    common: "workspace:packages/common"
     redis: "npm:^4.7.0"
   languageName: unknown
   linkType: soft
@@ -19194,6 +19195,7 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
+    common: "workspace:packages/common"
     lexical: "npm:^0.19.0"
     lucide-react: "npm:^0.446.0"
     postcss: "npm:^8.4.47"

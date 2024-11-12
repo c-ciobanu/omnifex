@@ -1,6 +1,6 @@
 # base
 # ----
-FROM node:20-bookworm-slim as base
+FROM node:20-bookworm-slim AS base
 
 RUN corepack enable
 
@@ -17,6 +17,7 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node .yarnrc.yml .
 COPY --chown=node:node package.json .
+COPY --chown=node:node packages/common/package.json packages/common/
 COPY --chown=node:node api/package.json api/
 COPY --chown=node:node web/package.json web/
 COPY --chown=node:node yarn.lock .
@@ -34,33 +35,37 @@ COPY --chown=node:node .env.defaults .env.defaults
 
 # api build
 # ---------
-FROM base as api_build
+FROM base AS api_build
 
 # If your api side build relies on build-time environment variables,
 # specify them here as ARGs. (But don't put secrets in your Dockerfile!)
 #
 # ARG MY_BUILD_TIME_ENV_VAR
 
+COPY --chown=node:node packages packages
 COPY --chown=node:node api api
+RUN yarn build:packages
 RUN yarn rw build api
 
 # web prerender build
 # -------------------
-FROM api_build as web_build_with_prerender
+FROM api_build AS web_build_with_prerender
 
 COPY --chown=node:node web web
 RUN yarn rw build web
 
 # web build
 # ---------
-FROM base as web_build
+FROM base AS web_build
 
+COPY --chown=node:node packages packages
 COPY --chown=node:node web web
+RUN yarn build:packages
 RUN yarn rw build web --no-prerender
 
 # api serve
 # ---------
-FROM node:20-bookworm-slim as api_serve
+FROM node:20-bookworm-slim AS api_serve
 
 RUN corepack enable
 
@@ -79,6 +84,8 @@ COPY --chown=node:node yarn.lock .
 
 RUN mkdir -p /home/node/.yarn/berry/index
 RUN mkdir -p /home/node/.cache
+
+COPY --chown=node:node --from=api_build /home/node/app/packages/common /home/node/app/packages/common
 
 RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
     --mount=type=cache,target=/home/node/.cache,uid=1000 \
@@ -100,7 +107,7 @@ ENTRYPOINT [ "./docker-entrypoint.sh" ]
 
 # web serve
 # ---------
-FROM node:20-bookworm-slim as web_serve
+FROM node:20-bookworm-slim AS web_serve
 
 RUN corepack enable
 
@@ -114,6 +121,8 @@ COPY --chown=node:node yarn.lock .
 
 RUN mkdir -p /home/node/.yarn/berry/index
 RUN mkdir -p /home/node/.cache
+
+COPY --chown=node:node --from=web_build /home/node/app/packages/common /home/node/app/packages/common
 
 RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
     --mount=type=cache,target=/home/node/.cache,uid=1000 \
@@ -133,7 +142,7 @@ CMD "node_modules/.bin/rw-web-server" "--api-proxy-target" "$API_PROXY_TARGET"
 
 # console
 # -------
-FROM base as console
+FROM base AS console
 
 # To add more packages:
 #
