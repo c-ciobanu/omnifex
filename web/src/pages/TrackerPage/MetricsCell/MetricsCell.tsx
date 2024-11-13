@@ -1,5 +1,6 @@
 import { useReducer } from 'react'
 
+import { isAfter, isBefore, isToday, subWeeks } from 'date-fns'
 import { ChartLine, MoreVertical } from 'lucide-react'
 import type {
   DeleteMetricMutation,
@@ -9,7 +10,7 @@ import type {
 } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
+import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
 import { useCache } from '@redwoodjs/web/apollo'
 
 import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
@@ -71,6 +72,24 @@ export const Empty = () => (
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
+const getMetricDateColor = (date: string) => {
+  if (isToday(date)) {
+    return 'text-green-500'
+  }
+
+  const now = new Date()
+
+  if (isAfter(date, subWeeks(now, 1))) {
+    return 'text-yellow-500'
+  }
+
+  if (isBefore(date, subWeeks(now, 1))) {
+    return 'text-red-500'
+  }
+
+  return undefined
+}
+
 function actionMetricReducer(state, action) {
   switch (action.type) {
     case 'setIsOpen': {
@@ -123,7 +142,9 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
             <div className="space-y-1">
               <p className="text-sm font-medium">{metric.name}</p>
               <p className="text-xs text-muted-foreground">
-                <time dateTime={metric.latestEntry.date}>{metric.latestEntry.date}</time>
+                <time dateTime={metric.latestEntry.date} className={getMetricDateColor(metric.latestEntry.date)}>
+                  {metric.latestEntry.date}
+                </time>
                 {' • '}
                 {metric.latestEntry.value} {metric.unit}
               </p>
