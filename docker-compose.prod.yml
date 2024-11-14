@@ -11,6 +11,11 @@ services:
       - GOOGLE_BOOKS_API_KEY=${GOOGLE_BOOKS_API_KEY}
       - LOG_LEVEL=${LOG_LEVEL}
       - SENTRY_DSN=${SENTRY_DSN}
+      - MINIO_API_URL=${MINIO_API_URL}
+      - MINIO_PORT=${MINIO_PORT}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - MINIO_BUCKET_NAME=${MINIO_BUCKET_NAME}
 
   web:
     image: ghcr.io/c-ciobanu/popcorn-time-web:${COMMIT_SHA}
