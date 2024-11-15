@@ -1,6 +1,6 @@
 import * as Minio from 'minio'
 
-const minioClient = new Minio.Client({
+export const minioClient = new Minio.Client({
   endPoint: process.env.MINIO_API_URL,
   port: Number(process.env.MINIO_PORT),
   useSSL: process.env.NODE_ENV !== 'development',
@@ -8,3 +8,8 @@ const minioClient = new Minio.Client({
   secretKey: process.env.MINIO_SECRET_KEY,
 })
 
+export async function uploadExerciseGif(objectName: string, buffer: Buffer) {
+  await minioClient.putObject(process.env.MINIO_BUCKET_NAME, `exercises/${objectName}.gif`, buffer, undefined, {
+    'Content-Type': 'image/gif',
+  })
+}
