@@ -1,8 +1,11 @@
 import { db } from 'api/src/lib/db'
+import { minioClient } from 'api/src/lib/minio'
 import { DefaultBookLists } from 'common'
 import { DefaultMovieLists } from 'common'
 
 import { hashPassword } from '@redwoodjs/auth-dbauth-api'
+
+import processExercises from './processExercises'
 
 const range = (start: number, stop: number, step = 1) => {
   return Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step)
@@ -750,6 +753,28 @@ export default async () => {
 
       await db.user.create({ data: { ...user, hashedPassword, salt } })
     }
+
+    const bucketExists = await minioClient.bucketExists(process.env.MINIO_BUCKET_NAME)
+    if (!bucketExists) {
+      await minioClient.makeBucket(process.env.MINIO_BUCKET_NAME)
+      await minioClient.setBucketPolicy(
+        process.env.MINIO_BUCKET_NAME,
+        JSON.stringify({
+          Version: '2012-10-17',
+          Statement: [
+            {
+              Action: 's3:GetObject',
+              Effect: 'Allow',
+              Principal: '*',
+              Resource: `arn:aws:s3:::${process.env.MINIO_BUCKET_NAME}/*`,
+              Sid: '',
+            },
+          ],
+        })
+      )
+    }
+
+    await processExercises({ args: { max: 10 } })
   } catch (error) {
     console.error(error)
   }

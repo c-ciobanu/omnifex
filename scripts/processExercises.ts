@@ -4,20 +4,6 @@ import { PassThrough, Readable } from 'stream'
 import { fetch } from '@whatwg-node/fetch'
 import { uploadExerciseGif } from 'api/src/lib/minio'
 
-interface Exercise {
-  name: string
-  force?: string
-  level: string
-  mechanic?: string
-  equipment?: string
-  primaryMuscles: string[]
-  secondaryMuscles: string[]
-  instructions: string[]
-  category: string
-  images: string[]
-  id: string
-}
-
 const generateGif = async (arrayBuffers: ArrayBuffer[]): Promise<Buffer> => {
   return new Promise((resolve, reject) => {
     const ffmpeg = spawn('ffmpeg', [
@@ -53,13 +39,32 @@ const generateGif = async (arrayBuffers: ArrayBuffer[]): Promise<Buffer> => {
   })
 }
 
-export default async () => {
+interface Exercise {
+  name: string
+  force?: string
+  level: string
+  mechanic?: string
+  equipment?: string
+  primaryMuscles: string[]
+  secondaryMuscles: string[]
+  instructions: string[]
+  category: string
+  images: string[]
+  id: string
+}
+
+interface Args {
+  max: number
+}
+
+export default async ({ args }: { args: Args }) => {
   const response = await fetch(
     'https://raw.githubusercontent.com/yuhonas/free-exercise-db/refs/heads/main/dist/exercises.json'
   )
   const exercises: Exercise[] = await response.json()
 
-  for (let index = 0; index < exercises.length; index++) {
+  const exercisesToProcess = args.max ?? exercises.length
+  for (let index = 0; index < exercisesToProcess; index++) {
     const exercise = exercises[index]
     const fileName = exercise.name.toLowerCase().replaceAll(' ', '-').replaceAll('/', '-')
 
