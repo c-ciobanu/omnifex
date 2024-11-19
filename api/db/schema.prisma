@@ -24,6 +24,7 @@ model User {
   documents  Document[]
   movieLists MovieList[]
   bookLists  BookList[]
+  workouts   Workout[]
 }
 
 model Movie {
@@ -161,6 +162,21 @@ model Document {
   userId Int
 
   @@unique([userId, title])
+}
+
+model Workout {
+  id                String   @id @default(uuid())
+  name              String
+  date              DateTime @db.Date
+  startTime         DateTime @db.Time
+  endTime           DateTime @db.Time
+  durationInSeconds Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }
 
 model BackgroundJob {
