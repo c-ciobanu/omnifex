@@ -1,6 +1,6 @@
 export const schema = gql`
   type Workout {
-    id: String!
+    id: Int!
     name: String!
     date: Date!
     startTime: Time!
@@ -13,7 +13,7 @@ export const schema = gql`
 
   type Query {
     workouts: [Workout!]! @requireAuth
-    workout(id: String!): Workout @requireAuth
+    workout(id: Int!): Workout @requireAuth
   }
 
   input CreateWorkoutInput {
@@ -34,7 +34,7 @@ export const schema = gql`
 
   type Mutation {
     createWorkout(input: CreateWorkoutInput!): Workout! @requireAuth
-    updateWorkout(id: String!, input: UpdateWorkoutInput!): Workout! @requireAuth
-    deleteWorkout(id: String!): Workout! @requireAuth
+    updateWorkout(id: Int!, input: UpdateWorkoutInput!): Workout! @requireAuth
+    deleteWorkout(id: Int!): Workout! @requireAuth
   }
 `
