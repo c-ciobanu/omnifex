@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Metadata } from '@redwoodjs/web'
 
 import { Card, CardContent, CardDescription, CardHeader } from 'src/components/ui/card'
+import { formatSecondsToMinutesAndSeconds } from 'src/utils/time'
 
 import alarm from './alarm.mp3'
 import end from './end.mp3'
@@ -11,13 +12,6 @@ import ticking from './ticking.mp3'
 const alarmSound = new Audio(alarm)
 const endSound = new Audio(end)
 const tickingSound = new Audio(ticking)
-
-const formatSecondsToMinutesAndSeconds = (seconds: number) => {
-  const m = Math.floor(seconds / 60).toString()
-  const s = (seconds % 60).toString()
-
-  return `${m.padStart(2, '0')}:${s.padStart(2, '0')}`
-}
 
 const sendNotification = (title: string, body: string) => {
   if (!Notification) {

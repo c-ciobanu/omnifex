@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+import { formatSecondsToMinutesAndSeconds } from 'src/utils/time'
 
 export const QUERY: TypedDocumentNode<WorkoutsQuery, WorkoutsQueryVariables> = gql`
   query WorkoutsQuery {
@@ -30,13 +31,6 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
-
-const formatSecondsToMinutesAndSeconds = (seconds: number) => {
-  const m = Math.floor(seconds / 60).toString()
-  const s = (seconds % 60).toString()
-
-  return `${m.padStart(2, '0')}:${s.padStart(2, '0')}m`
-}
 
 export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery>) => {
   return (
@@ -56,7 +50,7 @@ export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery>) => {
               <p className="text-xs text-muted-foreground">
                 <time dateTime={workout.date}>{workout.date}</time>
                 {' • '}
-                {formatSecondsToMinutesAndSeconds(workout.durationInSeconds)}
+                {formatSecondsToMinutesAndSeconds(workout.durationInSeconds)}m
               </p>
             </div>
 
