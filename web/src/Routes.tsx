@@ -41,6 +41,7 @@ const Routes = () => {
           <Route path="/documents" page={DocumentsPage} name="documents" />
           <Route path="/tracker" page={TrackerPage} name="tracker" />
           <Route path="/metrics/{id:Int}" page={MetricPage} name="metric" />
+          <Route path="/workouts" page={WorkoutsPage} name="workouts" />
         </PrivateSet>
       </Set>
 

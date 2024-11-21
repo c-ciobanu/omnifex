@@ -733,6 +733,38 @@ export default async () => {
             },
           ],
         },
+        workouts: {
+          create: [
+            {
+              name: 'Upper Body',
+              date: new Date('2023-10-01'),
+              startTime: '2023-10-01T14:00:00Z',
+              endTime: '2023-10-01T14:30:30Z',
+              durationInSeconds: 1830,
+            },
+            {
+              name: 'Legs',
+              date: new Date('2023-09-01'),
+              startTime: '2023-09-01T14:00:00Z',
+              endTime: '2023-09-01T14:45:00Z',
+              durationInSeconds: 2700,
+            },
+            {
+              name: 'Back',
+              date: new Date('2023-08-15'),
+              startTime: '2023-08-15T14:00:00Z',
+              endTime: '2023-08-15T14:30:30Z',
+              durationInSeconds: 1830,
+            },
+            {
+              name: 'Full Body',
+              date: new Date('2023-08-01'),
+              startTime: '2023-08-01T14:00:00Z',
+              endTime: '2023-08-01T15:00:15Z',
+              durationInSeconds: 3615,
+            },
+          ],
+        },
       },
       {
         username: 'john',
