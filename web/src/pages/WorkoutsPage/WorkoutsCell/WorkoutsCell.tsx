@@ -1,7 +1,7 @@
 import { MoreVertical, Plus } from 'lucide-react'
 import type { WorkoutsQuery, WorkoutsQueryVariables } from 'types/graphql'
 
-import { Link } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 import type { CellFailureProps, CellSuccessProps, TypedDocumentNode } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
-import { formatSecondsToMinutesAndSeconds } from 'src/utils/time'
+import { formatSecondsToDescriptiveMinutesAndSeconds } from 'src/utils/time'
 
 export const QUERY: TypedDocumentNode<WorkoutsQuery, WorkoutsQueryVariables> = gql`
   query WorkoutsQuery {
@@ -50,13 +50,13 @@ export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery>) => {
               <p className="text-xs text-muted-foreground">
                 <time dateTime={workout.date}>{workout.date}</time>
                 {' • '}
-                {formatSecondsToMinutesAndSeconds(workout.durationInSeconds)}m
+                {formatSecondsToDescriptiveMinutesAndSeconds(workout.durationInSeconds)}
               </p>
             </div>
 
             <div className="flex shrink-0 items-center gap-4">
               <Button asChild variant="outline">
-                <Link to={'#'} title={workout.name}>
+                <Link to={routes.workout({ id: workout.id })} title={workout.name}>
                   View Workout
                 </Link>
               </Button>
