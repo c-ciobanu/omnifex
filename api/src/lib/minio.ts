@@ -9,7 +9,9 @@ export const minioClient = new Minio.Client({
 })
 
 export async function uploadExerciseGif(objectName: string, buffer: Buffer) {
-  await minioClient.putObject(process.env.MINIO_BUCKET_NAME, `exercises/${objectName}.gif`, buffer, undefined, {
-    'Content-Type': 'image/gif',
-  })
+  const path = `exercises/${objectName}.gif`
+
+  await minioClient.putObject(process.env.MINIO_BUCKET_NAME, path, buffer, undefined, { 'Content-Type': 'image/gif' })
+
+  return path
 }
