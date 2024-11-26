@@ -684,6 +684,28 @@ export default async () => {
     await db.movie.createMany({ data: movies })
     await db.book.createMany({ data: books })
 
+    const s3BucketExists = await minioClient.bucketExists(process.env.MINIO_BUCKET_NAME)
+    if (!s3BucketExists) {
+      await minioClient.makeBucket(process.env.MINIO_BUCKET_NAME)
+      await minioClient.setBucketPolicy(
+        process.env.MINIO_BUCKET_NAME,
+        JSON.stringify({
+          Version: '2012-10-17',
+          Statement: [
+            {
+              Action: 's3:GetObject',
+              Effect: 'Allow',
+              Principal: '*',
+              Resource: `arn:aws:s3:::${process.env.MINIO_BUCKET_NAME}/*`,
+              Sid: '',
+            },
+          ],
+        })
+      )
+    }
+
+    await processExercises({ args: { max: 10 } })
+
     const users = [
       {
         username: 'test',
@@ -736,11 +758,32 @@ export default async () => {
         workouts: {
           create: [
             {
+              name: 'Full Body',
+              date: new Date('2023-11-01'),
+              startTime: '2023-11-01T14:00:00Z',
+              endTime: '2023-11-01T15:00:15Z',
+              durationInSeconds: 3615,
+              exercises: {
+                create: range(1, 4).map((n, index) => ({
+                  order: index + 1,
+                  exerciseId: n,
+                  sets: { create: range(1, 3).map(() => ({ weightInKg: 50, reps: 12, restInSeconds: 45 })) },
+                })),
+              },
+            },
+            {
               name: 'Upper Body',
               date: new Date('2023-10-01'),
               startTime: '2023-10-01T14:00:00Z',
               endTime: '2023-10-01T14:30:30Z',
               durationInSeconds: 1830,
+              exercises: {
+                create: range(5, 7).map((n, index) => ({
+                  order: index + 1,
+                  exerciseId: n,
+                  sets: { create: range(1, 3).map(() => ({ weightInKg: 50, reps: 12, restInSeconds: 60 })) },
+                })),
+              },
             },
             {
               name: 'Legs',
@@ -748,20 +791,13 @@ export default async () => {
               startTime: '2023-09-01T14:00:00Z',
               endTime: '2023-09-01T14:45:00Z',
               durationInSeconds: 2700,
-            },
-            {
-              name: 'Back',
-              date: new Date('2023-08-15'),
-              startTime: '2023-08-15T14:00:00Z',
-              endTime: '2023-08-15T14:30:30Z',
-              durationInSeconds: 1830,
-            },
-            {
-              name: 'Full Body',
-              date: new Date('2023-08-01'),
-              startTime: '2023-08-01T14:00:00Z',
-              endTime: '2023-08-01T15:00:15Z',
-              durationInSeconds: 3615,
+              exercises: {
+                create: range(8, 10).map((n, index) => ({
+                  order: index + 1,
+                  exerciseId: n,
+                  sets: { create: range(1, 3).map(() => ({ weightInKg: 50, reps: 12, restInSeconds: 90 })) },
+                })),
+              },
             },
           ],
         },
@@ -785,28 +821,6 @@ export default async () => {
 
       await db.user.create({ data: { ...user, hashedPassword, salt } })
     }
-
-    const bucketExists = await minioClient.bucketExists(process.env.MINIO_BUCKET_NAME)
-    if (!bucketExists) {
-      await minioClient.makeBucket(process.env.MINIO_BUCKET_NAME)
-      await minioClient.setBucketPolicy(
-        process.env.MINIO_BUCKET_NAME,
-        JSON.stringify({
-          Version: '2012-10-17',
-          Statement: [
-            {
-              Action: 's3:GetObject',
-              Effect: 'Allow',
-              Principal: '*',
-              Resource: `arn:aws:s3:::${process.env.MINIO_BUCKET_NAME}/*`,
-              Sid: '',
-            },
-          ],
-        })
-      )
-    }
-
-    await processExercises({ args: { max: 10 } })
   } catch (error) {
     console.error(error)
   }
