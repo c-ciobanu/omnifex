@@ -9,6 +9,25 @@ export const schema = gql`
     createdAt: DateTime!
     updatedAt: DateTime!
     userId: Int!
+    exercises: [WorkoutExercise!]!
+  }
+
+  type WorkoutExercise {
+    id: Int!
+    order: Int!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    workoutId: Int!
+    exercise: Exercise!
+    exerciseId: Int!
+    sets: [WorkoutExerciseSet!]!
+  }
+
+  type WorkoutExerciseSet {
+    id: Int!
+    weightInKg: Int!
+    reps: Int!
+    restInSeconds: Int!
   }
 
   type Query {
@@ -18,17 +37,17 @@ export const schema = gql`
 
   input CreateWorkoutInput {
     name: String!
-    date: DateTime!
-    startTime: DateTime!
-    endTime: DateTime!
+    date: Date!
+    startTime: Time!
+    endTime: Time!
     durationInSeconds: Int!
   }
 
   input UpdateWorkoutInput {
     name: String
-    date: DateTime
-    startTime: DateTime
-    endTime: DateTime
+    date: Date
+    startTime: Time
+    endTime: Time
     durationInSeconds: Int
   }
 
