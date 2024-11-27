@@ -20,6 +20,22 @@ export const QUERY: TypedDocumentNode<WorkoutQuery, WorkoutQueryVariables> = gql
       startTime
       endTime
       durationInSeconds
+      exercises {
+        id
+        order
+        exercise {
+          id
+          name
+          instructions
+          gifUrl
+        }
+        sets {
+          id
+          weightInKg
+          reps
+          restInSeconds
+        }
+      }
     }
   }
 `
@@ -32,59 +48,11 @@ export const Failure = ({ error }: CellFailureProps<WorkoutQueryVariables>) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
-interface Exercise {
-  name: string
-  sets: {
-    weight: number
-    reps: number
-    restAfter: number
-  }[]
-  description: string
-  gifUrl: string
-}
-
-interface WorkoutSession {
-  date: Date
-  startTime: Date
-  endTime: Date
-  duration: number
-  exercises: Exercise[]
-}
-
-const workoutData: WorkoutSession = {
-  date: new Date(),
-  startTime: new Date(2023, 5, 10, 14, 30),
-  endTime: new Date(2023, 5, 10, 15, 45),
-  duration: 4500,
-  exercises: [
-    {
-      name: 'Bench Press',
-      sets: [
-        { weight: 60, reps: 12, restAfter: 90 },
-        { weight: 70, reps: 10, restAfter: 90 },
-        { weight: 80, reps: 8, restAfter: 120 },
-      ],
-      description: 'Lie on a flat bench, lower the bar to your chest, then push it back up.',
-      gifUrl: 'https://placehold.co/600x400/EEE/31343C',
-    },
-    {
-      name: 'Squats',
-      sets: [
-        { weight: 85, reps: 10, restAfter: 120 },
-        { weight: 95, reps: 8, restAfter: 120 },
-        { weight: 100, reps: 6, restAfter: 180 },
-      ],
-      description:
-        'Stand with feet shoulder-width apart, lower your body as if sitting back into a chair, then return to standing.',
-      gifUrl: 'https://placehold.co/600x400/EEE/31343C',
-    },
-  ],
-}
-
 export const Success = ({ workout }: CellSuccessProps<WorkoutQuery, WorkoutQueryVariables>) => {
-  const [selectedExercise, setSelectedExercise] = useState<Exercise>()
-  const totalExercises = workoutData.exercises.length
-  const totalSets = workoutData.exercises.reduce((acc, exercise) => acc + exercise.sets.length, 0)
+  const [selectedExercise, setSelectedExercise] = useState<WorkoutQuery['workout']['exercises'][number]['exercise']>()
+
+  const totalExercises = workout.exercises.length
+  const totalSets = workout.exercises.reduce((acc, exercise) => acc + exercise.sets.length, 0)
 
   return (
     <>
@@ -155,28 +123,33 @@ export const Success = ({ workout }: CellSuccessProps<WorkoutQuery, WorkoutQuery
           </CardHeader>
 
           <CardContent className="space-y-6">
-            {workoutData.exercises.map((exercise, index) => (
-              <div key={index} className="space-y-2">
+            {workout.exercises.map((exercise) => (
+              <div key={exercise.id} className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-semibold">{exercise.name}</h4>
+                  <h4 className="text-lg font-semibold">{exercise.exercise.name}</h4>
 
-                  <Button variant="ghost" size="sm" className="gap-2" onClick={() => setSelectedExercise(exercise)}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-2"
+                    onClick={() => setSelectedExercise(exercise.exercise)}
+                  >
                     <Info className="h-4 w-4" />
                     How to
                   </Button>
                 </div>
 
                 <div className="space-y-3">
-                  {exercise.sets.map((set, setIndex) => (
+                  {exercise.sets.map((set, index) => (
                     <div
-                      key={setIndex}
+                      key={set.id}
                       className="flex items-center justify-between gap-4 rounded-lg bg-muted p-3 text-sm"
                     >
-                      <p className="font-medium">Set {setIndex + 1}</p>
+                      <p className="font-medium">Set {index + 1}</p>
                       <p className="grow text-muted-foreground">
-                        {set.weight}kg × {set.reps} reps
+                        {set.weightInKg}kg × {set.reps} reps
                       </p>
-                      <p className="text-muted-foreground">{set.restAfter}s rest</p>
+                      <p className="text-muted-foreground">{set.restInSeconds}s rest</p>
                     </div>
                   ))}
                 </div>

@@ -1,13 +1,9 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
+import { WorkoutQuery } from 'types/graphql'
 
-type Exercise = {
-  name: string
-  description: string
-  gifUrl: string
-}
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
 
 type ExerciseModalProps = {
-  exercise?: Exercise
+  exercise?: WorkoutQuery['workout']['exercises'][number]['exercise']
   onClose: () => void
 }
 
@@ -19,10 +15,20 @@ const ExerciseModal = (props: ExerciseModalProps) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{exercise.name}</DialogTitle>
-          <DialogDescription>{exercise.description}</DialogDescription>
         </DialogHeader>
 
-        <img src={exercise.gifUrl} alt={`${exercise.name} demonstration`} />
+        <div className="flex justify-center">
+          <img src={exercise.gifUrl} alt={`${exercise.name} demonstration`} className="rounded-lg" />
+        </div>
+
+        <div className="space-y-2">
+          <h4 className="font-semibold">Instructions:</h4>
+          <ol className="list-inside list-decimal space-y-2 text-sm">
+            {exercise.instructions.map((instruction, index) => (
+              <li key={index}>{instruction}</li>
+            ))}
+          </ol>
+        </div>
       </DialogContent>
     </Dialog>
   ) : null
