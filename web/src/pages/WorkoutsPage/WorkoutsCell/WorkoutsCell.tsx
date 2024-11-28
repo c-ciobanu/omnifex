@@ -36,9 +36,11 @@ export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery>) => {
   return (
     <>
       <div className="mb-4 flex justify-end">
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          Start New Workout
+        <Button asChild className="gap-2">
+          <Link to={routes.newWorkout()} title="Start New Workout">
+            <Plus className="h-4 w-4" />
+            Start New Workout
+          </Link>
         </Button>
       </div>
 
