@@ -3,9 +3,9 @@ import { DocumentsQuery, UpdateDocumentTitleMutation, UpdateDocumentTitleMutatio
 import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
+import { FormField, FormInput, FormSwitch } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
-import { FormField, FormInput, FormSwitch } from 'src/components/ui/form'
 
 const UPDATE_DOCUMENT = gql`
   mutation UpdateDocumentTitleMutation($id: String!, $input: UpdateDocumentInput!) {

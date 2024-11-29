@@ -6,9 +6,9 @@ import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
+import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { FormField, FormInput } from 'src/components/ui/form'
 
 interface FormValues {
   password: string

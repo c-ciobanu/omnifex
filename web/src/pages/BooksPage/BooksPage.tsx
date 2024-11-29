@@ -2,7 +2,7 @@ import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
-import { FormInput } from 'src/components/ui/form'
+import { FormInput } from 'src/components/OldForm/OldForm'
 
 import BookListsCell from './BookListsCell'
 

@@ -3,8 +3,8 @@ import { useMemo } from 'react'
 import { Form, SubmitHandler, useForm } from '@redwoodjs/forms'
 import { Metadata } from '@redwoodjs/web'
 
+import { FormInput } from 'src/components/OldForm/OldForm'
 import { Card, CardContent } from 'src/components/ui/card'
-import { FormInput } from 'src/components/ui/form'
 
 type FormValues = {
   number: string

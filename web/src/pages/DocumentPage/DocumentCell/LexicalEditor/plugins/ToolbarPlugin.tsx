@@ -65,6 +65,7 @@ import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
+import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog'
 import {
@@ -74,7 +75,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
-import { FormField, FormInput } from 'src/components/ui/form'
 import { Toggle } from 'src/components/ui/toggle'
 
 function Divider() {

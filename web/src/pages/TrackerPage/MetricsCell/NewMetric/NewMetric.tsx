@@ -6,6 +6,7 @@ import { CreateMetricMutation, CreateMetricMutationVariables } from 'types/graph
 import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
+import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import {
   Dialog,
@@ -16,7 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'src/components/ui/dialog'
-import { FormField, FormInput } from 'src/components/ui/form'
 
 import { QUERY } from '../MetricsCell'
 

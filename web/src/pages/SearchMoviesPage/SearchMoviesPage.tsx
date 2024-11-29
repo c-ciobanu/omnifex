@@ -2,7 +2,7 @@ import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes, useParams } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
-import { FormInput } from 'src/components/ui/form'
+import { FormInput } from 'src/components/OldForm/OldForm'
 
 import MoviesCell from './MoviesCell'
 

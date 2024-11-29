@@ -4,9 +4,9 @@ import { CreateWorkoutMutation, CreateWorkoutMutationVariables } from 'types/gra
 import { Form, SubmitHandler, useFieldArray, useForm } from '@redwoodjs/forms'
 import { Metadata, useMutation } from '@redwoodjs/web'
 
+import { FormField, FormInput, FormSelect } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
-import { FormField, FormInput, FormSelect } from 'src/components/ui/form'
 
 const CREATE_WORKOUT = gql`
   mutation CreateWorkoutMutation($input: CreateWorkoutInput!) {

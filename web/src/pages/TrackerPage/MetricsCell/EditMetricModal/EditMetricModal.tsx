@@ -3,9 +3,9 @@ import type { MetricsQuery, UpdateMetricMutation, UpdateMetricMutationVariables 
 import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
+import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
-import { FormField, FormInput } from 'src/components/ui/form'
 
 const UPDATE_METRIC = gql`
   mutation UpdateMetricMutation($id: Int!, $input: UpdateMetricInput!) {

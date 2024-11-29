@@ -5,9 +5,9 @@ import { Play } from 'lucide-react'
 import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { Metadata } from '@redwoodjs/web'
 
+import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
-import { FormField, FormInput } from 'src/components/ui/form'
 
 import PomodoroTimer, { PomodoroTimerProps } from './PomodoroTimer'
 
