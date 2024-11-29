@@ -78,7 +78,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <Button asChild variant="ghost" size="icon" className="-mr-2 hidden text-gray-300 md:inline-flex">
-                  <DropdownMenuTrigger>{isAuthenticated ? <Smile /> : <Frown />}</DropdownMenuTrigger>
+                  <DropdownMenuTrigger>
+                    {isAuthenticated ? <Smile className="!h-6 !w-6" /> : <Frown className="!h-6 !w-6" />}
+                  </DropdownMenuTrigger>
                 </Button>
 
                 <DropdownMenuContent>

@@ -5,7 +5,7 @@ import { cva } from 'class-variance-authority'
 import { FieldError, Label, RegisterOptions, Controller, useRegister } from '@redwoodjs/forms'
 
 import { Checkbox } from 'src/components/ui/checkbox'
-import { Input, InputProps } from 'src/components/ui/input'
+import { Input } from 'src/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'src/components/ui/select'
 import { Switch } from 'src/components/ui/switch'
 import { cn } from 'src/lib/utils'
@@ -38,7 +38,7 @@ const FormField = ({ className, label, description, name, children }: FormFieldP
 }
 FormField.displayName = 'FormField'
 
-interface FormInputProps extends InputProps {
+interface FormInputProps extends React.ComponentProps<typeof Input> {
   validation?: RegisterOptions
   emptyAs?: null | 'undefined' | 0 | ''
 }

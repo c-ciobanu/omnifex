@@ -71,9 +71,9 @@ const Actions = ({ movie }: ActionsProps) => {
         onClick={toggleWatchedStatus}
         disabled={createWatchedLoading || deleteWatchedLoading}
         variant="outline"
-        size="xl"
+        size="lg"
         className={cn(
-          'justify-start gap-4 border-teal-500 px-2 text-base uppercase',
+          'h-12 justify-start gap-4 border-teal-500 px-2 text-base uppercase',
           watched
             ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600 hover:text-white'
             : 'text-teal-500 hover:bg-teal-500 hover:text-white'
@@ -88,9 +88,9 @@ const Actions = ({ movie }: ActionsProps) => {
           onClick={toggleToWatchStatus}
           disabled={createToWatchLoading || deleteToWatchLoading}
           variant="outline"
-          size="xl"
+          size="lg"
           className={cn(
-            'justify-start gap-4 border-sky-500 px-2 text-base uppercase',
+            'h-12 justify-start gap-4 border-sky-500 px-2 text-base uppercase',
             inWatchlist
               ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600 hover:text-white'
               : 'text-sky-500 hover:bg-sky-500 hover:text-white'

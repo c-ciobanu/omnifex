@@ -71,9 +71,8 @@ const Actions = ({ book }: ActionsProps) => {
         onClick={toggleReadStatus}
         disabled={createReadLoading || deleteReadLoading}
         variant="outline"
-        size="xl"
         className={cn(
-          'justify-start gap-4 border-teal-500 px-2 text-base uppercase',
+          'h-12 justify-start gap-4 border-teal-500 px-2 text-base uppercase',
           read
             ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600 hover:text-white'
             : 'text-teal-500 hover:bg-teal-500 hover:text-white'
@@ -88,9 +87,8 @@ const Actions = ({ book }: ActionsProps) => {
           onClick={toggleToReadStatus}
           disabled={createToReadLoading || deleteToReadLoading}
           variant="outline"
-          size="xl"
           className={cn(
-            'justify-start gap-4 border-sky-500 px-2 text-base uppercase',
+            'h-12 justify-start gap-4 border-sky-500 px-2 text-base uppercase',
             inReadingList
               ? 'bg-sky-500 text-white hover:border-sky-600 hover:bg-sky-600 hover:text-white'
               : 'text-sky-500 hover:bg-sky-500 hover:text-white'
