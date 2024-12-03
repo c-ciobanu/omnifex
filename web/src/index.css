@@ -96,4 +96,9 @@
   .tab-size-2 {
     tab-size: 2;
   }
+
+  .popover-content-w-full {
+	width: var(--radix-popover-trigger-width);
+	max-height: var(--radix-popover-content-available-height);
+}
 }
