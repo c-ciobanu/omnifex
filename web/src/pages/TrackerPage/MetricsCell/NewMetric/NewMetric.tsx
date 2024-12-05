@@ -65,9 +65,8 @@ const NewMetric = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          New Metric
+        <Button>
+          <Plus /> New Metric
         </Button>
       </DialogTrigger>
 

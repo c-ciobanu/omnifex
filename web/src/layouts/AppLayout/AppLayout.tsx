@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+import { Separator } from 'src/components/ui/separator'
 import Sentry from 'src/lib/sentry'
 import { cn } from 'src/lib/utils'
 
@@ -52,8 +53,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <>
       <Toaster />
-
-      <Collapsible asChild className="bg-gray-800" open={isOpen} onOpenChange={setIsOpen}>
+      <Collapsible asChild className="bg-slate-800" open={isOpen} onOpenChange={setIsOpen}>
         <nav>
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center">
@@ -96,13 +96,13 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
               <CollapsibleTrigger asChild>
                 <Button variant="ghost" size="icon" className="-mr-2 text-gray-300 md:hidden">
-                  {isOpen ? <X /> : <Menu />}
+                  {isOpen ? <X className="!h-6 !w-6" /> : <Menu className="!h-6 !w-6" />}
                 </Button>
               </CollapsibleTrigger>
             </div>
           </div>
 
-          <CollapsibleContent className="bg-gray-800 px-4 md:hidden">
+          <CollapsibleContent className="bg-slate-800 px-4 md:hidden">
             <div className="space-y-1 py-3">
               {navigationLinks.map((item) => (
                 <NavLink
@@ -120,7 +120,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
               ))}
             </div>
 
-            <div className="space-y-2 border-t border-gray-700 py-3">
+            <Separator className="bg-slate-600" />
+
+            <div className="space-y-2 py-3">
               {isAuthenticated ? (
                 <div className="flex items-center gap-2 px-4 text-white">
                   <Smile />
@@ -161,10 +163,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </CollapsibleContent>
         </nav>
       </Collapsible>
-
       <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">{children}</main>
 
-      <footer className="mx-auto max-w-7xl space-y-2 border-t border-gray-200 p-4 sm:px-6 lg:px-8">
+      <Separator className="mx-auto max-w-7xl" />
+
+      <footer className="mx-auto max-w-7xl space-y-2 p-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
           <a href="https://www.themoviedb.org" target="_blank" rel="noreferrer">
             <img

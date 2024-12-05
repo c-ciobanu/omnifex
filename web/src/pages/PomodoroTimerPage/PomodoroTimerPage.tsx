@@ -57,8 +57,8 @@ const PomodoroTimerPage = () => {
               </CardContent>
 
               <CardFooter>
-                <Button type="submit" className="w-full gap-2">
-                  <Play className="h-4 w-4" /> Start
+                <Button type="submit" className="w-full">
+                  <Play /> Start
                 </Button>
               </CardFooter>
             </Form>

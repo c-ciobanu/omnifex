@@ -126,8 +126,8 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold md:text-2xl">{metric.name}</h2>
 
-        <Button className="gap-2" onClick={() => setIsOpen(true)}>
-          <Plus className="h-4 w-4" />
+        <Button onClick={() => setIsOpen(true)}>
+          <Plus />
           New Entry
         </Button>
       </div>
