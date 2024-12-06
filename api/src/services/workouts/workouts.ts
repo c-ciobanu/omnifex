@@ -24,7 +24,17 @@ export const workout: QueryResolvers['workout'] = ({ id }) => {
 export const createWorkout: MutationResolvers['createWorkout'] = ({ input }) => {
   requireAuth()
 
-  return db.workout.create({ data: { ...input, userId: context.currentUser.id } })
+  const { exercises, ...workoutData } = input
+
+  return db.workout.create({
+    data: {
+      ...workoutData,
+      userId: context.currentUser.id,
+      exercises: {
+        create: exercises.map(({ sets, ...exerciseData }) => ({ ...exerciseData, sets: { create: sets } })),
+      },
+    },
+  })
 }
 
 export const updateWorkout: MutationResolvers['updateWorkout'] = ({ id, input }) => {

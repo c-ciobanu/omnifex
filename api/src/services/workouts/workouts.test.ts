@@ -16,7 +16,7 @@ describe('workouts', () => {
     expect(result).toEqual(scenario.workout.one)
   })
 
-  scenario('creates a workout', async (scenario: StandardScenario) => {
+  scenario.only('creates a workout', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
     const result = await createWorkout({
       input: {
@@ -25,6 +25,9 @@ describe('workouts', () => {
         startTime: new Date('1970-01-01T14:05:00Z'),
         endTime: new Date('1970-01-01T16:05:00Z'),
         durationInSeconds: 8112488,
+        exercises: [
+          { exerciseId: scenario.exercise.one.id, order: 1, sets: [{ weightInKg: 50, reps: 12, restInSeconds: 60 }] },
+        ],
       },
     })
 

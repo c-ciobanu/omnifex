@@ -1,6 +1,6 @@
-import type { Prisma, Workout, User } from '@prisma/client'
+import type { Prisma, Workout, User, Exercise } from '@prisma/client'
 
-export const standard = defineScenario<Prisma.WorkoutCreateArgs | Prisma.UserCreateArgs>({
+export const standard = defineScenario<Prisma.WorkoutCreateArgs | Prisma.UserCreateArgs | Prisma.ExerciseCreateArgs>({
   user: {
     john: {
       data: {
@@ -34,9 +34,19 @@ export const standard = defineScenario<Prisma.WorkoutCreateArgs | Prisma.UserCre
       },
     }),
   },
+  exercise: {
+    one: {
+      data: {
+        name: 'String',
+        instructions: ['String'],
+        gifPath: 'String',
+      },
+    },
+  },
 })
 
 export type StandardScenario = {
   user: Record<'john', User>
   workout: Record<'one' | 'two', Workout>
+  exercise: Record<'one', Exercise>
 }

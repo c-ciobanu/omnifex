@@ -35,12 +35,25 @@ export const schema = gql`
     workout(id: Int!): Workout @requireAuth
   }
 
+  input CreateWorkoutExerciseSetInput {
+    weightInKg: Int!
+    reps: Int!
+    restInSeconds: Int!
+  }
+
+  input CreateWorkoutExerciseInput {
+    exerciseId: Int!
+    order: Int!
+    sets: [CreateWorkoutExerciseSetInput!]!
+  }
+
   input CreateWorkoutInput {
     name: String!
     date: Date!
     startTime: Time!
     endTime: Time!
     durationInSeconds: Int!
+    exercises: [CreateWorkoutExerciseInput]
   }
 
   input UpdateWorkoutInput {
