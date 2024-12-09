@@ -1,7 +1,11 @@
+import { useRef } from 'react'
+
+import { differenceInSeconds } from 'date-fns'
 import { Plus, Trash2 } from 'lucide-react'
 import { CreateWorkoutMutation, CreateWorkoutMutationVariables } from 'types/graphql'
 
 import { useFieldArray, useForm } from '@redwoodjs/forms'
+import { navigate, routes } from '@redwoodjs/router'
 import { Metadata, useMutation } from '@redwoodjs/web'
 
 import { Form } from 'src/components/form'
@@ -26,9 +30,6 @@ const CREATE_WORKOUT = gql`
 type FormValues = {
   name: string
   date: string
-  startTime: string
-  endTime: string
-  durationInSeconds: number
   exercises: {
     exerciseId: number
     order: number
@@ -37,14 +38,15 @@ type FormValues = {
 }
 
 const NewWorkoutPage = () => {
-  const [createWorkout] = useMutation<CreateWorkoutMutation, CreateWorkoutMutationVariables>(CREATE_WORKOUT)
+  const startDate = useRef(new Date())
+
+  const [createWorkout] = useMutation<CreateWorkoutMutation, CreateWorkoutMutationVariables>(CREATE_WORKOUT, {
+    onCompleted: () => navigate(routes.workouts()),
+  })
 
   const formMethods = useForm<FormValues>({
     defaultValues: {
       date: new Date().toISOString().slice(0, 10),
-      startTime: new Date().toTimeString().slice(0, 8),
-      endTime: new Date(Date.now() + 3600000).toTimeString().slice(0, 8),
-      durationInSeconds: 3600,
       exercises: [
         {
           order: 1,
@@ -60,8 +62,19 @@ const NewWorkoutPage = () => {
     remove: exercisesRemove,
   } = useFieldArray({ control: formMethods.control, name: 'exercises' })
 
-  const onSubmit = (data: Required<FormValues>) => {
-    createWorkout({ variables: { input: data } })
+  const onSubmit = (data: FormValues) => {
+    const endDate = new Date()
+
+    createWorkout({
+      variables: {
+        input: {
+          ...data,
+          startTime: `${startDate.current.toTimeString().slice(0, 8)}Z`,
+          endTime: `${endDate.toTimeString().slice(0, 8)}Z`,
+          durationInSeconds: differenceInSeconds(endDate, startDate.current),
+        },
+      },
+    })
   }
 
   const addSet = (exerciseIndex: number) => {
