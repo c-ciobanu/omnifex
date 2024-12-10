@@ -47,6 +47,8 @@ const Routes = () => {
         </PrivateSet>
       </Set>
 
+      <Route path="/invoices/{id:String}/preview" page={InvoicePreviewPage} name="invoicePreview" />
+
       <Route notfound page={NotFoundPage} />
     </Router>
   )

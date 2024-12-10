@@ -34,7 +34,8 @@ type FormValues = {
   }[]
 }
 
-type Invoice = Omit<FormValues, 'items'> & {
+export type Invoice = Omit<FormValues, 'items'> & {
+  id: string
   items: (FormValues['items'][number] & { price: number })[]
   total: number
 }
@@ -57,6 +58,7 @@ const InvoiceGeneratorPage = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const total = prices.reduce((a, b) => a + b, 0)
     const invoice = {
+      id: '1',
       ...data,
       items: data.items.map((item, index) => ({ ...item, price: prices[index] })),
       total,
