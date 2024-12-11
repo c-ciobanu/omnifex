@@ -1,9 +1,13 @@
 import { useMemo } from 'react'
 
+import { useLocalStorage } from '@uidotdev/usehooks'
+
 import { Form, SubmitHandler, useForm } from '@redwoodjs/forms'
+import { routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/OldForm/OldForm'
+import { Button } from 'src/components/ui/button'
 import { Card, CardContent } from 'src/components/ui/card'
 
 type FormValues = {
@@ -47,6 +51,7 @@ const defaultValues = {
 }
 
 const InvoiceGeneratorPage = () => {
+  const [invoices, setInvoices] = useLocalStorage<Invoice[]>('invoices', [])
   const formMethods = useForm<FormValues>({ defaultValues })
 
   const items = formMethods.watch('items')
@@ -56,22 +61,26 @@ const InvoiceGeneratorPage = () => {
   )
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const invoiceId = (Number(invoices[invoices.length - 1]?.id ?? '0') + 1).toString()
+
     const total = prices.reduce((a, b) => a + b, 0)
     const invoice = {
-      id: '1',
+      id: invoiceId,
       ...data,
       items: data.items.map((item, index) => ({ ...item, price: prices[index] })),
       total,
     }
 
-    console.log(invoice as Invoice)
+    setInvoices((state) => state.concat([invoice]))
+
+    window.open(routes.invoicePreview({ id: invoiceId }), '_black')
   }
 
   return (
     <>
       <Metadata title="Invoice Generator" />
 
-      <Form formMethods={formMethods} onSubmit={onSubmit}>
+      <Form formMethods={formMethods} onSubmit={onSubmit} className="space-y-6">
         <Card>
           <CardContent className="space-y-8">
             <div className="flex justify-end">
@@ -151,6 +160,10 @@ const InvoiceGeneratorPage = () => {
             </div>
           </CardContent>
         </Card>
+
+        <Button type="submit" className="w-full" disabled={formMethods.formState.isSubmitting}>
+          Save Invoice and Preview
+        </Button>
       </Form>
     </>
   )

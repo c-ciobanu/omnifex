@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { useLocalStorage } from '@uidotdev/usehooks'
 
 import { Metadata } from '@redwoodjs/web'
@@ -12,6 +14,10 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
   const [invoices] = useLocalStorage<Invoice[]>('invoices', [])
 
   const invoice = invoices.find((invoice) => invoice.id === id)
+
+  useEffect(() => {
+    print()
+  }, [])
 
   return invoice ? (
     <>
