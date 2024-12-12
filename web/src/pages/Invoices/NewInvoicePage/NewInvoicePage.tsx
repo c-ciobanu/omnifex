@@ -50,7 +50,7 @@ const defaultValues = {
   items: [{ quantity: 1, unitPrice: 0 }],
 }
 
-const InvoiceGeneratorPage = () => {
+const NewInvoicePage = () => {
   const [invoices, setInvoices] = useLocalStorage<Invoice[]>('invoices', [])
   const formMethods = useForm<FormValues>({ defaultValues })
 
@@ -169,4 +169,4 @@ const InvoiceGeneratorPage = () => {
   )
 }
 
-export default InvoiceGeneratorPage
+export default NewInvoicePage

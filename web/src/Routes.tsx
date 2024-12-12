@@ -7,7 +7,7 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route, Set, PrivateSet } from '@redwoodjs/router'
+import { PrivateSet, Route, Router, Set } from '@redwoodjs/router'
 
 import UnauthenticatedRoute from 'src/components/UnauthenticatedRoute/UnauthenticatedRoute'
 import AppLayout from 'src/layouts/AppLayout/AppLayout'
@@ -33,7 +33,7 @@ const Routes = () => {
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
         <Route path="/documents/{id:String}" page={DocumentPage} name="document" />
         <Route path="/tools/pomodoro" page={PomodoroTimerPage} name="pomodoro" />
-        <Route path="/tools/invoice" page={InvoiceGeneratorPage} name="invoice" />
+        <Route path="/invoices/new" page={InvoicesNewInvoicePage} name="newInvoice" />
 
         <PrivateSet unauthenticated="home">
           <Route path="/movies" page={MoviesPage} name="movies" />
@@ -47,7 +47,7 @@ const Routes = () => {
         </PrivateSet>
       </Set>
 
-      <Route path="/invoices/{id:String}/preview" page={InvoicePreviewPage} name="invoicePreview" />
+      <Route path="/invoices/{id:String}/preview" page={InvoicesInvoicePreviewPage} name="invoicePreview" />
 
       <Route notfound page={NotFoundPage} />
     </Router>
