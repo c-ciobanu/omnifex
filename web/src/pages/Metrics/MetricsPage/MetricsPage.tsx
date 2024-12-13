@@ -2,14 +2,14 @@ import { Metadata } from '@redwoodjs/web'
 
 import MetricsCell from './MetricsCell'
 
-const TrackerPage = () => {
+const MetricsPage = () => {
   return (
     <>
-      <Metadata title="Tracker" robots="noindex" />
+      <Metadata title="Metrics" robots="noindex" />
 
       <MetricsCell />
     </>
   )
 }
 
-export default TrackerPage
+export default MetricsPage

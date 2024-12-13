@@ -22,7 +22,7 @@ const authenticatedNavigation = [
   { name: 'Movies', href: () => routes.movies() },
   { name: 'Books', href: () => routes.books() },
   { name: 'Documents', href: () => routes.documents() },
-  { name: 'Tracker', href: () => routes.tracker() },
+  { name: 'Metrics', href: () => routes.metrics() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
 ]
 const guestNavigation = [
