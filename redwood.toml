@@ -16,6 +16,7 @@
   ]
 [api]
   port = 8911
+  schemaPath = "./api/db/schema"
 [browser]
   open = false
 [notifications]

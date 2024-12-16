@@ -1,0 +1,18 @@
+model User {
+  id                  Int       @id @default(autoincrement())
+  email               String?   @unique
+  username            String    @unique
+  hashedPassword      String
+  salt                String
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  metrics    Metric[]
+  documents  Document[]
+  movieLists MovieList[]
+  bookLists  BookList[]
+  workouts   Workout[]
+}

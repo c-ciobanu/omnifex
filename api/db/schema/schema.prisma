@@ -1,0 +1,33 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = "native"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+model BackgroundJob {
+  id        Int       @id @default(autoincrement())
+  attempts  Int       @default(0)
+  handler   String
+  queue     String
+  priority  Int
+  runAt     DateTime?
+  lockedAt  DateTime?
+  lockedBy  String?
+  lastError String?
+  failedAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RW_DataMigration {
+  version    String   @id
+  name       String
+  startedAt  DateTime
+  finishedAt DateTime
+}
