@@ -19,6 +19,8 @@
   schemaPath = "./api/db/schema"
 [browser]
   open = false
+[generate]
+  stories = false
 [notifications]
   versionUpdates = ["latest"]
 
