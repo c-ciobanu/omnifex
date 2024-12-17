@@ -36,6 +36,7 @@ type FormValues = {
     quantity: number
     unitPrice: number
   }[]
+  footer?: string
 }
 
 export type Invoice = Omit<FormValues, 'items'> & {
@@ -82,81 +83,87 @@ const NewInvoicePage = () => {
 
       <Form formMethods={formMethods} onSubmit={onSubmit} className="space-y-6">
         <Card>
-          <CardContent className="space-y-8">
-            <div className="flex justify-end">
-              <fieldset className="w-80 space-y-2">
-                <FormInput name="seller.name" validation={{ required: true }} placeholder="Company name" />
-                <FormInput name="seller.address" validation={{ required: true }} placeholder="Address" />
-                <div className="grid grid-cols-2 gap-2">
-                  <FormInput name="seller.postcode" validation={{ required: true }} placeholder="Postcode" />
-                  <FormInput name="seller.city" validation={{ required: true }} placeholder="City" />
-                </div>
-                <FormInput name="seller.country" validation={{ required: true }} placeholder="Country" />
-                <FormInput name="seller.vatId" validation={{ required: true }} placeholder="VAT number" />
-              </fieldset>
-            </div>
-
-            <div className="flex items-center">
-              <hr className="h-px w-full bg-gray-200" />
-              <span className="absolute left-2/3 -translate-x-1/2 bg-white px-4">INVOICE</span>
-            </div>
-
-            <div className="flex justify-between">
-              <fieldset className="w-80 space-y-2">
-                <p className="leading-10">Issued to</p>
-                <FormInput name="buyer.name" validation={{ required: true }} placeholder="Company name" />
-                <FormInput name="buyer.address" validation={{ required: true }} placeholder="Address" />
-                <div className="grid grid-cols-2 gap-2">
-                  <FormInput name="buyer.postcode" validation={{ required: true }} placeholder="Postcode" />
-                  <FormInput name="buyer.city" validation={{ required: true }} placeholder="City" />
-                </div>
-                <FormInput name="buyer.country" validation={{ required: true }} placeholder="Country" />
-                <FormInput name="buyer.vatId" validation={{ required: true }} placeholder="VAT number" />
-              </fieldset>
-
-              <fieldset className="grid grid-cols-[auto_20rem] content-start items-center gap-2">
-                <p></p>
-                <FormInput name="number" validation={{ required: true }} placeholder="Invoice number" />
-                <p>Issue date</p>
-                <FormInput name="issueDate" type="date" validation={{ required: true, setValueAs: (s) => s }} />
-                <p>Due date</p>
-                <FormInput name="dueDate" type="date" validation={{ required: true, setValueAs: (s) => s }} />
-                <p></p>
-                <FormInput name="paymentType" validation={{ required: true }} placeholder="Payment type" />
-              </fieldset>
-            </div>
-
-            <table>
-              <thead className="bg-yellow-100">
-                <tr className="*:px-4 *:py-2 *:text-left *:font-medium">
-                  <th className="w-1/2">Item</th>
-                  <th className="w-1/6">Quantity</th>
-                  <th className="w-1/6">Unit price</th>
-                  <th className="w-1/6">Price</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr className="*:px-4 *:py-2">
-                  <td>
-                    <FormInput name="items.0.name" validation={{ required: true }} placeholder="Item description" />
-                  </td>
-                  <td>
-                    <FormInput name="items.0.quantity" type="number" min={0} validation={{ required: true }} />
-                  </td>
-                  <td>
-                    <FormInput name="items.0.unitPrice" type="number" min={0} validation={{ required: true }} />
-                  </td>
-                  <td>{prices[0]}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div className="flex justify-end">
-              <div className="grid w-2/6 grid-cols-2 *:pl-4">
-                <p className="font-medium">Total</p>
-                <p>{prices[0]}</p>
+          <CardContent className="space-y-24">
+            <div className="space-y-8">
+              <div className="flex justify-end">
+                <fieldset className="w-80 space-y-2">
+                  <FormInput name="seller.name" validation={{ required: true }} placeholder="Company name" />
+                  <FormInput name="seller.address" validation={{ required: true }} placeholder="Address" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <FormInput name="seller.postcode" validation={{ required: true }} placeholder="Postcode" />
+                    <FormInput name="seller.city" validation={{ required: true }} placeholder="City" />
+                  </div>
+                  <FormInput name="seller.country" validation={{ required: true }} placeholder="Country" />
+                  <FormInput name="seller.vatId" validation={{ required: true }} placeholder="VAT number" />
+                </fieldset>
               </div>
+
+              <div className="flex items-center">
+                <hr className="h-px w-full bg-gray-200" />
+                <span className="absolute left-2/3 -translate-x-1/2 bg-white px-4">INVOICE</span>
+              </div>
+
+              <div className="flex justify-between">
+                <fieldset className="w-80 space-y-2">
+                  <p className="leading-10">Issued to</p>
+                  <FormInput name="buyer.name" validation={{ required: true }} placeholder="Company name" />
+                  <FormInput name="buyer.address" validation={{ required: true }} placeholder="Address" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <FormInput name="buyer.postcode" validation={{ required: true }} placeholder="Postcode" />
+                    <FormInput name="buyer.city" validation={{ required: true }} placeholder="City" />
+                  </div>
+                  <FormInput name="buyer.country" validation={{ required: true }} placeholder="Country" />
+                  <FormInput name="buyer.vatId" validation={{ required: true }} placeholder="VAT number" />
+                </fieldset>
+
+                <fieldset className="grid grid-cols-[auto_20rem] content-start items-center gap-2">
+                  <p></p>
+                  <FormInput name="number" validation={{ required: true }} placeholder="Invoice number" />
+                  <p>Issue date</p>
+                  <FormInput name="issueDate" type="date" validation={{ required: true, setValueAs: (s) => s }} />
+                  <p>Due date</p>
+                  <FormInput name="dueDate" type="date" validation={{ required: true, setValueAs: (s) => s }} />
+                  <p></p>
+                  <FormInput name="paymentType" validation={{ required: true }} placeholder="Payment type" />
+                </fieldset>
+              </div>
+
+              <table>
+                <thead className="bg-yellow-100">
+                  <tr className="*:px-4 *:py-2 *:text-left *:font-medium">
+                    <th className="w-1/2">Item</th>
+                    <th className="w-1/6">Quantity</th>
+                    <th className="w-1/6">Unit price</th>
+                    <th className="w-1/6">Price</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr className="*:px-4 *:py-2">
+                    <td>
+                      <FormInput name="items.0.name" validation={{ required: true }} placeholder="Item description" />
+                    </td>
+                    <td>
+                      <FormInput name="items.0.quantity" type="number" min={0} validation={{ required: true }} />
+                    </td>
+                    <td>
+                      <FormInput name="items.0.unitPrice" type="number" min={0} validation={{ required: true }} />
+                    </td>
+                    <td>{prices[0]}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div className="flex justify-end">
+                <div className="grid w-2/6 grid-cols-2 *:pl-4">
+                  <p className="font-medium">Total</p>
+                  <p>{prices[0]}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-24 flex justify-center">
+              <FormInput name="footer" placeholder="Additional notes" className="w-1/2" />
             </div>
           </CardContent>
         </Card>
