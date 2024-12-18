@@ -33,6 +33,7 @@ const Routes = () => {
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
         <Route path="/documents/{id:String}" page={DocumentPage} name="document" />
         <Route path="/tools/pomodoro" page={PomodoroTimerPage} name="pomodoro" />
+        <Route path="/invoices" page={InvoicesInvoicesPage} name="invoices" />
         <Route path="/invoices/new" page={InvoicesNewInvoicePage} name="newInvoice" />
 
         <PrivateSet unauthenticated="home">
