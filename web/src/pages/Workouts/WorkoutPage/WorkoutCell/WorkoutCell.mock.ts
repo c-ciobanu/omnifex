@@ -40,7 +40,7 @@ export const standard = () => ({
             'At the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only ¾ of the way down.',
             'Repeat for the recommended amount of repetitions.',
           ],
-          gifUrl: 'http://localhost:9000/popcorn-time/exercises/3-4-sit-up.gif',
+          gifUrl: 'http://localhost:9000/omnifex/exercises/3-4-sit-up.gif',
         },
       },
       {
@@ -75,7 +75,7 @@ export const standard = () => ({
             'Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.',
             'Repeat for 10-20 repetitions, and then switch to the other leg.',
           ],
-          gifUrl: 'http://localhost:9000/popcorn-time/exercises/90-90-hamstring.gif',
+          gifUrl: 'http://localhost:9000/omnifex/exercises/90-90-hamstring.gif',
         },
       },
       {
@@ -110,7 +110,7 @@ export const standard = () => ({
             'After a second pause, slowly return to the starting position as you breathe in.',
             'Repeat the movement for the prescribed amount of repetitions.',
           ],
-          gifUrl: 'http://localhost:9000/popcorn-time/exercises/ab-crunch-machine.gif',
+          gifUrl: 'http://localhost:9000/omnifex/exercises/ab-crunch-machine.gif',
         },
       },
       {
@@ -145,7 +145,7 @@ export const standard = () => ({
             'Slowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.',
             'After a pause at the stretched position, start pulling yourself back to the starting position as you breathe out. Tip: Go slowly and keep your abs tight at all times.',
           ],
-          gifUrl: 'http://localhost:9000/popcorn-time/exercises/ab-roller.gif',
+          gifUrl: 'http://localhost:9000/omnifex/exercises/ab-roller.gif',
         },
       },
     ],

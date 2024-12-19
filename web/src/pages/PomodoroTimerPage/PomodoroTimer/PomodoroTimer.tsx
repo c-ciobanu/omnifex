@@ -18,13 +18,13 @@ const sendNotification = (title: string, body: string) => {
     return
   }
 
-  return new Notification(title, { body, tag: 'popcorn-time-pomodoro' })
+  return new Notification(title, { body, tag: 'omnifex-time-pomodoro' })
 }
 
 const updateDocumentTitle = (secondsLeft: number) => {
   const formattedTimeLeft = formatSecondsToMinutesAndSeconds(secondsLeft)
 
-  document.title = `${formattedTimeLeft} | Popcorn Time`
+  document.title = `${formattedTimeLeft} | Omnifex`
 }
 
 enum Phase {

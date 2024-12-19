@@ -1,6 +1,6 @@
 services:
   api:
-    image: ghcr.io/c-ciobanu/popcorn-time-api:${COMMIT_SHA}
+    image: ghcr.io/c-ciobanu/omnifex-api:${COMMIT_SHA}
     ports:
       - "8911:8911"
     environment:
@@ -18,7 +18,7 @@ services:
       - MINIO_BUCKET_NAME=${MINIO_BUCKET_NAME}
 
   web:
-    image: ghcr.io/c-ciobanu/popcorn-time-web:${COMMIT_SHA}
+    image: ghcr.io/c-ciobanu/omnifex-web:${COMMIT_SHA}
     ports:
       - "8910:8910"
     depends_on:

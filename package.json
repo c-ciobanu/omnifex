@@ -1,5 +1,5 @@
 {
-  "name": "popcorn-time",
+  "name": "omnifex",
   "private": true,
   "scripts": {
     "docker:start": "docker compose -f ./docker-compose.dev.yml up -d",

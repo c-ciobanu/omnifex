@@ -1,6 +1,6 @@
 services:
   console:
-    image: ghcr.io/c-ciobanu/popcorn-time-console:${COMMIT_SHA}
+    image: ghcr.io/c-ciobanu/omnifex-console:${COMMIT_SHA}
     stdin_open: true
     tty: true
     environment:
