@@ -23,11 +23,13 @@ const authenticatedNavigation = [
   { name: 'Books', href: () => routes.books() },
   { name: 'Documents', href: () => routes.documents() },
   { name: 'Metrics', href: () => routes.metrics() },
+  { name: 'Invoices', href: () => routes.invoices() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
 ]
 const guestNavigation = [
   { name: 'Search Movies', href: () => routes.searchMovies() },
   { name: 'Search Books', href: () => routes.searchBooks() },
+  { name: 'Invoices', href: () => routes.invoices() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
 ]
 
@@ -53,6 +55,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <>
       <Toaster />
+
       <Collapsible asChild className="bg-slate-800" open={isOpen} onOpenChange={setIsOpen}>
         <nav>
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -163,6 +166,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           </CollapsibleContent>
         </nav>
       </Collapsible>
+
       <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">{children}</main>
 
       <Separator className="mx-auto max-w-7xl" />
