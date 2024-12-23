@@ -6,7 +6,7 @@ import { Form, SubmitHandler, useForm } from '@redwoodjs/forms'
 import { routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
-import { FormInput } from 'src/components/OldForm/OldForm'
+import { FormInput, FormCombobox } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent } from 'src/components/ui/card'
 
@@ -20,6 +20,7 @@ type FormValues = {
     iban: string
     swift: string
   }
+  currency: string
   seller: {
     name: string
     address: string
@@ -110,7 +111,7 @@ const NewInvoicePage = () => {
 
               <div className="flex justify-between">
                 <fieldset className="w-80 space-y-2">
-                  <p className="leading-10">Issued to</p>
+                  <p className="leading-9">Issued to</p>
                   <FormInput name="buyer.name" validation={{ required: true }} placeholder="Company name" />
                   <FormInput name="buyer.address" validation={{ required: true }} placeholder="Address" />
                   <div className="grid grid-cols-2 gap-2">
@@ -154,7 +155,7 @@ const NewInvoicePage = () => {
                     <td>
                       <FormInput name="items.0.unitPrice" type="number" min={0} validation={{ required: true }} />
                     </td>
-                    <td>{prices[0]}</td>
+                    <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(prices[0])}</td>
                   </tr>
                 </tbody>
               </table>
@@ -162,16 +163,34 @@ const NewInvoicePage = () => {
               <div className="flex justify-end">
                 <div className="grid w-2/6 grid-cols-2 *:pl-4">
                   <p className="font-medium">Total</p>
-                  <p>{prices[0]}</p>
+                  <p>
+                    {new Intl.NumberFormat(
+                      'en-UK',
+                      formMethods.watch('currency')
+                        ? { style: 'currency', currency: formMethods.watch('currency') }
+                        : { minimumFractionDigits: 2 }
+                    ).format(prices[0])}
+                  </p>
                 </div>
               </div>
 
-              <fieldset className="w-80 space-y-2">
-                <p className="leading-10">Payment Details</p>
-                <FormInput name="paymentDetails.bankName" validation={{ required: true }} placeholder="Bank name" />
-                <FormInput name="paymentDetails.iban" validation={{ required: true }} placeholder="IBAN" />
-                <FormInput name="paymentDetails.swift" validation={{ required: true }} placeholder="SWIFT code" />
-              </fieldset>
+              <div className="flex justify-between">
+                <fieldset className="w-80 space-y-2">
+                  <p className="leading-9">Payment Details</p>
+                  <FormInput name="paymentDetails.bankName" validation={{ required: true }} placeholder="Bank name" />
+                  <FormInput name="paymentDetails.iban" validation={{ required: true }} placeholder="IBAN" />
+                  <FormInput name="paymentDetails.swift" validation={{ required: true }} placeholder="SWIFT code" />
+                </fieldset>
+
+                <fieldset className="grid grid-cols-[auto_20rem] content-start items-center gap-2">
+                  <p>Currency</p>
+                  <FormCombobox
+                    name={`currency`}
+                    options={Intl.supportedValuesOf('currency').map((e) => ({ value: e, label: e }))}
+                    validation={{ required: true }}
+                  />
+                </fieldset>
+              </div>
             </div>
 
             <div className="mt-24 flex justify-center">

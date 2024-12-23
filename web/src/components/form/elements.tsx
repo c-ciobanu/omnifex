@@ -16,27 +16,25 @@ import { Input } from 'src/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
 import { cn } from 'src/lib/utils'
 
-interface FormInputProps {
-  name: string
+interface FormInputProps extends React.ComponentProps<typeof Input> {
   validation?: FormRegisterOptions
   label?: string
   description?: string
-  type?: string
 }
 
 const FormInput = (props: FormInputProps) => {
-  const { name, type, label, description, validation } = props
+  const { name, className, label, description, validation, ...inputProps } = props
 
   return (
     <FormField
       name={name}
       validation={validation}
       render={(register) => (
-        <FormItem>
+        <FormItem className={className}>
           {label ? <FormLabel>{label}</FormLabel> : null}
 
           <FormControl>
-            <Input type={type} {...register} />
+            <Input {...inputProps} {...register} />
           </FormControl>
 
           {description ? <FormDescription>{description}</FormDescription> : null}

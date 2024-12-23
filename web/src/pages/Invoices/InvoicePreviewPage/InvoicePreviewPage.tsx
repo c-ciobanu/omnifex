@@ -89,9 +89,11 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
                   <p>{invoice.items[0].quantity}</p>
                 </td>
                 <td>
-                  <p>{invoice.items[0].unitPrice}</p>
+                  <p>
+                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(invoice.items[0].unitPrice)}
+                  </p>
                 </td>
-                <td>{invoice.items[0].price}</td>
+                <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(invoice.items[0].price)}</td>
               </tr>
             </tbody>
           </table>
@@ -99,7 +101,11 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
           <div className="flex justify-end">
             <div className="grid w-2/6 grid-cols-2 *:pl-4">
               <p className="font-medium">Total</p>
-              <p>{invoice.total}</p>
+              <p>
+                {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
+                  invoice.total
+                )}
+              </p>
             </div>
           </div>
 
