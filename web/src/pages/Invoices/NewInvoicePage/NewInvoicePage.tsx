@@ -15,6 +15,11 @@ type FormValues = {
   issueDate: string
   dueDate: string
   paymentType: string
+  paymentDetails: {
+    bankName: string
+    iban: string
+    swift: string
+  }
   seller: {
     name: string
     address: string
@@ -160,6 +165,13 @@ const NewInvoicePage = () => {
                   <p>{prices[0]}</p>
                 </div>
               </div>
+
+              <fieldset className="w-80 space-y-2">
+                <p className="leading-10">Payment Details</p>
+                <FormInput name="paymentDetails.bankName" validation={{ required: true }} placeholder="Bank name" />
+                <FormInput name="paymentDetails.iban" validation={{ required: true }} placeholder="IBAN" />
+                <FormInput name="paymentDetails.swift" validation={{ required: true }} placeholder="SWIFT code" />
+              </fieldset>
             </div>
 
             <div className="mt-24 flex justify-center">

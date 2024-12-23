@@ -102,6 +102,16 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
               <p>{invoice.total}</p>
             </div>
           </div>
+
+          <section className="inline-grid grid-cols-[auto_14rem] content-start items-center gap-x-4">
+            <p className="col-span-2 font-bold">Payment Details</p>
+            <p className="font-bold">Bank</p>
+            <p>{invoice.paymentDetails.bankName}</p>
+            <p className="font-bold">IBAN</p>
+            <p>{invoice.paymentDetails.iban}</p>
+            <p className="font-bold">SWIFT</p>
+            <p>{invoice.paymentDetails.swift}</p>
+          </section>
         </div>
 
         <footer className="text-center">{invoice.footer}</footer>
