@@ -16,7 +16,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
   const invoice = invoices.find((invoice) => invoice.id === id)
 
   useEffect(() => {
-    print()
+    window.print()
   }, [])
 
   return invoice ? (

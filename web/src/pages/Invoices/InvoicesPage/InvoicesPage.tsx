@@ -17,7 +17,7 @@ import {
 import { Invoice } from '../NewInvoicePage/NewInvoicePage'
 
 const InvoicesPage = () => {
-  const [invoices] = useLocalStorage<Invoice[]>('invoices', [])
+  const [invoices, setInvoices] = useLocalStorage<Invoice[]>('invoices', [])
 
   return (
     <>
@@ -53,8 +53,12 @@ const InvoicesPage = () => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => window.open(routes.invoicePreview({ id: invoice.id }), '_black')}>
+                    Print
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setInvoices((state) => state.filter((el) => el.id !== invoice.id))}>
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
