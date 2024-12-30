@@ -75,11 +75,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
+import { Separator } from 'src/components/ui/separator'
 import { Toggle } from 'src/components/ui/toggle'
-
-function Divider() {
-  return <div className="mx-1 w-px bg-[#eee]" />
-}
 
 const blockTypeElements = {
   paragraph: (
@@ -345,7 +342,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
           <Save className="h-4 w-4" />
         </Toggle>
 
-        <Divider />
+        <Separator orientation="vertical" />
 
         <Toggle
           aria-label="Undo"
@@ -367,7 +364,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
           <RotateCw className="h-4 w-4" />
         </Toggle>
 
-        <Divider />
+        <Separator orientation="vertical" />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -375,7 +372,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
               aria-label="Text style formatting options"
               size="sm"
               pressed={false}
-              className="gap-2 whitespace-nowrap font-normal"
+              className="shrink-0 gap-2 whitespace-nowrap font-normal"
             >
               {blockTypeElements[blockType]} <ChevronDown className="h-4 w-4" />
             </Toggle>
@@ -414,7 +411,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <Divider />
+        <Separator orientation="vertical" />
 
         <Toggle
           aria-label="Format Bold"
@@ -473,7 +470,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
           {isLink ? <Unlink className="h-4 w-4" /> : <Link className="h-4 w-4" />}
         </Toggle>
 
-        <Divider />
+        <Separator orientation="vertical" />
 
         <Toggle
           aria-label="Left Align"
@@ -511,7 +508,7 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
           <AlignJustify className="h-4 w-4" />
         </Toggle>
 
-        <Divider />
+        <Separator orientation="vertical" />
 
         <Toggle
           aria-label="Insert Horizontal Rule"
