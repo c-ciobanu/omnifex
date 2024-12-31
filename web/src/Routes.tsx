@@ -28,6 +28,7 @@ const Routes = () => {
         </Set>
 
         <Route path="/search/movies" page={SearchMoviesPage} name="searchMovies" />
+        <Route path="/search/shows" page={SearchShowsPage} name="searchShows" />
         <Route path="/search/books" page={SearchBooksPage} name="searchBooks" />
         <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
