@@ -1,0 +1,57 @@
+model Show {
+  id               Int      @id @default(autoincrement())
+  creators         String[]
+  genres           String[]
+  imdbId           String   @unique
+  originalLanguage String
+  originalTitle    String
+  overview         String
+  rating           Decimal  @db.Decimal(3, 1)
+  tagline          String?
+  title            String
+  tmdbBackdropPath String
+  tmdbId           Int      @unique
+  tmdbPosterPath   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  seasons ShowSeason[]
+}
+
+model ShowSeason {
+  id             Int      @id @default(autoincrement())
+  airDate        DateTime @db.Date
+  number         Int
+  overview       String
+  rating         Decimal  @db.Decimal(3, 1)
+  tmdbPosterPath String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  show     Show          @relation(fields: [showId], references: [id])
+  showId   Int
+  episodes ShowEpisode[]
+
+  @@unique([showId, number])
+}
+
+model ShowEpisode {
+  id            Int      @id @default(autoincrement())
+  airDate       DateTime @db.Date
+  number        Int
+  overview      String
+  rating        Decimal  @db.Decimal(3, 1)
+  runtime       Int
+  title         String
+  tmdbStillPath String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  season   ShowSeason @relation(fields: [seasonId], references: [id])
+  seasonId Int
+
+  @@unique([seasonId, number])
+}
