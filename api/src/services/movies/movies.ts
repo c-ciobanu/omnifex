@@ -4,7 +4,7 @@ import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
-import { searchTMDBMovies, getTMDBMovie, TMDBSearchMovie, getTMDBMovieDirector } from 'src/lib/tmdb'
+import { getTMDBMovie, searchTMDBMovies, TMDBSearchMovie } from 'src/lib/tmdb'
 import { userDefaultMovieLists } from 'src/services/movieLists/movieLists'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
@@ -38,11 +38,12 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
   )
 
   if (!m) {
-    const [tmdbMovie, movieDirector] = await Promise.all([getTMDBMovie(tmdbId), getTMDBMovieDirector(tmdbId)])
+    const tmdbMovie = await getTMDBMovie(tmdbId)
+    const director = tmdbMovie.credits.crew.find((el) => el.job === 'Director')
 
     m = await db.movie.create({
       data: {
-        director: movieDirector,
+        director: director.name,
         genres: tmdbMovie.genres.map((genre) => genre.name),
         imdbId: tmdbMovie.imdb_id,
         originalLanguage: tmdbMovie.original_language,

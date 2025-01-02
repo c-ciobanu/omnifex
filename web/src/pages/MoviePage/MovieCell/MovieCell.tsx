@@ -64,9 +64,9 @@ export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
             {movie.releaseDate.split('-')[0]}
             {' · '}
             {formatMinutesToHoursAndMinutes(movie.runtime)}
-            {' ·  '}
+            {' · '}
             <Star className="mx-1 h-5 w-5 fill-yellow-300 text-yellow-300" />
-            <span className="text-lg font-bold text-gray-900">{movie.rating}</span>/10
+            <span className="font-medium text-gray-900">{movie.rating}</span>/10
           </h4>
 
           <div className="mt-6 flex items-start gap-6">
