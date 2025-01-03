@@ -31,6 +31,7 @@ const Routes = () => {
         <Route path="/search/shows" page={SearchShowsPage} name="searchShows" />
         <Route path="/search/books" page={SearchBooksPage} name="searchBooks" />
         <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
+        <Route path="/shows/{tmdbId:Int}" page={ShowPage} name="show" />
         <Route path="/books/{googleId:String}" page={BookPage} name="book" />
         <Route path="/documents/{id:String}" page={DocumentPage} name="document" />
         <Route path="/tools/pomodoro" page={PomodoroTimerPage} name="pomodoro" />

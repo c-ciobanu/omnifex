@@ -1,6 +1,6 @@
 import type { ShowsQuery } from 'types/graphql'
 
-import { Link } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 import type { CellFailureProps, CellSuccessProps } from '@redwoodjs/web'
 
 export const QUERY = gql`
@@ -27,7 +27,11 @@ export const Success = ({ shows }: CellSuccessProps<ShowsQuery>) => {
       {shows.map((show) => {
         return (
           <li key={show.tmdbId}>
-            <Link to="#" title={show.title} className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-white">
+            <Link
+              to={routes.show({ tmdbId: show.tmdbId })}
+              title={show.title}
+              className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-white"
+            >
               <img src={show.posterUrl} alt={`${show.title} poster`} className="h-44 w-full" />
               <div>
                 <p>{show.title}</p>

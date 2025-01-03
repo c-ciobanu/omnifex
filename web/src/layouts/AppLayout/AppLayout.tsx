@@ -28,6 +28,7 @@ const authenticatedNavigation = [
 ]
 const guestNavigation = [
   { name: 'Search Movies', href: () => routes.searchMovies() },
+  { name: 'Search Shows', href: () => routes.searchShows() },
   { name: 'Search Books', href: () => routes.searchBooks() },
   { name: 'Invoices', href: () => routes.invoices() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
