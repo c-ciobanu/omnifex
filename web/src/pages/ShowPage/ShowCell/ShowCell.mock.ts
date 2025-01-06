@@ -9,5 +9,37 @@ export const standard = () => ({
     rating: 8.7,
     tagline: 'Family. Redefined.',
     title: 'The Sopranos',
+    seasons: [
+      {
+        id: 1,
+        number: 1,
+        posterUrl: 'http://image.tmdb.org/t/p/w342/3NsJzafk0Sp7yE9yShzQsybHw4x.jpg',
+      },
+      {
+        id: 2,
+        number: 2,
+        posterUrl: 'http://image.tmdb.org/t/p/w342/wvCOKWM1abB5CfuWKqDYeMRV3lN.jpg',
+      },
+      {
+        id: 3,
+        number: 3,
+        posterUrl: 'http://image.tmdb.org/t/p/w342/zFuz2PgkHDr9Lx5YAEmiWbXKCio.jpg',
+      },
+      {
+        id: 4,
+        number: 4,
+        posterUrl: 'http://image.tmdb.org/t/p/w342/q01fVFY7rQEMMnexa9Urv7NOdKO.jpg',
+      },
+      {
+        id: 5,
+        number: 5,
+        posterUrl: 'http://image.tmdb.org/t/p/w342/p651eYM0Vd0CWDvndbMyaS0lDeD.jpg',
+      },
+      {
+        id: 6,
+        number: 6,
+        posterUrl: 'http://image.tmdb.org/t/p/w342/b1P9PAUI18mb62N0DtHOd71L3CT.jpg',
+      },
+    ],
   },
 })

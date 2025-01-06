@@ -1,4 +1,4 @@
-import { Prisma, Show as PrismaShow } from '@prisma/client'
+import { Prisma, Show as PrismaShow, ShowSeason } from '@prisma/client'
 import type { QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
@@ -19,14 +19,24 @@ export const shows: QueryResolvers['shows'] = async ({ title }) => {
   }))
 }
 
-type CachedPrismaShow = Omit<PrismaShow, 'createdAt' | 'updatedAt' | 'rating'> & {
+type CachedPrismaSeason = Omit<
+  Prisma.ShowGetPayload<{ include: { seasons: true } }>['seasons'][number],
+  'createdAt' | 'updatedAt' | 'rating'
+> & {
   rating: string
   createdAt: string
   updatedAt: string
 }
 
+type CachedPrismaShow = Omit<PrismaShow, 'createdAt' | 'updatedAt' | 'rating'> & {
+  rating: string
+  createdAt: string
+  updatedAt: string
+  seasons: CachedPrismaSeason[]
+}
+
 export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
-  let s: PrismaShow | CachedPrismaShow = await cache(
+  let s: Prisma.ShowGetPayload<{ include: { seasons: true } }> | CachedPrismaShow = await cache(
     ['show', tmdbId.toString()],
     () => db.show.findUnique({ where: { tmdbId }, include: { seasons: true } }),
     { expires: 60 * 60 * 24 * 31 }
@@ -73,6 +83,7 @@ export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
           })),
         },
       },
+      include: { seasons: true },
     })
   }
 
@@ -81,5 +92,10 @@ export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
     backdropUrl: `http://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
     posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
     rating: new Prisma.Decimal(s.rating),
+    seasons: s.seasons.map((season: ShowSeason | CachedPrismaSeason) => ({
+      ...season,
+      posterUrl: `http://image.tmdb.org/t/p/w342${season.tmdbPosterPath}`,
+      rating: new Prisma.Decimal(season.rating).toNumber(),
+    })),
   }
 }

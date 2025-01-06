@@ -21,6 +21,16 @@ export const schema = gql`
     tagline: String
     title: String!
     tmdbId: Int!
+    seasons: [Season!]!
+  }
+
+  type Season {
+    id: Int!
+    airDate: DateTime!
+    number: Int!
+    overview: String!
+    posterUrl: String!
+    rating: Float!
   }
 
   type Query {

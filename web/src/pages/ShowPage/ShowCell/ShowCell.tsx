@@ -14,6 +14,11 @@ export const QUERY = gql`
       rating
       tagline
       title
+      seasons {
+        id
+        number
+        posterUrl
+      }
     }
   }
 `
@@ -38,10 +43,10 @@ export const Success = ({ show }: CellSuccessProps<ShowQuery>) => {
 
         <p>Created by: {show.creators.join(', ')}</p>
 
-        <h4 className="flex items-center text-gray-400">
+        <p className="flex items-center text-gray-400">
           <Star className="mx-1 h-5 w-5 fill-yellow-300 text-yellow-300" />
           <span className="font-medium text-gray-900">{show.rating}</span>/10
-        </h4>
+        </p>
 
         <div className="mt-6 flex items-start gap-6">
           <img src={show.posterUrl} alt={`${show.title} poster`} className="w-1/4" />
@@ -59,6 +64,18 @@ export const Success = ({ show }: CellSuccessProps<ShowQuery>) => {
             </div>
             <p className="prose max-w-none">{show.overview}</p>
           </div>
+        </div>
+
+        <div className="mt-6 space-y-6">
+          <h4 className="text-lg font-semibold">{show.seasons.length} Seasons</h4>
+
+          <ol className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {show.seasons.map((season) => (
+              <li key={season.id}>
+                <img src={season.posterUrl} alt={`Season ${season.number} poster`} />
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </>
