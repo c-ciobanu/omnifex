@@ -14,6 +14,7 @@ import { Button } from 'src/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from 'src/components/ui/command'
 import { Input } from 'src/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
+import { Textarea } from 'src/components/ui/textarea'
 import { cn } from 'src/lib/utils'
 
 interface FormInputProps extends React.ComponentProps<typeof Input> {
@@ -35,6 +36,36 @@ const FormInput = (props: FormInputProps) => {
 
           <FormControl>
             <Input {...inputProps} {...register} />
+          </FormControl>
+
+          {description ? <FormDescription>{description}</FormDescription> : null}
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+interface FormTextareaProps extends React.ComponentProps<typeof Textarea> {
+  validation?: FormRegisterOptions
+  label?: string
+  description?: string
+}
+
+const FormTextarea = (props: FormTextareaProps) => {
+  const { name, className, label, description, validation, ...textareaProps } = props
+
+  return (
+    <FormField
+      name={name}
+      validation={validation}
+      render={(register) => (
+        <FormItem className={className}>
+          {label ? <FormLabel>{label}</FormLabel> : null}
+
+          <FormControl>
+            <Textarea {...textareaProps} {...register} />
           </FormControl>
 
           {description ? <FormDescription>{description}</FormDescription> : null}
@@ -114,4 +145,4 @@ const FormCombobox = (props: FormComboboxProps) => {
   )
 }
 
-export { FormCombobox, FormInput }
+export { FormCombobox, FormInput, FormTextarea }
