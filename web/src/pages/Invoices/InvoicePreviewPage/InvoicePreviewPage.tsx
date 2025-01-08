@@ -28,13 +28,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
           <section className="flex justify-end">
             <div className="w-56 space-y-2">
               <p>{invoice.seller.name}</p>
-              <div>
-                <p>{invoice.seller.address}</p>
-                <p>
-                  {invoice.seller.postcode}, {invoice.seller.city}
-                </p>
-                <p>{invoice.seller.country}</p>
-              </div>
+              <p className="whitespace-pre-line">{invoice.seller.address}</p>
               <p>{invoice.seller.vatId}</p>
             </div>
           </section>
@@ -48,13 +42,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
             <section className="w-56 space-y-2">
               <p className="font-bold leading-10">Issued to</p>
               <p>{invoice.buyer.name}</p>
-              <div>
-                <p>{invoice.buyer.address}</p>
-                <p>
-                  {invoice.buyer.postcode}, {invoice.buyer.city}
-                </p>
-                <p>{invoice.buyer.country}</p>
-              </div>
+              <p className="whitespace-pre-line">{invoice.buyer.address}</p>
               <p>{invoice.buyer.vatId}</p>
             </section>
 
