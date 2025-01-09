@@ -83,13 +83,24 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
           </table>
 
           <div className="flex justify-end">
-            <div className="grid w-2/6 grid-cols-2 *:pl-4">
+            <div className="grid w-2/6 grid-cols-2 gap-y-2 *:pl-4">
               <p className="font-medium">Total</p>
               <p>
                 {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
                   invoice.total
                 )}
               </p>
+              {invoice.secondaryCurrency ? (
+                <>
+                  <p></p>
+                  <p>
+                    {new Intl.NumberFormat('en-UK', {
+                      style: 'currency',
+                      currency: invoice.secondaryCurrency.name,
+                    }).format(invoice.total * invoice.secondaryCurrency.exchangeRate)}
+                  </p>
+                </>
+              ) : null}
             </div>
           </div>
 

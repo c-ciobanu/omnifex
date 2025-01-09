@@ -23,6 +23,12 @@ type FormValues = {
     swift: string
   }
   currency: string
+  secondaryCurrency?: {
+    name: string
+    exchangeRate: number
+    table: string
+    date: string
+  }
   seller: {
     name: string
     address: string
@@ -198,14 +204,38 @@ const NewInvoicePage = () => {
               </fieldset>
             </div>
 
-            <fieldset className="w-80 space-y-2">
+            <div className="w-80">
               <FormCombobox
                 name="currency"
                 options={Intl.supportedValuesOf('currency').map((e) => ({ value: e, label: e }))}
                 validation={{ required: true }}
                 label="Currency"
               />
+
+              <Separator className="my-6" />
+
+              <fieldset className="space-y-2">
+                <FormCombobox
+                  name="secondaryCurrency.name"
+                  options={Intl.supportedValuesOf('currency').map((e) => ({ value: e, label: e }))}
+                  label="Secondary currency"
+                />
+                <FormInput
+                  name="secondaryCurrency.exchangeRate"
+                  type="number"
+                  min={0}
+                  step={0.0001}
+                  label="Exchange rate"
+                />
+                <FormInput name="secondaryCurrency.table" label="Table" />
+                <FormInput
+                  name="secondaryCurrency.date"
+                  type="date"
+                  validation={{ setValueAs: (s) => s }}
+                  label="Date"
+              />
             </fieldset>
+            </div>
           </CardContent>
         </Card>
 
