@@ -69,20 +69,16 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
             </thead>
 
             <tbody>
-              <tr className="*:px-4 *:py-2">
-                <td>
-                  <p>{invoice.items[0].name}</p>
-                </td>
-                <td>
-                  <p>{invoice.items[0].quantity}</p>
-                </td>
-                <td>
-                  <p>
-                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(invoice.items[0].unitPrice)}
-                  </p>
-                </td>
-                <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(invoice.items[0].price)}</td>
-              </tr>
+              {invoice.items.map((item) => (
+                <tr key={item.name} className="*:px-4 *:py-2">
+                  <td>{item.name}</td>
+                  <td>
+                    {item.quantity} {item.unit}
+                  </td>
+                  <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.unitPrice)}</td>
+                  <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.price)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
 

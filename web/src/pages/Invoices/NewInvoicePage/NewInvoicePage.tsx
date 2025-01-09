@@ -36,6 +36,7 @@ type FormValues = {
   items: {
     name: string
     quantity: number
+    unit?: string
     unitPrice: number
     price: number
   }[]
@@ -73,6 +74,9 @@ const Item = ({ number, formMethods, onRemove }: ItemProps) => {
       </td>
       <td>
         <FormInput name={`items.${number}.quantity`} type="number" min={0} validation={{ required: true }} />
+      </td>
+      <td>
+        <FormInput name={`items.${number}.unit`} placeholder="hrs" />
       </td>
       <td>
         <FormInput name={`items.${number}.unitPrice`} type="number" min={0} validation={{ required: true }} />
@@ -220,6 +224,7 @@ const NewInvoicePage = () => {
                 <tr className="*:px-4 *:py-2 *:text-left *:font-medium">
                   <th className="w-1/2">Item</th>
                   <th className="w-1/6">Quantity</th>
+                  <th className="w-1/6">Quantity unit</th>
                   <th className="w-1/6">Unit price</th>
                   <th className="w-1/6">Price</th>
                   <th></th>
@@ -232,6 +237,7 @@ const NewInvoicePage = () => {
                 ))}
 
                 <tr className="*:px-4 *:py-2 *:pt-6">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
