@@ -4,6 +4,8 @@ import { useLocalStorage } from '@uidotdev/usehooks'
 
 import { Metadata } from '@redwoodjs/web'
 
+import { Separator } from 'src/components/ui/separator'
+
 import { Invoice } from '../NewInvoicePage/NewInvoicePage'
 
 type InvoicePreviewProps = {
@@ -23,96 +25,191 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
     <>
       <Metadata title="Invoice Preview" />
 
-      <div className="mx-auto flex min-h-dvh max-w-screen-lg flex-col justify-between bg-white p-6 print:max-w-full print:p-0">
+      <div className="mx-auto flex min-h-dvh max-w-screen-lg flex-col justify-between bg-white p-8 print:max-w-full print:p-0">
         <div className="space-y-8">
-          <section className="flex justify-end">
-            <div className="w-56 space-y-2">
-              <p>{invoice.seller.name}</p>
-              <p className="whitespace-pre-line">{invoice.seller.address}</p>
-              <p>{invoice.seller.vatId}</p>
+          <section className="flex justify-between">
+            <div>
+              <h2 className="text-3xl font-bold">INVOICE</h2>
+              <p>
+                No. <span className="font-semibold text-black">{invoice.number}</span>
+              </p>
+            </div>
+
+            <div className="text-right">
+              <p>Issue date: {invoice.issueDate}</p>
+              <p>Due date: {invoice.dueDate}</p>
             </div>
           </section>
 
-          <div className="relative flex items-center">
-            <hr className="h-px w-full bg-gray-200" />
-            <span className="absolute right-56 ml-4 translate-x-[calc(100%-16px)] bg-white px-4">INVOICE</span>
-          </div>
+          <Separator />
 
-          <div className="flex justify-between">
-            <section className="w-56 space-y-2">
-              <p className="font-bold leading-10">Issued to</p>
-              <p>{invoice.buyer.name}</p>
-              <p className="whitespace-pre-line">{invoice.buyer.address}</p>
-              <p>{invoice.buyer.vatId}</p>
-            </section>
+          <section className="grid grid-cols-2 gap-12">
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold">From</h3>
 
-            <section className="grid grid-cols-[auto_14rem] content-start items-center gap-2">
-              <p className="font-bold">Invoice No.</p>
-              <p>{invoice.number}</p>
-              <p className="font-bold">Issue date</p>
-              <p>{invoice.issueDate}</p>
-              <p className="font-bold">Due date</p>
-              <p>{invoice.dueDate}</p>
-              <p className="font-bold">Payment type</p>
-              <p>{invoice.paymentType}</p>
-            </section>
-          </div>
+              <div className="space-y-2">
+                <p className="font-semibold">{invoice.seller.name}</p>
+                <p className="whitespace-pre-line">{invoice.seller.address}</p>
+                <p>Tax ID: {invoice.seller.vatId}</p>
+                <div>
+                  <p>Payment type: {invoice.paymentType}</p>
+                  <p>Bank: {invoice.paymentDetails.bankName}</p>
+                  <p>IBAN: {invoice.paymentDetails.iban}</p>
+                  <p>SWIFT: {invoice.paymentDetails.swift}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold">To</h3>
+
+              <div className="space-y-2">
+                <p className="font-semibold">{invoice.buyer.name}</p>
+                <p className="whitespace-pre-line">{invoice.buyer.address}</p>
+                <p>Tax ID: {invoice.buyer.vatId}</p>
+              </div>
+            </div>
+          </section>
 
           <table className="w-full">
-            <thead className="bg-yellow-100">
-              <tr className="*:px-4 *:py-2 *:text-left *:font-medium">
-                <th className="w-1/2">Item</th>
-                <th className="w-1/6">Quantity</th>
-                <th className="w-1/6">Unit price</th>
-                <th className="w-1/6">Price</th>
+            <thead>
+              <tr className="border-y *:py-2 *:font-semibold">
+                <th className="text-left">Item description</th>
+                <th className="w-1/6 text-right">Quantity</th>
+                <th className="w-1/6 text-right">
+                  Unit price {invoice.secondaryCurrency ? `(${invoice.currency})` : ''}
+                </th>
+                <th className="w-1/6 text-right">Price {invoice.secondaryCurrency ? `(${invoice.currency})` : ''}</th>
               </tr>
             </thead>
 
             <tbody>
               {invoice.items.map((item) => (
-                <tr key={item.name} className="*:px-4 *:py-2">
-                  <td>{item.name}</td>
-                  <td>
+                <tr key={item.name} className="*:py-2">
+                  <td className="text-left">{item.name}</td>
+                  <td className="text-right">
                     {item.quantity} {item.unit}
                   </td>
-                  <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.unitPrice)}</td>
-                  <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.price)}</td>
+                  <td className="text-right">
+                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.unitPrice)}
+                  </td>
+                  <td className="text-right">
+                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.price)}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div className="flex justify-end">
-            <div className="grid w-2/6 grid-cols-2 gap-y-2 *:pl-4">
-              <p className="font-medium">Total</p>
-              <p>
-                {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
-                  invoice.total
-                )}
-              </p>
-              {invoice.secondaryCurrency ? (
-                <>
-                  <p></p>
-                  <p>
-                    {new Intl.NumberFormat('en-UK', {
-                      style: 'currency',
-                      currency: invoice.secondaryCurrency.name,
-                    }).format(invoice.total * invoice.secondaryCurrency.exchangeRate)}
-                  </p>
-                </>
-              ) : null}
-            </div>
-          </div>
+          {invoice.secondaryCurrency ? (
+            <section className="flex justify-end">
+              <table className="w-72">
+                <thead>
+                  <tr className="border-y *:py-2 *:font-semibold">
+                    <th className="text-left">Currency</th>
+                    <th className="text-right">Total</th>
+                  </tr>
+                </thead>
 
-          <section className="inline-grid grid-cols-[auto_14rem] content-start items-center gap-x-4">
-            <p className="col-span-2 font-bold">Payment Details</p>
-            <p className="font-bold">Bank</p>
-            <p>{invoice.paymentDetails.bankName}</p>
-            <p className="font-bold">IBAN</p>
-            <p>{invoice.paymentDetails.iban}</p>
-            <p className="font-bold">SWIFT</p>
-            <p>{invoice.paymentDetails.swift}</p>
-          </section>
+                <tbody>
+                  <tr className="*:py-2">
+                    <td className="text-left">{invoice.currency}</td>
+                    <td className="text-right">
+                      {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(invoice.total)}
+                    </td>
+                  </tr>
+
+                  <tr className="*:py-2">
+                    <td className="text-left">{invoice.secondaryCurrency.name}</td>
+                    <td className="text-right">
+                      {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(
+                        invoice.total * invoice.secondaryCurrency.exchangeRate
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          ) : (
+            <section className="flex justify-end">
+              <div className="w-72 space-y-2">
+                <Separator />
+
+                <div className="flex justify-between">
+                  <span>Total:</span>
+                  <span className="font-semibold">
+                    {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
+                      invoice.total
+                    )}
+                  </span>
+                </div>
+
+                <Separator />
+
+                <div className="flex justify-between">
+                  <span>Paid:</span>
+                  <span>
+                    {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(0)}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span>Due:</span>
+                  <span className="font-semibold">
+                    {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
+                      invoice.total
+                    )}
+                  </span>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {invoice.secondaryCurrency ? (
+            <>
+              <Separator />
+
+              <section>
+                <p>
+                  Exchange rate 1 {invoice.currency} = {invoice.secondaryCurrency.exchangeRate}{' '}
+                  {invoice.secondaryCurrency.name} (Table {invoice.secondaryCurrency.table} date{' '}
+                  {invoice.secondaryCurrency.date})
+                </p>
+                <p>
+                  Total:{' '}
+                  {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
+                    invoice.total
+                  )}{' '}
+                  (
+                  {new Intl.NumberFormat('en-UK', {
+                    style: 'currency',
+                    currency: invoice.secondaryCurrency.name,
+                  }).format(invoice.total * invoice.secondaryCurrency.exchangeRate)}
+                  )
+                </p>
+                <p>
+                  Paid: {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(0)} (
+                  {new Intl.NumberFormat('en-UK', {
+                    style: 'currency',
+                    currency: invoice.secondaryCurrency.name,
+                  }).format(0)}
+                  )
+                </p>
+                <p>
+                  Due:{' '}
+                  {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(
+                    invoice.total
+                  )}{' '}
+                  (
+                  {new Intl.NumberFormat('en-UK', {
+                    style: 'currency',
+                    currency: invoice.secondaryCurrency.name,
+                  }).format(invoice.total * invoice.secondaryCurrency.exchangeRate)}
+                  )
+                </p>
+              </section>
+            </>
+          ) : null}
         </div>
 
         <footer className="text-center">{invoice.footer}</footer>
