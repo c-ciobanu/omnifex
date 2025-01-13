@@ -21,7 +21,7 @@ export const schema = gql`
     tagline: String
     title: String!
     tmdbId: Int!
-    seasons: [Season!]!
+    seasons: [Season!]
   }
 
   type Season {
@@ -31,10 +31,23 @@ export const schema = gql`
     overview: String!
     posterUrl: String!
     rating: Float!
+    episodes: [Episode!]
+  }
+
+  type Episode {
+    id: Int!
+    airDate: DateTime!
+    number: Int!
+    overview: String!
+    rating: Float!
+    runtime: Int!
+    stillUrl: String!
+    title: String!
   }
 
   type Query {
     shows(title: String!): [SearchShow!]! @skipAuth
     show(tmdbId: Int!): Show @skipAuth
+    season(showTmdbId: Int!, seasonNumber: Int!): Season @skipAuth
   }
 `
