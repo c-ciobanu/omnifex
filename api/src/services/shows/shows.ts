@@ -105,6 +105,7 @@ export const season: QueryResolvers['season'] = async ({ showTmdbId, seasonNumbe
 
   return {
     ...s,
+    airDate: new Date(s.airDate),
     posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
     rating: new Prisma.Decimal(s.rating).toNumber(),
   }
@@ -118,6 +119,7 @@ export const Show: ShowRelationResolvers = {
 
     return seasons.map((season) => ({
       ...season,
+      airDate: new Date(season.airDate),
       posterUrl: `http://image.tmdb.org/t/p/w342${season.tmdbPosterPath}`,
       rating: new Prisma.Decimal(season.rating).toNumber(),
     }))
@@ -132,6 +134,7 @@ export const Season: SeasonRelationResolvers = {
 
     return episodes.map((episode) => ({
       ...episode,
+      airDate: new Date(episode.airDate),
       rating: new Prisma.Decimal(episode.rating).toNumber(),
       stillUrl: `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}`,
     }))

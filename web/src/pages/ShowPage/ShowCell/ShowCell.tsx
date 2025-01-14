@@ -1,6 +1,7 @@
 import { Star } from 'lucide-react'
 import type { ShowQuery } from 'types/graphql'
 
+import { Link, routes } from '@redwoodjs/router'
 import { type CellFailureProps, type CellSuccessProps, Metadata } from '@redwoodjs/web'
 
 export const QUERY = gql`
@@ -14,6 +15,7 @@ export const QUERY = gql`
       rating
       tagline
       title
+      tmdbId
       seasons {
         id
         number
@@ -72,7 +74,12 @@ export const Success = ({ show }: CellSuccessProps<ShowQuery>) => {
           <ol className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {show.seasons.map((season) => (
               <li key={season.id}>
-                <img src={season.posterUrl} alt={`Season ${season.number} poster`} />
+                <Link
+                  to={routes.showSeason({ tmdbId: show.tmdbId, number: season.number })}
+                  title={`${show.title} season ${season.number}`}
+                >
+                  <img src={season.posterUrl} alt={`Season ${season.number} poster`} />
+                </Link>
               </li>
             ))}
           </ol>

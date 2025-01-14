@@ -9,6 +9,7 @@ export const standard = () => ({
     rating: 8.7,
     tagline: 'Family. Redefined.',
     title: 'The Sopranos',
+    tmdbId: 1398,
     seasons: [
       {
         id: 1,

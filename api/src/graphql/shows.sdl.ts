@@ -26,7 +26,7 @@ export const schema = gql`
 
   type Season {
     id: Int!
-    airDate: DateTime!
+    airDate: Date!
     number: Int!
     overview: String!
     posterUrl: String!
@@ -36,7 +36,7 @@ export const schema = gql`
 
   type Episode {
     id: Int!
-    airDate: DateTime!
+    airDate: Date!
     number: Int!
     overview: String!
     rating: Float!
