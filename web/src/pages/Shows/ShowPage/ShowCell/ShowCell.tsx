@@ -75,7 +75,7 @@ export const Success = ({ show }: CellSuccessProps<ShowQuery>) => {
             {show.seasons.map((season) => (
               <li key={season.id}>
                 <Link
-                  to={routes.showSeason({ tmdbId: show.tmdbId, number: season.number })}
+                  to={routes.season({ tmdbId: show.tmdbId, number: season.number })}
                   title={`${show.title} season ${season.number}`}
                 >
                   <img src={season.posterUrl} alt={`Season ${season.number} poster`} />

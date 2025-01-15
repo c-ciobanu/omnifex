@@ -1,12 +1,12 @@
 import SeasonCell from './SeasonCell'
 
-type ShowSeasonPageProps = {
+type SeasonPageProps = {
   tmdbId: number
   number: number
 }
 
-const ShowSeasonPage = ({ tmdbId, number }: ShowSeasonPageProps) => {
+const SeasonPage = ({ tmdbId, number }: SeasonPageProps) => {
   return <SeasonCell showTmdbId={tmdbId} seasonNumber={number} />
 }
 
-export default ShowSeasonPage
+export default SeasonPage
