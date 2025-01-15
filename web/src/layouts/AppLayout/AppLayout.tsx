@@ -20,6 +20,7 @@ import { cn } from 'src/lib/utils'
 
 const authenticatedNavigation = [
   { name: 'Movies', href: () => routes.movies() },
+  { name: 'Shows', href: () => routes.shows() },
   { name: 'Books', href: () => routes.books() },
   { name: 'Documents', href: () => routes.documents() },
   { name: 'Metrics', href: () => routes.metrics() },
