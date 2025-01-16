@@ -37,6 +37,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
 
             <div className="text-right">
               <p>Issue date: {invoice.issueDate}</p>
+              {invoice.saleDate ? <p>Sale date: {invoice.saleDate}</p> : null}
               <p>Due date: {invoice.dueDate}</p>
             </div>
           </section>

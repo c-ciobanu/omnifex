@@ -15,6 +15,7 @@ import { Separator } from 'src/components/ui/separator'
 type FormValues = {
   number: string
   issueDate: string
+  saleDate?: string
   dueDate: string
   paymentType: string
   paymentDetails: {
@@ -57,7 +58,7 @@ export type Invoice = FormValues & {
 const defaultValues = {
   issueDate: new Date().toISOString().substring(0, 10),
   dueDate: new Date().toISOString().substring(0, 10),
-  items: [{ quantity: 1, unitPrice: 0 }],
+  items: [{ quantity: 1, unitPrice: 0, price: 0 }],
 }
 
 interface ItemProps {
@@ -152,6 +153,7 @@ const NewInvoicePage = () => {
                 validation={{ required: true, setValueAs: (s) => s }}
                 label="Issue date"
               />
+              <FormInput name="saleDate" type="date" validation={{ setValueAs: (s) => s }} label="Sale date" />
               <FormInput
                 name="dueDate"
                 type="date"
@@ -233,8 +235,8 @@ const NewInvoicePage = () => {
                   type="date"
                   validation={{ setValueAs: (s) => s }}
                   label="Date"
-              />
-            </fieldset>
+                />
+              </fieldset>
             </div>
           </CardContent>
         </Card>
@@ -242,7 +244,12 @@ const NewInvoicePage = () => {
         <Card className="max-w-full">
           <CardHeader className="flex-row items-center justify-between">
             <p>Items</p>
-            <Button type="button" variant="outline" size="sm" onClick={() => itemsAppend(defaultValues.items[0])}>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => itemsAppend({ ...defaultValues.items[0], name: undefined })}
+            >
               <PlusCircle />
               Add Item
             </Button>
