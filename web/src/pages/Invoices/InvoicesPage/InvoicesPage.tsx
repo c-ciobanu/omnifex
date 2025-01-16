@@ -1,7 +1,7 @@
 import { useLocalStorage } from '@uidotdev/usehooks'
 import { MoreVertical, Plus } from 'lucide-react'
 
-import { Link, routes } from '@redwoodjs/router'
+import { Link, navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -53,6 +53,9 @@ const InvoicesPage = () => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate(routes.newInvoice({ copy: invoice.id }))}>
+                    Add Next
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => window.open(routes.invoicePreview({ id: invoice.id }), '_black')}>
                     Print
                   </DropdownMenuItem>

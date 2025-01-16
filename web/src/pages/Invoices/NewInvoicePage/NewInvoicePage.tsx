@@ -4,7 +4,7 @@ import { useLocalStorage } from '@uidotdev/usehooks'
 import { PlusCircle, Trash2 } from 'lucide-react'
 
 import { Form, SubmitHandler, useFieldArray, UseFieldArrayRemove, useForm, UseFormReturn } from '@redwoodjs/forms'
-import { routes } from '@redwoodjs/router'
+import { routes, useParams } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { FormCombobox, FormInput, FormTextarea } from 'src/components/form/elements'
@@ -106,8 +106,9 @@ const Item = ({ number, formMethods, onRemove }: ItemProps) => {
 }
 
 const NewInvoicePage = () => {
+  const { copy } = useParams()
   const [invoices, setInvoices] = useLocalStorage<Invoice[]>('invoices', [])
-  const formMethods = useForm<FormValues>({ defaultValues })
+  const formMethods = useForm<FormValues>({ defaultValues: invoices.find((i) => i.id === copy) ?? defaultValues })
 
   const items = formMethods.watch('items')
   const currency = formMethods.watch('currency')
