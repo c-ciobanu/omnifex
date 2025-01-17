@@ -25,12 +25,12 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
     <>
       <Metadata title="Invoice Preview" />
 
-      <div className="mx-auto flex min-h-dvh max-w-screen-lg flex-col justify-between bg-white p-8 print:max-w-full print:p-0">
+      <div className="mx-auto flex min-h-dvh max-w-screen-lg flex-col justify-between bg-white p-8 text-sm print:max-w-full print:p-0">
         <div className="space-y-8">
           <section className="flex justify-between">
             <div>
               <h2 className="text-3xl font-bold">INVOICE</h2>
-              <p>
+              <p className="text-base">
                 No. <span className="font-semibold text-black">{invoice.number}</span>
               </p>
             </div>
@@ -46,12 +46,12 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
 
           <section className="grid grid-cols-2 gap-12">
             <div className="space-y-2">
-              <h3 className="text-lg font-bold">From</h3>
+              <h3 className="text-base font-bold">Seller</h3>
 
               <div className="space-y-2">
-                <p className="font-semibold">{invoice.seller.name}</p>
+                <p className="text-base font-semibold">{invoice.seller.name}</p>
                 <p className="whitespace-pre-line">{invoice.seller.address}</p>
-                <p>Tax ID: {invoice.seller.vatId}</p>
+                <p>VAT No: {invoice.seller.vatId}</p>
                 <div>
                   <p>Payment type: {invoice.paymentType}</p>
                   <p>Bank: {invoice.paymentDetails.bankName}</p>
@@ -62,12 +62,12 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-lg font-bold">To</h3>
+              <h3 className="text-base font-bold">Buyer</h3>
 
               <div className="space-y-2">
-                <p className="font-semibold">{invoice.buyer.name}</p>
+                <p className="text-base font-semibold">{invoice.buyer.name}</p>
                 <p className="whitespace-pre-line">{invoice.buyer.address}</p>
-                <p>Tax ID: {invoice.buyer.vatId}</p>
+                <p>VAT No: {invoice.buyer.vatId}</p>
               </div>
             </div>
           </section>
@@ -77,10 +77,8 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
               <tr className="border-y *:py-2 *:font-semibold">
                 <th className="text-left">Item description</th>
                 <th className="w-1/6 text-right">Quantity</th>
-                <th className="w-1/6 text-right">
-                  Unit price {invoice.secondaryCurrency ? `(${invoice.currency})` : ''}
-                </th>
-                <th className="w-1/6 text-right">Price {invoice.secondaryCurrency ? `(${invoice.currency})` : ''}</th>
+                <th className="w-1/6 text-right">Unit price {invoice.conversion ? `(${invoice.currency})` : ''}</th>
+                <th className="w-1/6 text-right">Price {invoice.conversion ? `(${invoice.currency})` : ''}</th>
               </tr>
             </thead>
 
@@ -102,7 +100,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
             </tbody>
           </table>
 
-          {invoice.secondaryCurrency ? (
+          {invoice.conversion ? (
             <section className="flex justify-end">
               <table className="w-72">
                 <thead>
@@ -121,10 +119,10 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
                   </tr>
 
                   <tr className="*:py-2">
-                    <td className="text-left">{invoice.secondaryCurrency.name}</td>
+                    <td className="text-left">{invoice.conversion.currency}</td>
                     <td className="text-right">
                       {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(
-                        invoice.total * invoice.secondaryCurrency.exchangeRate
+                        invoice.total * invoice.conversion.rate
                       )}
                     </td>
                   </tr>
@@ -166,15 +164,14 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
             </section>
           )}
 
-          {invoice.secondaryCurrency ? (
+          {invoice.conversion ? (
             <>
               <Separator />
 
               <section>
                 <p>
-                  Exchange rate 1 {invoice.currency} = {invoice.secondaryCurrency.exchangeRate}{' '}
-                  {invoice.secondaryCurrency.name} (Table {invoice.secondaryCurrency.table} date{' '}
-                  {invoice.secondaryCurrency.date})
+                  Exchange rate 1 {invoice.currency} = {invoice.conversion.rate} {invoice.conversion.currency} (Table{' '}
+                  {invoice.conversion.table} date {invoice.conversion.date})
                 </p>
                 <p>
                   Total:{' '}
@@ -184,15 +181,15 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
                   (
                   {new Intl.NumberFormat('en-UK', {
                     style: 'currency',
-                    currency: invoice.secondaryCurrency.name,
-                  }).format(invoice.total * invoice.secondaryCurrency.exchangeRate)}
+                    currency: invoice.conversion.currency,
+                  }).format(invoice.total * invoice.conversion.rate)}
                   )
                 </p>
                 <p>
                   Paid: {new Intl.NumberFormat('en-UK', { style: 'currency', currency: invoice.currency }).format(0)} (
                   {new Intl.NumberFormat('en-UK', {
                     style: 'currency',
-                    currency: invoice.secondaryCurrency.name,
+                    currency: invoice.conversion.currency,
                   }).format(0)}
                   )
                 </p>
@@ -204,8 +201,8 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
                   (
                   {new Intl.NumberFormat('en-UK', {
                     style: 'currency',
-                    currency: invoice.secondaryCurrency.name,
-                  }).format(invoice.total * invoice.secondaryCurrency.exchangeRate)}
+                    currency: invoice.conversion.currency,
+                  }).format(invoice.total * invoice.conversion.rate)}
                   )
                 </p>
               </section>

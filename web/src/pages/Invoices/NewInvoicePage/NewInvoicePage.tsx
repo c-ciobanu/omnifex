@@ -24,9 +24,9 @@ type FormValues = {
     swift: string
   }
   currency: string
-  secondaryCurrency?: {
-    name: string
-    exchangeRate: number
+  conversion?: {
+    currency: string
+    rate: number
     table: string
     date: string
   }
@@ -127,7 +127,12 @@ const NewInvoicePage = () => {
     const invoiceId = (Number(invoices[invoices.length - 1]?.id ?? '0') + 1).toString()
     const total = items.reduce((a, item) => a + item.price, 0)
 
-    const invoice = { ...data, id: invoiceId, total }
+    const invoice = {
+      ...data,
+      id: invoiceId,
+      total,
+      conversion: data.conversion.currency ? data.conversion : undefined,
+    }
 
     setInvoices((state) => state.concat([invoice]))
 
@@ -219,24 +224,13 @@ const NewInvoicePage = () => {
 
               <fieldset className="space-y-2">
                 <FormCombobox
-                  name="secondaryCurrency.name"
+                  name="conversion.currency"
                   options={Intl.supportedValuesOf('currency').map((e) => ({ value: e, label: e }))}
-                  label="Secondary currency"
+                  label="Show converted prices in"
                 />
-                <FormInput
-                  name="secondaryCurrency.exchangeRate"
-                  type="number"
-                  min={0}
-                  step={0.0001}
-                  label="Exchange rate"
-                />
-                <FormInput name="secondaryCurrency.table" label="Table" />
-                <FormInput
-                  name="secondaryCurrency.date"
-                  type="date"
-                  validation={{ setValueAs: (s) => s }}
-                  label="Date"
-                />
+                <FormInput name="conversion.rate" type="number" min={0} step={0.0001} label="Exchange rate" />
+                <FormInput name="conversion.table" label="Table" />
+                <FormInput name="conversion.date" type="date" validation={{ setValueAs: (s) => s }} label="Date" />
               </fieldset>
             </div>
           </CardContent>
