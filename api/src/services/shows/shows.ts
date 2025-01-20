@@ -1,9 +1,12 @@
 import { Prisma, Show as PrismaShow, ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason } from '@prisma/client'
+import { DefaultShowLists } from 'common'
 import type { QueryResolvers, SeasonRelationResolvers, ShowRelationResolvers } from 'types/graphql'
 
 import { cache, cacheFindMany } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows, TMDBSearchShow } from 'src/lib/tmdb'
+
+import { userDefaultShowLists } from '../showLists/showLists'
 
 type CachedPrismaShow = Omit<PrismaShow, 'createdAt' | 'updatedAt' | 'rating'> & {
   rating: string
@@ -123,6 +126,29 @@ export const Show: ShowRelationResolvers = {
       posterUrl: `http://image.tmdb.org/t/p/w342${season.tmdbPosterPath}`,
       rating: new Prisma.Decimal(season.rating).toNumber(),
     }))
+  },
+  userInfo: async (_obj, { root }) => {
+    if (context.currentUser) {
+      const userLists = await userDefaultShowLists()
+
+      const watchedShowCount = await db.showListItem.count({
+        where: { showId: root.id, listId: userLists[DefaultShowLists.Watched].id },
+      })
+      const toWatchShowCount = await db.showListItem.count({
+        where: { showId: root.id, listId: userLists[DefaultShowLists.Watchlist].id },
+      })
+      const abandonedShowCount = await db.showListItem.count({
+        where: { showId: root.id, listId: userLists[DefaultShowLists.Abandoned].id },
+      })
+
+      return {
+        watched: watchedShowCount === 1,
+        inWatchlist: toWatchShowCount === 1,
+        abandoned: abandonedShowCount === 1,
+      }
+    }
+
+    return null
   },
 }
 

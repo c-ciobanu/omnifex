@@ -22,6 +22,7 @@ export const schema = gql`
     title: String!
     tmdbId: Int!
     seasons: [Season!]
+    userInfo: ShowUserInfo
   }
 
   type Season {
@@ -43,6 +44,12 @@ export const schema = gql`
     runtime: Int!
     stillUrl: String!
     title: String!
+  }
+
+  type ShowUserInfo {
+    watched: Boolean!
+    inWatchlist: Boolean!
+    abandoned: Boolean!
   }
 
   type Query {
