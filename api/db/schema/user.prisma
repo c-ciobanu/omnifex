@@ -13,6 +13,7 @@ model User {
   metrics    Metric[]
   documents  Document[]
   movieLists MovieList[]
+  showLists  ShowList[]
   bookLists  BookList[]
   workouts   Workout[]
 }
