@@ -51,7 +51,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
               <div className="space-y-2">
                 <p className="text-base font-semibold">{invoice.seller.name}</p>
                 <p className="whitespace-pre-line">{invoice.seller.address}</p>
-                <p>VAT No: {invoice.seller.vatId}</p>
+                <p>VAT No.: {invoice.seller.vatId}</p>
                 <div>
                   <p>Payment type: {invoice.paymentType}</p>
                   <p>Bank: {invoice.paymentDetails.bankName}</p>
@@ -67,7 +67,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
               <div className="space-y-2">
                 <p className="text-base font-semibold">{invoice.buyer.name}</p>
                 <p className="whitespace-pre-line">{invoice.buyer.address}</p>
-                <p>VAT No: {invoice.buyer.vatId}</p>
+                <p>VAT No.: {invoice.buyer.vatId}</p>
               </div>
             </div>
           </section>

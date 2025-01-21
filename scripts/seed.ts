@@ -1,6 +1,7 @@
 import { db } from 'api/src/lib/db'
 import { minioClient } from 'api/src/lib/minio'
 import { DefaultBookLists, DefaultMovieLists, DefaultShowLists } from 'common'
+import { createClient } from 'redis'
 
 import { hashPassword } from '@redwoodjs/auth-dbauth-api'
 
@@ -1111,6 +1112,11 @@ const books = [
 
 export default async () => {
   try {
+    const cacheClient = await createClient({ url: process.env.CACHE_HOST })
+    await cacheClient.connect()
+    await cacheClient.flushDb()
+    await cacheClient.disconnect()
+
     await db.movie.createMany({ data: movies })
     await db.book.createMany({ data: books })
     await db.show.createMany({ data: shows })
