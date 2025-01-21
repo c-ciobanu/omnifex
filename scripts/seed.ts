@@ -1,7 +1,6 @@
 import { db } from 'api/src/lib/db'
 import { minioClient } from 'api/src/lib/minio'
-import { DefaultBookLists } from 'common'
-import { DefaultMovieLists } from 'common'
+import { DefaultBookLists, DefaultMovieLists, DefaultShowLists } from 'common'
 
 import { hashPassword } from '@redwoodjs/auth-dbauth-api'
 
@@ -495,6 +494,437 @@ const movies = [
   },
 ]
 
+const shows = [
+  {
+    creators: ['Craig Mazin'],
+    genres: ['Drama'],
+    imdbId: 'tt7366338',
+    originalLanguage: 'en',
+    originalTitle: 'Chernobyl',
+    overview:
+      'The true story of one of the worst man-made catastrophes in history: the catastrophic nuclear accident at Chernobyl. A tale of the brave men and women who sacrificed to save Europe from unimaginable disaster.',
+    rating: '8.7',
+    tagline: 'What is the cost of lies?',
+    title: 'Chernobyl',
+    tmdbBackdropPath: '/20eIP9o5ebArmu2HxJutaBjhLf4.jpg',
+    tmdbId: 87108,
+    tmdbPosterPath: '/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg',
+  },
+  {
+    creators: ['Richard Gadd'],
+    genres: ['Drama'],
+    imdbId: 'tt13649112',
+    originalLanguage: 'en',
+    originalTitle: 'Baby Reindeer',
+    overview:
+      'When a struggling comedian shows one act of kindness to a vulnerable woman, it sparks a suffocating obsession which threatens to wreck both their lives.',
+    rating: '7.6',
+    tagline: null,
+    title: 'Baby Reindeer',
+    tmdbBackdropPath: '/2qLYxCyxf4fim0X5OqM5FjZqWXu.jpg',
+    tmdbId: 241259,
+    tmdbPosterPath: '/tN9OcbkAOPwHSr1sgMornZtQZBx.jpg',
+  },
+  {
+    creators: [],
+    genres: ['Drama', 'War & Politics'],
+    imdbId: 'tt0185906',
+    originalLanguage: 'en',
+    originalTitle: 'Band of Brothers',
+    overview:
+      "Drawn from interviews with survivors of Easy Company, as well as their journals and letters, Band of Brothers chronicles the experiences of these men from paratrooper training in Georgia through the end of the war. As an elite rifle company parachuting into Normandy early on D-Day morning, participants in the Battle of the Bulge, and witness to the horrors of war, the men of Easy knew extraordinary bravery and extraordinary fear - and became the stuff of legend. Based on Stephen E. Ambrose's acclaimed book of the same name.",
+    rating: '8.6',
+    tagline: 'There was a time when the world asked ordinary men to do extraordinary things.',
+    title: 'Band of Brothers',
+    tmdbBackdropPath: '/2yDV0xLyqW88dn5qE7YCRnoYmfy.jpg',
+    tmdbId: 4613,
+    tmdbPosterPath: '/8JMXquNmdMUy2n2RgW8gfOM0O3l.jpg',
+  },
+  {
+    creators: ['Danny Strong'],
+    genres: ['Crime', 'Drama'],
+    imdbId: 'tt9174558',
+    originalLanguage: 'en',
+    originalTitle: 'Dopesick',
+    overview:
+      'The story of how one company triggered the worst drug epidemic in American history. Look into the epicenter of America\'s struggle with opioid addiction, from a distressed Virginia mining community, to the hallways of the DEA, and to the opulence of "one percenter" Big Pharma Manhattan.',
+    rating: '8.0',
+    tagline: 'The true story of how America got hooked on a lie.',
+    title: 'Dopesick',
+    tmdbBackdropPath: '/uJxG5mIb6gUuFt9OGUUCVikserY.jpg',
+    tmdbId: 110695,
+    tmdbPosterPath: '/qW8Gpddy29faTcD7VuyKjwLXbKU.jpg',
+  },
+]
+
+const seasons = [
+  {
+    showId: 1,
+    airDate: new Date('2019-05-06'),
+    number: 1,
+    overview: '',
+    rating: '9.0',
+    tmdbPosterPath: '/aV0PbVnDPsfy5HFZqjiZfNNgcTU.jpg',
+  },
+  {
+    showId: 2,
+    airDate: new Date('2024-04-11'),
+    number: 1,
+    overview: '',
+    rating: '7.8',
+    tmdbPosterPath: '/jNaaG6MbOqd8ma6WnCQ6ZafE09x.jpg',
+  },
+  {
+    showId: 3,
+    airDate: new Date('2001-09-09'),
+    number: 1,
+    overview: '',
+    rating: '8.4',
+    tmdbPosterPath: '/1dTx3cRcSpaOCe0mXOVEBjz25z3.jpg',
+  },
+  {
+    showId: 4,
+    airDate: new Date('2021-10-13'),
+    number: 1,
+    overview: '',
+    rating: '8.2',
+    tmdbPosterPath: '/qW8Gpddy29faTcD7VuyKjwLXbKU.jpg',
+  },
+]
+
+const episodes = [
+  {
+    airDate: new Date('2019-05-06'),
+    number: 1,
+    overview:
+      'April 26, 1986, Ukrainian SSR. Plant workers and firefighters put their lives on the line to control a catastrophic 1986 explosion at a Soviet nuclear power plant.',
+    rating: '8.8',
+    runtime: 61,
+    title: '1:23:45',
+    tmdbStillPath: '/thaMHLz5l6TVL8R4EzaBkjn2EZA.jpg',
+    seasonId: 1,
+  },
+  {
+    airDate: new Date('2019-05-13'),
+    number: 2,
+    overview:
+      'With untold millions at risk after the Chernobyl explosion, nuclear physicist Ulana Khomyuk makes a desperate attempt to reach Valery Legasov, a leading Soviet nuclear physicist, and warn him about the threat of second explosion that could devastate the continent.',
+    rating: '9.2',
+    runtime: 66,
+    title: 'Please Remain Calm',
+    tmdbStillPath: '/kVsUEtOOYeLRmABVuZztl4k9onO.jpg',
+    seasonId: 1,
+  },
+  {
+    airDate: new Date('2019-05-20'),
+    number: 3,
+    overview:
+      "Lyudmilla Ignatenko, a Pripyat resident, ignores warning about her firefighter husband's contamination. Valery Legasov lays out a decontamination plan, complete with human risks.",
+    rating: '9.0',
+    runtime: 64,
+    title: 'Open Wide, O Earth',
+    tmdbStillPath: '/f3AgIEfGWWO3qNoxymagUqCBaE8.jpg',
+    seasonId: 1,
+  },
+  {
+    airDate: new Date('2019-05-27'),
+    number: 4,
+    overview:
+      'Valery Legasov and Soviet Deputy Prime Minister Boris Shcherbina consider using lunar rovers to remove radioactive debris, while Ulana Khomyuk faces government hurdles in determining the truth about the cause of the explosion.',
+    rating: '8.8',
+    runtime: 67,
+    title: 'The Happiness of All Mankind',
+    tmdbStillPath: '/xV2eVT4ejGhVn9OIMCo4uBOhmCC.jpg',
+    seasonId: 1,
+  },
+  {
+    airDate: new Date('2019-06-03'),
+    number: 5,
+    overview:
+      'Valery Legasov, Boris Shcherbina and Ulana Khomyuk risk their lives and reputations to expose the truth about Chernobyl.',
+    rating: '9.3',
+    runtime: 73,
+    title: 'Vichnaya Pamyat',
+    tmdbStillPath: '/mgXm2Y6SOFDHtD5thi2LmS7uQBj.jpg',
+    seasonId: 1,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 1,
+    overview:
+      "Struggling comedian and barman Donny meets a lonely woman claiming to be a lawyer. He offers her a cup of tea on the house, and she's instantly obsessed.",
+    rating: '7.6',
+    runtime: 33,
+    title: 'Episode 1',
+    tmdbStillPath: '/cxZFsDNJYuXok0tbBr6wGRcHD8D.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 2,
+    overview:
+      'On a date with Teri, Donny opens up about his stalker. Trying to be kind, he gives Martha false hope, which only encourages her further.',
+    rating: '7.2',
+    runtime: 28,
+    title: 'Episode 2',
+    tmdbStillPath: '/dYsm3wxygwwb6mSBvgaEIgSxN6O.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 3,
+    overview:
+      "Donny takes some time off from the pub and tries to make amends with Teri. But no matter how much he avoids Martha, he can't escape her for long.",
+    rating: '8.0',
+    runtime: 39,
+    title: 'Episode 3',
+    tmdbStillPath: '/39YGnnlZisihAO5yJzo31StWWLm.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 4,
+    overview:
+      'As Donny reports Martha to the police, it triggers the memory of a traumatic experience he had with a man he met at the Edinburgh Fringe years before.',
+    rating: '8.2',
+    runtime: 46,
+    title: 'Episode 4',
+    tmdbStillPath: '/jZBaF3biDBOxk7SzdsJF9EURWoq.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 5,
+    overview:
+      "Liz learns the truth about Martha and asks Donny to move out. It's a fresh start for him and Teri, but his memories stop them from getting truly close.",
+    rating: '7.4',
+    runtime: 29,
+    title: 'Episode 5',
+    tmdbStillPath: '/juiYyuLtcaik792whB7jZYzWuAC.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 6,
+    overview:
+      'Martha finds new ways to get to Donny: by hurting the people he loves. With the police still failing to intervene, he takes matters into his own hands.',
+    rating: '8.2',
+    runtime: 35,
+    title: 'Episode 6',
+    tmdbStillPath: '/pqQjoBNbE3VAZ6q3280zciI1Kmd.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2024-04-11'),
+    number: 7,
+    overview:
+      "For the first time in his career, Donny feels like he's going somewhere. Until he makes one careless mistake that lets Martha explode back into his life.",
+    rating: '8.2',
+    runtime: 32,
+    title: 'Episode 7',
+    tmdbStillPath: '/db23JLHDxQ4HSqlsuKFm3YWhlSA.jpg',
+    seasonId: 2,
+  },
+  {
+    airDate: new Date('2001-09-09'),
+    number: 1,
+    overview:
+      'Easy Company is introduced to Captain Sobel, who has the group undergo hard and unfair training. As a result, Sobel comes into conflict with his men, including Richard Winters, his executive officer. The company is shipped to England to prepare for D-Day.',
+    rating: '8.2',
+    runtime: 73,
+    title: 'Currahee',
+    tmdbStillPath: '/ic7AgPLAvWT9Vu3Rzv7AnuyOwVz.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-09-09'),
+    number: 2,
+    overview:
+      'Easy Company lands in Normandy, scattered all across and away from their drop zone. 1st Lt. Meehan, commander of Easy, is killed when his plane suffers a direct hit and 1st Lt. Winters must take command and 1st Lt. Speirs is introduced.',
+    rating: '8.2',
+    runtime: 52,
+    title: 'Day of Days',
+    tmdbStillPath: '/4VZgbvmphYRRG7IFhgdUfrrCm2v.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-09-16'),
+    number: 3,
+    overview:
+      'Easy Company are sent to liberate the French village of Carentan, where they lose several men in heavy fighting. The episode focuses on Private Albert Blithe, who struggles with crippling anxiety following the battle.',
+    rating: '8.4',
+    runtime: 65,
+    title: 'Carentan',
+    tmdbStillPath: '/122cDgrjc5lFqUZ7cYi8vUVrcrn.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-09-23'),
+    number: 4,
+    overview:
+      'With the addition of many new men, Easy Company heads to Holland to participate in Operation Market Garden and prepare an Allied route into Germany, but they meet stiff German resistance.',
+    rating: '8.3',
+    runtime: 59,
+    title: 'Replacements',
+    tmdbStillPath: '/iLbFO6mR2O6Zc2kEBqH6paUnmGA.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-09-30'),
+    number: 5,
+    overview:
+      'Winters writes a report on the challenge of an unexpected resistance to a German attack, and is haunted by his conscience after shooting a teenage German soldier. Operation Pegasus is depicted. Easy Company is called to Bastogne to repel the sudden German counterattack.',
+    rating: '8.0',
+    runtime: 56,
+    title: 'Crossroads',
+    tmdbStillPath: '/cEqmw8JM4OtoJaml19jBCIhn1ha.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-10-07'),
+    number: 6,
+    overview:
+      'Easy Company experiences the Battle of the Bulge and have to hold ground near Bastogne while running low on ammunition and other supplies. The episode focuses on medic Eugene "Doc" Roe as he helps out his fellow soldiers where he can, while also scrounging for medical supplies, of which the Company is dangerously low.',
+    rating: '8.5',
+    runtime: 67,
+    title: 'Bastogne',
+    tmdbStillPath: '/63DWcTJy36OLYjYt8xQWQpEyp91.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-10-14'),
+    number: 7,
+    overview:
+      "Easy Company battles near Foy, Belgium, losing numerous men. In the episode, the actions of 1st Lt. Norman Dike, the Company's commander, are examined and questioned. Serving as narrator is 1st Sgt. Carwood Lipton, who attempts to keep the morale of the men up as they endure their trials in the forest near Foy.",
+    rating: '8.7',
+    runtime: 72,
+    title: 'The Breaking Point',
+    tmdbStillPath: '/io9dffm2TaQTBSw1U9V0vSPyZkF.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-10-21'),
+    number: 8,
+    overview:
+      'Easy Company is in Hagenau in Feburary, 1945, where they prepare for a night patrol mission to capture German prisoners. The patrol includes one veteran who is despised for missing Bastogne and a new lieutenant fresh out of West Point.',
+    rating: '8.1',
+    runtime: 58,
+    title: 'The Last Patrol',
+    tmdbStillPath: '/gsAZdpl9rkzg112eHm91Ze7OFDn.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-10-28'),
+    number: 9,
+    overview:
+      'As the Allies move into Germany and the war comes closer to an end, disillusionment and anger set in for Easy Company--until they stumble onto a concentration camp abandoned by the German military.',
+    rating: '9.1',
+    runtime: 58,
+    title: 'Why We Fight',
+    tmdbStillPath: '/xxPHVgNQ8kOOBPuVDNEcIon7BVe.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2001-11-04'),
+    number: 10,
+    overview:
+      'As the Germans surrender, it appears that that the hard days for Easy Company are over as they are stationed in Austria. But they soon learn that those solders without enough service points will be sent to fight in Japan.',
+    rating: '8.6',
+    runtime: 62,
+    title: 'Points',
+    tmdbStillPath: '/tJCNQhY3fHn1OIwImfZQUIRPbuA.jpg',
+    seasonId: 3,
+  },
+  {
+    airDate: new Date('2021-10-13'),
+    number: 1,
+    overview:
+      'Richard Sackler begins to launch a powerful new painkiller, a rural doctor is introduced to the drug, a coal miner plans her future, a DEA Agent learns of blackmarket pills, and federal prosecutors decide to open a case into OxyContin.',
+    rating: '7.9',
+    runtime: 62,
+    title: 'First Bottle',
+    tmdbStillPath: '/3NZlgalDbq1vjPa8pC5mj4UQRr3.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-10-13'),
+    number: 2,
+    overview:
+      'OxyContin is on the market but faces a potential threat, Purdue’s vast influence reaches the town of Finch Creek, Bridget steps outside her DEA authority, and the criminal investigation of OxyContin begins.',
+    rating: '7.8',
+    runtime: 62,
+    title: 'Breakthrough Pain',
+    tmdbStillPath: '/mX2rXthM4L38RSkVRDoWPu2ZePT.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-10-13'),
+    number: 3,
+    overview:
+      'Doctor Finnix begins to taper Betsy off OxyContin, Bridget sees the toll the drug is taking on communities, Rick and Randy investigate the world of “pain societies”, and with sales climbing, Richard Sackler makes bigger plans for his new drug.',
+    rating: '8.1',
+    runtime: 57,
+    title: 'The 5th Vital Sign',
+    tmdbStillPath: '/2jNlGPhxkYL1C4vgohWhoXzGfiJ.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-10-20'),
+    number: 4,
+    overview:
+      'Sky-high OxyContin sales are threatened by reports of abuse, prosecutors investigate a claim central to OxyContin marketing, and Finnix begins to question the safety of the drug.',
+    rating: '8.4',
+    runtime: 61,
+    title: 'Pseudo-Addiction',
+    tmdbStillPath: '/5GHqObCDh2sAetwxRjQoC4o2yd8.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-10-27'),
+    number: 5,
+    overview:
+      'With OxyContin abuse spreading across the country, Bridget brings the fight to Purdue while Rick and Randy seek to find a whistleblower within Purdue to tie their case together.',
+    rating: '8.3',
+    runtime: 63,
+    title: 'The Whistleblower',
+    tmdbStillPath: '/dnfpZudATzp3ZeP6GF4iUfr71Jd.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-11-03'),
+    number: 6,
+    overview:
+      'Richard Sackler faces a catastrophic challenge to Purdue’s bottom line, Bridget takes her fight to the FDA, Finnix reassesses his life as Betsy struggles to kick her addiction, and Rick and Randy find a bombshell piece of evidence.',
+    rating: '8.2',
+    runtime: 60,
+    title: 'Hammer the Abusers',
+    tmdbStillPath: '/sfW6ksCiOjEjzHV2jhybR4bhJLz.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-11-10'),
+    number: 7,
+    overview:
+      'Richard Sackler and Purdue work the system to prevent their drug from being reigned in, Bridget has a breakthrough in her mission, Betsy has hit rock-bottom while Finnix explores new avenues, and Rick and Randy ready their criminal case.',
+    rating: '8.3',
+    runtime: 62,
+    title: 'Black Box Warning',
+    tmdbStillPath: '/gauWgbzQWjV57vyIs6DNdWCsFKC.jpg',
+    seasonId: 4,
+  },
+  {
+    airDate: new Date('2021-11-17'),
+    number: 8,
+    overview:
+      'Rick and Randy’s criminal investigation now threatens Richard Sackler’s empire, activists take action against Purdue, and Finnix tries to heal his beloved community that’s been ravaged by addiction.',
+    rating: '8.2',
+    runtime: 65,
+    title: 'The People vs. Purdue Pharma',
+    tmdbStillPath: '/gl5LteQDwv4kT2aGO2kmIQDVf8H.jpg',
+    seasonId: 4,
+  },
+]
+
 const books = [
   {
     authors: ['Gabrielle Zevin'],
@@ -683,6 +1113,9 @@ export default async () => {
   try {
     await db.movie.createMany({ data: movies })
     await db.book.createMany({ data: books })
+    await db.show.createMany({ data: shows })
+    await db.showSeason.createMany({ data: seasons })
+    await db.showEpisode.createMany({ data: episodes })
 
     const s3BucketExists = await minioClient.bucketExists(process.env.MINIO_BUCKET_NAME)
     if (!s3BucketExists) {
@@ -714,6 +1147,13 @@ export default async () => {
           create: [
             { name: DefaultMovieLists.Watchlist, movies: { create: range(21, 30).map((n) => ({ movieId: n })) } },
             { name: DefaultMovieLists.Watched, movies: { create: range(1, 20).map((n) => ({ movieId: n })) } },
+          ],
+        },
+        showLists: {
+          create: [
+            { name: DefaultShowLists.Watchlist, shows: { create: range(3, 3).map((n) => ({ showId: n })) } },
+            { name: DefaultShowLists.Abandoned, shows: { create: range(4, 4).map((n) => ({ showId: n })) } },
+            { name: DefaultShowLists.Watched, shows: { create: range(1, 2).map((n) => ({ showId: n })) } },
           ],
         },
         bookLists: {
@@ -807,12 +1247,26 @@ export default async () => {
         password: 'john1234',
         movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
         bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
+        showLists: {
+          create: [
+            { name: DefaultShowLists.Watchlist },
+            { name: DefaultShowLists.Abandoned },
+            { name: DefaultShowLists.Watched },
+          ],
+        },
       },
       {
         username: 'jane',
         password: 'jane1234',
         movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
         bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
+        showLists: {
+          create: [
+            { name: DefaultShowLists.Watchlist },
+            { name: DefaultShowLists.Abandoned },
+            { name: DefaultShowLists.Watched },
+          ],
+        },
       },
     ]
 
