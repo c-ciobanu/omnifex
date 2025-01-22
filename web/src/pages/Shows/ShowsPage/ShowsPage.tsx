@@ -4,6 +4,8 @@ import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/OldForm/OldForm'
 
+import ShowListsCell from './ShowListsCell'
+
 interface FormValues {
   title: string
 }
@@ -22,6 +24,8 @@ const ShowsPage = () => {
       <Form onSubmit={onSubmit} className="mb-4">
         <FormInput type="search" name="title" placeholder="Search for a show" />
       </Form>
+
+      <ShowListsCell />
     </>
   )
 }
