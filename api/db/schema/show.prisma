@@ -16,8 +16,9 @@ model Show {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  seasons ShowSeason[]
-  listed  ShowListItem[]
+  seasons         ShowSeason[]
+  listed          ShowListItem[]
+  watchedEpisodes WatchedEpisode[]
 }
 
 model ShowSeason {
@@ -31,9 +32,10 @@ model ShowSeason {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  show     Show          @relation(fields: [showId], references: [id])
-  showId   Int
-  episodes ShowEpisode[]
+  show            Show             @relation(fields: [showId], references: [id])
+  showId          Int
+  episodes        ShowEpisode[]
+  watchedEpisodes WatchedEpisode[]
 
   @@unique([showId, number])
 }
@@ -51,8 +53,9 @@ model ShowEpisode {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  season   ShowSeason @relation(fields: [seasonId], references: [id])
+  season   ShowSeason       @relation(fields: [seasonId], references: [id])
   seasonId Int
+  watched  WatchedEpisode[]
 
   @@unique([seasonId, number])
 }
@@ -82,4 +85,21 @@ model ShowListItem {
   showId Int
 
   @@unique([listId, showId])
+}
+
+model WatchedEpisode {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  show      Show        @relation(fields: [showId], references: [id])
+  showId    Int
+  season    ShowSeason  @relation(fields: [seasonId], references: [id])
+  seasonId  Int
+  episode   ShowEpisode @relation(fields: [episodeId], references: [id])
+  episodeId Int
+
+  @@unique([userId, episodeId])
 }

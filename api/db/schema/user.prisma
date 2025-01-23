@@ -10,10 +10,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  metrics    Metric[]
-  documents  Document[]
-  movieLists MovieList[]
-  showLists  ShowList[]
-  bookLists  BookList[]
-  workouts   Workout[]
+  metrics         Metric[]
+  documents       Document[]
+  movieLists      MovieList[]
+  showLists       ShowList[]
+  watchedEpisodes WatchedEpisode[]
+  bookLists       BookList[]
+  workouts        Workout[]
 }
