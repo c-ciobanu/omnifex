@@ -604,6 +604,7 @@ const episodes = [
     title: '1:23:45',
     tmdbStillPath: '/thaMHLz5l6TVL8R4EzaBkjn2EZA.jpg',
     seasonId: 1,
+    showId: 1,
   },
   {
     airDate: new Date('2019-05-13'),
@@ -615,6 +616,7 @@ const episodes = [
     title: 'Please Remain Calm',
     tmdbStillPath: '/kVsUEtOOYeLRmABVuZztl4k9onO.jpg',
     seasonId: 1,
+    showId: 1,
   },
   {
     airDate: new Date('2019-05-20'),
@@ -626,6 +628,7 @@ const episodes = [
     title: 'Open Wide, O Earth',
     tmdbStillPath: '/f3AgIEfGWWO3qNoxymagUqCBaE8.jpg',
     seasonId: 1,
+    showId: 1,
   },
   {
     airDate: new Date('2019-05-27'),
@@ -637,6 +640,7 @@ const episodes = [
     title: 'The Happiness of All Mankind',
     tmdbStillPath: '/xV2eVT4ejGhVn9OIMCo4uBOhmCC.jpg',
     seasonId: 1,
+    showId: 1,
   },
   {
     airDate: new Date('2019-06-03'),
@@ -648,6 +652,7 @@ const episodes = [
     title: 'Vichnaya Pamyat',
     tmdbStillPath: '/mgXm2Y6SOFDHtD5thi2LmS7uQBj.jpg',
     seasonId: 1,
+    showId: 1,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -659,6 +664,7 @@ const episodes = [
     title: 'Episode 1',
     tmdbStillPath: '/cxZFsDNJYuXok0tbBr6wGRcHD8D.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -670,6 +676,7 @@ const episodes = [
     title: 'Episode 2',
     tmdbStillPath: '/dYsm3wxygwwb6mSBvgaEIgSxN6O.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -681,6 +688,7 @@ const episodes = [
     title: 'Episode 3',
     tmdbStillPath: '/39YGnnlZisihAO5yJzo31StWWLm.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -692,6 +700,7 @@ const episodes = [
     title: 'Episode 4',
     tmdbStillPath: '/jZBaF3biDBOxk7SzdsJF9EURWoq.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -703,6 +712,7 @@ const episodes = [
     title: 'Episode 5',
     tmdbStillPath: '/juiYyuLtcaik792whB7jZYzWuAC.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -714,6 +724,7 @@ const episodes = [
     title: 'Episode 6',
     tmdbStillPath: '/pqQjoBNbE3VAZ6q3280zciI1Kmd.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2024-04-11'),
@@ -725,6 +736,7 @@ const episodes = [
     title: 'Episode 7',
     tmdbStillPath: '/db23JLHDxQ4HSqlsuKFm3YWhlSA.jpg',
     seasonId: 2,
+    showId: 2,
   },
   {
     airDate: new Date('2001-09-09'),
@@ -736,6 +748,7 @@ const episodes = [
     title: 'Currahee',
     tmdbStillPath: '/ic7AgPLAvWT9Vu3Rzv7AnuyOwVz.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-09-09'),
@@ -747,6 +760,7 @@ const episodes = [
     title: 'Day of Days',
     tmdbStillPath: '/4VZgbvmphYRRG7IFhgdUfrrCm2v.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-09-16'),
@@ -758,6 +772,7 @@ const episodes = [
     title: 'Carentan',
     tmdbStillPath: '/122cDgrjc5lFqUZ7cYi8vUVrcrn.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-09-23'),
@@ -769,6 +784,7 @@ const episodes = [
     title: 'Replacements',
     tmdbStillPath: '/iLbFO6mR2O6Zc2kEBqH6paUnmGA.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-09-30'),
@@ -780,6 +796,7 @@ const episodes = [
     title: 'Crossroads',
     tmdbStillPath: '/cEqmw8JM4OtoJaml19jBCIhn1ha.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-10-07'),
@@ -791,6 +808,7 @@ const episodes = [
     title: 'Bastogne',
     tmdbStillPath: '/63DWcTJy36OLYjYt8xQWQpEyp91.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-10-14'),
@@ -802,6 +820,7 @@ const episodes = [
     title: 'The Breaking Point',
     tmdbStillPath: '/io9dffm2TaQTBSw1U9V0vSPyZkF.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-10-21'),
@@ -813,6 +832,7 @@ const episodes = [
     title: 'The Last Patrol',
     tmdbStillPath: '/gsAZdpl9rkzg112eHm91Ze7OFDn.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-10-28'),
@@ -824,6 +844,7 @@ const episodes = [
     title: 'Why We Fight',
     tmdbStillPath: '/xxPHVgNQ8kOOBPuVDNEcIon7BVe.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2001-11-04'),
@@ -835,6 +856,7 @@ const episodes = [
     title: 'Points',
     tmdbStillPath: '/tJCNQhY3fHn1OIwImfZQUIRPbuA.jpg',
     seasonId: 3,
+    showId: 3,
   },
   {
     airDate: new Date('2021-10-13'),
@@ -846,6 +868,7 @@ const episodes = [
     title: 'First Bottle',
     tmdbStillPath: '/3NZlgalDbq1vjPa8pC5mj4UQRr3.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-10-13'),
@@ -857,6 +880,7 @@ const episodes = [
     title: 'Breakthrough Pain',
     tmdbStillPath: '/mX2rXthM4L38RSkVRDoWPu2ZePT.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-10-13'),
@@ -868,6 +892,7 @@ const episodes = [
     title: 'The 5th Vital Sign',
     tmdbStillPath: '/2jNlGPhxkYL1C4vgohWhoXzGfiJ.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-10-20'),
@@ -879,6 +904,7 @@ const episodes = [
     title: 'Pseudo-Addiction',
     tmdbStillPath: '/5GHqObCDh2sAetwxRjQoC4o2yd8.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-10-27'),
@@ -890,6 +916,7 @@ const episodes = [
     title: 'The Whistleblower',
     tmdbStillPath: '/dnfpZudATzp3ZeP6GF4iUfr71Jd.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-11-03'),
@@ -901,6 +928,7 @@ const episodes = [
     title: 'Hammer the Abusers',
     tmdbStillPath: '/sfW6ksCiOjEjzHV2jhybR4bhJLz.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-11-10'),
@@ -912,6 +940,7 @@ const episodes = [
     title: 'Black Box Warning',
     tmdbStillPath: '/gauWgbzQWjV57vyIs6DNdWCsFKC.jpg',
     seasonId: 4,
+    showId: 4,
   },
   {
     airDate: new Date('2021-11-17'),
@@ -923,6 +952,7 @@ const episodes = [
     title: 'The People vs. Purdue Pharma',
     tmdbStillPath: '/gl5LteQDwv4kT2aGO2kmIQDVf8H.jpg',
     seasonId: 4,
+    showId: 4,
   },
 ]
 

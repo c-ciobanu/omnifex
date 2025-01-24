@@ -17,6 +17,7 @@ model Show {
   updatedAt DateTime @updatedAt
 
   seasons         ShowSeason[]
+  episodes        ShowEpisode[]
   listed          ShowListItem[]
   watchedEpisodes WatchedEpisode[]
 }
@@ -53,6 +54,8 @@ model ShowEpisode {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  show     Show             @relation(fields: [showId], references: [id])
+  showId   Int
   season   ShowSeason       @relation(fields: [seasonId], references: [id])
   seasonId Int
   watched  WatchedEpisode[]

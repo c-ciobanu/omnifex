@@ -67,27 +67,36 @@ export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
         tmdbBackdropPath: tmdbShow.backdrop_path,
         tmdbId: tmdbShow.id,
         tmdbPosterPath: tmdbShow.poster_path,
-        seasons: {
-          create: seasons.map((s) => ({
-            airDate: new Date(s.air_date),
-            number: s.season_number,
-            overview: s.overview,
-            rating: Math.round(s.vote_average * 10) / 10,
-            tmdbPosterPath: s.poster_path,
-            episodes: {
-              create: s.episodes.map((e) => ({
-                airDate: new Date(e.air_date),
-                number: e.episode_number,
-                overview: e.overview,
-                rating: Math.round(e.vote_average * 10) / 10,
-                runtime: e.runtime,
-                title: e.name,
-                tmdbStillPath: e.still_path,
-              })),
-            },
-          })),
-        },
       },
+    })
+
+    const dbSeasons = await db.showSeason.createManyAndReturn({
+      data: seasons.map((season) => ({
+        airDate: new Date(season.air_date),
+        number: season.season_number,
+        overview: season.overview,
+        rating: Math.round(season.vote_average * 10) / 10,
+        tmdbPosterPath: season.poster_path,
+        showId: s.id,
+      })),
+    })
+
+    await db.showEpisode.createMany({
+      data: dbSeasons.flatMap((dbSeason) => {
+        const season = seasons.find((s) => s.season_number === dbSeason.number)
+
+        return season.episodes.map((e) => ({
+          airDate: new Date(e.air_date),
+          number: e.episode_number,
+          overview: e.overview,
+          rating: Math.round(e.vote_average * 10) / 10,
+          runtime: e.runtime,
+          title: e.name,
+          tmdbStillPath: e.still_path,
+          seasonId: dbSeason.id,
+          showId: s.id,
+        }))
+      }),
     })
   }
 
