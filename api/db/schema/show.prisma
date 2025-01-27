@@ -20,6 +20,8 @@ model Show {
   episodes        ShowEpisode[]
   listed          ShowListItem[]
   watchedEpisodes WatchedEpisode[]
+  inWatchlist     WatchlistShow[]
+  abandoned       AbandonedShow[]
 }
 
 model ShowSeason {
@@ -88,6 +90,32 @@ model ShowListItem {
   showId Int
 
   @@unique([listId, showId])
+}
+
+model WatchlistShow {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  show   Show @relation(fields: [showId], references: [id])
+  showId Int
+
+  @@unique([userId, showId])
+}
+
+model AbandonedShow {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  show   Show @relation(fields: [showId], references: [id])
+  showId Int
+
+  @@unique([userId, showId])
 }
 
 model WatchedEpisode {
