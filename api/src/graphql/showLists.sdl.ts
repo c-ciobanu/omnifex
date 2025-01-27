@@ -17,6 +17,8 @@ export const schema = gql`
   type Query {
     showLists: [ShowList!]! @requireAuth
     showListItems(listId: Int!): [Show!]! @requireAuth
+    watchedShows: [Show!]! @requireAuth
+    showsWatchlist: [Show!]! @requireAuth
   }
 
   input CreateShowListInput {
