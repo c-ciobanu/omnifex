@@ -30,8 +30,8 @@ const DELETE_SHOW_LIST_ITEM = gql`
 `
 
 const Actions = ({ show }: ActionsProps) => {
-  const { id: showId, tmdbId, userInfo } = show
-  const { watched, inWatchlist, abandoned } = userInfo
+  const { id: showId, tmdbId, userProgress } = show
+  const { watched, inWatchlist, abandoned } = userProgress
 
   const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_SHOW_LIST_ITEM, {
     variables: { input: { showId, listName: DefaultShowLists.Watched } },

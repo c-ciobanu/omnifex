@@ -26,7 +26,7 @@ export const QUERY = gql`
         number
         posterUrl
       }
-      userInfo {
+      userProgress {
         watched
         inWatchlist
         abandoned

@@ -165,27 +165,3 @@ export const deleteShowListItem: MutationResolvers['deleteShowListItem'] = async
 
   return db.showListItem.delete({ where: { listId_showId: { listId: list.id, showId } } })
 }
-
-export const watchedShows: QueryResolvers['watchedShows'] = async () => {
-  requireAuth()
-
-  const shows = await db.show.findMany({
-    where: { watchedEpisodes: { some: { userId: context.currentUser.id } } },
-    include: {
-      _count: {
-        select: {
-          episodes: true,
-          watchedEpisodes: { where: { userId: context.currentUser.id } },
-        },
-      },
-    },
-  })
-
-  const watchedShows = shows.filter((s) => s._count.watchedEpisodes === s._count.episodes)
-
-  return watchedShows.map((s) => ({
-    ...s,
-    backdropUrl: `http://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
-    posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
-  }))
-}

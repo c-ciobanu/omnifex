@@ -1,7 +1,11 @@
 import type { MutationResolvers, QueryResolvers } from 'types/graphql'
 
+import { validateWith } from '@redwoodjs/api'
+
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
+
+import { getUserShowProgress } from './shows'
 
 export const showsWatchlist: QueryResolvers['showsWatchlist'] = async () => {
   requireAuth()
@@ -38,8 +42,20 @@ export const showsWatchlist: QueryResolvers['showsWatchlist'] = async () => {
   }))
 }
 
-export const watchlistShow: MutationResolvers['watchlistShow'] = ({ showId }) => {
+export const watchlistShow: MutationResolvers['watchlistShow'] = async ({ showId }) => {
   requireAuth()
+
+  await validateWith(async () => {
+    const showProgress = await getUserShowProgress(showId)
+
+    if (showProgress.abandoned) {
+      throw new Error('Unable to add an abandoned show to the watchlist.')
+    }
+
+    if (showProgress.watched) {
+      throw new Error('Unable to add a watched show to the watchlist.')
+    }
+  })
 
   return db.watchlistShow.create({ data: { userId: context.currentUser.id, showId } })
 }

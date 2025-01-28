@@ -22,7 +22,7 @@ export const schema = gql`
     title: String!
     tmdbId: Int!
     seasons: [Season!]
-    userInfo: ShowUserInfo
+    userProgress: ShowProgress
   }
 
   type Season {
@@ -46,7 +46,7 @@ export const schema = gql`
     title: String!
   }
 
-  type ShowUserInfo {
+  type ShowProgress {
     watched: Boolean!
     inWatchlist: Boolean!
     abandoned: Boolean!

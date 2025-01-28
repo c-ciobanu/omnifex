@@ -1,6 +1,7 @@
 import { Prisma, ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason, Show as PrismaShow } from '@prisma/client'
 import type { QueryResolvers, SeasonRelationResolvers, ShowRelationResolvers } from 'types/graphql'
 
+import { requireAuth } from 'src/lib/auth'
 import { cache, cacheFindMany } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows, TMDBSearchShow } from 'src/lib/tmdb'
@@ -21,6 +22,34 @@ type CachedPrismaEpisode = Omit<PrismaEpisode, 'createdAt' | 'updatedAt' | 'rati
   rating: string
   createdAt: string
   updatedAt: string
+}
+
+export const getUserShowProgress = async (showId: number) => {
+  requireAuth()
+
+  const { _count: counts } = await db.show.findUnique({
+    where: { id: showId },
+    select: {
+      _count: {
+        select: {
+          episodes: true,
+          watchedEpisodes: { where: { userId: context.currentUser.id } },
+          inWatchlist: { where: { userId: context.currentUser.id } },
+          abandoned: { where: { userId: context.currentUser.id } },
+        },
+      },
+    },
+  })
+
+  const watched = counts.episodes === counts.watchedEpisodes
+  const inWatchlist = counts.inWatchlist === 1
+  const abandoned = counts.abandoned === 1
+
+  return {
+    watched,
+    inWatchlist: inWatchlist || (!abandoned && !watched && counts.watchedEpisodes > 0),
+    abandoned,
+  }
 }
 
 export const shows: QueryResolvers['shows'] = async ({ title }) => {
@@ -133,31 +162,9 @@ export const Show: ShowRelationResolvers = {
       rating: new Prisma.Decimal(season.rating).toNumber(),
     }))
   },
-  userInfo: async (_obj, { root }) => {
+  userProgress: async (_obj, { root }) => {
     if (context.currentUser) {
-      const { _count: counts } = await db.show.findUnique({
-        where: { id: root.id },
-        select: {
-          _count: {
-            select: {
-              episodes: true,
-              watchedEpisodes: { where: { userId: context.currentUser.id } },
-              inWatchlist: { where: { userId: context.currentUser.id } },
-              abandoned: { where: { userId: context.currentUser.id } },
-            },
-          },
-        },
-      })
-
-      const watched = counts.episodes === counts.watchedEpisodes
-      const abandoned = counts.abandoned === 1
-      const inWatchlist = counts.inWatchlist === 1
-
-      return {
-        watched,
-        inWatchlist: inWatchlist || (!abandoned && !watched && counts.watchedEpisodes > 0),
-        abandoned,
-      }
+      return getUserShowProgress(root.id)
     }
 
     return null
