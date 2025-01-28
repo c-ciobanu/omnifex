@@ -1,5 +1,6 @@
 export const standard = () => ({
   show: {
+    id: 1,
     creators: ['David Chase'],
     genres: ['Drama'],
     originalTitle: 'The Sopranos',

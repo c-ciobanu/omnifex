@@ -3,8 +3,11 @@ import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/OldForm/OldForm'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
-import ShowListsCell from './ShowListsCell'
+import AbandonedShowsCell from './AbandonedShowsCell'
+import ShowsWatchlistCell from './ShowsWatchlistCell'
+import WatchedShowsCell from './WatchedShowsCell'
 
 interface FormValues {
   title: string
@@ -25,7 +28,23 @@ const ShowsPage = () => {
         <FormInput type="search" name="title" placeholder="Search for a show" />
       </Form>
 
-      <ShowListsCell />
+      <Tabs defaultValue="watchlist">
+        <TabsList>
+          <TabsTrigger value="watchlist">Watchlist</TabsTrigger>
+          <TabsTrigger value="abandoned">Abandoned</TabsTrigger>
+          <TabsTrigger value="watched">Watched</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="watchlist">
+          <ShowsWatchlistCell />
+        </TabsContent>
+        <TabsContent value="abandoned">
+          <AbandonedShowsCell />
+        </TabsContent>
+        <TabsContent value="watched">
+          <WatchedShowsCell />
+        </TabsContent>
+      </Tabs>
     </>
   )
 }

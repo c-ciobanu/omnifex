@@ -1,9 +1,9 @@
 import { render } from '@redwoodjs/testing/web'
 
-import { Loading, Empty, Failure, Success } from './ShowListItemsCell'
-import { standard } from './ShowListItemsCell.mock'
+import { Loading, Empty, Failure, Success } from './AbandonedShowsCell'
+import { standard } from './AbandonedShowsCell.mock'
 
-describe('ShowListItemsCell', () => {
+describe('AbandonedShowsCell', () => {
   it('renders Loading successfully', () => {
     expect(() => render(<Loading />)).not.toThrow()
   })
