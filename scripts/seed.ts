@@ -1192,6 +1192,8 @@ export default async () => {
             { name: DefaultShowLists.Watched, shows: { create: range(1, 2).map((n) => ({ showId: n })) } },
           ],
         },
+        showsWatchlist: { create: { showId: 1 } },
+        abandonedShows: { create: { showId: 2 } },
         bookLists: {
           create: [
             { name: DefaultBookLists.ReadingList, books: { create: range(9, 12).map((n) => ({ bookId: n })) } },
@@ -1311,6 +1313,30 @@ export default async () => {
 
       await db.user.create({ data: { ...user, hashedPassword, salt } })
     }
+
+    const showsWithEpisodes = await db.show.findMany({ include: { episodes: true } })
+    await db.watchedEpisode.createMany({
+      data: [
+        ...range(1, 3).map((n, i) => ({
+          userId: 1,
+          showId: showsWithEpisodes[1].id,
+          seasonId: showsWithEpisodes[1].episodes[i].seasonId,
+          episodeId: showsWithEpisodes[1].episodes[i].id,
+        })),
+        ...range(1, 3).map((n, i) => ({
+          userId: 1,
+          showId: showsWithEpisodes[2].id,
+          seasonId: showsWithEpisodes[2].episodes[i].seasonId,
+          episodeId: showsWithEpisodes[2].episodes[i].id,
+        })),
+        ...range(1, showsWithEpisodes[3].episodes.length).map((n, i) => ({
+          userId: 1,
+          showId: showsWithEpisodes[3].id,
+          seasonId: showsWithEpisodes[3].episodes[i].seasonId,
+          episodeId: showsWithEpisodes[3].episodes[i].id,
+        })),
+      ],
+    })
   } catch (error) {
     console.error(error)
   }

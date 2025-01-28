@@ -169,51 +169,21 @@ export const deleteShowListItem: MutationResolvers['deleteShowListItem'] = async
 export const watchedShows: QueryResolvers['watchedShows'] = async () => {
   requireAuth()
 
-  const watchedEpisodesByShow = await db.watchedEpisode.groupBy({
-    by: ['showId'],
-    where: { userId: context.currentUser.id },
-    _count: true,
-  })
-
   const shows = await db.show.findMany({
-    where: { id: { in: watchedEpisodesByShow.map((e) => e.showId) } },
-    include: { _count: { select: { episodes: true } } },
+    where: { watchedEpisodes: { some: { userId: context.currentUser.id } } },
+    include: {
+      _count: {
+        select: {
+          episodes: true,
+          watchedEpisodes: { where: { userId: context.currentUser.id } },
+        },
+      },
+    },
   })
 
-  const watchedShows = shows.filter((s) => {
-    const watchedEpisodes = watchedEpisodesByShow.find((e) => e.showId === s.id)._count
-
-    return watchedEpisodes === s._count.episodes
-  })
+  const watchedShows = shows.filter((s) => s._count.watchedEpisodes === s._count.episodes)
 
   return watchedShows.map((s) => ({
-    ...s,
-    backdropUrl: `http://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
-    posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
-  }))
-}
-
-export const showsWatchlist: QueryResolvers['showsWatchlist'] = async () => {
-  requireAuth()
-
-  const watchedEpisodesByShow = await db.watchedEpisode.groupBy({
-    by: ['showId'],
-    where: { userId: context.currentUser.id },
-    _count: true,
-  })
-
-  const shows = await db.show.findMany({
-    where: { id: { in: watchedEpisodesByShow.map((e) => e.showId) } },
-    include: { _count: { select: { episodes: true } } },
-  })
-
-  const watchingShows = shows.filter((s) => {
-    const watchedEpisodes = watchedEpisodesByShow.find((e) => e.showId === s.id)._count
-
-    return watchedEpisodes !== s._count.episodes
-  })
-
-  return watchingShows.map((s) => ({
     ...s,
     backdropUrl: `http://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
     posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,

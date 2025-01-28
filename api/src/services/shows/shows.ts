@@ -1,12 +1,9 @@
-import { Prisma, Show as PrismaShow, ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason } from '@prisma/client'
-import { DefaultShowLists } from 'common'
+import { Prisma, ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason, Show as PrismaShow } from '@prisma/client'
 import type { QueryResolvers, SeasonRelationResolvers, ShowRelationResolvers } from 'types/graphql'
 
 import { cache, cacheFindMany } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows, TMDBSearchShow } from 'src/lib/tmdb'
-
-import { userDefaultShowLists } from '../showLists/showLists'
 
 type CachedPrismaShow = Omit<PrismaShow, 'createdAt' | 'updatedAt' | 'rating'> & {
   rating: string
@@ -138,22 +135,28 @@ export const Show: ShowRelationResolvers = {
   },
   userInfo: async (_obj, { root }) => {
     if (context.currentUser) {
-      const userLists = await userDefaultShowLists()
+      const { _count: counts } = await db.show.findUnique({
+        where: { id: root.id },
+        select: {
+          _count: {
+            select: {
+              episodes: true,
+              watchedEpisodes: { where: { userId: context.currentUser.id } },
+              inWatchlist: { where: { userId: context.currentUser.id } },
+              abandoned: { where: { userId: context.currentUser.id } },
+            },
+          },
+        },
+      })
 
-      const watchedShowCount = await db.showListItem.count({
-        where: { showId: root.id, listId: userLists[DefaultShowLists.Watched].id },
-      })
-      const toWatchShowCount = await db.showListItem.count({
-        where: { showId: root.id, listId: userLists[DefaultShowLists.Watchlist].id },
-      })
-      const abandonedShowCount = await db.showListItem.count({
-        where: { showId: root.id, listId: userLists[DefaultShowLists.Abandoned].id },
-      })
+      const watched = counts.episodes === counts.watchedEpisodes
+      const abandoned = counts.abandoned === 1
+      const inWatchlist = counts.inWatchlist === 1
 
       return {
-        watched: watchedShowCount === 1,
-        inWatchlist: toWatchShowCount === 1,
-        abandoned: abandonedShowCount === 1,
+        watched,
+        inWatchlist: inWatchlist || (!abandoned && !watched && counts.watchedEpisodes > 0),
+        abandoned,
       }
     }
 

@@ -52,9 +52,32 @@ export const schema = gql`
     abandoned: Boolean!
   }
 
+  type WatchlistShow {
+    id: Int!
+    createdAt: DateTime!
+    userId: Int!
+    showId: Int!
+  }
+
+  type AbandonedShow {
+    id: Int!
+    createdAt: DateTime!
+    userId: Int!
+    showId: Int!
+  }
+
   type Query {
     shows(title: String!): [SearchShow!]! @skipAuth
     show(tmdbId: Int!): Show @skipAuth
     season(showTmdbId: Int!, seasonNumber: Int!): Season @skipAuth
+    showsWatchlist: [Show!]! @requireAuth
+    abandonedShows: [Show!]! @requireAuth
+  }
+
+  type Mutation {
+    watchlistShow(showId: Int!): WatchlistShow! @requireAuth
+    unwatchlistShow(showId: Int!): WatchlistShow! @requireAuth
+    abandonShow(showId: Int!): AbandonedShow! @requireAuth
+    unabandonShow(showId: Int!): AbandonedShow! @requireAuth
   }
 `
