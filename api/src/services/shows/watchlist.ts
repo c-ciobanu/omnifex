@@ -42,11 +42,11 @@ export const showsWatchlist: QueryResolvers['showsWatchlist'] = async () => {
   }))
 }
 
-export const watchlistShow: MutationResolvers['watchlistShow'] = async ({ showId }) => {
+export const watchlistShow: MutationResolvers['watchlistShow'] = async ({ id }) => {
   requireAuth()
 
   await validateWith(async () => {
-    const showProgress = await getUserShowProgress(showId)
+    const showProgress = await getUserShowProgress(id)
 
     if (showProgress.abandoned) {
       throw new Error('Unable to add an abandoned show to the watchlist.')
@@ -57,11 +57,11 @@ export const watchlistShow: MutationResolvers['watchlistShow'] = async ({ showId
     }
   })
 
-  return db.watchlistShow.create({ data: { userId: context.currentUser.id, showId } })
+  return db.watchlistShow.create({ data: { userId: context.currentUser.id, showId: id } })
 }
 
-export const unwatchlistShow: MutationResolvers['unwatchlistShow'] = ({ showId }) => {
+export const unwatchlistShow: MutationResolvers['unwatchlistShow'] = ({ id }) => {
   requireAuth()
 
-  return db.watchlistShow.delete({ where: { userId_showId: { userId: context.currentUser.id, showId } } })
+  return db.watchlistShow.delete({ where: { userId_showId: { userId: context.currentUser.id, showId: id } } })
 }

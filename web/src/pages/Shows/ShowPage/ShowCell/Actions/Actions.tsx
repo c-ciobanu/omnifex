@@ -1,4 +1,3 @@
-import { DefaultShowLists } from 'common'
 import { Eye, EyeOff, ListMinus, ListPlus } from 'lucide-react'
 import { ShowQuery } from 'types/graphql'
 
@@ -13,48 +12,80 @@ type ActionsProps = {
   show: ShowQuery['show']
 }
 
-const CREATE_SHOW_LIST_ITEM = gql`
-  mutation CreateShowListItemMutation($input: CreateShowListItemInput!) {
-    createShowListItem(input: $input) {
+const WATCH_SHOW_MUTATION = gql`
+  mutation WatchShowMutation($id: Int!) {
+    watchShow(id: $id) {
       id
     }
   }
 `
 
-const DELETE_SHOW_LIST_ITEM = gql`
-  mutation DeleteShowListItemMutation($listName: String!, $showId: Int!) {
-    deleteShowListItem(listName: $listName, showId: $showId) {
+const UNWATCH_SHOW_MUTATION = gql`
+  mutation UnwatchShowMutation($id: Int!) {
+    unwatchShow(id: $id) {
+      count
+    }
+  }
+`
+
+const WATCHLIST_SHOW_MUTATION = gql`
+  mutation WatchlistShowMutation($id: Int!) {
+    watchlistShow(id: $id) {
+      id
+    }
+  }
+`
+
+const UNWATCHLIST_SHOW_MUTATION = gql`
+  mutation UnwatchlistShowMutation($id: Int!) {
+    unwatchlistShow(id: $id) {
+      id
+    }
+  }
+`
+
+const ABANDON_SHOW_MUTATION = gql`
+  mutation AbandonShowMutation($id: Int!) {
+    abandonShow(id: $id) {
+      id
+    }
+  }
+`
+
+const UNABANDON_SHOW_MUTATION = gql`
+  mutation UnabandonShowMutation($id: Int!) {
+    unabandonShow(id: $id) {
       id
     }
   }
 `
 
 const Actions = ({ show }: ActionsProps) => {
-  const { id: showId, tmdbId, userProgress } = show
+  const { id, tmdbId, userProgress } = show
   const { watched, inWatchlist, abandoned } = userProgress
 
-  const [createWatched, { loading: createWatchedLoading }] = useMutation(CREATE_SHOW_LIST_ITEM, {
-    variables: { input: { showId, listName: DefaultShowLists.Watched } },
+  const [createWatched, { loading: createWatchedLoading }] = useMutation(WATCH_SHOW_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
-  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(DELETE_SHOW_LIST_ITEM, {
-    variables: { showId, listName: DefaultShowLists.Watched },
+  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(UNWATCH_SHOW_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
-  const [createToWatch, { loading: createToWatchLoading }] = useMutation(CREATE_SHOW_LIST_ITEM, {
-    variables: { input: { showId, listName: DefaultShowLists.Watchlist } },
+  const [createToWatch, { loading: createToWatchLoading }] = useMutation(WATCHLIST_SHOW_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
-  const [deleteToWatch, { loading: deleteToWatchLoading }] = useMutation(DELETE_SHOW_LIST_ITEM, {
-    variables: { showId, listName: DefaultShowLists.Watchlist },
+  const [deleteToWatch, { loading: deleteToWatchLoading }] = useMutation(UNWATCHLIST_SHOW_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
-  const [createAbandoned, { loading: createAbandonedLoading }] = useMutation(CREATE_SHOW_LIST_ITEM, {
-    variables: { input: { showId, listName: DefaultShowLists.Abandoned } },
+  const [createAbandoned, { loading: createAbandonedLoading }] = useMutation(ABANDON_SHOW_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
-  const [deleteAbandoned, { loading: deleteAbandonedLoading }] = useMutation(DELETE_SHOW_LIST_ITEM, {
-    variables: { showId, listName: DefaultShowLists.Abandoned },
+  const [deleteAbandoned, { loading: deleteAbandonedLoading }] = useMutation(UNABANDON_SHOW_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
 

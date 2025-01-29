@@ -4,6 +4,7 @@ import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 import { unabandonShow } from './abandoned'
+import { getUserShowProgress } from './shows'
 import { unwatchlistShow } from './watchlist'
 
 export const watchedShows: QueryResolvers['watchedShows'] = async () => {
@@ -34,9 +35,15 @@ export const watchShow: MutationResolvers['watchShow'] = async ({ id }) => {
   requireAuth()
 
   const episodes = await db.showEpisode.findMany({ where: { showId: id } })
+  const showProgress = await getUserShowProgress(id)
 
-  await unwatchlistShow({ showId: id })
-  await unabandonShow({ showId: id })
+  if (showProgress.inWatchlist) {
+    await unwatchlistShow({ id })
+  }
+
+  if (showProgress.abandoned) {
+    await unabandonShow({ id })
+  }
 
   return db.watchedEpisode.createManyAndReturn({
     data: episodes.map((e) => ({

@@ -94,9 +94,9 @@ export const schema = gql`
     unwatchSeason(id: Int!): BatchPayload! @requireAuth
     watchEpisode(id: Int!): WatchedEpisode! @requireAuth
     unwatchEpisode(id: Int!): WatchedEpisode! @requireAuth
-    watchlistShow(showId: Int!): WatchlistShow! @requireAuth
-    unwatchlistShow(showId: Int!): WatchlistShow! @requireAuth
-    abandonShow(showId: Int!): AbandonedShow! @requireAuth
-    unabandonShow(showId: Int!): AbandonedShow! @requireAuth
+    watchlistShow(id: Int!): WatchlistShow! @requireAuth
+    unwatchlistShow(id: Int!): WatchlistShow! @requireAuth
+    abandonShow(id: Int!): AbandonedShow! @requireAuth
+    unabandonShow(id: Int!): AbandonedShow! @requireAuth
   }
 `

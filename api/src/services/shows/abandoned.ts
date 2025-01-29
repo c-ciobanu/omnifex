@@ -21,11 +21,11 @@ export const abandonedShows: QueryResolvers['abandonedShows'] = async () => {
   }))
 }
 
-export const abandonShow: MutationResolvers['abandonShow'] = async ({ showId }) => {
+export const abandonShow: MutationResolvers['abandonShow'] = async ({ id }) => {
   requireAuth()
 
   await validateWith(async () => {
-    const showProgress = await getUserShowProgress(showId)
+    const showProgress = await getUserShowProgress(id)
 
     if (showProgress.inWatchlist) {
       throw new Error('Unable to move a show from the watchlist to the abandoned list.')
@@ -36,11 +36,11 @@ export const abandonShow: MutationResolvers['abandonShow'] = async ({ showId }) 
     }
   })
 
-  return db.abandonedShow.create({ data: { userId: context.currentUser.id, showId } })
+  return db.abandonedShow.create({ data: { userId: context.currentUser.id, showId: id } })
 }
 
-export const unabandonShow: MutationResolvers['unabandonShow'] = ({ showId }) => {
+export const unabandonShow: MutationResolvers['unabandonShow'] = ({ id }) => {
   requireAuth()
 
-  return db.abandonedShow.delete({ where: { userId_showId: { userId: context.currentUser.id, showId } } })
+  return db.abandonedShow.delete({ where: { userId_showId: { userId: context.currentUser.id, showId: id } } })
 }
