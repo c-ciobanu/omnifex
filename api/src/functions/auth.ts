@@ -1,5 +1,5 @@
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
-import { DefaultBookLists, DefaultMovieLists, DefaultShowLists } from 'common'
+import { DefaultBookLists, DefaultMovieLists } from 'common'
 
 import { validate } from '@redwoodjs/api'
 import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError, UserType } from '@redwoodjs/auth-dbauth-api'
@@ -168,13 +168,6 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
           salt,
           movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
           bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
-          showLists: {
-            create: [
-              { name: DefaultShowLists.Watchlist },
-              { name: DefaultShowLists.Abandoned },
-              { name: DefaultShowLists.Watched },
-            ],
-          },
         },
       })
     },

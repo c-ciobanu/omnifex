@@ -1,6 +1,6 @@
 import { db } from 'api/src/lib/db'
 import { minioClient } from 'api/src/lib/minio'
-import { DefaultBookLists, DefaultMovieLists, DefaultShowLists } from 'common'
+import { DefaultBookLists, DefaultMovieLists } from 'common'
 import { createClient } from 'redis'
 
 import { hashPassword } from '@redwoodjs/auth-dbauth-api'
@@ -1185,13 +1185,6 @@ export default async () => {
             { name: DefaultMovieLists.Watched, movies: { create: range(1, 20).map((n) => ({ movieId: n })) } },
           ],
         },
-        showLists: {
-          create: [
-            { name: DefaultShowLists.Watchlist, shows: { create: range(3, 3).map((n) => ({ showId: n })) } },
-            { name: DefaultShowLists.Abandoned, shows: { create: range(4, 4).map((n) => ({ showId: n })) } },
-            { name: DefaultShowLists.Watched, shows: { create: range(1, 2).map((n) => ({ showId: n })) } },
-          ],
-        },
         showsWatchlist: { create: { showId: 1 } },
         abandonedShows: { create: { showId: 2 } },
         bookLists: {
@@ -1285,26 +1278,12 @@ export default async () => {
         password: 'john1234',
         movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
         bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
-        showLists: {
-          create: [
-            { name: DefaultShowLists.Watchlist },
-            { name: DefaultShowLists.Abandoned },
-            { name: DefaultShowLists.Watched },
-          ],
-        },
       },
       {
         username: 'jane',
         password: 'jane1234',
         movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
         bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
-        showLists: {
-          create: [
-            { name: DefaultShowLists.Watchlist },
-            { name: DefaultShowLists.Abandoned },
-            { name: DefaultShowLists.Watched },
-          ],
-        },
       },
     ]
 
