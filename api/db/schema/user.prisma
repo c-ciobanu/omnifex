@@ -13,7 +13,6 @@ model User {
   metrics         Metric[]
   documents       Document[]
   movieLists      MovieList[]
-  showLists       ShowList[]
   watchedEpisodes WatchedEpisode[]
   showsWatchlist  WatchlistShow[]
   abandonedShows  AbandonedShow[]

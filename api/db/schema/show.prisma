@@ -18,7 +18,6 @@ model Show {
 
   seasons         ShowSeason[]
   episodes        ShowEpisode[]
-  listed          ShowListItem[]
   watchedEpisodes WatchedEpisode[]
   inWatchlist     WatchlistShow[]
   abandoned       AbandonedShow[]
@@ -63,33 +62,6 @@ model ShowEpisode {
   watched  WatchedEpisode[]
 
   @@unique([seasonId, number])
-}
-
-model ShowList {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-  shows  ShowListItem[]
-
-  @@unique([userId, name])
-}
-
-model ShowListItem {
-  id Int @id @default(autoincrement())
-
-  createdAt DateTime @default(now())
-
-  list   ShowList @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId Int
-  show   Show     @relation(fields: [showId], references: [id])
-  showId Int
-
-  @@unique([listId, showId])
 }
 
 model WatchlistShow {
