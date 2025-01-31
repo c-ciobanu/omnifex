@@ -1,10 +1,13 @@
-import { Star } from 'lucide-react'
+import { useMutation } from '@apollo/client'
+import { CircleCheck, Star } from 'lucide-react'
 import type { ShowQuery } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { type CellFailureProps, type CellSuccessProps, Metadata } from '@redwoodjs/web'
 
 import { useAuth } from 'src/auth'
+import { Button } from 'src/components/ui/button'
+import { cn } from 'src/lib/utils'
 
 import Actions from './Actions'
 
@@ -25,12 +28,32 @@ export const QUERY = gql`
         id
         number
         posterUrl
+        userProgress {
+          watched
+        }
       }
       userProgress {
         watched
+        watchedEpisodes
         inWatchlist
         abandoned
       }
+    }
+  }
+`
+
+const WATCH_SEASON_MUTATION = gql`
+  mutation WatchSeasonMutation($id: Int!) {
+    watchSeason(id: $id) {
+      id
+    }
+  }
+`
+
+const UNWATCH_SEASON_MUTATION = gql`
+  mutation UnwatchSeasonMutation($id: Int!) {
+    unwatchSeason(id: $id) {
+      count
     }
   }
 `
@@ -41,8 +64,23 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ show }: CellSuccessProps<ShowQuery>) => {
+export const Success = ({ show, tmdbId }: CellSuccessProps<ShowQuery> & { tmdbId: number }) => {
   const { isAuthenticated } = useAuth()
+
+  const [watchSeason] = useMutation(WATCH_SEASON_MUTATION, {
+    refetchQueries: [{ query: QUERY, variables: { tmdbId } }],
+  })
+  const [unwatchSeason] = useMutation(UNWATCH_SEASON_MUTATION, {
+    refetchQueries: [{ query: QUERY, variables: { tmdbId } }],
+  })
+
+  function toggleWatchSeason(seasonId, watched) {
+    if (watched) {
+      unwatchSeason({ variables: { id: seasonId } })
+    } else {
+      watchSeason({ variables: { id: seasonId } })
+    }
+  }
 
   return (
     <>
@@ -98,8 +136,31 @@ export const Success = ({ show }: CellSuccessProps<ShowQuery>) => {
               <Link
                 to={routes.season({ tmdbId: show.tmdbId, number: season.number })}
                 title={`${show.title} season ${season.number}`}
+                className="group relative"
               >
                 <img src={season.posterUrl} alt={`Season ${season.number} poster`} />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <p className="absolute left-2 top-2 font-medium text-white">Season {season.number}</p>
+                </div>
+
+                {isAuthenticated ? (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                      'absolute bottom-2 right-2',
+                      season.userProgress.watched ? 'text-green-500' : 'text-white'
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      toggleWatchSeason(season.id, season.userProgress.watched)
+                    }}
+                  >
+                    <CircleCheck className="!h-6 !w-6" />
+                  </Button>
+                ) : null}
               </Link>
             </li>
           ))}

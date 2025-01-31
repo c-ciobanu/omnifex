@@ -33,6 +33,7 @@ export const schema = gql`
     posterUrl: String!
     rating: Float!
     episodes: [Episode!]
+    userProgress: SeasonProgress
   }
 
   type Episode {
@@ -48,8 +49,14 @@ export const schema = gql`
 
   type ShowProgress {
     watched: Boolean!
+    watchedEpisodes: Int!
+    watchedPercentage: Int!
     inWatchlist: Boolean!
     abandoned: Boolean!
+  }
+
+  type SeasonProgress {
+    watched: Boolean!
   }
 
   type WatchlistShow {

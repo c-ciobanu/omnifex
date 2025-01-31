@@ -24,11 +24,11 @@ type CachedPrismaEpisode = Omit<PrismaEpisode, 'createdAt' | 'updatedAt' | 'rati
   updatedAt: string
 }
 
-export const getUserShowProgress = async (showId: number) => {
+export const getUserShowProgress = async (id: number) => {
   requireAuth()
 
   const { _count: counts } = await db.show.findUnique({
-    where: { id: showId },
+    where: { id },
     select: {
       _count: {
         select: {
@@ -41,14 +41,12 @@ export const getUserShowProgress = async (showId: number) => {
     },
   })
 
-  const watched = counts.episodes === counts.watchedEpisodes
-  const inWatchlist = counts.inWatchlist === 1
-  const abandoned = counts.abandoned === 1
-
   return {
-    watched,
-    inWatchlist: inWatchlist || (!abandoned && !watched && counts.watchedEpisodes > 0),
-    abandoned,
+    watched: counts.episodes === counts.watchedEpisodes,
+    watchedEpisodes: counts.watchedEpisodes,
+    watchedPercentage: Math.round((counts.watchedEpisodes / counts.episodes) * 100),
+    inWatchlist: counts.inWatchlist === 1,
+    abandoned: counts.abandoned === 1,
   }
 }
 
@@ -183,5 +181,24 @@ export const Season: SeasonRelationResolvers = {
       rating: new Prisma.Decimal(episode.rating).toNumber(),
       stillUrl: `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}`,
     }))
+  },
+  userProgress: async (_obj, { root }) => {
+    if (context.currentUser) {
+      const { _count: counts } = await db.showSeason.findUnique({
+        where: { id: root.id },
+        select: {
+          _count: {
+            select: {
+              episodes: true,
+              watchedEpisodes: { where: { userId: context.currentUser.id } },
+            },
+          },
+        },
+      })
+
+      return { watched: counts.episodes === counts.watchedEpisodes }
+    }
+
+    return null
   },
 }

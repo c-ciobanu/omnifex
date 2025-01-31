@@ -18,7 +18,7 @@ describe('ShowCell', () => {
 
   it('renders Success successfully', async () => {
     const show = standard().show
-    render(<Success show={standard().show} />)
+    render(<Success show={standard().show} tmdbId={1398} />)
 
     expect(screen.getByText(show.title)).toBeInTheDocument()
   })

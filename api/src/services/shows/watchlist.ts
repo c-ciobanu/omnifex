@@ -7,6 +7,14 @@ import { db } from 'src/lib/db'
 
 import { getUserShowProgress } from './shows'
 
+export const isShowInWatchlist = async (id: number) => {
+  requireAuth()
+
+  const count = await db.watchlistShow.count({ where: { showId: id, userId: context.currentUser.id } })
+
+  return count === 1
+}
+
 export const showsWatchlist: QueryResolvers['showsWatchlist'] = async () => {
   requireAuth()
 

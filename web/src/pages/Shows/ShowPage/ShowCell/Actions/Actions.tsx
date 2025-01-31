@@ -62,7 +62,7 @@ const UNABANDON_SHOW_MUTATION = gql`
 
 const Actions = ({ show }: ActionsProps) => {
   const { id, tmdbId, userProgress } = show
-  const { watched, inWatchlist, abandoned } = userProgress
+  const { watched, watchedEpisodes, inWatchlist, abandoned } = userProgress
 
   const [createWatched, { loading: createWatchedLoading }] = useMutation(WATCH_SHOW_MUTATION, {
     variables: { id },
@@ -131,7 +131,7 @@ const Actions = ({ show }: ActionsProps) => {
         <span>{watched ? 'Watched' : 'Set as watched'}</span>
       </Button>
 
-      {watched || abandoned ? null : (
+      {watched || watchedEpisodes > 0 || abandoned ? null : (
         <Button
           onClick={toggleToWatchStatus}
           disabled={createToWatchLoading || deleteToWatchLoading}
