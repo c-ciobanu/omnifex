@@ -17,6 +17,6 @@ describe('SeasonCell', () => {
   })
 
   it('renders Success successfully', async () => {
-    render(<Success {...standard()} />)
+    render(<Success {...standard()} showTmdbId={1398} seasonNumber={1} />)
   })
 })

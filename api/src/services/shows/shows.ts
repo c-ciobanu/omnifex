@@ -196,7 +196,20 @@ export const Season: SeasonRelationResolvers = {
         },
       })
 
-      return { watched: counts.episodes === counts.watchedEpisodes }
+      return {
+        watched: counts.episodes === counts.watchedEpisodes,
+        watchedEpisodes: counts.watchedEpisodes,
+        watchedPercentage: Math.round((counts.watchedEpisodes / counts.episodes) * 100),
+      }
+    }
+
+    return null
+  },
+  watchedEpisodes: (_obj, { root }) => {
+    if (context.currentUser) {
+      return db.showSeason
+        .findUnique({ where: { id: root.id } })
+        .watchedEpisodes({ where: { userId: context.currentUser.id } })
     }
 
     return null

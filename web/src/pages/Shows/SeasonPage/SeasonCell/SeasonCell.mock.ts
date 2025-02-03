@@ -1,5 +1,6 @@
 export const standard = () => ({
   show: {
+    id: 1,
     title: 'The Sopranos',
   },
   season: {
