@@ -1152,6 +1152,7 @@ export default async () => {
     await db.show.createMany({ data: shows })
     await db.showSeason.createMany({ data: seasons })
     await db.showEpisode.createMany({ data: episodes })
+    const showsWithEpisodes = await db.show.findMany({ include: { episodes: true } })
 
     const s3BucketExists = await minioClient.bucketExists(process.env.MINIO_BUCKET_NAME)
     if (!s3BucketExists) {
@@ -1185,37 +1186,31 @@ export default async () => {
             { name: DefaultMovieLists.Watched, movies: { create: range(1, 20).map((n) => ({ movieId: n })) } },
           ],
         },
+        watchedEpisodes: {
+          create: [
+            ...range(1, 3).map((n, i) => ({
+              showId: showsWithEpisodes[1].id,
+              seasonId: showsWithEpisodes[1].episodes[i].seasonId,
+              episodeId: showsWithEpisodes[1].episodes[i].id,
+            })),
+            ...range(1, 3).map((n, i) => ({
+              showId: showsWithEpisodes[2].id,
+              seasonId: showsWithEpisodes[2].episodes[i].seasonId,
+              episodeId: showsWithEpisodes[2].episodes[i].id,
+            })),
+            ...range(1, showsWithEpisodes[3].episodes.length).map((n, i) => ({
+              showId: showsWithEpisodes[3].id,
+              seasonId: showsWithEpisodes[3].episodes[i].seasonId,
+              episodeId: showsWithEpisodes[3].episodes[i].id,
+            })),
+          ],
+        },
         showsWatchlist: { create: { showId: 1 } },
         abandonedShows: { create: { showId: 2 } },
         bookLists: {
           create: [
             { name: DefaultBookLists.ReadingList, books: { create: range(9, 12).map((n) => ({ bookId: n })) } },
             { name: DefaultBookLists.Read, books: { create: range(1, 8).map((n) => ({ bookId: n })) } },
-          ],
-        },
-        metrics: {
-          create: [
-            {
-              name: 'Weight',
-              unit: 'Kg',
-              entries: {
-                create: range(1, 8).map((n) => ({ value: `${90 - n}`, date: new Date(`2023-0${n + 1}-01`) })),
-              },
-            },
-            {
-              name: 'Savings',
-              unit: '$',
-              entries: {
-                create: range(1, 8).map((n) => ({ value: `${1000 * n}`, date: new Date(`2023-0${n + 1}-01`) })),
-              },
-            },
-            {
-              name: 'Daily Steps',
-              unit: 'Steps',
-              entries: {
-                create: range(1, 8).map((n) => ({ value: `${2000 * n}`, date: new Date(`2023-0${n + 1}-01`) })),
-              },
-            },
           ],
         },
         documents: {
@@ -1272,6 +1267,31 @@ export default async () => {
             },
           ],
         },
+        metrics: {
+          create: [
+            {
+              name: 'Weight',
+              unit: 'Kg',
+              entries: {
+                create: range(1, 8).map((n) => ({ value: `${90 - n}`, date: new Date(`2023-0${n + 1}-01`) })),
+              },
+            },
+            {
+              name: 'Savings',
+              unit: '$',
+              entries: {
+                create: range(1, 8).map((n) => ({ value: `${1000 * n}`, date: new Date(`2023-0${n + 1}-01`) })),
+              },
+            },
+            {
+              name: 'Daily Steps',
+              unit: 'Steps',
+              entries: {
+                create: range(1, 8).map((n) => ({ value: `${2000 * n}`, date: new Date(`2023-0${n + 1}-01`) })),
+              },
+            },
+          ],
+        },
       },
       {
         username: 'john',
@@ -1292,30 +1312,6 @@ export default async () => {
 
       await db.user.create({ data: { ...user, hashedPassword, salt } })
     }
-
-    const showsWithEpisodes = await db.show.findMany({ include: { episodes: true } })
-    await db.watchedEpisode.createMany({
-      data: [
-        ...range(1, 3).map((n, i) => ({
-          userId: 1,
-          showId: showsWithEpisodes[1].id,
-          seasonId: showsWithEpisodes[1].episodes[i].seasonId,
-          episodeId: showsWithEpisodes[1].episodes[i].id,
-        })),
-        ...range(1, 3).map((n, i) => ({
-          userId: 1,
-          showId: showsWithEpisodes[2].id,
-          seasonId: showsWithEpisodes[2].episodes[i].seasonId,
-          episodeId: showsWithEpisodes[2].episodes[i].id,
-        })),
-        ...range(1, showsWithEpisodes[3].episodes.length).map((n, i) => ({
-          userId: 1,
-          showId: showsWithEpisodes[3].id,
-          seasonId: showsWithEpisodes[3].episodes[i].seasonId,
-          episodeId: showsWithEpisodes[3].episodes[i].id,
-        })),
-      ],
-    })
   } catch (error) {
     console.error(error)
   }

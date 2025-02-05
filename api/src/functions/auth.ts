@@ -121,10 +121,13 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
         const testUser = await db.user.findUnique({
           where: { username: 'test' },
           select: {
-            movieLists: { include: { movies: true } },
-            bookLists: { include: { books: true } },
-            metrics: { include: { entries: true } },
-            documents: true,
+            movieLists: { select: { name: true, movies: { select: { movieId: true } } } },
+            bookLists: { select: { name: true, books: { select: { bookId: true } } } },
+            metrics: { select: { name: true, unit: true, entries: { select: { value: true, date: true } } } },
+            documents: { select: { title: true, body: true } },
+            watchedEpisodes: { select: { showId: true, seasonId: true, episodeId: true } },
+            showsWatchlist: { select: { showId: true } },
+            abandonedShows: { select: { showId: true } },
           },
         })
 
@@ -133,26 +136,14 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
             username,
             hashedPassword,
             salt,
-            movieLists: {
-              create: testUser.movieLists.map((l) => ({
-                name: l.name,
-                movies: { create: l.movies.map((m) => ({ movieId: m.movieId })) },
-              })),
-            },
-            bookLists: {
-              create: testUser.bookLists.map((l) => ({
-                name: l.name,
-                books: { create: l.books.map((b) => ({ bookId: b.bookId })) },
-              })),
-            },
-            metrics: {
-              create: testUser.metrics.map((m) => ({
-                name: m.name,
-                unit: m.unit,
-                entries: { create: m.entries.map((e) => ({ value: e.value, date: e.date })) },
-              })),
-            },
-            documents: { create: testUser.documents.map((d) => ({ title: d.title, body: d.body })) },
+            movieLists: { create: testUser.movieLists.map((l) => ({ ...l, movies: { create: l.movies } })) },
+            watchedEpisodes: { create: testUser.watchedEpisodes },
+            showsWatchlist: { create: testUser.showsWatchlist },
+            abandonedShows: { create: testUser.abandonedShows },
+            bookLists: { create: testUser.bookLists.map((l) => ({ ...l, books: { create: l.books } })) },
+            documents: { create: testUser.documents },
+            // TODO: workouts
+            metrics: { create: testUser.metrics.map((m) => ({ ...m, entries: { create: m.entries } })) },
           },
         })
 
