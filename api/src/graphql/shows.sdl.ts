@@ -46,12 +46,14 @@ export const schema = gql`
     runtime: Int!
     stillUrl: String!
     title: String!
+    season: Season
   }
 
   type ShowProgress {
     watched: Boolean!
     watchedEpisodes: Int!
     watchedPercentage: Int!
+    nextEpisodeToWatch: Episode
     inWatchlist: Boolean!
     abandoned: Boolean!
   }

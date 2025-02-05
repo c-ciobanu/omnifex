@@ -1,5 +1,10 @@
 import { Prisma, ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason, Show as PrismaShow } from '@prisma/client'
-import type { QueryResolvers, SeasonRelationResolvers, ShowRelationResolvers } from 'types/graphql'
+import type {
+  EpisodeRelationResolvers,
+  QueryResolvers,
+  SeasonRelationResolvers,
+  ShowRelationResolvers,
+} from 'types/graphql'
 
 import { requireAuth } from 'src/lib/auth'
 import { cache, cacheFindMany } from 'src/lib/cache'
@@ -162,7 +167,26 @@ export const Show: ShowRelationResolvers = {
   },
   userProgress: async (_obj, { root }) => {
     if (context.currentUser) {
-      return getUserShowProgress(root.id)
+      const userShowProgress = await getUserShowProgress(root.id)
+
+      let nextEpisodeToWatch = null
+
+      if (!userShowProgress.watched) {
+        const [episode] = await db.show.findUnique({ where: { id: root.id } }).episodes({
+          where: { watched: { none: { userId: context.currentUser.id } } },
+          orderBy: { airDate: 'asc' },
+          take: 1,
+        })
+
+        nextEpisodeToWatch = {
+          ...episode,
+          airDate: new Date(episode.airDate),
+          rating: new Prisma.Decimal(episode.rating).toNumber(),
+          stillUrl: `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}`,
+        }
+      }
+
+      return { ...userShowProgress, nextEpisodeToWatch }
     }
 
     return null
@@ -213,5 +237,18 @@ export const Season: SeasonRelationResolvers = {
     }
 
     return null
+  },
+}
+
+export const Episode: EpisodeRelationResolvers = {
+  season: async (_obj, { root }) => {
+    const s = await db.showEpisode.findUnique({ where: { id: root?.id } }).season()
+
+    return {
+      ...s,
+      airDate: new Date(s.airDate),
+      posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+      rating: new Prisma.Decimal(s.rating).toNumber(),
+    }
   },
 }
