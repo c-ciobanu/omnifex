@@ -234,10 +234,10 @@ interface TMDBShowSeason {
     name: string
     overview: string
     production_code: string
-    runtime: number
+    runtime?: number
     season_number: number
     show_id: number
-    still_path: string
+    still_path?: string
     vote_average: number
     vote_count: number
     crew: {

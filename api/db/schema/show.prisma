@@ -48,9 +48,9 @@ model ShowEpisode {
   number        Int
   overview      String
   rating        Decimal  @db.Decimal(3, 1)
-  runtime       Int
+  runtime       Int?
   title         String
-  tmdbStillPath String
+  tmdbStillPath String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

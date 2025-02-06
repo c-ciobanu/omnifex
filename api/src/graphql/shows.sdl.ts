@@ -43,8 +43,8 @@ export const schema = gql`
     number: Int!
     overview: String!
     rating: Float!
-    runtime: Int!
-    stillUrl: String!
+    runtime: Int
+    stillUrl: String
     title: String!
     season: Season
   }

@@ -182,7 +182,7 @@ export const Show: ShowRelationResolvers = {
           ...episode,
           airDate: new Date(episode.airDate),
           rating: new Prisma.Decimal(episode.rating).toNumber(),
-          stillUrl: `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}`,
+          stillUrl: episode.tmdbStillPath ? `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
         }
       }
 
@@ -203,7 +203,7 @@ export const Season: SeasonRelationResolvers = {
       ...episode,
       airDate: new Date(episode.airDate),
       rating: new Prisma.Decimal(episode.rating).toNumber(),
-      stillUrl: `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}`,
+      stillUrl: episode.tmdbStillPath ? `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
     }))
   },
   userProgress: async (_obj, { root }) => {
