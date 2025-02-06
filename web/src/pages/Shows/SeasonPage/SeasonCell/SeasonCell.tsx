@@ -209,7 +209,11 @@ export const Success = ({
         {season.episodes.map((episode) => (
           <Card key={episode.id} className="w-full max-w-full">
             <CardContent className="flex flex-col gap-4 md:flex-row">
-              <img src={episode.stillUrl} alt={`${episode.title} still`} className="rounded-md md:w-1/4" />
+              <img
+                src={episode.stillUrl ?? '/img/placeholder.svg'}
+                alt={`${episode.title} still`}
+                className="rounded-md md:w-1/4"
+              />
 
               <div className="space-y-2 md:w-3/4">
                 <div className="flex justify-between">
