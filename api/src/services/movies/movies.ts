@@ -17,7 +17,7 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
     .map((tmdbMovie) => ({
       tmdbId: tmdbMovie.id,
       overview: tmdbMovie.overview,
-      posterUrl: `http://image.tmdb.org/t/p/w154${tmdbMovie.poster_path}`,
+      posterUrl: `https://image.tmdb.org/t/p/w154${tmdbMovie.poster_path}`,
       releaseYear: Number(tmdbMovie.release_date.split('-')[0]),
       title: tmdbMovie.title,
     }))
@@ -63,7 +63,7 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
   return {
     ...m,
     releaseDate: new Date(m.releaseDate),
-    posterUrl: `http://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
+    posterUrl: `https://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
     rating: new Prisma.Decimal(m.rating),
   }
 }

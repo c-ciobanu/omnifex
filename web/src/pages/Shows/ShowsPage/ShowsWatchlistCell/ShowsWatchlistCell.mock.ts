@@ -11,7 +11,7 @@ export const standard = () => ({
           season: {
             id: 1,
             number: 1,
-            posterUrl: 'http://image.tmdb.org/t/p/w342/aV0PbVnDPsfy5HFZqjiZfNNgcTU.jpg',
+            posterUrl: 'https://image.tmdb.org/t/p/w342/aV0PbVnDPsfy5HFZqjiZfNNgcTU.jpg',
           },
         },
       },

@@ -26,8 +26,8 @@ export const watchedShows: QueryResolvers['watchedShows'] = async () => {
 
   return watchedShows.map((s) => ({
     ...s,
-    backdropUrl: `http://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
-    posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+    backdropUrl: `https://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
+    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
   }))
 }
 

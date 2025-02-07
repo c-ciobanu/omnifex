@@ -78,7 +78,7 @@ export const movieListItems: QueryResolvers['movieListItems'] = async ({ listId 
 
   return movies.map((m) => ({
     ...m,
-    posterUrl: `http://image.tmdb.org/t/p/w185${m.tmdbPosterPath}`,
+    posterUrl: `https://image.tmdb.org/t/p/w185${m.tmdbPosterPath}`,
   }))
 }
 

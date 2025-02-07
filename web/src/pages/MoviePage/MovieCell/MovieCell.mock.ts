@@ -6,7 +6,7 @@ export const standard = () => ({
     originalTitle: 'The Lego Batman Movie',
     overview:
       'A cooler-than-ever Bruce Wayne must deal with the usual suspects as they plan to rule Gotham City, while discovering that he has accidentally adopted a teenage orphan who wishes to become his sidekick.',
-    posterUrl: 'http://image.tmdb.org/t/p/w342/snGwr2gag4Fcgx2OGmH9otl6ofW.jpg',
+    posterUrl: 'https://image.tmdb.org/t/p/w342/snGwr2gag4Fcgx2OGmH9otl6ofW.jpg',
     rating: 7.2,
     releaseDate: '2017-02-08',
     runtime: 104,

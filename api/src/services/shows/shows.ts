@@ -63,7 +63,7 @@ export const shows: QueryResolvers['shows'] = async ({ title }) => {
   return tmdbShows.map((tmdbShow) => ({
     tmdbId: tmdbShow.id,
     overview: tmdbShow.overview,
-    posterUrl: `http://image.tmdb.org/t/p/w154${tmdbShow.poster_path}`,
+    posterUrl: `https://image.tmdb.org/t/p/w154${tmdbShow.poster_path}`,
     releaseYear: Number(tmdbShow.first_air_date.split('-')[0]),
     title: tmdbShow.name,
   }))
@@ -131,8 +131,8 @@ export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
 
   return {
     ...s,
-    backdropUrl: `http://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
-    posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+    backdropUrl: `https://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
+    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
     rating: new Prisma.Decimal(s.rating),
   }
 }
@@ -147,7 +147,7 @@ export const season: QueryResolvers['season'] = async ({ showTmdbId, seasonNumbe
   return {
     ...s,
     airDate: new Date(s.airDate),
-    posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
     rating: new Prisma.Decimal(s.rating).toNumber(),
   }
 }
@@ -161,7 +161,7 @@ export const Show: ShowRelationResolvers = {
     return seasons.map((season) => ({
       ...season,
       airDate: new Date(season.airDate),
-      posterUrl: `http://image.tmdb.org/t/p/w342${season.tmdbPosterPath}`,
+      posterUrl: `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}`,
       rating: new Prisma.Decimal(season.rating).toNumber(),
     }))
   },
@@ -182,7 +182,7 @@ export const Show: ShowRelationResolvers = {
           ...episode,
           airDate: new Date(episode.airDate),
           rating: new Prisma.Decimal(episode.rating).toNumber(),
-          stillUrl: episode.tmdbStillPath ? `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
+          stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
         }
       }
 
@@ -203,7 +203,7 @@ export const Season: SeasonRelationResolvers = {
       ...episode,
       airDate: new Date(episode.airDate),
       rating: new Prisma.Decimal(episode.rating).toNumber(),
-      stillUrl: episode.tmdbStillPath ? `http://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
+      stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
     }))
   },
   userProgress: async (_obj, { root }) => {
@@ -247,7 +247,7 @@ export const Episode: EpisodeRelationResolvers = {
     return {
       ...s,
       airDate: new Date(s.airDate),
-      posterUrl: `http://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+      posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
       rating: new Prisma.Decimal(s.rating).toNumber(),
     }
   },
