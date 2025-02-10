@@ -1,9 +1,18 @@
-import { Eye, EyeOff, ListMinus, ListPlus } from 'lucide-react'
+import { Check, EyeOff, ListMinus, ListPlus } from 'lucide-react'
 import { ShowQuery } from 'types/graphql'
 
 import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'src/components/ui/dropdown-menu'
+import { Progress } from 'src/components/ui/progress'
 import { cn } from 'src/lib/utils'
 
 import { QUERY as ShowCellQuery } from '../ShowCell'
@@ -62,13 +71,13 @@ const UNABANDON_SHOW_MUTATION = gql`
 
 const Actions = ({ show }: ActionsProps) => {
   const { id, tmdbId, userProgress } = show
-  const { watched, watchedEpisodes, inWatchlist, abandoned } = userProgress
+  const { watched, watchedEpisodes, watchedPercentage, inWatchlist, abandoned } = userProgress
 
   const [createWatched, { loading: createWatchedLoading }] = useMutation(WATCH_SHOW_MUTATION, {
     variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
-  const [deleteWatched, { loading: deleteWatchedLoading }] = useMutation(UNWATCH_SHOW_MUTATION, {
+  const [deleteWatched] = useMutation(UNWATCH_SHOW_MUTATION, {
     variables: { id },
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
@@ -89,14 +98,6 @@ const Actions = ({ show }: ActionsProps) => {
     refetchQueries: [{ query: ShowCellQuery, variables: { tmdbId } }],
   })
 
-  const toggleWatchedStatus = () => {
-    if (watched) {
-      deleteWatched()
-    } else {
-      createWatched()
-    }
-  }
-
   const toggleToWatchStatus = () => {
     if (inWatchlist) {
       deleteToWatch()
@@ -115,21 +116,52 @@ const Actions = ({ show }: ActionsProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Button
-        onClick={toggleWatchedStatus}
-        disabled={createWatchedLoading || deleteWatchedLoading}
-        variant="outline"
-        size="lg"
-        className={cn(
-          'h-12 justify-start gap-4 border-teal-500 px-2 text-base uppercase',
-          watched
-            ? 'bg-teal-500 text-white hover:border-teal-600 hover:bg-teal-600 hover:text-white'
-            : 'text-teal-500 hover:bg-teal-500 hover:text-white'
-        )}
-      >
-        {watched ? <Eye /> : <EyeOff />}
-        <span>{watched ? 'Watched' : 'Set as watched'}</span>
-      </Button>
+      {watchedEpisodes === 0 ? (
+        <Button
+          onClick={() => createWatched()}
+          disabled={createWatchedLoading}
+          variant="outline"
+          size="lg"
+          className="h-12 justify-start gap-4 border-teal-500 px-2 text-base uppercase text-teal-500 hover:bg-teal-500 hover:text-white"
+        >
+          <EyeOff />
+          <span>Set as watched</span>
+        </Button>
+      ) : (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div>
+              <Button
+                size="lg"
+                className="h-12 w-full justify-start gap-4 rounded-none bg-teal-500 px-2 text-white hover:bg-teal-500/80"
+              >
+                <Check className="!h-6 !w-6" />
+
+                <div className="text-left">
+                  <p className="text-sm uppercase">{watchedPercentage}% Watched</p>
+                  <p className="text-xs">
+                    {watchedEpisodes}/{show.episodes.length} episodes
+                  </p>
+                </div>
+              </Button>
+
+              <Progress value={watchedPercentage} className="rounded-none bg-teal-600/40 *:bg-teal-400" />
+            </div>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent className="dropdown-menu-content">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            {!watched ? (
+              <DropdownMenuItem onClick={() => createWatched()}>Watch remaining episodes</DropdownMenuItem>
+            ) : null}
+            <DropdownMenuItem onClick={() => deleteWatched()} className="text-destructive">
+              Unwatch all episodes
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
 
       {watched || watchedEpisodes > 0 || abandoned ? null : (
         <Button

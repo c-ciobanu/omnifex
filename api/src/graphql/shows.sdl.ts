@@ -22,6 +22,7 @@ export const schema = gql`
     title: String!
     tmdbId: Int!
     seasons: [Season!]
+    episodes: [Episode!]
     userProgress: ShowProgress
   }
 

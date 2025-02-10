@@ -32,9 +32,13 @@ export const QUERY = gql`
           watched
         }
       }
+      episodes {
+        id
+      }
       userProgress {
         watched
         watchedEpisodes
+        watchedPercentage
         inWatchlist
         abandoned
       }

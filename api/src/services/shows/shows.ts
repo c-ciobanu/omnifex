@@ -165,6 +165,18 @@ export const Show: ShowRelationResolvers = {
       rating: new Prisma.Decimal(season.rating).toNumber(),
     }))
   },
+  episodes: async (_obj, { root }) => {
+    const episodes: PrismaEpisode[] | CachedPrismaEpisode[] = await cacheFindMany('episodes', db.showEpisode, {
+      conditions: { where: { showId: root?.id } },
+    })
+
+    return episodes.map((episode) => ({
+      ...episode,
+      airDate: new Date(episode.airDate),
+      rating: new Prisma.Decimal(episode.rating).toNumber(),
+      stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
+    }))
+  },
   userProgress: async (_obj, { root }) => {
     if (context.currentUser) {
       const userShowProgress = await getUserShowProgress(root.id)

@@ -166,25 +166,27 @@ export const Success = ({
                 </Button>
               ) : (
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="w-full">
-                    <Button
-                      size="lg"
-                      className="h-12 w-full justify-start gap-4 rounded-none bg-teal-500 px-2 text-white hover:bg-teal-500/80"
-                    >
-                      <Check className="!h-6 !w-6" />
+                  <DropdownMenuTrigger asChild>
+                    <div>
+                      <Button
+                        size="lg"
+                        className="h-12 w-full justify-start gap-4 rounded-none bg-teal-500 px-2 text-white hover:bg-teal-500/80"
+                      >
+                        <Check className="!h-6 !w-6" />
 
-                      <div className="text-left">
-                        <p className="text-sm uppercase">{season.userProgress.watchedPercentage}% Watched</p>
-                        <p className="text-xs">
-                          {season.userProgress.watchedEpisodes}/{season.episodes.length} episodes
-                        </p>
-                      </div>
-                    </Button>
+                        <div className="text-left">
+                          <p className="text-sm uppercase">{season.userProgress.watchedPercentage}% Watched</p>
+                          <p className="text-xs">
+                            {season.userProgress.watchedEpisodes}/{season.episodes.length} episodes
+                          </p>
+                        </div>
+                      </Button>
 
-                    <Progress
-                      value={season.userProgress.watchedPercentage}
-                      className="rounded-none bg-teal-600/40 *:bg-teal-400"
-                    />
+                      <Progress
+                        value={season.userProgress.watchedPercentage}
+                        className="rounded-none bg-teal-600/40 *:bg-teal-400"
+                      />
+                    </div>
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent className="dropdown-menu-content">
