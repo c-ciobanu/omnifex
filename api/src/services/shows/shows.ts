@@ -11,6 +11,61 @@ import { cache, cacheFindMany } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows, TMDBSearchShow } from 'src/lib/tmdb'
 
+export const createShow = async (tmdbId: number) => {
+  const tmdbShow = await getTMDBShow(tmdbId)
+  const seasons = await Promise.all(
+    tmdbShow.seasons.filter((s) => s.season_number !== 0).map((s) => getTMDBShowSeason(tmdbId, s.season_number))
+  )
+
+  const show = await db.show.create({
+    data: {
+      creators: tmdbShow.created_by.map((person) => person.name),
+      genres: tmdbShow.genres.map((genre) => genre.name),
+      imdbId: tmdbShow.external_ids.imdb_id,
+      originalLanguage: tmdbShow.original_language,
+      originalTitle: tmdbShow.original_name,
+      overview: tmdbShow.overview,
+      rating: Math.round(tmdbShow.vote_average * 10) / 10,
+      tagline: tmdbShow.tagline || undefined,
+      title: tmdbShow.name,
+      tmdbBackdropPath: tmdbShow.backdrop_path,
+      tmdbId: tmdbShow.id,
+      tmdbPosterPath: tmdbShow.poster_path,
+    },
+  })
+
+  const dbSeasons = await db.showSeason.createManyAndReturn({
+    data: seasons.map((season) => ({
+      airDate: season.air_date ? new Date(season.air_date) : undefined,
+      number: season.season_number,
+      overview: season.overview,
+      rating: Math.round(season.vote_average * 10) / 10,
+      tmdbPosterPath: season.poster_path,
+      showId: show.id,
+    })),
+  })
+
+  await db.showEpisode.createMany({
+    data: dbSeasons.flatMap((dbSeason) => {
+      const season = seasons.find((s) => s.season_number === dbSeason.number)
+
+      return season.episodes.map((e) => ({
+        airDate: e.air_date ? new Date(e.air_date) : undefined,
+        number: e.episode_number,
+        overview: e.overview,
+        rating: Math.round(e.vote_average * 10) / 10,
+        runtime: e.runtime,
+        title: e.name,
+        tmdbStillPath: e.still_path,
+        seasonId: dbSeason.id,
+        showId: show.id,
+      }))
+    }),
+  })
+
+  return show
+}
+
 type CachedPrismaShow = Omit<PrismaShow, 'createdAt' | 'updatedAt' | 'rating'> & {
   rating: string
   createdAt: string
@@ -70,70 +125,21 @@ export const shows: QueryResolvers['shows'] = async ({ title }) => {
 }
 
 export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
-  let s: PrismaShow | CachedPrismaShow = await cache(
+  let show: PrismaShow | CachedPrismaShow = await cache(
     ['show', tmdbId.toString()],
     () => db.show.findUnique({ where: { tmdbId } }),
     { expires: 60 * 60 * 24 * 31 }
   )
 
-  if (!s) {
-    const tmdbShow = await getTMDBShow(tmdbId)
-    const seasons = await Promise.all(
-      tmdbShow.seasons.filter((s) => s.season_number !== 0).map((s) => getTMDBShowSeason(tmdbId, s.season_number))
-    )
-
-    s = await db.show.create({
-      data: {
-        creators: tmdbShow.created_by.map((person) => person.name),
-        genres: tmdbShow.genres.map((genre) => genre.name),
-        imdbId: tmdbShow.external_ids.imdb_id,
-        originalLanguage: tmdbShow.original_language,
-        originalTitle: tmdbShow.original_name,
-        overview: tmdbShow.overview,
-        rating: Math.round(tmdbShow.vote_average * 10) / 10,
-        tagline: tmdbShow.tagline || undefined,
-        title: tmdbShow.name,
-        tmdbBackdropPath: tmdbShow.backdrop_path,
-        tmdbId: tmdbShow.id,
-        tmdbPosterPath: tmdbShow.poster_path,
-      },
-    })
-
-    const dbSeasons = await db.showSeason.createManyAndReturn({
-      data: seasons.map((season) => ({
-        airDate: new Date(season.air_date),
-        number: season.season_number,
-        overview: season.overview,
-        rating: Math.round(season.vote_average * 10) / 10,
-        tmdbPosterPath: season.poster_path,
-        showId: s.id,
-      })),
-    })
-
-    await db.showEpisode.createMany({
-      data: dbSeasons.flatMap((dbSeason) => {
-        const season = seasons.find((s) => s.season_number === dbSeason.number)
-
-        return season.episodes.map((e) => ({
-          airDate: new Date(e.air_date),
-          number: e.episode_number,
-          overview: e.overview,
-          rating: Math.round(e.vote_average * 10) / 10,
-          runtime: e.runtime,
-          title: e.name,
-          tmdbStillPath: e.still_path,
-          seasonId: dbSeason.id,
-          showId: s.id,
-        }))
-      }),
-    })
+  if (!show) {
+    show = await createShow(tmdbId)
   }
 
   return {
-    ...s,
-    backdropUrl: `https://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}`,
-    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
-    rating: new Prisma.Decimal(s.rating),
+    ...show,
+    backdropUrl: show.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${show.tmdbBackdropPath}` : undefined,
+    posterUrl: `https://image.tmdb.org/t/p/w342${show.tmdbPosterPath}`,
+    rating: new Prisma.Decimal(show.rating),
   }
 }
 
@@ -146,8 +152,8 @@ export const season: QueryResolvers['season'] = async ({ showTmdbId, seasonNumbe
 
   return {
     ...s,
-    airDate: new Date(s.airDate),
-    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+    airDate: s.airDate ? new Date(s.airDate) : undefined,
+    posterUrl: s.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}` : undefined,
     rating: new Prisma.Decimal(s.rating).toNumber(),
   }
 }
@@ -160,8 +166,8 @@ export const Show: ShowRelationResolvers = {
 
     return seasons.map((season) => ({
       ...season,
-      airDate: new Date(season.airDate),
-      posterUrl: `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}`,
+      airDate: season.airDate ? new Date(season.airDate) : undefined,
+      posterUrl: season.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}` : undefined,
       rating: new Prisma.Decimal(season.rating).toNumber(),
     }))
   },
@@ -172,7 +178,7 @@ export const Show: ShowRelationResolvers = {
 
     return episodes.map((episode) => ({
       ...episode,
-      airDate: new Date(episode.airDate),
+      airDate: episode.airDate ? new Date(episode.airDate) : undefined,
       rating: new Prisma.Decimal(episode.rating).toNumber(),
       stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
     }))
@@ -192,7 +198,7 @@ export const Show: ShowRelationResolvers = {
 
         nextEpisodeToWatch = {
           ...episode,
-          airDate: new Date(episode.airDate),
+          airDate: episode.airDate ? new Date(episode.airDate) : undefined,
           rating: new Prisma.Decimal(episode.rating).toNumber(),
           stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
         }
@@ -213,7 +219,7 @@ export const Season: SeasonRelationResolvers = {
 
     return episodes.map((episode) => ({
       ...episode,
-      airDate: new Date(episode.airDate),
+      airDate: episode.airDate ? new Date(episode.airDate) : undefined,
       rating: new Prisma.Decimal(episode.rating).toNumber(),
       stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
     }))
@@ -258,8 +264,8 @@ export const Episode: EpisodeRelationResolvers = {
 
     return {
       ...s,
-      airDate: new Date(s.airDate),
-      posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
+      airDate: s.airDate ? new Date(s.airDate) : undefined,
+      posterUrl: s.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}` : undefined,
       rating: new Prisma.Decimal(s.rating).toNumber(),
     }
   },

@@ -32,7 +32,7 @@ export const UpdateShowJob = jobs.createJob({
       const season = await db.showSeason.update({
         where: { showId_number: { showId: show.id, number: tmdbSeason.season_number } },
         data: {
-          airDate: new Date(tmdbSeason.air_date),
+          airDate: tmdbSeason.air_date ? new Date(tmdbSeason.air_date) : undefined,
           number: tmdbSeason.season_number,
           overview: tmdbSeason.overview,
           rating: Math.round(tmdbSeason.vote_average * 10) / 10,
@@ -44,7 +44,7 @@ export const UpdateShowJob = jobs.createJob({
         await db.showEpisode.update({
           where: { seasonId_number: { seasonId: season.id, number: tmdbEpisode.episode_number } },
           data: {
-            airDate: new Date(tmdbEpisode.air_date),
+            airDate: tmdbEpisode.air_date ? new Date(tmdbEpisode.air_date) : undefined,
             number: tmdbEpisode.episode_number,
             overview: tmdbEpisode.overview,
             rating: Math.round(tmdbEpisode.vote_average * 10) / 10,

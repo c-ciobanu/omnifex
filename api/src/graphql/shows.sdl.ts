@@ -9,10 +9,10 @@ export const schema = gql`
 
   type Show {
     id: Int!
-    backdropUrl: String!
+    backdropUrl: String
     creators: [String!]!
     genres: [String!]!
-    imdbId: String!
+    imdbId: String
     originalLanguage: String!
     originalTitle: String!
     overview: String!
@@ -28,10 +28,10 @@ export const schema = gql`
 
   type Season {
     id: Int!
-    airDate: Date!
+    airDate: Date
     number: Int!
     overview: String!
-    posterUrl: String!
+    posterUrl: String
     rating: Float!
     episodes: [Episode!]
     watchedEpisodes: [WatchedEpisode!]
@@ -40,7 +40,7 @@ export const schema = gql`
 
   type Episode {
     id: Int!
-    airDate: Date!
+    airDate: Date
     number: Int!
     overview: String!
     rating: Float!

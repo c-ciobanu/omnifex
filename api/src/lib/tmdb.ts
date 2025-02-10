@@ -134,7 +134,7 @@ export interface TMDBSearchShow {
 
 export interface TMDBShow {
   adult: boolean
-  backdrop_path: string
+  backdrop_path?: string
   created_by: {
     id: number
     credit_id: string
@@ -214,7 +214,7 @@ export interface TMDBShow {
     freebase_id: string
     freebase_mid: string
     id: number
-    imdb_id: string
+    imdb_id?: string
     instagram_id?: string
     tvdb_id: number
     tvrage_id: number
@@ -225,9 +225,9 @@ export interface TMDBShow {
 
 interface TMDBShowSeason {
   _id: string
-  air_date: string
+  air_date?: string
   episodes: {
-    air_date: string
+    air_date?: string
     episode_number: number
     episode_type?: string
     id: number
@@ -270,7 +270,7 @@ interface TMDBShowSeason {
   name: string
   overview: string
   id: number
-  poster_path: string
+  poster_path?: string
   season_number: number
   vote_average: number
 }

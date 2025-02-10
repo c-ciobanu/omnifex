@@ -2,14 +2,14 @@ model Show {
   id               Int      @id @default(autoincrement())
   creators         String[]
   genres           String[]
-  imdbId           String   @unique
+  imdbId           String?  @unique
   originalLanguage String
   originalTitle    String
   overview         String
   rating           Decimal  @db.Decimal(3, 1)
   tagline          String?
   title            String
-  tmdbBackdropPath String
+  tmdbBackdropPath String?
   tmdbId           Int      @unique
   tmdbPosterPath   String
 
@@ -24,12 +24,12 @@ model Show {
 }
 
 model ShowSeason {
-  id             Int      @id @default(autoincrement())
-  airDate        DateTime @db.Date
+  id             Int       @id @default(autoincrement())
+  airDate        DateTime? @db.Date
   number         Int
   overview       String
-  rating         Decimal  @db.Decimal(3, 1)
-  tmdbPosterPath String
+  rating         Decimal   @db.Decimal(3, 1)
+  tmdbPosterPath String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,11 +43,11 @@ model ShowSeason {
 }
 
 model ShowEpisode {
-  id            Int      @id @default(autoincrement())
-  airDate       DateTime @db.Date
+  id            Int       @id @default(autoincrement())
+  airDate       DateTime? @db.Date
   number        Int
   overview      String
-  rating        Decimal  @db.Decimal(3, 1)
+  rating        Decimal   @db.Decimal(3, 1)
   runtime       Int?
   title         String
   tmdbStillPath String?
