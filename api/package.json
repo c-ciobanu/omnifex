@@ -12,8 +12,12 @@
     "@redwoodjs/jobs": "8.4.2",
     "@sentry/node": "7.120.2",
     "@whatwg-node/fetch": "^0.9.23",
+    "adm-zip": "^0.5.16",
     "common": "workspace:packages/common",
     "minio": "^8.0.3",
     "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0"
   }
 }
