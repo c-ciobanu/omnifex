@@ -192,7 +192,7 @@ export const Show: ShowRelationResolvers = {
       if (!userShowProgress.watched) {
         const [episode] = await db.show.findUnique({ where: { id: root.id } }).episodes({
           where: { watched: { none: { userId: context.currentUser.id } } },
-          orderBy: { airDate: 'asc' },
+          orderBy: [{ airDate: 'asc' }, { number: 'asc' }],
           take: 1,
         })
 
