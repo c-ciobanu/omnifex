@@ -132,8 +132,12 @@ export const Success = ({
 
       <div className="space-y-6">
         <div className="flex flex-col gap-6 lg:flex-row">
-          <div className="flex items-start gap-6">
-            <img src={season.posterUrl} alt={`${show.title} season ${season.number} poster`} className="w-1/4" />
+          <div className="flex w-full items-start gap-6">
+            <img
+              src={season.posterUrl ?? '/img/placeholder-tall.svg'}
+              alt={`${show.title} season ${season.number} poster`}
+              className="w-1/4"
+            />
 
             <div className="space-y-3">
               <h1 className="text-2xl font-bold">{show.title}</h1>
@@ -212,7 +216,7 @@ export const Success = ({
           <Card key={episode.id} className="w-full max-w-full">
             <CardContent className="flex flex-col gap-4 md:flex-row">
               <img
-                src={episode.stillUrl ?? '/img/placeholder.svg'}
+                src={episode.stillUrl ?? '/img/placeholder-wide.svg'}
                 alt={`${episode.title} still`}
                 className="rounded-md md:w-1/4"
               />

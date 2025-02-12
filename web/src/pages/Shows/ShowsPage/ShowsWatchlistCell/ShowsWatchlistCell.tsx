@@ -9,6 +9,7 @@ export const QUERY: TypedDocumentNode<ShowsWatchlistQuery, ShowsWatchlistQueryVa
       id
       title
       tmdbId
+      posterUrl
       userProgress {
         nextEpisodeToWatch {
           id
@@ -37,7 +38,7 @@ export const Success = ({ showsWatchlist }: CellSuccessProps<ShowsWatchlistQuery
         <li key={show.id}>
           <Link to={routes.show({ tmdbId: show.tmdbId })} title={show.title} className="group relative">
             <img
-              src={show.userProgress.nextEpisodeToWatch.season.posterUrl}
+              src={show.userProgress.nextEpisodeToWatch.season.posterUrl ?? show.posterUrl}
               alt={`${show.title} season ${show.userProgress.nextEpisodeToWatch.season.number} poster`}
               className="h-full w-full"
             />
