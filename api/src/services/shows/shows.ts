@@ -187,7 +187,7 @@ export const Show: ShowRelationResolvers = {
     if (context.currentUser) {
       const userShowProgress = await getUserShowProgress(root.id)
 
-      let nextEpisodeToWatch = null
+      let nextEpisode = null
 
       if (!userShowProgress.watched) {
         const [episode] = await db.show.findUnique({ where: { id: root.id } }).episodes({
@@ -196,7 +196,7 @@ export const Show: ShowRelationResolvers = {
           take: 1,
         })
 
-        nextEpisodeToWatch = {
+        nextEpisode = {
           ...episode,
           airDate: episode.airDate ? new Date(episode.airDate) : undefined,
           rating: new Prisma.Decimal(episode.rating).toNumber(),
@@ -204,7 +204,7 @@ export const Show: ShowRelationResolvers = {
         }
       }
 
-      return { ...userShowProgress, nextEpisodeToWatch }
+      return { ...userShowProgress, nextEpisode }
     }
 
     return null

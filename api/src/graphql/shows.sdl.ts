@@ -54,7 +54,7 @@ export const schema = gql`
     watched: Boolean!
     watchedEpisodes: Int!
     watchedPercentage: Int!
-    nextEpisodeToWatch: Episode
+    nextEpisode: Episode
     inWatchlist: Boolean!
     abandoned: Boolean!
   }

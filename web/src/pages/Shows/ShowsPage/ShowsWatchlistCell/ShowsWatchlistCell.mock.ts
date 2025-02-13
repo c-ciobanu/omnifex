@@ -5,8 +5,9 @@ export const standard = () => ({
       title: 'Chernobyl',
       tmdbId: 87108,
       userProgress: {
-        nextEpisodeToWatch: {
+        nextEpisode: {
           id: 1,
+          airDate: '2022-02-02',
           number: 1,
           season: {
             id: 1,
