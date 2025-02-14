@@ -1,4 +1,5 @@
-import { isAfter, isBefore } from 'date-fns'
+import { getTime, intlFormat, intlFormatDistance, isAfter, isBefore } from 'date-fns'
+import { maxTime } from 'date-fns/constants'
 import type { ShowsWatchlistQuery, ShowsWatchlistQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -35,9 +36,10 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 
 interface ShowsGridProps {
   shows: ShowsWatchlistQuery['showsWatchlist']
+  showAirDates: boolean
 }
 
-const ShowsGrid = ({ shows }: ShowsGridProps) => (
+const ShowsGrid = ({ shows, showAirDates }: ShowsGridProps) => (
   <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-6">
     {shows.map((show) => (
       <li key={show.id}>
@@ -49,10 +51,19 @@ const ShowsGrid = ({ shows }: ShowsGridProps) => (
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <p className="absolute left-2 top-2 text-sm text-white">
-              Next: {show.userProgress.nextEpisode.season.number.toString().padStart(2, '0')}x
-              {show.userProgress.nextEpisode.number.toString().padStart(2, '0')}
-            </p>
+            <div className="absolute left-2 top-2 text-sm text-white">
+              <p>{show.title}</p>
+              <p>
+                Next: {show.userProgress.nextEpisode.season.number.toString().padStart(2, '0')}x
+                {show.userProgress.nextEpisode.number.toString().padStart(2, '0')}
+              </p>
+              {showAirDates && show.userProgress.nextEpisode.airDate ? (
+                <>
+                  <p className="capitalize">{intlFormatDistance(show.userProgress.nextEpisode.airDate, new Date())}</p>
+                  <p className="capitalize">{intlFormat(show.userProgress.nextEpisode.airDate)}</p>
+                </>
+              ) : null}
+            </div>
           </div>
         </Link>
       </li>
@@ -63,20 +74,25 @@ const ShowsGrid = ({ shows }: ShowsGridProps) => (
 export const Success = ({ showsWatchlist }: CellSuccessProps<ShowsWatchlistQuery>) => {
   const now = new Date()
 
-  const onAirShows = showsWatchlist.filter(
-    (show) => show.userProgress.nextEpisode.airDate && isBefore(show.userProgress.nextEpisode.airDate, now)
-  )
-  const upcomingShows = showsWatchlist.filter(
-    (show) => !show.userProgress.nextEpisode.airDate || isAfter(show.userProgress.nextEpisode.airDate, now)
-  )
+  const onAirShows = showsWatchlist
+    .filter((show) => show.userProgress.nextEpisode.airDate && isBefore(show.userProgress.nextEpisode.airDate, now))
+    .sort((a, b) => getTime(b.userProgress.nextEpisode.airDate) - getTime(a.userProgress.nextEpisode.airDate))
+  const upcomingShows = showsWatchlist
+    .filter((show) => !show.userProgress.nextEpisode.airDate || isAfter(show.userProgress.nextEpisode.airDate, now))
+    .sort((a, b) => {
+      const aTime = a.userProgress.nextEpisode.airDate ? getTime(a.userProgress.nextEpisode.airDate) : maxTime
+      const bTime = b.userProgress.nextEpisode.airDate ? getTime(b.userProgress.nextEpisode.airDate) : maxTime
+
+      return aTime - bTime
+    })
 
   return (
     <div className="space-y-4">
       <h2 className="text-3xl font-bold">On Air</h2>
-      <ShowsGrid shows={onAirShows} />
+      <ShowsGrid shows={onAirShows} showAirDates={false} />
 
       <h2 className="text-3xl font-bold">Upcoming</h2>
-      <ShowsGrid shows={upcomingShows} />
+      <ShowsGrid shows={upcomingShows} showAirDates />
     </div>
   )
 }
