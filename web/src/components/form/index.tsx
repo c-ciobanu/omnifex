@@ -7,10 +7,10 @@ import {
   useRegister,
   useFormContext,
   Form,
-  RegisterOptions,
   Controller,
   FieldPath,
   FieldValues,
+  RedwoodRegisterOptions,
 } from '@redwoodjs/forms'
 
 import { Label } from 'src/components/ui/label'
@@ -25,14 +25,9 @@ type FormFieldContextValue<
 
 const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue)
 
-export type FormRegisterOptions = RegisterOptions & {
-  valueAsBoolean?: boolean
-  valueAsJSON?: boolean
-}
-
 type FormFieldProps = {
   name: string
-  validation: FormRegisterOptions
+  validation: RedwoodRegisterOptions
   render: (register: ReturnType<typeof useRegister>) => React.ReactNode
 }
 

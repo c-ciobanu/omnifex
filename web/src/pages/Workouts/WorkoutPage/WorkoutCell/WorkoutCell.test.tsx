@@ -13,10 +13,10 @@ describe('WorkoutCell', () => {
   })
 
   it('renders Failure successfully', async () => {
-    expect(() => render(<Failure error={new Error('Oh no')} />)).not.toThrow()
+    expect(() => render(<Failure error={new Error('Oh no')} id={1} />)).not.toThrow()
   })
 
   it('renders Success successfully', async () => {
-    expect(() => render(<Success workout={standard().workout} />)).not.toThrow()
+    expect(() => render(<Success workout={standard().workout} id={1} />)).not.toThrow()
   })
 })

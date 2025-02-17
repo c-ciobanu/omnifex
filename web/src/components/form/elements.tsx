@@ -1,5 +1,7 @@
 import { Check, ChevronsUpDown } from 'lucide-react'
 
+import { RedwoodRegisterOptions } from '@redwoodjs/forms'
+
 import {
   ControlledFormField,
   FormControl,
@@ -8,7 +10,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormRegisterOptions,
 } from 'src/components/form'
 import { Button } from 'src/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from 'src/components/ui/command'
@@ -18,7 +19,7 @@ import { Textarea } from 'src/components/ui/textarea'
 import { cn } from 'src/lib/utils'
 
 interface FormInputProps extends React.ComponentProps<typeof Input> {
-  validation?: FormRegisterOptions
+  validation?: RedwoodRegisterOptions
   label?: string
   description?: string
 }
@@ -48,7 +49,7 @@ const FormInput = (props: FormInputProps) => {
 }
 
 interface FormTextareaProps extends React.ComponentProps<typeof Textarea> {
-  validation?: FormRegisterOptions
+  validation?: RedwoodRegisterOptions
   label?: string
   description?: string
 }
@@ -79,7 +80,7 @@ const FormTextarea = (props: FormTextareaProps) => {
 
 interface FormComboboxProps {
   name: string
-  validation?: FormRegisterOptions
+  validation?: RedwoodRegisterOptions
   label?: string
   description?: string
   options: { value: string | number; label: string }[]
