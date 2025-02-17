@@ -5,7 +5,7 @@ import { validateWith } from '@redwoodjs/api'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
-import { getUserShowProgress } from './shows'
+import { getUserShowProgress, mapShowToGraphql } from './shows'
 
 export const isShowInWatchlist = async (id: number) => {
   requireAuth()
@@ -43,11 +43,7 @@ export const showsWatchlist: QueryResolvers['showsWatchlist'] = async () => {
     (s) => s._count.inWatchlist === 1 || s._count.watchedEpisodes !== s._count.episodes
   )
 
-  return inProgressShows.map((s) => ({
-    ...s,
-    backdropUrl: s.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}` : undefined,
-    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
-  }))
+  return inProgressShows.map(mapShowToGraphql)
 }
 
 export const watchlistShow: MutationResolvers['watchlistShow'] = async ({ id }) => {

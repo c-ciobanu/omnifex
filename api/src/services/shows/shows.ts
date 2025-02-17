@@ -11,6 +11,27 @@ import { cache, cacheFindMany } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows, TMDBSearchShow } from 'src/lib/tmdb'
 
+export const mapShowToGraphql = (show: PrismaShow | CachedPrismaShow) => ({
+  ...show,
+  backdropUrl: show.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${show.tmdbBackdropPath}` : undefined,
+  posterUrl: `https://image.tmdb.org/t/p/w342${show.tmdbPosterPath}`,
+  rating: new Prisma.Decimal(show.rating),
+})
+
+const mapSeasonToGraphql = (season: PrismaSeason | CachedPrismaSeason) => ({
+  ...season,
+  airDate: season.airDate ? new Date(season.airDate) : undefined,
+  posterUrl: season.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}` : undefined,
+  rating: new Prisma.Decimal(season.rating).toNumber(),
+})
+
+const mapEpisodeToGraphql = (episode: PrismaEpisode | CachedPrismaEpisode) => ({
+  ...episode,
+  airDate: episode.airDate ? new Date(episode.airDate) : undefined,
+  rating: new Prisma.Decimal(episode.rating).toNumber(),
+  stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
+})
+
 export const createShow = async (tmdbId: number) => {
   const tmdbShow = await getTMDBShow(tmdbId)
   const seasons = await Promise.all(
@@ -135,27 +156,17 @@ export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
     show = await createShow(tmdbId)
   }
 
-  return {
-    ...show,
-    backdropUrl: show.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${show.tmdbBackdropPath}` : undefined,
-    posterUrl: `https://image.tmdb.org/t/p/w342${show.tmdbPosterPath}`,
-    rating: new Prisma.Decimal(show.rating),
-  }
+  return mapShowToGraphql(show)
 }
 
 export const season: QueryResolvers['season'] = async ({ showTmdbId, seasonNumber }) => {
-  const s: PrismaSeason | CachedPrismaSeason = await cache(
+  const season: PrismaSeason | CachedPrismaSeason = await cache(
     ['show-season', showTmdbId.toString(), seasonNumber.toString()],
     () => db.showSeason.findFirst({ where: { show: { tmdbId: showTmdbId }, number: seasonNumber } }),
     { expires: 60 * 60 * 24 * 31 }
   )
 
-  return {
-    ...s,
-    airDate: s.airDate ? new Date(s.airDate) : undefined,
-    posterUrl: s.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}` : undefined,
-    rating: new Prisma.Decimal(s.rating).toNumber(),
-  }
+  return mapSeasonToGraphql(season)
 }
 
 export const Show: ShowRelationResolvers = {
@@ -164,24 +175,14 @@ export const Show: ShowRelationResolvers = {
       conditions: { where: { showId: root?.id } },
     })
 
-    return seasons.map((season) => ({
-      ...season,
-      airDate: season.airDate ? new Date(season.airDate) : undefined,
-      posterUrl: season.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}` : undefined,
-      rating: new Prisma.Decimal(season.rating).toNumber(),
-    }))
+    return seasons.map(mapSeasonToGraphql)
   },
   episodes: async (_obj, { root }) => {
     const episodes: PrismaEpisode[] | CachedPrismaEpisode[] = await cacheFindMany('episodes', db.showEpisode, {
       conditions: { where: { showId: root?.id } },
     })
 
-    return episodes.map((episode) => ({
-      ...episode,
-      airDate: episode.airDate ? new Date(episode.airDate) : undefined,
-      rating: new Prisma.Decimal(episode.rating).toNumber(),
-      stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
-    }))
+    return episodes.map(mapEpisodeToGraphql)
   },
   userProgress: async (_obj, { root }) => {
     if (context.currentUser) {
@@ -196,12 +197,7 @@ export const Show: ShowRelationResolvers = {
           take: 1,
         })
 
-        nextEpisode = {
-          ...episode,
-          airDate: episode.airDate ? new Date(episode.airDate) : undefined,
-          rating: new Prisma.Decimal(episode.rating).toNumber(),
-          stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
-        }
+        nextEpisode = mapEpisodeToGraphql(episode)
       }
 
       return { ...userShowProgress, nextEpisode }
@@ -217,12 +213,7 @@ export const Season: SeasonRelationResolvers = {
       conditions: { where: { seasonId: root?.id } },
     })
 
-    return episodes.map((episode) => ({
-      ...episode,
-      airDate: episode.airDate ? new Date(episode.airDate) : undefined,
-      rating: new Prisma.Decimal(episode.rating).toNumber(),
-      stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
-    }))
+    return episodes.map(mapEpisodeToGraphql)
   },
   userProgress: async (_obj, { root }) => {
     if (context.currentUser) {
@@ -260,13 +251,8 @@ export const Season: SeasonRelationResolvers = {
 
 export const Episode: EpisodeRelationResolvers = {
   season: async (_obj, { root }) => {
-    const s = await db.showEpisode.findUnique({ where: { id: root?.id } }).season()
+    const season = await db.showEpisode.findUnique({ where: { id: root?.id } }).season()
 
-    return {
-      ...s,
-      airDate: s.airDate ? new Date(s.airDate) : undefined,
-      posterUrl: s.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}` : undefined,
-      rating: new Prisma.Decimal(s.rating).toNumber(),
-    }
+    return mapSeasonToGraphql(season)
   },
 }

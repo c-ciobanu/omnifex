@@ -4,7 +4,7 @@ import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 import { unabandonShow } from './abandoned'
-import { getUserShowProgress } from './shows'
+import { getUserShowProgress, mapShowToGraphql } from './shows'
 import { isShowInWatchlist, unwatchlistShow } from './watchlist'
 
 export const watchedShows: QueryResolvers['watchedShows'] = async () => {
@@ -24,11 +24,7 @@ export const watchedShows: QueryResolvers['watchedShows'] = async () => {
 
   const watchedShows = shows.filter((s) => s._count.watchedEpisodes === s._count.episodes)
 
-  return watchedShows.map((s) => ({
-    ...s,
-    backdropUrl: s.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}` : undefined,
-    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
-  }))
+  return watchedShows.map(mapShowToGraphql)
 }
 
 export const watchShow: MutationResolvers['watchShow'] = async ({ id }) => {

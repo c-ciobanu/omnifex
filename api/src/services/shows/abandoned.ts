@@ -5,7 +5,7 @@ import { validateWith } from '@redwoodjs/api'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
-import { getUserShowProgress } from './shows'
+import { getUserShowProgress, mapShowToGraphql } from './shows'
 
 export const abandonedShows: QueryResolvers['abandonedShows'] = async () => {
   requireAuth()
@@ -14,11 +14,7 @@ export const abandonedShows: QueryResolvers['abandonedShows'] = async () => {
     where: { abandoned: { some: { userId: context.currentUser.id } } },
   })
 
-  return shows.map((s) => ({
-    ...s,
-    backdropUrl: s.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${s.tmdbBackdropPath}` : undefined,
-    posterUrl: `https://image.tmdb.org/t/p/w342${s.tmdbPosterPath}`,
-  }))
+  return shows.map(mapShowToGraphql)
 }
 
 export const abandonShow: MutationResolvers['abandonShow'] = async ({ id }) => {
