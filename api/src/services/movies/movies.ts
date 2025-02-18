@@ -1,4 +1,3 @@
-import { Prisma, Movie as PrismaMovie } from '@prisma/client'
 import { DefaultMovieLists } from 'common'
 import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
@@ -23,19 +22,8 @@ export const movies: QueryResolvers['movies'] = async ({ title }) => {
     }))
 }
 
-type CachedPrismaMovie = Omit<PrismaMovie, 'releaseDate' | 'createdAt' | 'updatedAt' | 'rating'> & {
-  rating: string
-  releaseDate: string
-  createdAt: string
-  updatedAt: string
-}
-
 export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
-  let m: PrismaMovie | CachedPrismaMovie = await cache(
-    ['movie', tmdbId.toString()],
-    () => db.movie.findUnique({ where: { tmdbId } }),
-    { expires: 60 * 60 * 24 * 31 }
-  )
+  let m = await db.movie.findUnique({ where: { tmdbId } })
 
   if (!m) {
     const tmdbMovie = await getTMDBMovie(tmdbId)
@@ -62,9 +50,7 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
 
   return {
     ...m,
-    releaseDate: new Date(m.releaseDate),
     posterUrl: `https://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
-    rating: new Prisma.Decimal(m.rating),
   }
 }
 

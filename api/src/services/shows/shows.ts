@@ -1,4 +1,4 @@
-import { Prisma, ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason, Show as PrismaShow } from '@prisma/client'
+import { ShowEpisode as PrismaEpisode, ShowSeason as PrismaSeason, Show as PrismaShow } from '@prisma/client'
 import type {
   EpisodeRelationResolvers,
   QueryResolvers,
@@ -7,28 +7,27 @@ import type {
 } from 'types/graphql'
 
 import { requireAuth } from 'src/lib/auth'
-import { cache, cacheFindMany } from 'src/lib/cache'
+import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows, TMDBSearchShow } from 'src/lib/tmdb'
 
-export const mapShowToGraphql = (show: PrismaShow | CachedPrismaShow) => ({
+export const mapShowToGraphql = (show: PrismaShow) => ({
   ...show,
   backdropUrl: show.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${show.tmdbBackdropPath}` : undefined,
   posterUrl: `https://image.tmdb.org/t/p/w342${show.tmdbPosterPath}`,
-  rating: new Prisma.Decimal(show.rating),
 })
 
-const mapSeasonToGraphql = (season: PrismaSeason | CachedPrismaSeason) => ({
+const mapSeasonToGraphql = (season: PrismaSeason) => ({
   ...season,
   airDate: season.airDate ? new Date(season.airDate) : undefined,
   posterUrl: season.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}` : undefined,
-  rating: new Prisma.Decimal(season.rating).toNumber(),
+  rating: season.rating.toNumber(),
 })
 
-const mapEpisodeToGraphql = (episode: PrismaEpisode | CachedPrismaEpisode) => ({
+const mapEpisodeToGraphql = (episode: PrismaEpisode) => ({
   ...episode,
   airDate: episode.airDate ? new Date(episode.airDate) : undefined,
-  rating: new Prisma.Decimal(episode.rating).toNumber(),
+  rating: episode.rating.toNumber(),
   stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
 })
 
@@ -87,24 +86,6 @@ export const createShow = async (tmdbId: number) => {
   return show
 }
 
-type CachedPrismaShow = Omit<PrismaShow, 'createdAt' | 'updatedAt' | 'rating'> & {
-  rating: string
-  createdAt: string
-  updatedAt: string
-}
-
-type CachedPrismaSeason = Omit<PrismaSeason, 'createdAt' | 'updatedAt' | 'rating'> & {
-  rating: string
-  createdAt: string
-  updatedAt: string
-}
-
-type CachedPrismaEpisode = Omit<PrismaEpisode, 'createdAt' | 'updatedAt' | 'rating'> & {
-  rating: string
-  createdAt: string
-  updatedAt: string
-}
-
 export const getUserShowProgress = async (id: number) => {
   requireAuth()
 
@@ -146,11 +127,7 @@ export const shows: QueryResolvers['shows'] = async ({ title }) => {
 }
 
 export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
-  let show: PrismaShow | CachedPrismaShow = await cache(
-    ['show', tmdbId.toString()],
-    () => db.show.findUnique({ where: { tmdbId } }),
-    { expires: 60 * 60 * 24 * 31 }
-  )
+  let show = await db.show.findUnique({ where: { tmdbId } })
 
   if (!show) {
     show = await createShow(tmdbId)
@@ -160,27 +137,19 @@ export const show: QueryResolvers['show'] = async ({ tmdbId }) => {
 }
 
 export const season: QueryResolvers['season'] = async ({ showTmdbId, seasonNumber }) => {
-  const season: PrismaSeason | CachedPrismaSeason = await cache(
-    ['show-season', showTmdbId.toString(), seasonNumber.toString()],
-    () => db.showSeason.findFirst({ where: { show: { tmdbId: showTmdbId }, number: seasonNumber } }),
-    { expires: 60 * 60 * 24 * 31 }
-  )
+  const season = await db.showSeason.findFirst({ where: { show: { tmdbId: showTmdbId }, number: seasonNumber } })
 
   return mapSeasonToGraphql(season)
 }
 
 export const Show: ShowRelationResolvers = {
   seasons: async (_obj, { root }) => {
-    const seasons: PrismaSeason[] | CachedPrismaSeason[] = await cacheFindMany('seasons', db.showSeason, {
-      conditions: { where: { showId: root?.id } },
-    })
+    const seasons = await db.show.findUnique({ where: { id: root.id } }).seasons({ orderBy: { number: 'asc' } })
 
     return seasons.map(mapSeasonToGraphql)
   },
   episodes: async (_obj, { root }) => {
-    const episodes: PrismaEpisode[] | CachedPrismaEpisode[] = await cacheFindMany('episodes', db.showEpisode, {
-      conditions: { where: { showId: root?.id } },
-    })
+    const episodes = await db.show.findUnique({ where: { id: root.id } }).episodes({ orderBy: { number: 'asc' } })
 
     return episodes.map(mapEpisodeToGraphql)
   },
@@ -209,9 +178,7 @@ export const Show: ShowRelationResolvers = {
 
 export const Season: SeasonRelationResolvers = {
   episodes: async (_obj, { root }) => {
-    const episodes: PrismaEpisode[] | CachedPrismaEpisode[] = await cacheFindMany('episodes', db.showEpisode, {
-      conditions: { where: { seasonId: root?.id } },
-    })
+    const episodes = await db.showSeason.findUnique({ where: { id: root.id } }).episodes({ orderBy: { number: 'asc' } })
 
     return episodes.map(mapEpisodeToGraphql)
   },

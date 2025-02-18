@@ -1,5 +1,4 @@
 import { books_v1 } from '@googleapis/books'
-import { Book as PrismaBook } from '@prisma/client'
 import { DefaultBookLists } from 'common'
 import type { BookRelationResolvers, QueryResolvers } from 'types/graphql'
 
@@ -32,32 +31,11 @@ export const books: QueryResolvers['books'] = async ({ title }) => {
     }))
 }
 
-type CachedPrismaBook = Omit<PrismaBook, 'publicationDate' | 'createdAt' | 'updatedAt'> & {
-  publicationDate: string
-  createdAt: string
-  updatedAt: string
-}
-
 export const book: QueryResolvers['book'] = async ({ googleId }) => {
-  let b: PrismaBook | CachedPrismaBook = await cache(
-    ['book', googleId],
-    () => db.book.findUnique({ where: { googleId } }),
-    { expires: 60 * 60 * 24 * 31 }
-  )
+  let b = await db.book.findUnique({ where: { googleId } })
 
   if (!b) {
-    const googleBook: books_v1.Schema$Volume = await cache(['googleBook', googleId], () => getGoogleBook(googleId), {
-      expires: 60 * 60 * 24 * 31,
-    })
-
-    if (
-      !googleBook.volumeInfo.description ||
-      !googleBook.volumeInfo.publishedDate ||
-      !googleBook.volumeInfo.pageCount ||
-      !googleBook.volumeInfo.categories
-    ) {
-      return null
-    }
+    const googleBook = await getGoogleBook(googleId)
 
     b = await db.book.create({
       data: {
@@ -77,7 +55,6 @@ export const book: QueryResolvers['book'] = async ({ googleId }) => {
 
   return {
     ...b,
-    publicationDate: new Date(b.publicationDate),
     coverUrl: `https://books.google.com/books/content?id=${b.googleId}&printsec=frontcover&img=1&zoom=3`,
   }
 }
