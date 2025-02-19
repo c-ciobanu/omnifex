@@ -174,6 +174,14 @@ export const Show: ShowRelationResolvers = {
 
     return null
   },
+  lastEpisode: async (_obj, { root }) => {
+    const [episode] = await db.show.findUnique({ where: { id: root.id } }).episodes({
+      orderBy: { airDate: 'desc' },
+      take: 1,
+    })
+
+    return mapEpisodeToGraphql(episode)
+  },
 }
 
 export const Season: SeasonRelationResolvers = {

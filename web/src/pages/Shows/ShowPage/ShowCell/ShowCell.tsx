@@ -144,7 +144,7 @@ export const Success = ({ show, tmdbId }: CellSuccessProps<ShowQuery> & { tmdbId
               >
                 <img src={season.posterUrl ?? '/img/placeholder-tall.svg'} alt={`Season ${season.number} poster`} />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <p className="absolute left-2 top-2 font-medium text-white">Season {season.number}</p>
                 </div>
 
