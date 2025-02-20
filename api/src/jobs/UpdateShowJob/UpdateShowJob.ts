@@ -29,29 +29,33 @@ export const UpdateShowJob = jobs.createJob({
     })
 
     for (const tmdbSeason of tmdbSeasons) {
-      const season = await db.showSeason.update({
+      const seasonData = {
+        airDate: tmdbSeason.air_date ? new Date(tmdbSeason.air_date) : undefined,
+        number: tmdbSeason.season_number,
+        overview: tmdbSeason.overview,
+        rating: Math.round(tmdbSeason.vote_average * 10) / 10,
+        tmdbPosterPath: tmdbSeason.poster_path,
+      }
+      const season = await db.showSeason.upsert({
         where: { showId_number: { showId: show.id, number: tmdbSeason.season_number } },
-        data: {
-          airDate: tmdbSeason.air_date ? new Date(tmdbSeason.air_date) : undefined,
-          number: tmdbSeason.season_number,
-          overview: tmdbSeason.overview,
-          rating: Math.round(tmdbSeason.vote_average * 10) / 10,
-          tmdbPosterPath: tmdbSeason.poster_path,
-        },
+        update: seasonData,
+        create: { ...seasonData, showId: show.id },
       })
 
       for (const tmdbEpisode of tmdbSeason.episodes) {
-        await db.showEpisode.update({
+        const episodeData = {
+          airDate: tmdbEpisode.air_date ? new Date(tmdbEpisode.air_date) : undefined,
+          number: tmdbEpisode.episode_number,
+          overview: tmdbEpisode.overview,
+          rating: Math.round(tmdbEpisode.vote_average * 10) / 10,
+          runtime: tmdbEpisode.runtime,
+          title: tmdbEpisode.name,
+          tmdbStillPath: tmdbEpisode.still_path,
+        }
+        await db.showEpisode.upsert({
           where: { seasonId_number: { seasonId: season.id, number: tmdbEpisode.episode_number } },
-          data: {
-            airDate: tmdbEpisode.air_date ? new Date(tmdbEpisode.air_date) : undefined,
-            number: tmdbEpisode.episode_number,
-            overview: tmdbEpisode.overview,
-            rating: Math.round(tmdbEpisode.vote_average * 10) / 10,
-            runtime: tmdbEpisode.runtime,
-            title: tmdbEpisode.name,
-            tmdbStillPath: tmdbEpisode.still_path,
-          },
+          update: episodeData,
+          create: { ...episodeData, showId: show.id, seasonId: season.id },
         })
       }
     }
