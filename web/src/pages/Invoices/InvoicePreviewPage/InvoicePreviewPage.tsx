@@ -90,10 +90,14 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
                     {item.quantity} {item.unit}
                   </td>
                   <td className="text-right">
-                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.unitPrice)}
+                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+                      item.unitPrice
+                    )}
                   </td>
                   <td className="text-right">
-                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.price)}
+                    {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+                      item.price
+                    )}
                   </td>
                 </tr>
               ))}
@@ -114,14 +118,16 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
                   <tr className="*:py-2">
                     <td className="text-left">{invoice.currency}</td>
                     <td className="text-right">
-                      {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(invoice.total)}
+                      {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+                        invoice.total
+                      )}
                     </td>
                   </tr>
 
                   <tr className="*:py-2">
                     <td className="text-left">{invoice.conversion.currency}</td>
                     <td className="text-right">
-                      {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(
+                      {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
                         invoice.total * invoice.conversion.rate
                       )}
                     </td>

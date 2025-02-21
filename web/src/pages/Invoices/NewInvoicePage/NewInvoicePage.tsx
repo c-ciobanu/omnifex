@@ -88,7 +88,9 @@ const Item = ({ number, formMethods, onRemove }: ItemProps) => {
       <td>
         <FormInput name={`items.${number}.unitPrice`} type="number" min={0} validation={{ required: true }} />
       </td>
-      <td>{new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2 }).format(item.price)}</td>
+      <td>
+        {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.price)}
+      </td>
       <td>
         <Button
           type="button"
@@ -114,7 +116,7 @@ const NewInvoicePage = () => {
   const currency = formMethods.watch('currency')
   const total = new Intl.NumberFormat(
     'en-UK',
-    currency ? { style: 'currency', currency: currency } : { minimumFractionDigits: 2 }
+    currency ? { style: 'currency', currency: currency } : { minimumFractionDigits: 2, maximumFractionDigits: 2 }
   ).format(items.reduce((a, item) => a + item.price, 0))
 
   const {
