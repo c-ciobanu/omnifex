@@ -1,4 +1,5 @@
 import { useLocalStorage } from '@uidotdev/usehooks'
+import { getTime } from 'date-fns'
 import { MoreVertical, Plus } from 'lucide-react'
 
 import { Link, navigate, routes } from '@redwoodjs/router'
@@ -19,6 +20,8 @@ import { Invoice } from '../NewInvoicePage/NewInvoicePage'
 const InvoicesPage = () => {
   const [invoices, setInvoices] = useLocalStorage<Invoice[]>('invoices', [])
 
+  const sortedInvoices = invoices.sort((a, b) => getTime(b.issueDate) - getTime(a.issueDate))
+
   return (
     <>
       <Metadata title="Invoices" />
@@ -32,7 +35,7 @@ const InvoicesPage = () => {
       </div>
 
       <ul className="divide-y divide-white">
-        {invoices.map((invoice) => (
+        {sortedInvoices.map((invoice) => (
           <li key={invoice.id} className="flex items-center justify-between gap-6 py-4">
             <p className="text-sm font-medium">{invoice.number}</p>
 
