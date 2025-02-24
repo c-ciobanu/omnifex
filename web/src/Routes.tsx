@@ -38,6 +38,7 @@ const Routes = () => {
         <Route path="/tools/pomodoro" page={PomodoroTimerPage} name="pomodoro" />
         <Route path="/invoices" page={InvoicesInvoicesPage} name="invoices" />
         <Route path="/invoices/new" page={InvoicesNewInvoicePage} name="newInvoice" />
+        <Route path="/invoices/{id:String}" page={InvoicesInvoicePage} name="invoice" />
 
         <PrivateSet unauthenticated="home">
           <Route path="/movies" page={MoviesPage} name="movies" />

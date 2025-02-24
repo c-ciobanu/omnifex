@@ -41,7 +41,7 @@ const InvoicesPage = () => {
 
             <div className="flex shrink-0 items-center gap-4">
               <Button asChild variant="outline">
-                <Link to={routes.invoicePreview({ id: invoice.id })} title={invoice.number}>
+                <Link to={routes.invoice({ id: invoice.id })} title={invoice.number}>
                   View Invoice
                 </Link>
               </Button>

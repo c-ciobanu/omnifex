@@ -1,44 +1,40 @@
 import { useLocalStorage } from '@uidotdev/usehooks'
 
 import { Form, Submit, SubmitHandler } from '@redwoodjs/forms'
-import { routes, useParams } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
-import InvoiceForm, { invoiceFormDefaultValues, InvoiceFormValues } from 'src/components/InvoiceForm/InvoiceForm'
+import InvoiceForm, { InvoiceFormValues } from 'src/components/InvoiceForm/InvoiceForm'
 import { buttonVariants } from 'src/components/ui/button'
 import { cn } from 'src/lib/utils'
 
-export type Invoice = InvoiceFormValues & {
+import { Invoice } from '../NewInvoicePage/NewInvoicePage'
+
+type InvoicePageProps = {
   id: string
-  total: number
 }
 
-const NewInvoicePage = () => {
-  const { copy } = useParams()
+const InvoicePage = ({ id }: InvoicePageProps) => {
   const [invoices, setInvoices] = useLocalStorage<Invoice[]>('invoices', [])
+  const invoice = invoices.find((i) => i.id === id)
 
   const onSubmit: SubmitHandler<InvoiceFormValues> = (data) => {
-    const id = (Number(invoices[invoices.length - 1]?.id ?? '0') + 1).toString()
     const total = data.items.reduce((a, item) => a + item.price, 0)
     const conversion = data.conversion.currency ? data.conversion : undefined
 
     const invoice = { ...data, id, total, conversion }
 
-    setInvoices((state) => state.concat([invoice]))
+    setInvoices((state) => state.map((i) => (i.id === id ? invoice : i)))
 
     window.open(routes.invoicePreview({ id }), '_black')
   }
 
   return (
     <>
-      <Metadata title="New Invoice" />
+      <Metadata title={`Invoice ${invoice.number}`} />
 
-      <Form<InvoiceFormValues>
-        config={{ defaultValues: invoices.find((i) => i.id === copy) ?? invoiceFormDefaultValues }}
-        onSubmit={onSubmit}
-        className="space-y-6"
-      >
-        <h2 className="text-2xl font-bold tracking-tight">New Invoice</h2>
+      <Form<InvoiceFormValues> config={{ defaultValues: invoice }} onSubmit={onSubmit} className="space-y-6">
+        <h2 className="text-2xl font-bold tracking-tight">Invoice {invoice.number}</h2>
 
         <InvoiceForm />
 
@@ -48,4 +44,4 @@ const NewInvoicePage = () => {
   )
 }
 
-export default NewInvoicePage
+export default InvoicePage
