@@ -1,7 +1,7 @@
 import { useLocalStorage } from '@uidotdev/usehooks'
 
 import { Form, Submit, SubmitHandler } from '@redwoodjs/forms'
-import { routes, useParams } from '@redwoodjs/router'
+import { navigate, routes, useParams } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import InvoiceForm, { invoiceFormDefaultValues, InvoiceFormValues } from 'src/components/InvoiceForm/InvoiceForm'
@@ -27,6 +27,7 @@ const NewInvoicePage = () => {
     setInvoices((state) => state.concat([invoice]))
 
     window.open(routes.invoicePreview({ id }), '_black')
+    navigate(routes.invoice({ id }))
   }
 
   return (
@@ -42,7 +43,7 @@ const NewInvoicePage = () => {
 
         <InvoiceForm />
 
-        <Submit className={cn(buttonVariants(), 'w-full')}>Save Invoice and Preview</Submit>
+        <Submit className={cn(buttonVariants(), 'w-full')}>Create Invoice</Submit>
       </Form>
     </>
   )
