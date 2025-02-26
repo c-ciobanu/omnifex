@@ -119,7 +119,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
 
       if (userAttributes.isTemporary) {
         const testUser = await db.user.findUnique({
-          where: { username: 'test' },
+          where: { username: 'demo' },
           select: {
             movieLists: { select: { name: true, movies: { select: { movieId: true } } } },
             bookLists: { select: { name: true, books: { select: { bookId: true } } } },

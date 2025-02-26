@@ -795,8 +795,8 @@ export default async () => {
 
     const users = [
       {
-        username: 'test',
-        password: 'test',
+        username: 'demo',
+        password: 'demo',
         movieLists: {
           create: [
             { name: DefaultMovieLists.Watchlist, movies: { create: range(1, 3).map((n) => ({ movieId: n })) } },
