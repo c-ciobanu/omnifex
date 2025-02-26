@@ -2,11 +2,9 @@ import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
 import { DefaultBookLists, DefaultMovieLists } from 'common'
 
 import { validate } from '@redwoodjs/api'
-import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError, UserType } from '@redwoodjs/auth-dbauth-api'
+import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError } from '@redwoodjs/auth-dbauth-api'
 
-import { DeleteTemporaryUserJob } from 'src/jobs/DeleteTemporaryUserJob'
 import { db } from 'src/lib/db'
-import { later } from 'src/lib/jobs'
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   const forgotPasswordOptions: DbAuthHandlerOptions['forgotPassword'] = {
@@ -94,11 +92,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     },
   }
 
-  interface UserAttributes {
-    isTemporary: boolean
-  }
-
-  const signupOptions: DbAuthHandlerOptions<UserType, UserAttributes>['signup'] = {
+  const signupOptions: DbAuthHandlerOptions['signup'] = {
     // Whatever you want to happen to your data on new user signup. Redwood will
     // check for duplicate usernames before calling this handler. At a minimum
     // you need to save the `username`, `hashedPassword` and `salt` to your
@@ -114,43 +108,8 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     //
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
-    handler: async ({ username, hashedPassword, salt, userAttributes }) => {
+    handler: async ({ username, hashedPassword, salt }) => {
       validate(username, 'Username', { length: { min: 3, message: 'Username must be at least 3 characters' } })
-
-      if (userAttributes.isTemporary) {
-        const testUser = await db.user.findUnique({
-          where: { username: 'demo' },
-          select: {
-            movieLists: { select: { name: true, movies: { select: { movieId: true } } } },
-            bookLists: { select: { name: true, books: { select: { bookId: true } } } },
-            metrics: { select: { name: true, unit: true, entries: { select: { value: true, date: true } } } },
-            documents: { select: { title: true, body: true } },
-            watchedEpisodes: { select: { showId: true, seasonId: true, episodeId: true } },
-            showsWatchlist: { select: { showId: true } },
-            abandonedShows: { select: { showId: true } },
-          },
-        })
-
-        const user = await db.user.create({
-          data: {
-            username,
-            hashedPassword,
-            salt,
-            movieLists: { create: testUser.movieLists.map((l) => ({ ...l, movies: { create: l.movies } })) },
-            watchedEpisodes: { create: testUser.watchedEpisodes },
-            showsWatchlist: { create: testUser.showsWatchlist },
-            abandonedShows: { create: testUser.abandonedShows },
-            bookLists: { create: testUser.bookLists.map((l) => ({ ...l, books: { create: l.books } })) },
-            documents: { create: testUser.documents },
-            // TODO: workouts
-            metrics: { create: testUser.metrics.map((m) => ({ ...m, entries: { create: m.entries } })) },
-          },
-        })
-
-        await later(DeleteTemporaryUserJob, [user.id], { wait: 60 * 60 * 24 })
-
-        return user
-      }
 
       return db.user.create({
         data: {

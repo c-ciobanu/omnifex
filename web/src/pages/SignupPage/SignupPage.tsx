@@ -1,5 +1,4 @@
-import { useRef } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { Form, SubmitHandler } from '@redwoodjs/forms'
 import { Link, routes } from '@redwoodjs/router'
@@ -7,14 +6,13 @@ import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import { FormCheckbox, FormField, FormInput } from 'src/components/OldForm/OldForm'
+import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 type FormValues = {
   username: string
   password: string
-  isTemporary: boolean
 }
 
 const SignupPage = () => {
@@ -79,13 +77,6 @@ const SignupPage = () => {
                   }}
                 />
               </FormField>
-
-              <FormField
-                name="isTemporary"
-                description="Select this option if you don't like committing to something without first trying it."
-              >
-                <FormCheckbox name="isTemporary" label="Temporary Account (Expires in 24 Hours)" defaultValue={false} />
-              </FormField>
             </CardContent>
 
             <CardFooter>
@@ -100,6 +91,13 @@ const SignupPage = () => {
           <span className="text-sm text-gray-500">Already have an account?</span>{' '}
           <Link to={routes.login()} className="text-sm font-semibold text-blue-600 hover:text-blue-500">
             Sign in!
+          </Link>
+        </div>
+
+        <div>
+          <p className="text-sm text-gray-500">Not ready to sign up just yet? No worries!</p>
+          <Link to={routes.demoUserLogin()} className="text-sm font-semibold text-blue-600 hover:text-blue-500">
+            Try out our demo account!
           </Link>
         </div>
       </div>
