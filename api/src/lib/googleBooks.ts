@@ -9,7 +9,6 @@ export const searchGoogleBooks = async ({ title }: { title: string }) => {
   const response = await booksAPI.volumes.list({
     q: title,
     printType: 'books',
-    langRestrict: 'en',
     maxResults: 40,
     orderBy: 'relevance',
   })
