@@ -176,7 +176,7 @@ export const Show: ShowRelationResolvers = {
   },
   lastEpisode: async (_obj, { root }) => {
     const [episode] = await db.show.findUnique({ where: { id: root.id } }).episodes({
-      orderBy: { airDate: 'desc' },
+      orderBy: [{ season: { number: 'desc' } }, { number: 'desc' }],
       take: 1,
     })
 
