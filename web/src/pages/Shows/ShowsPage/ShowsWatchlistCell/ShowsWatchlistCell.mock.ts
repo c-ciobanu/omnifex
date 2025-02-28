@@ -16,6 +16,15 @@ export const standard = () => ({
           },
         },
       },
+      lastEpisode: {
+        id: 10,
+        airDate: '2022-02-02',
+        number: 10,
+        season: {
+          id: 1,
+          number: 1,
+        },
+      },
     },
   ],
 })

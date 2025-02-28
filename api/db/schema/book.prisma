@@ -15,9 +15,16 @@ model Book {
   listed BookListItem[]
 }
 
+enum BookListType {
+  READING_LIST
+  READ
+  CUSTOM
+}
+
 model BookList {
-  id   Int    @id @default(autoincrement())
+  id   Int          @id @default(autoincrement())
   name String
+  type BookListType @default(CUSTOM)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
