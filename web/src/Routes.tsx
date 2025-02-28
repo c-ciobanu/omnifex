@@ -19,33 +19,33 @@ const Routes = () => {
     <Router useAuth={useAuth}>
       <Set wrap={AppLayout}>
         <Set wrap={UnauthenticatedRoute}>
-          <Route path="/login" page={LoginPage} name="login" />
-          <Route path="/signup" page={SignupPage} name="signup" />
-          {/* <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" /> */}
-          {/* <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" /> */}
-          <Route path="/login/demo" page={DemoUserLoginPage} name="demoUserLogin" />
+          <Route path="/login" page={AuthLoginPage} name="login" />
+          <Route path="/signup" page={AuthSignupPage} name="signup" />
+          {/* <Route path="/forgot-password" page={AuthForgotPasswordPage} name="forgotPassword" /> */}
+          {/* <Route path="/reset-password" page={AuthResetPasswordPage} name="resetPassword" /> */}
+          <Route path="/login/demo" page={AuthDemoUserLoginPage} name="demoUserLogin" />
 
           <Route path="/" page={HomePage} name="home" />
         </Set>
 
-        <Route path="/search/movies" page={SearchMoviesPage} name="searchMovies" />
+        <Route path="/search/movies" page={MoviesSearchMoviesPage} name="searchMovies" />
         <Route path="/search/shows" page={ShowsSearchShowsPage} name="searchShows" />
-        <Route path="/search/books" page={SearchBooksPage} name="searchBooks" />
-        <Route path="/movies/{tmdbId:Int}" page={MoviePage} name="movie" />
+        <Route path="/search/books" page={BooksSearchBooksPage} name="searchBooks" />
+        <Route path="/movies/{tmdbId:Int}" page={MoviesMoviePage} name="movie" />
         <Route path="/shows/{tmdbId:Int}" page={ShowsShowPage} name="show" />
         <Route path="/shows/{tmdbId:Int}/seasons/{number:Int}" page={ShowsSeasonPage} name="season" />
-        <Route path="/books/{googleId:String}" page={BookPage} name="book" />
-        <Route path="/documents/{id:String}" page={DocumentPage} name="document" />
+        <Route path="/books/{googleId:String}" page={BooksBookPage} name="book" />
+        <Route path="/documents/{id:String}" page={DocumentsDocumentPage} name="document" />
         <Route path="/tools/pomodoro" page={PomodoroTimerPage} name="pomodoro" />
         <Route path="/invoices" page={InvoicesInvoicesPage} name="invoices" />
         <Route path="/invoices/new" page={InvoicesNewInvoicePage} name="newInvoice" />
         <Route path="/invoices/{id:String}" page={InvoicesInvoicePage} name="invoice" />
 
         <PrivateSet unauthenticated="home">
-          <Route path="/movies" page={MoviesPage} name="movies" />
+          <Route path="/movies" page={MoviesMoviesPage} name="movies" />
           <Route path="/shows" page={ShowsShowsPage} name="shows" />
-          <Route path="/books" page={BooksPage} name="books" />
-          <Route path="/documents" page={DocumentsPage} name="documents" />
+          <Route path="/books" page={BooksBooksPage} name="books" />
+          <Route path="/documents" page={DocumentsDocumentsPage} name="documents" />
           <Route path="/metrics" page={MetricsMetricsPage} name="metrics" />
           <Route path="/metrics/{id:Int}" page={MetricsMetricPage} name="metric" />
           <Route path="/workouts" page={WorkoutsWorkoutsPage} name="workouts" />

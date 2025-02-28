@@ -6,7 +6,7 @@ import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import { cn } from 'src/lib/utils'
-import { QUERY as BookCellQuery } from 'src/pages/BookPage/BookCell/BookCell'
+import { QUERY as BookCellQuery } from 'src/pages/Books/BookPage/BookCell/BookCell'
 
 type ActionsProps = {
   book: BookQuery['book']

@@ -6,7 +6,7 @@ import { useMutation } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
 import { cn } from 'src/lib/utils'
-import { QUERY as MovieCellQuery } from 'src/pages/MoviePage/MovieCell/MovieCell'
+import { QUERY as MovieCellQuery } from 'src/pages/Movies/MoviePage/MovieCell/MovieCell'
 
 type ActionsProps = {
   movie: MovieQuery['movie']
