@@ -1,6 +1,6 @@
+import { BookListType, MovieListType } from '@prisma/client'
 import { db } from 'api/src/lib/db'
 import { minioClient } from 'api/src/lib/minio'
-import { DefaultBookLists, DefaultMovieLists } from 'common'
 import { createClient } from 'redis'
 
 import { hashPassword } from '@redwoodjs/auth-dbauth-api'
@@ -799,8 +799,16 @@ export default async () => {
         password: 'demo',
         movieLists: {
           create: [
-            { name: DefaultMovieLists.Watchlist, movies: { create: range(1, 3).map((n) => ({ movieId: n })) } },
-            { name: DefaultMovieLists.Watched, movies: { create: range(4, 9).map((n) => ({ movieId: n })) } },
+            {
+              name: 'Watchlist',
+              type: MovieListType.WATCHLIST,
+              movies: { create: range(1, 3).map((n) => ({ movieId: n })) },
+            },
+            {
+              name: 'Watched',
+              type: MovieListType.WATCHED,
+              movies: { create: range(4, 9).map((n) => ({ movieId: n })) },
+            },
           ],
         },
         watchedEpisodes: {
@@ -825,8 +833,16 @@ export default async () => {
         abandonedShows: { create: { showId: showsWithEpisodes[1].id } },
         bookLists: {
           create: [
-            { name: DefaultBookLists.ReadingList, books: { create: range(1, 6).map((n) => ({ bookId: n })) } },
-            { name: DefaultBookLists.Read, books: { create: range(7, 9).map((n) => ({ bookId: n })) } },
+            {
+              name: 'Reading List',
+              type: BookListType.READING_LIST,
+              books: { create: range(1, 6).map((n) => ({ bookId: n })) },
+            },
+            {
+              name: 'Read',
+              type: BookListType.READ,
+              books: { create: range(7, 9).map((n) => ({ bookId: n })) },
+            },
           ],
         },
         documents: {
@@ -912,14 +928,34 @@ export default async () => {
       {
         username: 'john',
         password: 'john',
-        movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
-        bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
+        movieLists: {
+          create: [
+            { name: 'Watchlist', type: MovieListType.WATCHLIST },
+            { name: 'Watched', type: MovieListType.WATCHED },
+          ],
+        },
+        bookLists: {
+          create: [
+            { name: 'Reading List', type: BookListType.READING_LIST },
+            { name: 'Read', type: BookListType.READ },
+          ],
+        },
       },
       {
         username: 'jane',
         password: 'jane',
-        movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
-        bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
+        movieLists: {
+          create: [
+            { name: 'Watchlist', type: MovieListType.WATCHLIST },
+            { name: 'Watched', type: MovieListType.WATCHED },
+          ],
+        },
+        bookLists: {
+          create: [
+            { name: 'Reading List', type: BookListType.READING_LIST },
+            { name: 'Read', type: BookListType.READ },
+          ],
+        },
       },
     ]
 

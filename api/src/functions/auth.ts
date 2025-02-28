@@ -1,5 +1,5 @@
+import { BookListType, MovieListType } from '@prisma/client'
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
-import { DefaultBookLists, DefaultMovieLists } from 'common'
 
 import { validate } from '@redwoodjs/api'
 import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError } from '@redwoodjs/auth-dbauth-api'
@@ -116,8 +116,18 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
           username,
           hashedPassword,
           salt,
-          movieLists: { create: [{ name: DefaultMovieLists.Watchlist }, { name: DefaultMovieLists.Watched }] },
-          bookLists: { create: [{ name: DefaultBookLists.ReadingList }, { name: DefaultBookLists.Read }] },
+          movieLists: {
+            create: [
+              { name: 'Watchlist', type: MovieListType.WATCHLIST },
+              { name: 'Watched', type: MovieListType.WATCHED },
+            ],
+          },
+          bookLists: {
+            create: [
+              { name: 'Reading List', type: BookListType.READING_LIST },
+              { name: 'Read', type: BookListType.READ },
+            ],
+          },
         },
       })
     },
