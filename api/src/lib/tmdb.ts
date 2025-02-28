@@ -108,6 +108,29 @@ export const getTMDBMovie = async (tmdbId: number) => {
   return json
 }
 
+export interface ChangesResponse {
+  results: { id: number; adult: boolean }[]
+  page: number
+  total_pages: number
+  total_results: number
+}
+
+export const getTMDBMovieChanges = async (page = 1, from: string, to: string) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/changes?page=${page}&start_date=${from}end_date=${to}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.TMDB_API_ACCESS_TOKEN}`,
+      },
+    }
+  )
+  const json: ChangesResponse = await response.json()
+
+  return json
+}
+
 interface SearchTvResponse {
   page: number
   results: TMDBSearchShow[]
@@ -314,13 +337,6 @@ export const getTMDBShowSeason = async (tmdbId: number, season: number) => {
   return json
 }
 
-export interface TVChangesResponse {
-  results: { id: number; adult: boolean }[]
-  page: number
-  total_pages: number
-  total_results: number
-}
-
 export const getTMDBShowChanges = async (page = 1, from: string, to: string) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/tv/changes?page=${page}&start_date=${from}end_date=${to}`,
@@ -332,7 +348,7 @@ export const getTMDBShowChanges = async (page = 1, from: string, to: string) => 
       },
     }
   )
-  const json: TVChangesResponse = await response.json()
+  const json: ChangesResponse = await response.json()
 
   return json
 }

@@ -2,6 +2,7 @@ import { db } from 'api/src/lib/db'
 
 const cronJobs = {
   CheckShowChangesJob: { name: 'CheckShowChangesJob', path: 'CheckShowChangesJob/CheckShowChangesJob' },
+  CheckMovieChangesJob: { name: 'CheckMovieChangesJob', path: 'CheckMovieChangesJob/CheckMovieChangesJob' },
 }
 
 interface Args {
