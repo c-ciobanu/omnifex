@@ -1,9 +1,9 @@
 import { render } from '@redwoodjs/testing/web'
 
-import { Loading, Empty, Failure, Success } from './MovieListsCell'
-import { standard } from './MovieListsCell.mock'
+import { Loading, Empty, Failure, Success } from './MoviesWatchlistCell'
+import { standard } from './MoviesWatchlistCell.mock'
 
-describe('MovieListsCell', () => {
+describe('MoviesWatchlistCell', () => {
   it('renders Loading successfully', () => {
     expect(() => render(<Loading />)).not.toThrow()
   })
@@ -17,6 +17,6 @@ describe('MovieListsCell', () => {
   })
 
   it('renders Success successfully', async () => {
-    expect(() => render(<Success movieLists={standard().movieLists} />)).not.toThrow()
+    expect(() => render(<Success {...standard()} />)).not.toThrow()
   })
 })

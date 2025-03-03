@@ -1,11 +1,11 @@
-import type { MovieListItemsQuery, MovieListItemsQueryVariables } from 'types/graphql'
+import type { MoviesWatchlistQuery, MoviesWatchlistQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
+import type { CellFailureProps, CellSuccessProps, TypedDocumentNode } from '@redwoodjs/web'
 
-export const QUERY: TypedDocumentNode<MovieListItemsQuery, MovieListItemsQueryVariables> = gql`
-  query MovieListItemsQuery($listId: Int!) {
-    movieListItems(listId: $listId) {
+export const QUERY: TypedDocumentNode<MoviesWatchlistQuery, MoviesWatchlistQueryVariables> = gql`
+  query MoviesWatchlistQuery {
+    moviesWatchlist {
       id
       title
       tmdbId
@@ -20,10 +20,10 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ movieListItems }: CellSuccessProps<MovieListItemsQuery>) => {
+export const Success = ({ moviesWatchlist }: CellSuccessProps<MoviesWatchlistQuery>) => {
   return (
     <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
-      {movieListItems.map((userMovie) => (
+      {moviesWatchlist.map((userMovie) => (
         <li key={userMovie.id}>
           <Link to={routes.movie({ tmdbId: userMovie.tmdbId })} title={userMovie.title}>
             <img src={userMovie.posterUrl} alt={`${userMovie.title} poster`} className="h-full w-full" />

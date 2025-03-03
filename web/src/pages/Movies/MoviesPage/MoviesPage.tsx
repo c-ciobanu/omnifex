@@ -3,8 +3,10 @@ import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/OldForm/OldForm'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
-import MovieListsCell from './MovieListsCell'
+import MoviesWatchlistCell from './MoviesWatchlistCell'
+import WatchedMoviesCell from './WatchedMoviesCell'
 
 interface FormValues {
   title: string
@@ -25,7 +27,19 @@ const MoviesPage = () => {
         <FormInput type="search" name="title" placeholder="Search for a movie" />
       </Form>
 
-      <MovieListsCell />
+      <Tabs defaultValue="watchlist">
+        <TabsList>
+          <TabsTrigger value="watchlist">Watchlist</TabsTrigger>
+          <TabsTrigger value="watched">Watched</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="watchlist">
+          <MoviesWatchlistCell />
+        </TabsContent>
+        <TabsContent value="watched">
+          <WatchedMoviesCell />
+        </TabsContent>
+      </Tabs>
     </>
   )
 }

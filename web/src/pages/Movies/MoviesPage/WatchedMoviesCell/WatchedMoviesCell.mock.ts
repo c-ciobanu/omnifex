@@ -1,5 +1,5 @@
 export const standard = () => ({
-  movieListItems: [
+  watchedMovies: [
     {
       id: 1,
       title: 'Parasite',
