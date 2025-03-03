@@ -48,6 +48,7 @@ export const watchlistMovie: MutationResolvers['watchlistMovie'] = async ({ id }
     where: { userId: context.currentUser.id, type: MovieListType.WATCHLIST },
     select: { id: true },
   })
+
   return db.movieListItem.create({ data: { listId: list.id, movieId: id } })
 }
 

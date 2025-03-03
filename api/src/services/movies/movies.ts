@@ -1,10 +1,9 @@
-import { DefaultMovieLists } from 'common'
+import { MovieListType } from '@prisma/client'
 import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBMovie, searchTMDBMovies, TMDBSearchMovie } from 'src/lib/tmdb'
-import { userDefaultMovieLists } from 'src/services/movieLists/movieLists'
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const tmdbMovies: TMDBSearchMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
@@ -57,16 +56,15 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
 export const Movie: MovieRelationResolvers = {
   userInfo: async (_obj, { root }) => {
     if (context.currentUser) {
-      const userLists = await userDefaultMovieLists()
-
-      const watchedMovieCount = await db.movieListItem.count({
-        where: { movieId: root.id, listId: userLists[DefaultMovieLists.Watched].id },
-      })
-      const toWatchMovieCount = await db.movieListItem.count({
-        where: { movieId: root.id, listId: userLists[DefaultMovieLists.Watchlist].id },
+      const movieListItems = await db.movieListItem.findMany({
+        where: { list: { type: { not: MovieListType.CUSTOM }, userId: context.currentUser.id }, movieId: root.id },
+        select: { list: { select: { type: true } } },
       })
 
-      return { watched: watchedMovieCount === 1, inWatchlist: toWatchMovieCount === 1 }
+      return {
+        watched: movieListItems.some((item) => item.list.type === MovieListType.WATCHED),
+        inWatchlist: movieListItems.some((item) => item.list.type === MovieListType.WATCHLIST),
+      }
     }
 
     return null
