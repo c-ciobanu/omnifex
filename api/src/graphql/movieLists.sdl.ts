@@ -17,6 +17,8 @@ export const schema = gql`
   type Query {
     movieLists: [MovieList!]! @requireAuth
     movieListItems(listId: Int!): [Movie!]! @requireAuth
+    moviesWatchlist: [Movie!]! @requireAuth
+    watchedMovies: [Movie!]! @requireAuth
   }
 
   input CreateMovieListInput {
@@ -38,5 +40,9 @@ export const schema = gql`
     deleteMovieList(id: Int!): MovieList! @requireAuth
     createMovieListItem(input: CreateMovieListItemInput!): MovieListItem! @requireAuth
     deleteMovieListItem(listName: String!, movieId: Int!): MovieListItem! @requireAuth
+    watchlistMovie(id: Int!): MovieListItem! @requireAuth
+    unwatchlistMovie(id: Int!): MovieListItem! @requireAuth
+    watchMovie(id: Int!): MovieListItem! @requireAuth
+    unwatchMovie(id: Int!): MovieListItem! @requireAuth
   }
 `
