@@ -1,5 +1,5 @@
 export const standard = () => ({
-  bookListItems: [
+  booksReadingList: [
     {
       id: 1,
       title: 'Wish You Were Here',

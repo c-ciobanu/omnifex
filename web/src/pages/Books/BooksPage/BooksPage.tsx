@@ -3,8 +3,10 @@ import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 import { FormInput } from 'src/components/OldForm/OldForm'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
-import BookListsCell from './BookListsCell'
+import BooksReadingListCell from './BooksReadingListCell'
+import ReadBooksCell from './ReadBooksCell'
 
 interface FormValues {
   title: string
@@ -25,7 +27,19 @@ const BooksPage = () => {
         <FormInput type="search" name="title" placeholder="Search for a book" />
       </Form>
 
-      <BookListsCell />
+      <Tabs defaultValue="watchlist">
+        <TabsList>
+          <TabsTrigger value="watchlist">Reading List</TabsTrigger>
+          <TabsTrigger value="watched">Read</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="watchlist">
+          <BooksReadingListCell />
+        </TabsContent>
+        <TabsContent value="watched">
+          <ReadBooksCell />
+        </TabsContent>
+      </Tabs>
     </>
   )
 }
