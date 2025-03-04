@@ -7816,7 +7816,6 @@ __metadata:
     "@types/adm-zip": "npm:^0"
     "@whatwg-node/fetch": "npm:^0.9.23"
     adm-zip: "npm:^0.5.16"
-    common: "workspace:packages/common"
     minio: "npm:^8.0.3"
     redis: "npm:^4.7.0"
   languageName: unknown
@@ -9362,14 +9361,6 @@ __metadata:
   checksum: 10c0/23efe47ff0a1a7c91489271b3a1e1d2a171c12ec7f9b35b29b2fce51270124aff0ec890087e2bc2182c1cb746e232ab7561aaafe05f1e7452aea733d2bfe3f63
   languageName: node
   linkType: hard
-
-"common@workspace:packages/common":
-  version: 0.0.0-use.local
-  resolution: "common@workspace:packages/common"
-  dependencies:
-    typescript: "npm:5.6.2"
-  languageName: unknown
-  linkType: soft
 
 "commondir@npm:^1.0.1":
   version: 1.0.1
@@ -19537,7 +19528,6 @@ __metadata:
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
     cmdk: "npm:^1.0.4"
-    common: "workspace:packages/common"
     date-fns: "npm:^4.1.0"
     lexical: "npm:^0.22.0"
     lucide-react: "npm:^0.469.0"

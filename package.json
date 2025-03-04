@@ -11,12 +11,10 @@
     "migrate:data": "rw data-migrate up",
     "test": "rw test",
     "type-check": "rw type-check",
-    "lint": "rw lint --fix",
-    "build:packages": "yarn workspace common build"
+    "lint": "rw lint --fix"
   },
   "workspaces": {
     "packages": [
-      "packages/*",
       "api",
       "web"
     ]

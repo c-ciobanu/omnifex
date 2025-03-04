@@ -17,7 +17,6 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node .yarnrc.yml .
 COPY --chown=node:node package.json .
-COPY --chown=node:node packages/common/package.json packages/common/
 COPY --chown=node:node api/package.json api/
 COPY --chown=node:node web/package.json web/
 COPY --chown=node:node yarn.lock .
@@ -42,9 +41,7 @@ FROM base AS api_build
 #
 # ARG MY_BUILD_TIME_ENV_VAR
 
-COPY --chown=node:node packages packages
 COPY --chown=node:node api api
-RUN yarn build:packages
 RUN yarn rw build api
 
 # web prerender build
@@ -58,9 +55,7 @@ RUN yarn rw build web
 # ---------
 FROM base AS web_build
 
-COPY --chown=node:node packages packages
 COPY --chown=node:node web web
-RUN yarn build:packages
 RUN yarn rw build web --no-prerender
 
 # api serve
@@ -84,8 +79,6 @@ COPY --chown=node:node yarn.lock .
 
 RUN mkdir -p /home/node/.yarn/berry/index
 RUN mkdir -p /home/node/.cache
-
-COPY --chown=node:node --from=api_build /home/node/app/packages/common /home/node/app/packages/common
 
 RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
     --mount=type=cache,target=/home/node/.cache,uid=1000 \
@@ -121,8 +114,6 @@ COPY --chown=node:node yarn.lock .
 
 RUN mkdir -p /home/node/.yarn/berry/index
 RUN mkdir -p /home/node/.cache
-
-COPY --chown=node:node --from=web_build /home/node/app/packages/common /home/node/app/packages/common
 
 RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
     --mount=type=cache,target=/home/node/.cache,uid=1000 \
