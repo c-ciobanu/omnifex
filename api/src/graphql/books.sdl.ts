@@ -26,6 +26,21 @@ export const schema = gql`
     inReadingList: Boolean!
   }
 
+  type BookList {
+    id: Int!
+    name: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    userId: Int!
+  }
+
+  type BookListItem {
+    id: Int!
+    createdAt: DateTime!
+    listId: Int!
+    bookId: Int!
+  }
+
   type Query {
     books(title: String!): [SearchBook!]! @skipAuth
     book(googleId: String!): Book @skipAuth
