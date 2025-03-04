@@ -1,4 +1,3 @@
-import { DefaultBookLists } from 'common'
 import { Eye, EyeOff, ListMinus, ListPlus } from 'lucide-react'
 import { BookQuery } from 'types/graphql'
 
@@ -12,40 +11,56 @@ type ActionsProps = {
   book: BookQuery['book']
 }
 
-const CREATE_BOOK_LIST_ITEM = gql`
-  mutation CreateBookListItemMutation($input: CreateBookListItemInput!) {
-    createBookListItem(input: $input) {
+const READ_BOOK_MUTATION = gql`
+  mutation ReadBookMutation($id: Int!) {
+    readBook(id: $id) {
       id
     }
   }
 `
 
-const DELETE_BOOK_LIST_ITEM = gql`
-  mutation DeleteBookListItemMutation($listName: String!, $bookId: Int!) {
-    deleteBookListItem(listName: $listName, bookId: $bookId) {
+const UNREAD_BOOK_MUTATION = gql`
+  mutation UnreadBookMutation($id: Int!) {
+    unreadBook(id: $id) {
+      id
+    }
+  }
+`
+
+const READING_LIST_BOOK_MUTATION = gql`
+  mutation ReadingListBookMutation($id: Int!) {
+    readingListBook(id: $id) {
+      id
+    }
+  }
+`
+
+const UNREADING_LIST_BOOK_MUTATION = gql`
+  mutation UnreadinglistBookMutation($id: Int!) {
+    unreadingListBook(id: $id) {
       id
     }
   }
 `
 
 const Actions = ({ book }: ActionsProps) => {
-  const { id: bookId, googleId, userInfo } = book
+  const { id, googleId, userInfo } = book
   const { read, inReadingList } = userInfo
 
-  const [createRead, { loading: createReadLoading }] = useMutation(CREATE_BOOK_LIST_ITEM, {
-    variables: { input: { bookId, listName: DefaultBookLists.Read } },
+  const [createRead, { loading: createReadLoading }] = useMutation(READ_BOOK_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: BookCellQuery, variables: { googleId } }],
   })
-  const [deleteRead, { loading: deleteReadLoading }] = useMutation(DELETE_BOOK_LIST_ITEM, {
-    variables: { bookId, listName: DefaultBookLists.Read },
+  const [deleteRead, { loading: deleteReadLoading }] = useMutation(UNREAD_BOOK_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: BookCellQuery, variables: { googleId } }],
   })
-  const [createToRead, { loading: createToReadLoading }] = useMutation(CREATE_BOOK_LIST_ITEM, {
-    variables: { input: { bookId, listName: DefaultBookLists.ReadingList } },
+  const [createToRead, { loading: createToReadLoading }] = useMutation(READING_LIST_BOOK_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: BookCellQuery, variables: { googleId } }],
   })
-  const [deleteToRead, { loading: deleteToReadLoading }] = useMutation(DELETE_BOOK_LIST_ITEM, {
-    variables: { bookId, listName: DefaultBookLists.ReadingList },
+  const [deleteToRead, { loading: deleteToReadLoading }] = useMutation(UNREADING_LIST_BOOK_MUTATION, {
+    variables: { id },
     refetchQueries: [{ query: BookCellQuery, variables: { googleId } }],
   })
 
