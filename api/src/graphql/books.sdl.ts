@@ -29,5 +29,14 @@ export const schema = gql`
   type Query {
     books(title: String!): [SearchBook!]! @skipAuth
     book(googleId: String!): Book @skipAuth
+    readBooks: [Book!]! @requireAuth
+    booksReadingList: [Book!]! @requireAuth
+  }
+
+  type Mutation {
+    readBook(id: Int!): BookListItem! @requireAuth
+    unreadBook(id: Int!): BookListItem! @requireAuth
+    readingListBook(id: Int!): BookListItem! @requireAuth
+    unreadingListBook(id: Int!): BookListItem! @requireAuth
   }
 `
