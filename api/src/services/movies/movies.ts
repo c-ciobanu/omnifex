@@ -1,9 +1,14 @@
-import { MovieListType } from '@prisma/client'
+import { MovieListType, Movie as PrismaMovie } from '@prisma/client'
 import type { MovieRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getTMDBMovie, searchTMDBMovies, TMDBSearchMovie } from 'src/lib/tmdb'
+
+export const mapMovieToGraphql = (movie: PrismaMovie) => ({
+  ...movie,
+  posterUrl: `https://image.tmdb.org/t/p/w342${movie.tmdbPosterPath}`,
+})
 
 export const movies: QueryResolvers['movies'] = async ({ title }) => {
   const tmdbMovies: TMDBSearchMovie[] = await cache(['tmdbMovies', title], () => searchTMDBMovies({ title }), {
@@ -47,10 +52,7 @@ export const movie: QueryResolvers['movie'] = async ({ tmdbId }) => {
     })
   }
 
-  return {
-    ...m,
-    posterUrl: `https://image.tmdb.org/t/p/w342${m.tmdbPosterPath}`,
-  }
+  return mapMovieToGraphql(m)
 }
 
 export const Movie: MovieRelationResolvers = {

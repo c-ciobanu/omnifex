@@ -1,10 +1,15 @@
 import { books_v1 } from '@googleapis/books'
-import { BookListType } from '@prisma/client'
+import { BookListType, Book as PrismaBook } from '@prisma/client'
 import type { BookRelationResolvers, QueryResolvers } from 'types/graphql'
 
 import { cache, deleteCacheKey } from 'src/lib/cache'
 import { db } from 'src/lib/db'
 import { getGoogleBook, searchGoogleBooks } from 'src/lib/googleBooks'
+
+export const mapBookToGraphql = (book: PrismaBook) => ({
+  ...book,
+  coverUrl: `https://books.google.com/books/content?id=${book.googleId}&printsec=frontcover&img=1&zoom=3`,
+})
 
 export const books: QueryResolvers['books'] = async ({ title }) => {
   const googleBooks: books_v1.Schema$Volume[] = await cache(
@@ -52,10 +57,7 @@ export const book: QueryResolvers['book'] = async ({ googleId }) => {
     await deleteCacheKey(['googleBook', googleId])
   }
 
-  return {
-    ...b,
-    coverUrl: `https://books.google.com/books/content?id=${b.googleId}&printsec=frontcover&img=1&zoom=3`,
-  }
+  return mapBookToGraphql(b)
 }
 
 export const Book: BookRelationResolvers = {

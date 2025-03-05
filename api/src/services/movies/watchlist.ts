@@ -6,6 +6,7 @@ import { validateWith } from '@redwoodjs/api'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
+import { mapMovieToGraphql } from './movies'
 import { isMovieWatched } from './watched'
 
 export const isMovieInWatchlist = async (id: number) => {
@@ -25,12 +26,7 @@ export const moviesWatchlist: QueryResolvers['moviesWatchlist'] = async () => {
     .findFirst({ where: { type: MovieListType.WATCHLIST, userId: context.currentUser.id } })
     .movies({ select: { movie: true } })
 
-  const movies = movieListItems.map((listItem) => listItem.movie)
-
-  return movies.map((m) => ({
-    ...m,
-    posterUrl: `https://image.tmdb.org/t/p/w185${m.tmdbPosterPath}`,
-  }))
+  return movieListItems.map((listItem) => mapMovieToGraphql(listItem.movie))
 }
 
 export const watchlistMovie: MutationResolvers['watchlistMovie'] = async ({ id }) => {

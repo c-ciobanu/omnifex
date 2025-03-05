@@ -6,6 +6,7 @@ import { validateWith } from '@redwoodjs/api'
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
+import { mapBookToGraphql } from './books'
 import { isBookRead } from './read'
 
 export const isBookInReadingList = async (id: number) => {
@@ -25,12 +26,7 @@ export const booksReadingList: QueryResolvers['booksReadingList'] = async () => 
     .findFirst({ where: { type: BookListType.READING_LIST, userId: context.currentUser.id } })
     .books({ select: { book: true } })
 
-  const books = bookListItems.map((listItem) => listItem.book)
-
-  return books.map((b) => ({
-    ...b,
-    coverUrl: `https://books.google.com/books/content?id=${b.googleId}&printsec=frontcover&img=1&zoom=1`,
-  }))
+  return bookListItems.map((listItem) => mapBookToGraphql(listItem.book))
 }
 
 export const readingListBook: MutationResolvers['readingListBook'] = async ({ id }) => {
