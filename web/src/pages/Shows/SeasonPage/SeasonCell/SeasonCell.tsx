@@ -1,6 +1,6 @@
-import { useMutation } from '@apollo/client'
+import { TypedDocumentNode, useMutation } from '@apollo/client'
 import { Calendar, Check, CircleCheck, Clock3, EyeOff, Star } from 'lucide-react'
-import type { SeasonQuery } from 'types/graphql'
+import type { SeasonQuery, SeasonQueryVariables } from 'types/graphql'
 
 import { type CellFailureProps, type CellSuccessProps, Metadata } from '@redwoodjs/web'
 
@@ -17,7 +17,7 @@ import {
 } from 'src/components/ui/dropdown-menu'
 import { Progress } from 'src/components/ui/progress'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<SeasonQuery, SeasonQueryVariables> = gql`
   query SeasonQuery($showTmdbId: Int!, $seasonNumber: Int!) {
     season(showTmdbId: $showTmdbId, seasonNumber: $seasonNumber) {
       id
@@ -96,7 +96,7 @@ export const Success = ({
   show,
   showTmdbId,
   seasonNumber,
-}: CellSuccessProps<SeasonQuery> & { showTmdbId: number; seasonNumber: number }) => {
+}: CellSuccessProps<SeasonQuery, SeasonQueryVariables>) => {
   const { isAuthenticated } = useAuth()
 
   const [watchSeason, { loading: watchSeasonLoading }] = useMutation(WATCH_SEASON_MUTATION, {

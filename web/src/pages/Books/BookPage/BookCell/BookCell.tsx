@@ -1,12 +1,12 @@
-import type { BookQuery } from 'types/graphql'
+import type { BookQuery, BookQueryVariables } from 'types/graphql'
 
-import { type CellSuccessProps, type CellFailureProps, Metadata } from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, Metadata, TypedDocumentNode } from '@redwoodjs/web'
 
 import { useAuth } from 'src/auth'
 
 import Actions from './Actions'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<BookQuery, BookQueryVariables> = gql`
   query BookQuery($googleId: String!) {
     book(googleId: $googleId) {
       id
@@ -33,7 +33,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ book }: CellSuccessProps<BookQuery>) => {
+export const Success = ({ book }: CellSuccessProps<BookQuery, BookQueryVariables>) => {
   const { isAuthenticated } = useAuth()
 
   return (

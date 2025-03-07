@@ -18,7 +18,7 @@ describe('MoviesCell', () => {
 
   it('renders Success successfully', async () => {
     const movies = standard().movies
-    render(<Success movies={movies} />)
+    render(<Success movies={movies} title="iron man" />)
 
     movies.forEach((movie) => {
       expect(screen.getByText(movie.title)).toBeInTheDocument()

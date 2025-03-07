@@ -1,13 +1,13 @@
 import { Star } from 'lucide-react'
-import type { MovieQuery } from 'types/graphql'
+import type { MovieQuery, MovieQueryVariables } from 'types/graphql'
 
-import { type CellSuccessProps, type CellFailureProps, Metadata } from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, Metadata, TypedDocumentNode } from '@redwoodjs/web'
 
 import { useAuth } from 'src/auth'
 
 import Actions from './Actions'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<MovieQuery, MovieQueryVariables> = gql`
   query MovieQuery($tmdbId: Int!) {
     movie(tmdbId: $tmdbId) {
       id
@@ -43,7 +43,7 @@ export const formatMinutesToHoursAndMinutes = (minutes: number) => {
   return `${h}h ${m}m`
 }
 
-export const Success = ({ movie }: CellSuccessProps<MovieQuery>) => {
+export const Success = ({ movie }: CellSuccessProps<MovieQuery, MovieQueryVariables>) => {
   const { isAuthenticated } = useAuth()
 
   return (

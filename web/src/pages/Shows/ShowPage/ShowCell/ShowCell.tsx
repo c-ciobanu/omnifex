@@ -1,6 +1,6 @@
-import { useMutation } from '@apollo/client'
+import { TypedDocumentNode, useMutation } from '@apollo/client'
 import { CircleCheck, Star } from 'lucide-react'
-import type { ShowQuery } from 'types/graphql'
+import type { ShowQuery, ShowQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { type CellFailureProps, type CellSuccessProps, Metadata } from '@redwoodjs/web'
@@ -11,7 +11,7 @@ import { cn } from 'src/lib/utils'
 
 import Actions from './Actions'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<ShowQuery, ShowQueryVariables> = gql`
   query ShowQuery($tmdbId: Int!) {
     show(tmdbId: $tmdbId) {
       id
@@ -68,7 +68,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ show, tmdbId }: CellSuccessProps<ShowQuery> & { tmdbId: number }) => {
+export const Success = ({ show, tmdbId }: CellSuccessProps<ShowQuery, ShowQueryVariables>) => {
   const { isAuthenticated } = useAuth()
 
   const [watchSeason] = useMutation(WATCH_SEASON_MUTATION, {

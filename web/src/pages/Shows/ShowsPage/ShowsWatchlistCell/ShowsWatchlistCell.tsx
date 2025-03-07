@@ -91,7 +91,7 @@ const ShowsGrid = ({ shows, showAirDates, showlastEpisodes }: ShowsGridProps) =>
   </ul>
 )
 
-export const Success = ({ showsWatchlist }: CellSuccessProps<ShowsWatchlistQuery>) => {
+export const Success = ({ showsWatchlist }: CellSuccessProps<ShowsWatchlistQuery, ShowsWatchlistQueryVariables>) => {
   const now = new Date()
 
   const onAirShows = showsWatchlist

@@ -18,7 +18,7 @@ describe('ShowsCell', () => {
 
   it('renders Success successfully', async () => {
     const shows = standard().shows
-    render(<Success shows={shows} />)
+    render(<Success shows={shows} title="the office" />)
 
     shows.forEach((show) => {
       expect(screen.getByText(show.overview)).toBeInTheDocument()

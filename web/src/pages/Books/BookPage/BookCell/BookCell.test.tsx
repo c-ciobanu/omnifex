@@ -17,6 +17,6 @@ describe('BookCell', () => {
   })
 
   it('renders Success successfully', async () => {
-    expect(() => render(<Success book={standard().book} />)).not.toThrow()
+    expect(() => render(<Success book={standard().book} googleId="_i6bDeoCQzsC" />)).not.toThrow()
   })
 })

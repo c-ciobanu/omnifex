@@ -1,9 +1,9 @@
-import type { ShowsQuery } from 'types/graphql'
+import type { ShowsQuery, ShowsQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import type { CellFailureProps, CellSuccessProps } from '@redwoodjs/web'
+import type { CellFailureProps, CellSuccessProps, TypedDocumentNode } from '@redwoodjs/web'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<ShowsQuery, ShowsQueryVariables> = gql`
   query ShowsQuery($title: String!) {
     shows(title: $title) {
       tmdbId
@@ -21,7 +21,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ shows }: CellSuccessProps<ShowsQuery>) => {
+export const Success = ({ shows }: CellSuccessProps<ShowsQuery, ShowsQueryVariables>) => {
   return (
     <ul className="grid grid-cols-1 divide-y divide-white sm:grid-cols-2 sm:divide-none lg:grid-cols-3">
       {shows.map((show) => {

@@ -18,7 +18,7 @@ describe('MovieCell', () => {
 
   it('renders Success successfully', async () => {
     const movie = standard().movie
-    render(<Success movie={standard().movie} />)
+    render(<Success movie={standard().movie} tmdbId={324849} />)
 
     const runtimeText = formatMinutesToHoursAndMinutes(movie.runtime)
 

@@ -1,9 +1,9 @@
-import type { BooksQuery } from 'types/graphql'
+import type { BooksQuery, BooksQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<BooksQuery, BooksQueryVariables> = gql`
   query BooksQuery($title: String!) {
     books(title: $title) {
       coverUrl
@@ -21,7 +21,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ books }: CellSuccessProps<BooksQuery>) => {
+export const Success = ({ books }: CellSuccessProps<BooksQuery, BooksQueryVariables>) => {
   return (
     <ul className="grid grid-cols-1 divide-y divide-white sm:grid-cols-2 sm:divide-none lg:grid-cols-3">
       {books.map((book) => {

@@ -32,7 +32,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery>) => {
+export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery, WorkoutsQueryVariables>) => {
   return (
     <>
       <div className="mb-4 flex justify-end">

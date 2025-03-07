@@ -18,7 +18,7 @@ describe('BooksCell', () => {
 
   it('renders Success successfully', async () => {
     const books = standard().books
-    render(<Success books={books} />)
+    render(<Success books={books} title="code" />)
 
     books.forEach((book) => {
       expect(screen.getByText(book.title)).toBeInTheDocument()

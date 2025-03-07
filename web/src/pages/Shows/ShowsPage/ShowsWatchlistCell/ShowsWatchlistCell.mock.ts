@@ -4,6 +4,7 @@ export const standard = () => ({
       id: 1,
       title: 'Chernobyl',
       tmdbId: 87108,
+      posterUrl: 'https://image.tmdb.org/t/p/w342/aV0PbVnDPsfy5HFZqjiZfNNgcTU.jpg',
       userProgress: {
         nextEpisode: {
           id: 1,

@@ -20,7 +20,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ abandonedShows }: CellSuccessProps<AbandonedShowsQuery>) => {
+export const Success = ({ abandonedShows }: CellSuccessProps<AbandonedShowsQuery, AbandonedShowsQueryVariables>) => {
   return (
     <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
       {abandonedShows.map((userShow) => (

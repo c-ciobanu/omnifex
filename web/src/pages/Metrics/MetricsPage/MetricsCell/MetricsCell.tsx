@@ -109,7 +109,7 @@ function actionMetricReducer(state, action) {
   throw Error(`Unknown action: ${action.type}.`)
 }
 
-export const Success = ({ metrics }: CellSuccessProps<MetricsQuery>) => {
+export const Success = ({ metrics }: CellSuccessProps<MetricsQuery, MetricsQueryVariables>) => {
   const [deleteState, deleteDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
   const [editState, editDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })
   const [newEntryState, newEntryDispatch] = useReducer(actionMetricReducer, { isOpen: false, metricIndex: 0 })

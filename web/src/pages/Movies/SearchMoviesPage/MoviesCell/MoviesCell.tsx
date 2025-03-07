@@ -1,9 +1,9 @@
-import type { MoviesQuery } from 'types/graphql'
+import type { MoviesQuery, MoviesQueryVariables } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
 
-export const QUERY = gql`
+export const QUERY: TypedDocumentNode<MoviesQuery, MoviesQueryVariables> = gql`
   query MoviesQuery($title: String!) {
     movies(title: $title) {
       tmdbId
@@ -21,7 +21,7 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
-export const Success = ({ movies }: CellSuccessProps<MoviesQuery>) => {
+export const Success = ({ movies }: CellSuccessProps<MoviesQuery, MoviesQueryVariables>) => {
   return (
     <ul className="grid grid-cols-1 divide-y divide-white sm:grid-cols-2 sm:divide-none lg:grid-cols-3">
       {movies.map((movie) => {

@@ -1,7 +1,12 @@
 import { useReducer } from 'react'
 
 import { File, MoreVertical } from 'lucide-react'
-import type { DeleteDocumentMutation, DeleteDocumentMutationVariables, DocumentsQuery } from 'types/graphql'
+import type {
+  DeleteDocumentMutation,
+  DeleteDocumentMutationVariables,
+  DocumentsQuery,
+  DocumentsQueryVariables,
+} from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
@@ -78,7 +83,7 @@ function actionDocumentReducer(state, action) {
   throw Error(`Unknown action: ${action.type}.`)
 }
 
-export const Success = ({ documents }: CellSuccessProps<DocumentsQuery>) => {
+export const Success = ({ documents }: CellSuccessProps<DocumentsQuery, DocumentsQueryVariables>) => {
   const [deleteState, deleteDispatch] = useReducer(actionDocumentReducer, { isOpen: false, documentIndex: 0 })
   const [editState, editDispatch] = useReducer(actionDocumentReducer, { isOpen: false, documentIndex: 0 })
 
