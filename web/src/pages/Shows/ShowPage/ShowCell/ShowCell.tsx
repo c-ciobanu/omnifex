@@ -142,7 +142,11 @@ export const Success = ({ show, tmdbId }: CellSuccessProps<ShowQuery, ShowQueryV
                 title={`${show.title} season ${season.number}`}
                 className="group relative"
               >
-                <img src={season.posterUrl ?? '/img/placeholder-tall.svg'} alt={`Season ${season.number} poster`} />
+                <img
+                  src={season.posterUrl ?? '/img/placeholder-tall.svg'}
+                  alt={`Season ${season.number} poster`}
+                  className="w-full"
+                />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <p className="absolute left-2 top-2 font-medium text-white">Season {season.number}</p>
