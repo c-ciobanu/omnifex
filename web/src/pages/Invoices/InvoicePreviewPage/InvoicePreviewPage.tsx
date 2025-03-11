@@ -23,7 +23,7 @@ const InvoicePreviewPage = ({ id }: InvoicePreviewProps) => {
 
   return invoice ? (
     <>
-      <Metadata title="Invoice Preview" />
+      <Metadata title={invoice.number} />
 
       <div className="mx-auto flex min-h-dvh max-w-screen-lg flex-col justify-between bg-white p-8 text-sm print:max-w-full print:p-0">
         <div className="space-y-8">
