@@ -1,7 +1,7 @@
 import { useReducer } from 'react'
 
 import { isAfter, isBefore, isToday, subWeeks } from 'date-fns'
-import { ChartLine, MoreVertical } from 'lucide-react'
+import { ChartLine, MoreVertical, Plus } from 'lucide-react'
 import type {
   DeleteMetricMutation,
   DeleteMetricMutationVariables,
@@ -157,6 +157,14 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery, MetricsQuery
                 </Link>
               </Button>
 
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => newEntryDispatch({ type: 'open', nextMetricIndex: index })}
+              >
+                <Plus />
+              </Button>
+
               <DropdownMenu>
                 <Button asChild variant="ghost" size="icon">
                   <DropdownMenuTrigger>
@@ -167,9 +175,6 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery, MetricsQuery
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => newEntryDispatch({ type: 'open', nextMetricIndex: index })}>
-                    Add Entry
-                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => editDispatch({ type: 'open', nextMetricIndex: index })}>
                     Edit
                   </DropdownMenuItem>
