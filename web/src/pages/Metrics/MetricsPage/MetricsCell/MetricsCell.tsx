@@ -3,6 +3,8 @@ import { useReducer } from 'react'
 import { isAfter, isBefore, isToday, subWeeks } from 'date-fns'
 import { ChartLine, MoreVertical, Plus } from 'lucide-react'
 import type {
+  CreateMetricEntryMutation,
+  CreateMetricEntryMutationVariables,
   DeleteMetricMutation,
   DeleteMetricMutationVariables,
   MetricsQuery,
@@ -13,7 +15,7 @@ import { Link, routes } from '@redwoodjs/router'
 import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
 import { useCache } from '@redwoodjs/web/apollo'
 
-import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
+import NewMetricEntryModal, { CREATE_METRIC_ENTRY } from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -130,6 +132,17 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery, MetricsQuery
     },
   })
 
+  const [createMetricEntry] = useMutation<CreateMetricEntryMutation, CreateMetricEntryMutationVariables>(
+    CREATE_METRIC_ENTRY,
+    {
+      onCompleted: ({ createMetricEntry }, { variables }: { variables: CreateMetricEntryMutationVariables }) => {
+        modify(metrics[metrics.findIndex((m) => m.id === variables.input.metricId)], {
+          latestEntry: () => createMetricEntry,
+        })
+      },
+    }
+  )
+
   return (
     <>
       <div className="mb-4 flex justify-end">
@@ -175,6 +188,21 @@ export const Success = ({ metrics }: CellSuccessProps<MetricsQuery, MetricsQuery
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => {
+                      createMetricEntry({
+                        variables: {
+                          input: {
+                            metricId: metric.id,
+                            date: new Date().toISOString().substring(0, 10),
+                            value: metric.latestEntry.value,
+                          },
+                        },
+                      })
+                    }}
+                  >
+                    Duplicate Last Entry
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => editDispatch({ type: 'open', nextMetricIndex: index })}>
                     Edit
                   </DropdownMenuItem>

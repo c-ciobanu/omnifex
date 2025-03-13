@@ -7,7 +7,7 @@ import { FormField, FormInput } from 'src/components/OldForm/OldForm'
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
 
-const CREATE_METRIC_ENTRY = gql`
+export const CREATE_METRIC_ENTRY = gql`
   mutation CreateMetricEntryMutation($input: CreateMetricEntryInput!) {
     createMetricEntry(input: $input) {
       id
