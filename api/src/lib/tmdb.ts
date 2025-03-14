@@ -117,7 +117,7 @@ export interface ChangesResponse {
 
 export const getTMDBMovieChanges = async (page = 1, from: string, to: string) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/changes?page=${page}&start_date=${from}end_date=${to}`,
+    `https://api.themoviedb.org/3/movie/changes?page=${page}&start_date=${from}&end_date=${to}`,
     {
       method: 'GET',
       headers: {
@@ -339,7 +339,7 @@ export const getTMDBShowSeason = async (tmdbId: number, season: number) => {
 
 export const getTMDBShowChanges = async (page = 1, from: string, to: string) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/tv/changes?page=${page}&start_date=${from}end_date=${to}`,
+    `https://api.themoviedb.org/3/tv/changes?page=${page}&start_date=${from}&end_date=${to}`,
     {
       method: 'GET',
       headers: {
