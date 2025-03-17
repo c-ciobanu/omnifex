@@ -120,7 +120,7 @@ export const shows: QueryResolvers['shows'] = async ({ title }) => {
   return tmdbShows.map((tmdbShow) => ({
     tmdbId: tmdbShow.id,
     overview: tmdbShow.overview,
-    posterUrl: `https://image.tmdb.org/t/p/w154${tmdbShow.poster_path}`,
+    posterUrl: tmdbShow.poster_path ? `https://image.tmdb.org/t/p/w154${tmdbShow.poster_path}` : undefined,
     releaseYear: Number(tmdbShow.first_air_date.split('-')[0]),
     title: tmdbShow.name,
   }))

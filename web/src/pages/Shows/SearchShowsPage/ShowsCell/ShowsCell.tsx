@@ -32,7 +32,11 @@ export const Success = ({ shows }: CellSuccessProps<ShowsQuery, ShowsQueryVariab
               title={show.title}
               className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-white"
             >
-              <img src={show.posterUrl} alt={`${show.title} poster`} className="h-44 w-full" />
+              <img
+                src={show.posterUrl ?? '/img/placeholder-tall.svg'}
+                alt={`${show.title} poster`}
+                className="h-44 w-full"
+              />
               <div>
                 <p>{show.title}</p>
                 <p className="text-gray-500">{show.releaseYear}</p>
