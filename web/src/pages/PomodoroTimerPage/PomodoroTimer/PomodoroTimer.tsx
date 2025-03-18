@@ -48,7 +48,7 @@ const phases = [
   Phase.ShortBreak,
 ]
 
-export type PomodoroTimerProps = {
+type PomodoroTimerProps = {
   settings: { pomodoro: number; shortBreak: number; longBreak: number }
 }
 
