@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { Pause, Play } from 'lucide-react'
+
 import { Metadata } from '@redwoodjs/web'
 
+import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader } from 'src/components/ui/card'
 import { formatSecondsToMinutesAndSeconds } from 'src/utils/time'
 
@@ -56,6 +59,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
   const [currentPhaseNumber, setCurrentPhaseNumber] = useState(0)
   const [currentPhaseName, setCurrentPhaseName] = useState(phases[currentPhaseNumber])
   const [secondsLeft, setSecondsLeft] = useState(settings.pomodoro * 60)
+  const [isRunning, setIsRunning] = useState(true)
   const workerRef = useRef<Worker>()
   const tickRef = useRef(tick)
 
@@ -67,6 +71,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
     workerRef.current = new Worker(new URL('./worker', import.meta.url), { type: 'module' })
 
     workerRef.current.onmessage = () => tickRef.current()
+    workerRef.current.postMessage('start')
 
     return () => {
       workerRef.current?.terminate()
@@ -128,8 +133,21 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
           <CardDescription className="text-center">{currentPhaseName}</CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="space-y-6">
           <p className="text-center text-8xl">{formattedTimeLeft}</p>
+
+          <div className="text-center">
+            <Button
+              size="icon"
+              className="w-24"
+              onClick={() => {
+                workerRef.current.postMessage(isRunning ? 'pause' : 'start')
+                setIsRunning((state) => !state)
+              }}
+            >
+              {isRunning ? <Pause /> : <Play />}
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </>
