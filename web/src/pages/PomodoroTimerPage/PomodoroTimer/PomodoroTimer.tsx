@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Pause, Play } from 'lucide-react'
+import { Pause, Play, SkipForward } from 'lucide-react'
 
 import { Metadata } from '@redwoodjs/web'
 
@@ -78,9 +78,9 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
     }
   }, [])
 
-  function tick() {
+  function tick(skip = false) {
     const nextPhaseName = phases[currentPhaseNumber + 1]
-    const secondsToNextPhase = secondsLeft - 1
+    const secondsToNextPhase = skip ? 0 : secondsLeft - 1
 
     if (!nextPhaseName && secondsToNextPhase === 0) {
       workerRef.current?.terminate()
@@ -136,7 +136,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
         <CardContent className="space-y-6">
           <p className="text-center text-8xl">{formattedTimeLeft}</p>
 
-          <div className="text-center">
+          <div className="space-x-4 text-center">
             <Button
               size="icon"
               className="w-24"
@@ -146,6 +146,19 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
               }}
             >
               {isRunning ? <Pause /> : <Play />}
+            </Button>
+
+            <Button
+              variant="secondary"
+              size="icon"
+              className="w-24"
+              onClick={() => {
+                workerRef.current.postMessage('pause')
+                tick(true)
+                workerRef.current.postMessage('start')
+              }}
+            >
+              <SkipForward />
             </Button>
           </div>
         </CardContent>
