@@ -94,17 +94,23 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
         setCurrentPhaseName(nextPhaseName)
         setSecondsLeft((nextPhaseName === Phase.LongBreak ? settings.longBreak : settings.shortBreak) * 60)
 
-        sendNotification('Well done!', `Time to take a ${nextPhaseName.toLowerCase()} now.`)
+        if (!skip) {
+          sendNotification('Well done!', `Time to take a ${nextPhaseName.toLowerCase()} now.`)
+        }
       } else {
         setCurrentPhaseName(Phase.Pomodoro)
         setSecondsLeft(settings.pomodoro * 60)
 
-        sendNotification('Hope you are well rested now!', `It's time to go at it again.`)
+        if (!skip) {
+          sendNotification('Hope you are well rested now!', `It's time to go at it again.`)
+        }
       }
 
       setCurrentPhaseNumber((state) => state + 1)
 
-      alarmSound.play()
+      if (!skip) {
+        alarmSound.play()
+      }
     } else {
       setSecondsLeft(secondsToNextPhase)
 
@@ -155,7 +161,7 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
               onClick={() => {
                 workerRef.current.postMessage('pause')
                 tick(true)
-                workerRef.current.postMessage('start')
+                  workerRef.current.postMessage('start')
               }}
             >
               <SkipForward />
