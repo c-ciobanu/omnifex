@@ -161,7 +161,9 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
               onClick={() => {
                 workerRef.current.postMessage('pause')
                 tick(true)
+                if (isRunning) {
                   workerRef.current.postMessage('start')
+                }
               }}
             >
               <SkipForward />
