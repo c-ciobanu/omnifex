@@ -91,22 +91,21 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
       endSound.play()
     } else if (secondsToNextPhase === 0) {
       if (currentPhaseName === Phase.Pomodoro) {
-        setCurrentPhaseName(nextPhaseName)
         setSecondsLeft((nextPhaseName === Phase.LongBreak ? settings.longBreak : settings.shortBreak) * 60)
 
         if (!skip) {
           sendNotification('Well done!', `Time to take a ${nextPhaseName.toLowerCase()} now.`)
         }
       } else {
-        setCurrentPhaseName(Phase.Pomodoro)
         setSecondsLeft(settings.pomodoro * 60)
 
         if (!skip) {
-          sendNotification('Hope you are well rested now!', `It's time to go at it again.`)
+          sendNotification('Hope you are well rested now!', `It's time to focus again.`)
         }
       }
 
       setCurrentPhaseNumber((state) => state + 1)
+      setCurrentPhaseName(nextPhaseName)
 
       if (!skip) {
         alarmSound.play()
@@ -115,11 +114,9 @@ const PomodoroTimer = ({ settings }: PomodoroTimerProps) => {
       setSecondsLeft(secondsToNextPhase)
 
       if (currentPhaseName === Phase.Pomodoro && secondsToNextPhase === 300) {
-        sendNotification('Pomodoro ending soon!', `A ${nextPhaseName.toLowerCase()} is coming next in 5 minutes.`)
-      } else if (currentPhaseName === Phase.Pomodoro && secondsToNextPhase === 60) {
-        sendNotification('Pomodoro ending soon!', `A ${nextPhaseName.toLowerCase()} is coming next in 1 minute.`)
+        sendNotification('5 minutes left', `Next: ${nextPhaseName}`)
       } else if (secondsToNextPhase === 60) {
-        sendNotification('Break ending soon!', `A ${nextPhaseName.toLowerCase()} is coming next in 1 minute.`)
+        sendNotification('1 minute left', `Next: ${nextPhaseName}`)
       } else if (secondsToNextPhase === 5) {
         tickingSound.play()
       }
