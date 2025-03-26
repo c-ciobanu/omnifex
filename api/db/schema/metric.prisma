@@ -15,7 +15,7 @@ model Metric {
 
 model MetricEntry {
   id    Int      @id @default(autoincrement())
-  value String
+  value Float
   date  DateTime @db.Date
 
   createdAt DateTime @default(now())
