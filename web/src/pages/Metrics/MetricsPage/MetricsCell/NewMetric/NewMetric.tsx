@@ -23,7 +23,7 @@ import { QUERY } from '../MetricsCell'
 interface FormValues {
   name: string
   unit?: string
-  entry: { value: string; date: string }
+  entry: { value: number; date: string }
 }
 
 const CREATE_METRIC = gql`
@@ -85,7 +85,7 @@ const NewMetric = () => {
           </FormField>
 
           <FormField name="entry.value" label="Entry Value">
-            <FormInput name="entry.value" validation={{ required: true }} />
+            <FormInput name="entry.value" type="number" validation={{ required: true }} step="any" />
           </FormField>
 
           <FormField name="entry.date" label="Entry Date">

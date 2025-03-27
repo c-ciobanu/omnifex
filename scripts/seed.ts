@@ -905,21 +905,21 @@ export default async () => {
               name: 'Weight',
               unit: 'Kg',
               entries: {
-                create: range(1, 8).map((n) => ({ value: `${90 - n}`, date: new Date(`2023-0${n + 1}-01`) })),
+                create: range(1, 8).map((n) => ({ value: 90 - n, date: new Date(`2023-0${n + 1}-01`) })),
               },
             },
             {
               name: 'Savings',
               unit: '$',
               entries: {
-                create: range(1, 8).map((n) => ({ value: `${1000 * n}`, date: new Date(`2023-0${n + 1}-01`) })),
+                create: range(1, 8).map((n) => ({ value: 1000 * n, date: new Date(`2023-0${n + 1}-01`) })),
               },
             },
             {
               name: 'Daily Steps',
               unit: 'Steps',
               entries: {
-                create: range(1, 8).map((n) => ({ value: `${2000 * n}`, date: new Date(`2023-0${n + 1}-01`) })),
+                create: range(1, 8).map((n) => ({ value: 2000 * n, date: new Date(`2023-0${n + 1}-01`) })),
               },
             },
           ],

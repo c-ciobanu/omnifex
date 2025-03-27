@@ -30,7 +30,7 @@ describe('metrics', () => {
   scenario('creates a metric', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
     const result = await createMetric({
-      input: { name: 'String', unit: 'String', entry: { value: 'String', date: new Date('2024-08-05') } },
+      input: { name: 'String', unit: 'String', entry: { value: 10.0, date: new Date('2024-08-05') } },
     })
 
     expect(result.name).toEqual('String')
@@ -56,19 +56,19 @@ describe('metrics', () => {
     mockCurrentUser(scenario.user.john)
 
     const result = await createMetricEntry({
-      input: { value: 'String', date: new Date('2024-08-05'), metricId: scenario.metric.two.id },
+      input: { value: 10.0, date: new Date('2024-08-05'), metricId: scenario.metric.two.id },
     })
 
-    expect(result.value).toEqual('String')
+    expect(result.value).toEqual(10.0)
     expect(result.date).toEqual(new Date('2024-08-05'))
   })
 
   scenario('updates a metricEntry', async (scenario: StandardScenario) => {
     mockCurrentUser(scenario.user.john)
 
-    const result = await updateMetricEntry({ id: scenario.metric.two.entries[0].id, input: { value: 'String2' } })
+    const result = await updateMetricEntry({ id: scenario.metric.two.entries[0].id, input: { value: 12.0 } })
 
-    expect(result.value).toEqual('String2')
+    expect(result.value).toEqual(12.0)
   })
 
   scenario('deletes a metricEntry', async (scenario: StandardScenario) => {

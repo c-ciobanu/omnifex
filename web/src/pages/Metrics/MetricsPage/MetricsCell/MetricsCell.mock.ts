@@ -6,7 +6,7 @@ export const standard = () => ({
       unit: 'Kg',
       latestEntry: {
         id: 1,
-        value: '80',
+        value: 80,
         date: '2022-01-01',
       },
     },
@@ -16,7 +16,7 @@ export const standard = () => ({
       unit: 'Kg',
       latestEntry: {
         id: 2,
-        value: '60',
+        value: 60,
         date: '2024-03-01',
       },
     },
@@ -26,7 +26,7 @@ export const standard = () => ({
       unit: 'Kg',
       latestEntry: {
         id: 3,
-        value: '120',
+        value: 120,
         date: '2024-03-01',
       },
     },

@@ -9,7 +9,7 @@ export const schema = gql`
 
   type MetricEntry {
     id: Int!
-    value: String!
+    value: Float!
     date: Date!
   }
 
@@ -19,7 +19,7 @@ export const schema = gql`
   }
 
   input MetricEntryInput {
-    value: String!
+    value: Float!
     date: Date!
   }
 
@@ -35,13 +35,13 @@ export const schema = gql`
   }
 
   input CreateMetricEntryInput {
-    value: String!
+    value: Float!
     date: Date!
     metricId: Int!
   }
 
   input UpdateMetricEntryInput {
-    value: String
+    value: Float
     date: Date
   }
 

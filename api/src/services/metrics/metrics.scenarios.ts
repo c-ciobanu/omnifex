@@ -18,9 +18,9 @@ export const standard = defineScenario<Prisma.MetricCreateArgs | Prisma.UserCrea
         userId: scenario.user.john.id,
         entries: {
           create: [
-            { value: '100', date: new Date('2020-01-01') },
-            { value: '90', date: new Date('2021-01-01') },
-            { value: '80', date: new Date('2022-01-01') },
+            { value: 100, date: new Date('2020-01-01') },
+            { value: 90, date: new Date('2021-01-01') },
+            { value: 80, date: new Date('2022-01-01') },
           ],
         },
       },
@@ -31,9 +31,9 @@ export const standard = defineScenario<Prisma.MetricCreateArgs | Prisma.UserCrea
         userId: scenario.user.john.id,
         entries: {
           create: [
-            { value: '110', date: new Date('2024-01-01') },
-            { value: '100', date: new Date('2024-02-01') },
-            { value: '90', date: new Date('2024-03-01') },
+            { value: 110, date: new Date('2024-01-01') },
+            { value: 100, date: new Date('2024-02-01') },
+            { value: 90, date: new Date('2024-03-01') },
           ],
         },
       },

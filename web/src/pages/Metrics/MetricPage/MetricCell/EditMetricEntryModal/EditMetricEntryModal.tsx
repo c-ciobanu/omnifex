@@ -18,7 +18,7 @@ const UPDATE_METRIC_ENTRY = gql`
 `
 
 interface FormValues {
-  value: string
+  value: number
   date: string
 }
 
@@ -54,7 +54,13 @@ const EditMetricEntryModal = (props: EditMetricEntryModalProps) => {
           </DialogHeader>
 
           <FormField name="value" label={`Value [ ${metric.unit} ]`}>
-            <FormInput name="value" defaultValue={metricEntry.value} validation={{ required: true }} />
+            <FormInput
+              name="value"
+              type="number"
+              defaultValue={metricEntry.value}
+              validation={{ required: true }}
+              step="any"
+            />
           </FormField>
 
           <FormField name="date" label="Date">
