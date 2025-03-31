@@ -9,8 +9,8 @@ import type {
 } from 'types/graphql'
 
 import {
-  type CellSuccessProps,
   type CellFailureProps,
+  type CellSuccessProps,
   type TypedDocumentNode,
   Metadata,
   useMutation,
@@ -37,6 +37,7 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
 
+import { Chart } from './Chart/Chart'
 import EditMetricEntryModal from './EditMetricEntryModal/EditMetricEntryModal'
 
 export const QUERY: TypedDocumentNode<MetricQuery, MetricQueryVariables> = gql`
@@ -132,7 +133,9 @@ export const Success = ({ metric }: CellSuccessProps<MetricQuery, MetricQueryVar
         </Button>
       </div>
 
-      <ul className="divide-y divide-white">
+      <Chart metricName={metric.name} entries={metric.entries} />
+
+      <ul className="mt-4 divide-y divide-white">
         {metric.entries.map((entry, index) => (
           <li key={entry.id} className="flex items-center justify-between gap-6 py-4">
             <time dateTime={entry.date} className="text-sm font-medium">
