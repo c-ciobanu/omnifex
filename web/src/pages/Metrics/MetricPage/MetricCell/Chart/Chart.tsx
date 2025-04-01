@@ -41,15 +41,19 @@ export function Chart(props: ChartProps) {
       <CardHeader className="flex items-center gap-2 sm:flex-row sm:justify-between">
         <div className="space-y-1.5 text-center sm:text-left">
           <CardTitle>{metricName}</CardTitle>
-          <CardDescription>
-            {intlFormat(filteredData[0].date, { weekday: 'short', year: '2-digit', month: 'short', day: 'numeric' })} -{' '}
-            {intlFormat(filteredData[filteredData.length - 1].date, {
-              weekday: 'short',
-              year: '2-digit',
-              month: 'short',
-              day: 'numeric',
-            })}
-          </CardDescription>
+
+          {filteredData.length > 0 ? (
+            <CardDescription>
+              {intlFormat(filteredData[0].date, { weekday: 'short', year: '2-digit', month: 'short', day: 'numeric' })}{' '}
+              -{' '}
+              {intlFormat(filteredData[filteredData.length - 1].date, {
+                weekday: 'short',
+                year: '2-digit',
+                month: 'short',
+                day: 'numeric',
+              })}
+            </CardDescription>
+          ) : null}
         </div>
 
         <Select value={timeRange} onValueChange={setTimeRange}>
