@@ -1,3 +1,36 @@
+model WorkoutTemplate {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  exercises WorkoutTemplateExercise[]
+}
+
+model WorkoutTemplateExercise {
+  id    Int @id @default(autoincrement())
+  order Int
+
+  workout    WorkoutTemplate?             @relation(fields: [workoutId], references: [id])
+  workoutId  Int?
+  exercise   Exercise                     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId Int
+  sets       WorkoutTemplateExerciseSet[]
+}
+
+model WorkoutTemplateExerciseSet {
+  id            Int @id @default(autoincrement())
+  weightInKg    Int
+  reps          Int
+  restInSeconds Int
+
+  exercise   WorkoutTemplateExercise? @relation(fields: [exerciseId], references: [id])
+  exerciseId Int?
+}
+
 model Workout {
   id                Int      @id @default(autoincrement())
   name              String
@@ -44,7 +77,9 @@ model Exercise {
   instructions String[]
   gifPath      String
 
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  workoutExercises WorkoutExercise[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workoutTemplateExercises WorkoutTemplateExercise[]
+  workoutExercises         WorkoutExercise[]
 }

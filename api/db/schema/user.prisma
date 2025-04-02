@@ -10,12 +10,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  movieLists      MovieList[]
-  watchedEpisodes WatchedEpisode[]
-  showsWatchlist  WatchlistShow[]
-  abandonedShows  AbandonedShow[]
-  bookLists       BookList[]
-  documents       Document[]
-  workouts        Workout[]
-  metrics         Metric[]
+  movieLists       MovieList[]
+  watchedEpisodes  WatchedEpisode[]
+  showsWatchlist   WatchlistShow[]
+  abandonedShows   AbandonedShow[]
+  bookLists        BookList[]
+  documents        Document[]
+  workoutTemplates WorkoutTemplate[]
+  workouts         Workout[]
+  metrics          Metric[]
 }
