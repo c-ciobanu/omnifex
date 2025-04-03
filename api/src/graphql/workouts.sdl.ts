@@ -1,4 +1,29 @@
 export const schema = gql`
+  type WorkoutTemplate {
+    id: Int!
+    name: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    userId: Int!
+    exercises: [WorkoutTemplateExercise!]!
+  }
+
+  type WorkoutTemplateExercise {
+    id: Int!
+    order: Int!
+    workoutId: Int!
+    exercise: Exercise!
+    exerciseId: Int!
+    sets: [WorkoutTemplateExerciseSet!]!
+  }
+
+  type WorkoutTemplateExerciseSet {
+    id: Int!
+    weightInKg: Int!
+    reps: Int!
+    restInSeconds: Int!
+  }
+
   type Workout {
     id: Int!
     name: String!
@@ -33,6 +58,8 @@ export const schema = gql`
   type Query {
     workouts: [Workout!]! @requireAuth
     workout(id: Int!): Workout @requireAuth
+    workoutTemplates: [WorkoutTemplate!]! @requireAuth
+    workoutTemplate(id: Int!): WorkoutTemplate @requireAuth
   }
 
   input CreateWorkoutExerciseSetInput {
