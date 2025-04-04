@@ -20,10 +20,10 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/auth-dbauth-setup": "8.5.0",
-    "@redwoodjs/cli-data-migrate": "8.5.0",
-    "@redwoodjs/core": "8.5.0",
-    "@redwoodjs/project-config": "8.5.0",
+    "@redwoodjs/auth-dbauth-setup": "8.6.1",
+    "@redwoodjs/cli-data-migrate": "8.6.1",
+    "@redwoodjs/core": "8.6.1",
+    "@redwoodjs/project-config": "8.6.1",
     "prettier-plugin-tailwindcss": "^0.6.9"
   },
   "eslintConfig": {
