@@ -1,4 +1,5 @@
 import type {
+  MutationResolvers,
   QueryResolvers,
   WorkoutTemplateExerciseRelationResolvers,
   WorkoutTemplateRelationResolvers,
@@ -18,6 +19,34 @@ export const workoutTemplate: QueryResolvers['workoutTemplate'] = ({ id }) => {
   requireAuth()
 
   return db.workoutTemplate.findUnique({ where: { id, userId: context.currentUser.id } })
+}
+
+export const createWorkoutTemplate: MutationResolvers['createWorkoutTemplate'] = ({ input }) => {
+  requireAuth()
+
+  const { exercises, ...workoutData } = input
+
+  return db.workoutTemplate.create({
+    data: {
+      ...workoutData,
+      userId: context.currentUser.id,
+      exercises: {
+        create: exercises.map(({ sets, ...exerciseData }) => ({ ...exerciseData, sets: { create: sets } })),
+      },
+    },
+  })
+}
+
+export const updateWorkoutTemplate: MutationResolvers['updateWorkoutTemplate'] = ({ id, input }) => {
+  requireAuth()
+
+  return db.workoutTemplate.update({ data: input, where: { id, userId: context.currentUser.id } })
+}
+
+export const deleteWorkoutTemplate: MutationResolvers['deleteWorkoutTemplate'] = ({ id }) => {
+  requireAuth()
+
+  return db.workoutTemplate.delete({ where: { id, userId: context.currentUser.id } })
 }
 
 export const WorkoutTemplate: WorkoutTemplateRelationResolvers = {
