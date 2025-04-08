@@ -51,6 +51,7 @@ const Routes = () => {
           <Route path="/workouts" page={WorkoutsWorkoutsPage} name="workouts" />
           <Route path="/workouts/{id:Int}" page={WorkoutsWorkoutPage} name="workout" />
           <Route path="/workouts/new" page={WorkoutsNewWorkoutPage} name="newWorkout" />
+          <Route path="/workouts/templates/new" page={WorkoutsNewTemplatePage} name="newWorkoutTemplate" />
         </PrivateSet>
       </Set>
 
