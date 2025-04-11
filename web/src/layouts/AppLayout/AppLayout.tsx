@@ -24,6 +24,7 @@ const authenticatedNavigation = [
   { name: 'Books', href: () => routes.books() },
   { name: 'Documents', href: () => routes.documents() },
   { name: 'Metrics', href: () => routes.metrics() },
+  { name: 'Workouts', href: () => routes.workouts() },
   { name: 'Invoices', href: () => routes.invoices() },
   { name: 'Pomodoro Timer', href: () => routes.pomodoro() },
 ]
