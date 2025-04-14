@@ -10,13 +10,13 @@
     "@redwoodjs/auth-dbauth-api": "8.6.1",
     "@redwoodjs/graphql-server": "8.6.1",
     "@redwoodjs/jobs": "8.6.1",
-    "@sentry/node": "7.120.2",
+    "@sentry/node": "7.120.3",
     "@whatwg-node/fetch": "^0.9.23",
     "adm-zip": "^0.5.16",
-    "minio": "^8.0.3",
+    "minio": "^8.0.5",
     "redis": "^4.7.0"
   },
   "devDependencies": {
-    "@types/adm-zip": "^0"
+    "@types/adm-zip": "^0.5.7"
   }
 }
