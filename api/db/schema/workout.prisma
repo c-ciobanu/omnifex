@@ -14,11 +14,11 @@ model WorkoutTemplateExercise {
   id    Int @id @default(autoincrement())
   order Int
 
-  workout    WorkoutTemplate?             @relation(fields: [workoutId], references: [id])
-  workoutId  Int?
-  exercise   Exercise                     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
-  exerciseId Int
-  sets       WorkoutTemplateExerciseSet[]
+  workout           WorkoutTemplate?             @relation(fields: [workoutTemplateId], references: [id])
+  workoutTemplateId Int?
+  exercise          Exercise                     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  exerciseId        Int
+  sets              WorkoutTemplateExerciseSet[]
 }
 
 model WorkoutTemplateExerciseSet {
@@ -27,8 +27,8 @@ model WorkoutTemplateExerciseSet {
   reps          Int
   restInSeconds Int
 
-  exercise   WorkoutTemplateExercise? @relation(fields: [exerciseId], references: [id])
-  exerciseId Int?
+  exercise                  WorkoutTemplateExercise? @relation(fields: [workoutTemplateExerciseId], references: [id], onDelete: Cascade)
+  workoutTemplateExerciseId Int?
 }
 
 model Workout {

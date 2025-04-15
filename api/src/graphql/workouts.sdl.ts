@@ -11,7 +11,7 @@ export const schema = gql`
   type WorkoutTemplateExercise {
     id: Int!
     order: Int!
-    workoutId: Int!
+    workoutTemplateId: Int!
     exercise: Exercise!
     exerciseId: Int!
     sets: [WorkoutTemplateExerciseSet!]!
