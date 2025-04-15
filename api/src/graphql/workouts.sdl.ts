@@ -74,13 +74,9 @@ export const schema = gql`
     sets: [CreateWorkoutExerciseSetInput!]!
   }
 
-  input CreateWorkoutTemplateInput {
+  input WorkoutTemplateInput {
     name: String!
     exercises: [CreateWorkoutExerciseInput]
-  }
-
-  input UpdateWorkoutTemplateInput {
-    name: String
   }
 
   input CreateWorkoutInput {
@@ -104,8 +100,8 @@ export const schema = gql`
     createWorkout(input: CreateWorkoutInput!): Workout! @requireAuth
     updateWorkout(id: Int!, input: UpdateWorkoutInput!): Workout! @requireAuth
     deleteWorkout(id: Int!): Workout! @requireAuth
-    createWorkoutTemplate(input: CreateWorkoutTemplateInput!): WorkoutTemplate! @requireAuth
-    updateWorkoutTemplate(id: Int!, input: UpdateWorkoutTemplateInput!): WorkoutTemplate! @requireAuth
+    createWorkoutTemplate(input: WorkoutTemplateInput!): WorkoutTemplate! @requireAuth
+    updateWorkoutTemplate(id: Int!, input: WorkoutTemplateInput!): WorkoutTemplate! @requireAuth
     deleteWorkoutTemplate(id: Int!): WorkoutTemplate! @requireAuth
   }
 `

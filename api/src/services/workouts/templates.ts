@@ -40,7 +40,18 @@ export const createWorkoutTemplate: MutationResolvers['createWorkoutTemplate'] =
 export const updateWorkoutTemplate: MutationResolvers['updateWorkoutTemplate'] = ({ id, input }) => {
   requireAuth()
 
-  return db.workoutTemplate.update({ data: input, where: { id, userId: context.currentUser.id } })
+  const { exercises, ...workoutTemplateData } = input
+
+  return db.workoutTemplate.update({
+    data: {
+      ...workoutTemplateData,
+      exercises: {
+        deleteMany: {},
+        create: exercises.map(({ sets, ...exerciseData }) => ({ ...exerciseData, sets: { create: sets } })),
+      },
+    },
+    where: { id, userId: context.currentUser.id },
+  })
 }
 
 export const deleteWorkoutTemplate: MutationResolvers['deleteWorkoutTemplate'] = ({ id }) => {

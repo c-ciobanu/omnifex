@@ -17,7 +17,7 @@ const MOCK_EXERCISES = [
 ]
 
 const CREATE_WORKOUT_TEMPLATE = gql`
-  mutation CreateWorkoutTemplateMutation($input: CreateWorkoutTemplateInput!) {
+  mutation CreateWorkoutTemplateMutation($input: WorkoutTemplateInput!) {
     createWorkoutTemplate(input: $input) {
       id
     }
