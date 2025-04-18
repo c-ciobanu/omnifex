@@ -7,7 +7,8 @@ import type {
 
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
-import { getObjectUrl } from 'src/lib/minio'
+
+import { mapExerciseToGraphql } from '../exercises/exercises'
 
 export const workouts: QueryResolvers['workouts'] = () => {
   requireAuth()
@@ -59,7 +60,7 @@ export const WorkoutExercise: WorkoutExerciseRelationResolvers = {
   exercise: async (_obj, { root }) => {
     const exercise = await db.workoutExercise.findUnique({ where: { id: root.id } }).exercise()
 
-    return { ...exercise, gifUrl: getObjectUrl(exercise.gifPath) }
+    return mapExerciseToGraphql(exercise)
   },
   sets: (_obj, { root }) => {
     return db.workoutExercise.findUnique({ where: { id: root.id } }).sets()

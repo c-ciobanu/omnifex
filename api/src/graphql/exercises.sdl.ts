@@ -7,4 +7,8 @@ export const schema = gql`
     createdAt: DateTime!
     updatedAt: DateTime!
   }
+
+  type Query {
+    exercises: [Exercise!]! @requireAuth
+  }
 `
