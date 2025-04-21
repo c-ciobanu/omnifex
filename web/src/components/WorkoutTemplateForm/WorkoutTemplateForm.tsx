@@ -5,12 +5,7 @@ import { useFieldArray, useFormContext } from '@redwoodjs/forms'
 import { FormCombobox, FormInput } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardTitle } from 'src/components/ui/card'
-
-const MOCK_EXERCISES = [
-  { id: 1, name: 'Bench Press' },
-  { id: 2, name: 'Squat' },
-  { id: 3, name: 'Deadlift' },
-]
+import { useExercises } from 'src/hooks/useExercises/useExercises'
 
 export type WorkoutTemplateFormValues = {
   name: string
@@ -32,6 +27,7 @@ export const workoutTemplateFormDefaultValues = {
 }
 
 const WorkoutTemplateForm = () => {
+  const exercises = useExercises()
   const formMethods = useFormContext<WorkoutTemplateFormValues>()
 
   const {
@@ -89,7 +85,7 @@ const WorkoutTemplateForm = () => {
                   <div className="flex items-center justify-between gap-4">
                     <FormCombobox
                       name={`exercises.${exerciseIndex}.exerciseId`}
-                      options={MOCK_EXERCISES.map((e) => ({ value: e.id, label: e.name }))}
+                      options={exercises.map((e) => ({ value: e.id, label: e.name }))}
                       validation={{ required: true }}
                     />
 
