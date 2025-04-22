@@ -1,9 +1,9 @@
-import { WorkoutQuery } from 'types/graphql'
+import { ExercisesQuery } from 'types/graphql'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
 
 type ExerciseModalProps = {
-  exercise?: WorkoutQuery['workout']['exercises'][number]['exercise']
+  exercise?: ExercisesQuery['exercises'][number]
   onClose: () => void
 }
 

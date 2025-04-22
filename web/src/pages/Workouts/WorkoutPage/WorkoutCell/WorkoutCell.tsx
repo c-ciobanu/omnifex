@@ -5,11 +5,10 @@ import type { WorkoutQuery, WorkoutQueryVariables } from 'types/graphql'
 
 import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, Metadata } from '@redwoodjs/web'
 
+import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
 import { formatSecondsToDescriptiveMinutesAndSeconds, formatTime } from 'src/utils/time'
-
-import ExerciseModal from './ExerciseModal'
 
 export const QUERY: TypedDocumentNode<WorkoutQuery, WorkoutQueryVariables> = gql`
   query WorkoutQuery($id: Int!) {

@@ -13,12 +13,11 @@ import {
   useMutation,
 } from '@redwoodjs/web'
 
+import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
 import { Button, buttonVariants } from 'src/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
 import WorkoutTemplateForm, { WorkoutTemplateFormValues } from 'src/components/WorkoutTemplateForm/WorkoutTemplateForm'
 import { cn } from 'src/lib/utils'
-
-import ExerciseModal from './ExerciseModal'
 
 const UPDATE_WORKOUT_TEMPLATE = gql`
   mutation UpdateWorkoutTemplateMutation($id: Int!, $input: WorkoutTemplateInput!) {
