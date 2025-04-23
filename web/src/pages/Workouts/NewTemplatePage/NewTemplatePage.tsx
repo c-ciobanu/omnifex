@@ -33,7 +33,7 @@ const NewTemplatePage = () => {
   const [createWorkoutTemplate] = useMutation<CreateWorkoutTemplateMutation, CreateWorkoutTemplateMutationVariables>(
     CREATE_WORKOUT_TEMPLATE,
     {
-      onCompleted: () => navigate(routes.workouts()),
+      onCompleted: () => navigate(routes.workoutTemplates()),
     }
   )
 

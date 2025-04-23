@@ -3,25 +3,25 @@ import { Metadata } from '@redwoodjs/web'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
-import WorkoutsCell from './WorkoutsCell'
+import WorkoutTemplatesCell from './WorkoutTemplatesCell'
 
-const WorkoutsPage = () => {
+const TemplatesPage = () => {
   return (
     <>
-      <Metadata title="Workouts" robots="noindex" />
+      <Metadata title="Workout Templates" robots="noindex" />
 
-      <Tabs value="workouts" onValueChange={() => navigate(routes.workoutTemplates())}>
+      <Tabs value="templates" onValueChange={() => navigate(routes.workouts())}>
         <TabsList>
           <TabsTrigger value="workouts">Workouts</TabsTrigger>
           <TabsTrigger value="templates">Templates</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="workouts">
-          <WorkoutsCell />
+        <TabsContent value="templates">
+          <WorkoutTemplatesCell />
         </TabsContent>
       </Tabs>
     </>
   )
 }
 
-export default WorkoutsPage
+export default TemplatesPage

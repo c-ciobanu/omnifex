@@ -48,11 +48,12 @@ const Routes = () => {
           <Route path="/documents" page={DocumentsDocumentsPage} name="documents" />
           <Route path="/metrics" page={MetricsMetricsPage} name="metrics" />
           <Route path="/metrics/{id:Int}" page={MetricsMetricPage} name="metric" />
+          <Route path="/workouts/templates" page={WorkoutsTemplatesPage} name="workoutTemplates" />
+          <Route path="/workouts/templates/{id:Int}" page={WorkoutsTemplatePage} name="workoutTemplate" />
+          <Route path="/workouts/templates/new" page={WorkoutsNewTemplatePage} name="newWorkoutTemplate" />
           <Route path="/workouts" page={WorkoutsWorkoutsPage} name="workouts" />
           <Route path="/workouts/{id:Int}" page={WorkoutsWorkoutPage} name="workout" />
           <Route path="/workouts/new" page={WorkoutsNewWorkoutPage} name="newWorkout" />
-          <Route path="/workouts/templates/{id:Int}" page={WorkoutsTemplatePage} name="workoutTemplate" />
-          <Route path="/workouts/templates/new" page={WorkoutsNewTemplatePage} name="newWorkoutTemplate" />
         </PrivateSet>
       </Set>
 
