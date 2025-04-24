@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Dumbbell, Info, Layers, Pencil } from 'lucide-react'
+import { Dumbbell, Info, Layers, Pencil, X } from 'lucide-react'
 import type { WorkoutTemplateQuery, WorkoutTemplateQueryVariables } from 'types/graphql'
 import { UpdateWorkoutTemplateMutation, UpdateWorkoutTemplateMutationVariables } from 'types/graphql'
 
@@ -104,7 +104,12 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
             {workoutTemplate.name} Workout Template Summary
           </h2>
 
-          {editMode ? null : (
+          {editMode ? (
+            <Button variant="destructive" onClick={() => setEditMode(false)}>
+              <X />
+              Cancel
+            </Button>
+          ) : (
             <Button onClick={() => setEditMode(true)}>
               <Pencil />
               Edit
