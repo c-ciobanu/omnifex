@@ -1,7 +1,7 @@
 import { MoreVertical, Plus } from 'lucide-react'
 import type { WorkoutsQuery, WorkoutsQueryVariables } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
+import { Link, navigate, routes } from '@redwoodjs/router'
 import type { CellFailureProps, CellSuccessProps, TypedDocumentNode } from '@redwoodjs/web'
 
 import { Button } from 'src/components/ui/button'
@@ -36,11 +36,21 @@ export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery, WorkoutsQu
   return (
     <>
       <div className="mb-4 flex justify-end">
-        <Button asChild>
-          <Link to={routes.newWorkout()} title="Start New Workout">
-            <Plus /> Start New Workout
-          </Link>
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>
+              <Plus /> Start New Workout
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent className="dropdown-menu-content">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem onClick={() => {}}>From template</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate(routes.newWorkout())}>Empty</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <ul className="divide-y divide-white">

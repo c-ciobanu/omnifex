@@ -116,7 +116,7 @@ export const Success = ({ workout }: CellSuccessProps<WorkoutQuery, WorkoutQuery
           </Card>
         </div>
 
-        <Card>
+        <Card className="max-w-full">
           <CardHeader>
             <CardTitle>Exercises</CardTitle>
           </CardHeader>

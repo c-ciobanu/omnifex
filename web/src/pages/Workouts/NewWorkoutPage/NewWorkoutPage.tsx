@@ -102,7 +102,7 @@ const NewWorkoutPage = () => {
       <Form formMethods={formMethods} onSubmit={onSubmit} className="space-y-6">
         <h2 className="text-2xl font-bold tracking-tight">New Workout</h2>
 
-        <Card>
+        <Card className="max-w-full">
           <CardContent className="space-y-6">
             <FormInput name="name" label="Workout Name" validation={{ required: true }} />
 
@@ -127,7 +127,7 @@ const NewWorkoutPage = () => {
               </div>
 
               {exercisesFields.map((exercise, exerciseIndex) => (
-                <Card key={exercise.id}>
+                <Card key={exercise.id} className="max-w-full">
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between gap-4">
                       <FormCombobox
