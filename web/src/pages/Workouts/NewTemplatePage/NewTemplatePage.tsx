@@ -6,10 +6,7 @@ import { Metadata, useMutation } from '@redwoodjs/web'
 
 import { Form } from 'src/components/form'
 import { buttonVariants } from 'src/components/ui/button'
-import WorkoutTemplateForm, {
-  workoutTemplateFormDefaultValues,
-  WorkoutTemplateFormValues,
-} from 'src/components/WorkoutTemplateForm/WorkoutTemplateForm'
+import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
 import { cn } from 'src/lib/utils'
 
 const CREATE_WORKOUT_TEMPLATE = gql`
@@ -20,15 +17,6 @@ const CREATE_WORKOUT_TEMPLATE = gql`
   }
 `
 
-type FormValues = {
-  name: string
-  exercises: {
-    exerciseId: number
-    order: number
-    sets: { weightInKg: number; reps: number; restInSeconds: number }[]
-  }[]
-}
-
 const NewTemplatePage = () => {
   const [createWorkoutTemplate] = useMutation<CreateWorkoutTemplateMutation, CreateWorkoutTemplateMutationVariables>(
     CREATE_WORKOUT_TEMPLATE,
@@ -37,7 +25,7 @@ const NewTemplatePage = () => {
     }
   )
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: WorkoutFormValues) => {
     createWorkoutTemplate({ variables: { input: data } })
   }
 
@@ -45,14 +33,14 @@ const NewTemplatePage = () => {
     <>
       <Metadata title="New Workout Template" robots="noindex" />
 
-      <Form<WorkoutTemplateFormValues>
-        config={{ defaultValues: workoutTemplateFormDefaultValues }}
+      <Form<WorkoutFormValues>
+        config={{ defaultValues: workoutFormDefaultValues }}
         onSubmit={onSubmit}
         className="space-y-6"
       >
         <h2 className="text-2xl font-bold tracking-tight">New Workout Template</h2>
 
-        <WorkoutTemplateForm />
+        <WorkoutForm />
 
         <Submit className={cn(buttonVariants(), 'w-full')}>Save Workout Template</Submit>
       </Form>

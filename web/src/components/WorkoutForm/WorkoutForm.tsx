@@ -7,7 +7,7 @@ import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardTitle } from 'src/components/ui/card'
 import { useExercises } from 'src/hooks/useExercises/useExercises'
 
-export type WorkoutTemplateFormValues = {
+export type WorkoutFormValues = {
   name: string
   exercises: {
     exerciseId: number
@@ -16,7 +16,7 @@ export type WorkoutTemplateFormValues = {
   }[]
 }
 
-export const workoutTemplateFormDefaultValues = {
+export const workoutFormDefaultValues = {
   exercises: [
     {
       order: 1,
@@ -26,9 +26,9 @@ export const workoutTemplateFormDefaultValues = {
   ],
 }
 
-const WorkoutTemplateForm = () => {
+const WorkoutForm = () => {
   const exercises = useExercises()
-  const formMethods = useFormContext<WorkoutTemplateFormValues>()
+  const formMethods = useFormContext<WorkoutFormValues>()
 
   const {
     fields: exercisesFields,
@@ -41,7 +41,7 @@ const WorkoutTemplateForm = () => {
 
     formMethods.setValue(`exercises.${exerciseIndex}.sets`, [
       ...exercise.sets,
-      workoutTemplateFormDefaultValues.exercises[0].sets[0],
+      workoutFormDefaultValues.exercises[0].sets[0],
     ])
   }
 
@@ -58,7 +58,7 @@ const WorkoutTemplateForm = () => {
     <>
       <Card className="max-w-full">
         <CardContent className="space-y-6">
-          <FormInput name="name" label="Workout Template Name" validation={{ required: true }} />
+          <FormInput name="name" label="Name" validation={{ required: true }} />
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ const WorkoutTemplateForm = () => {
                 variant="outline"
                 onClick={() =>
                   exercisesAppend({
-                    ...workoutTemplateFormDefaultValues.exercises[0],
+                    ...workoutFormDefaultValues.exercises[0],
                     order: exercisesFields.length + 1,
                   })
                 }
@@ -149,4 +149,4 @@ const WorkoutTemplateForm = () => {
   )
 }
 
-export default WorkoutTemplateForm
+export default WorkoutForm

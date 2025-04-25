@@ -9,10 +9,7 @@ import { Metadata, useMutation } from '@redwoodjs/web'
 
 import { Form } from 'src/components/form'
 import { buttonVariants } from 'src/components/ui/button'
-import WorkoutTemplateForm, {
-  workoutTemplateFormDefaultValues,
-  WorkoutTemplateFormValues,
-} from 'src/components/WorkoutTemplateForm/WorkoutTemplateForm'
+import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
 import { cn } from 'src/lib/utils'
 
 const CREATE_WORKOUT = gql`
@@ -30,7 +27,7 @@ const NewWorkoutPage = () => {
     onCompleted: () => navigate(routes.workouts()),
   })
 
-  const onSubmit = (data: WorkoutTemplateFormValues) => {
+  const onSubmit = (data: WorkoutFormValues) => {
     const endDate = new Date()
 
     createWorkout({
@@ -50,14 +47,14 @@ const NewWorkoutPage = () => {
     <>
       <Metadata title="New Workout" robots="noindex" />
 
-      <Form<WorkoutTemplateFormValues>
-        config={{ defaultValues: workoutTemplateFormDefaultValues }}
+      <Form<WorkoutFormValues>
+        config={{ defaultValues: workoutFormDefaultValues }}
         onSubmit={onSubmit}
         className="space-y-6"
       >
         <h2 className="text-2xl font-bold tracking-tight">New Workout</h2>
 
-        <WorkoutTemplateForm />
+        <WorkoutForm />
 
         <Submit className={cn(buttonVariants(), 'w-full')}>Save Workout</Submit>
       </Form>

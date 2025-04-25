@@ -16,7 +16,7 @@ import {
 import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
 import { Button, buttonVariants } from 'src/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
-import WorkoutTemplateForm, { WorkoutTemplateFormValues } from 'src/components/WorkoutTemplateForm/WorkoutTemplateForm'
+import WorkoutForm, { WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
 import { cn } from 'src/lib/utils'
 
 const UPDATE_WORKOUT_TEMPLATE = gql`
@@ -90,7 +90,7 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
     }
   )
 
-  const onSubmit = (data: WorkoutTemplateFormValues) => {
+  const onSubmit = (data: WorkoutFormValues) => {
     updateWorkoutTemplate({ variables: { id: workoutTemplate.id, input: data } })
   }
 
@@ -118,7 +118,7 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
         </div>
 
         {editMode ? (
-          <Form<WorkoutTemplateFormValues>
+          <Form<WorkoutFormValues>
             config={{
               defaultValues: {
                 name: workoutTemplate.name,
@@ -136,7 +136,7 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
             onSubmit={onSubmit}
             className="space-y-6"
           >
-            <WorkoutTemplateForm />
+            <WorkoutForm />
 
             <Submit className={cn(buttonVariants(), 'w-full')}>Save Workout Template Changes</Submit>
           </Form>
