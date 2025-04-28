@@ -3,14 +3,11 @@ import { useRef } from 'react'
 import { differenceInSeconds } from 'date-fns'
 import { CreateWorkoutMutation, CreateWorkoutMutationVariables } from 'types/graphql'
 
-import { Submit } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata, useMutation } from '@redwoodjs/web'
 
-import { Form } from 'src/components/form'
-import { buttonVariants } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
 import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
-import { cn } from 'src/lib/utils'
 
 const CREATE_WORKOUT = gql`
   mutation CreateWorkoutMutation($input: CreateWorkoutInput!) {
@@ -56,7 +53,7 @@ const NewWorkoutPage = () => {
 
         <WorkoutForm />
 
-        <Submit className={cn(buttonVariants(), 'w-full')}>Save Workout</Submit>
+        <FormSubmit>Save Workout</FormSubmit>
       </Form>
     </>
   )

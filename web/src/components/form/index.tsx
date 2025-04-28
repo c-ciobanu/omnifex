@@ -11,8 +11,10 @@ import {
   FieldPath,
   FieldValues,
   RedwoodRegisterOptions,
+  Submit,
 } from '@redwoodjs/forms'
 
+import { buttonVariants } from 'src/components/ui/button'
 import { Label } from 'src/components/ui/label'
 import { cn } from 'src/lib/utils'
 
@@ -159,4 +161,25 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 )
 FormMessage.displayName = 'FormMessage'
 
-export { Form, FormField, ControlledFormField, FormItem, FormControl, FormLabel, FormDescription, FormMessage }
+const FormSubmit = React.forwardRef<React.ElementRef<typeof Submit>, React.ComponentPropsWithoutRef<typeof Submit>>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <Submit ref={ref} className={cn(buttonVariants(), 'w-full', className)} {...props}>
+        {children}
+      </Submit>
+    )
+  }
+)
+FormSubmit.displayName = 'FormSubmit'
+
+export {
+  Form,
+  FormField,
+  ControlledFormField,
+  FormItem,
+  FormControl,
+  FormLabel,
+  FormDescription,
+  FormMessage,
+  FormSubmit,
+}

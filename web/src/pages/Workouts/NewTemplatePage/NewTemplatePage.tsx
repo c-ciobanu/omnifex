@@ -1,13 +1,10 @@
 import { CreateWorkoutTemplateMutation, CreateWorkoutTemplateMutationVariables } from 'types/graphql'
 
-import { Submit } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata, useMutation } from '@redwoodjs/web'
 
-import { Form } from 'src/components/form'
-import { buttonVariants } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
 import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
-import { cn } from 'src/lib/utils'
 
 const CREATE_WORKOUT_TEMPLATE = gql`
   mutation CreateWorkoutTemplateMutation($input: WorkoutTemplateInput!) {
@@ -42,7 +39,7 @@ const NewTemplatePage = () => {
 
         <WorkoutForm />
 
-        <Submit className={cn(buttonVariants(), 'w-full')}>Save Workout Template</Submit>
+        <FormSubmit>Save Workout Template</FormSubmit>
       </Form>
     </>
   )

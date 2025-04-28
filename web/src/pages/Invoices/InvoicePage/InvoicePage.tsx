@@ -1,13 +1,13 @@
 import { useLocalStorage } from '@uidotdev/usehooks'
 import { Printer } from 'lucide-react'
 
-import { Form, Submit, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
+import { Form, FormSubmit } from 'src/components/form'
 import InvoiceForm, { InvoiceFormValues } from 'src/components/InvoiceForm/InvoiceForm'
-import { Button, buttonVariants } from 'src/components/ui/button'
-import { cn } from 'src/lib/utils'
+import { Button } from 'src/components/ui/button'
 
 import { Invoice } from '../NewInvoicePage/NewInvoicePage'
 
@@ -44,7 +44,7 @@ const InvoicePage = ({ id }: InvoicePageProps) => {
 
         <InvoiceForm />
 
-        <Submit className={cn(buttonVariants(), 'w-full')}>Save Invoice Changes</Submit>
+        <FormSubmit>Save Invoice Changes</FormSubmit>
       </Form>
     </>
   )

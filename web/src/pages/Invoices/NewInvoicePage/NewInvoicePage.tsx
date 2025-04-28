@@ -1,12 +1,11 @@
 import { useLocalStorage } from '@uidotdev/usehooks'
 
-import { Form, Submit, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes, useParams } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
+import { Form, FormSubmit } from 'src/components/form'
 import InvoiceForm, { invoiceFormDefaultValues, InvoiceFormValues } from 'src/components/InvoiceForm/InvoiceForm'
-import { buttonVariants } from 'src/components/ui/button'
-import { cn } from 'src/lib/utils'
 
 export type Invoice = InvoiceFormValues & {
   id: string
@@ -43,7 +42,7 @@ const NewInvoicePage = () => {
 
         <InvoiceForm />
 
-        <Submit className={cn(buttonVariants(), 'w-full')}>Create Invoice</Submit>
+        <FormSubmit>Create Invoice</FormSubmit>
       </Form>
     </>
   )

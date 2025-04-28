@@ -4,7 +4,6 @@ import { Dumbbell, Info, Layers, Pencil, X } from 'lucide-react'
 import type { WorkoutTemplateQuery, WorkoutTemplateQueryVariables } from 'types/graphql'
 import { UpdateWorkoutTemplateMutation, UpdateWorkoutTemplateMutationVariables } from 'types/graphql'
 
-import { Form, Submit } from '@redwoodjs/forms'
 import {
   type CellFailureProps,
   type CellSuccessProps,
@@ -14,10 +13,10 @@ import {
 } from '@redwoodjs/web'
 
 import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
-import { Button, buttonVariants } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
 import WorkoutForm, { WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
-import { cn } from 'src/lib/utils'
 
 const UPDATE_WORKOUT_TEMPLATE = gql`
   mutation UpdateWorkoutTemplateMutation($id: Int!, $input: WorkoutTemplateInput!) {
@@ -138,7 +137,7 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
           >
             <WorkoutForm />
 
-            <Submit className={cn(buttonVariants(), 'w-full')}>Save Workout Template Changes</Submit>
+            <FormSubmit>Save Workout Template Changes</FormSubmit>
           </Form>
         ) : (
           <>
