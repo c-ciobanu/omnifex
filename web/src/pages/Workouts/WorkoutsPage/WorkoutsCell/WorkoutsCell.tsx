@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { MoreVertical, Plus } from 'lucide-react'
 import type { WorkoutsQuery, WorkoutsQueryVariables } from 'types/graphql'
 
@@ -14,6 +16,8 @@ import {
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu'
 import { formatSecondsToDescriptiveMinutesAndSeconds } from 'src/utils/time'
+
+import TemplateSelectorModal from './TemplateSelectorModal/TemplateSelectorModal'
 
 export const QUERY: TypedDocumentNode<WorkoutsQuery, WorkoutsQueryVariables> = gql`
   query WorkoutsQuery {
@@ -33,6 +37,8 @@ export const Empty = () => <div>Empty</div>
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 
 export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery, WorkoutsQueryVariables>) => {
+  const [templateSelectorModalOpen, setTemplateSelectorModalOpen] = useState(false)
+
   return (
     <>
       <div className="mb-4 flex justify-end">
@@ -47,7 +53,7 @@ export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery, WorkoutsQu
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem onClick={() => {}}>From template</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTemplateSelectorModalOpen(true)}>From template</DropdownMenuItem>
             <DropdownMenuItem onClick={() => navigate(routes.newWorkout())}>Empty</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -90,6 +96,8 @@ export const Success = ({ workouts }: CellSuccessProps<WorkoutsQuery, WorkoutsQu
           </li>
         ))}
       </ul>
+
+      {templateSelectorModalOpen ? <TemplateSelectorModal onClose={() => setTemplateSelectorModalOpen(false)} /> : null}
     </>
   )
 }
