@@ -135,16 +135,12 @@ CMD "node_modules/.bin/rw-web-server" "--api-proxy-target" "$API_PROXY_TARGET"
 # -------
 FROM base AS console
 
-# To add more packages:
-#
-# ```
-# USER root
-#
-# RUN apt-get update && apt-get install -y \
-#     curl
-#
-# USER node
-# ```
+USER root
+
+# Needed for scripts/processExercises.ts
+RUN apt-get update && apt-get install -y ffmpeg
+
+USER node
 
 COPY --chown=node:node api api
 COPY --chown=node:node web web
