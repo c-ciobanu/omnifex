@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import { differenceInSeconds } from 'date-fns'
 import { CreateWorkoutMutation, CreateWorkoutMutationVariables, WorkoutTemplateQuery } from 'types/graphql'
@@ -8,6 +8,8 @@ import { Metadata, useMutation, useQuery } from '@redwoodjs/web'
 
 import { Form, FormSubmit } from 'src/components/form'
 import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
+import { useInterval } from 'src/hooks/useInterval/useInterval'
+import { formatSecondsToDescriptiveMinutesAndSeconds } from 'src/utils/time'
 
 import { QUERY } from '../TemplatePage/WorkoutTemplateCell'
 
@@ -18,6 +20,25 @@ const CREATE_WORKOUT = gql`
     }
   }
 `
+
+interface WorkoutDurationProps {
+  startDate: Date
+}
+
+function WorkoutDuration(props: WorkoutDurationProps) {
+  const { startDate } = props
+  const [secondsPassed, setSecondsPassed] = useState(differenceInSeconds(new Date(), startDate))
+
+  useInterval(() => setSecondsPassed(differenceInSeconds(new Date(), startDate)), 1000)
+
+  return (
+    <div className="sticky top-0 flex justify-center">
+      <p className="border border-input bg-background px-4 py-2 shadow-sm">
+        {formatSecondsToDescriptiveMinutesAndSeconds(secondsPassed)}
+      </p>
+    </div>
+  )
+}
 
 const NewWorkoutPage = () => {
   const { copy } = useParams()
@@ -47,11 +68,11 @@ const NewWorkoutPage = () => {
     })
   }
 
-  console.log({ loading })
-
   return (
     <>
       <Metadata title="New Workout" robots="noindex" />
+
+      <WorkoutDuration startDate={startDate.current} />
 
       {loading ? null : (
         <Form<WorkoutFormValues>
