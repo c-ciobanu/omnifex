@@ -14,7 +14,7 @@ model WorkoutTemplateExercise {
   id    Int @id @default(autoincrement())
   order Int
 
-  workout           WorkoutTemplate?             @relation(fields: [workoutTemplateId], references: [id])
+  workout           WorkoutTemplate?             @relation(fields: [workoutTemplateId], references: [id], onDelete: Cascade)
   workoutTemplateId Int?
   exercise          Exercise                     @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId        Int
