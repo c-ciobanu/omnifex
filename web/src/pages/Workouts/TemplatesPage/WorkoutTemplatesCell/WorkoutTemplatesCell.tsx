@@ -1,9 +1,25 @@
+import { useReducer } from 'react'
+
 import { MoreVertical, Plus } from 'lucide-react'
-import type { WorkoutTemplatesQuery, WorkoutTemplatesQueryVariables } from 'types/graphql'
+import type {
+  WorkoutTemplatesQuery,
+  WorkoutTemplatesQueryVariables,
+  DeleteWorkoutTemplateMutation,
+  DeleteWorkoutTemplateMutationVariables,
+} from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
-import type { CellFailureProps, CellSuccessProps, TypedDocumentNode } from '@redwoodjs/web'
+import { useMutation, type CellFailureProps, type CellSuccessProps, type TypedDocumentNode } from '@redwoodjs/web'
 
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from 'src/components/ui/alert-dialog'
 import { Button } from 'src/components/ui/button'
 import {
   DropdownMenu,
@@ -23,6 +39,14 @@ export const QUERY: TypedDocumentNode<WorkoutTemplatesQuery, WorkoutTemplatesQue
   }
 `
 
+const DELETE_WORKOUT_TEMPLATE = gql`
+  mutation DeleteWorkoutTemplateMutation($id: Int!) {
+    deleteWorkoutTemplate(id: $id) {
+      id
+    }
+  }
+`
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -31,9 +55,51 @@ export const Failure = ({ error }: CellFailureProps<WorkoutTemplatesQueryVariabl
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
+function actionWorkoutTemplateReducer(state, action) {
+  switch (action.type) {
+    case 'setIsOpen': {
+      return {
+        workoutTemplateIndex: state.workoutTemplateIndex,
+        isOpen: action.nextIsOpen,
+      }
+    }
+    case 'open': {
+      return {
+        workoutTemplateIndex: action.nextWorkoutTemplateIndex,
+        isOpen: true,
+      }
+    }
+  }
+
+  throw Error(`Unknown action: ${action.type}.`)
+}
+
 export const Success = ({
   workoutTemplates,
 }: CellSuccessProps<WorkoutTemplatesQuery, WorkoutTemplatesQueryVariables>) => {
+  const [deleteState, deleteDispatch] = useReducer(actionWorkoutTemplateReducer, {
+    isOpen: false,
+    workoutTemplateIndex: 0,
+  })
+
+  const [deleteWorkoutTemplate, { loading }] = useMutation<
+    DeleteWorkoutTemplateMutation,
+    DeleteWorkoutTemplateMutationVariables
+  >(DELETE_WORKOUT_TEMPLATE, {
+    variables: { id: workoutTemplates[deleteState.workoutTemplateIndex]?.id },
+    onCompleted: () => {
+      deleteDispatch({ type: 'setIsOpen', nextIsOpen: false })
+    },
+    update(cache, { data: { deleteWorkoutTemplate } }) {
+      const data = cache.readQuery({ query: QUERY })
+
+      cache.writeQuery({
+        query: QUERY,
+        data: { ...data, workoutTemplates: data.workoutTemplates.filter((d) => d.id !== deleteWorkoutTemplate.id) },
+      })
+    },
+  })
+
   return (
     <>
       <div className="mb-4 flex justify-end">
@@ -45,7 +111,7 @@ export const Success = ({
       </div>
 
       <ul className="divide-y divide-white">
-        {workoutTemplates.map((workout) => (
+        {workoutTemplates.map((workout, index) => (
           <li key={workout.id} className="flex items-center justify-between gap-6 py-4">
             <p className="text-sm font-medium">{workout.name}</p>
 
@@ -66,14 +132,35 @@ export const Success = ({
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => deleteDispatch({ type: 'open', nextWorkoutTemplateIndex: index })}>
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </li>
         ))}
       </ul>
+
+      <AlertDialog
+        open={deleteState.isOpen}
+        onOpenChange={(open) => deleteDispatch({ type: 'setIsOpen', nextIsOpen: open })}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Workout Template</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to permanently delete this workout template? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <Button variant="destructive" onClick={() => deleteWorkoutTemplate()} disabled={loading}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }
