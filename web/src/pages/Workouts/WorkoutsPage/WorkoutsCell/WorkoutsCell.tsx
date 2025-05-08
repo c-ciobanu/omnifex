@@ -1,11 +1,11 @@
 import { useReducer, useState } from 'react'
 
-import { MoreVertical, Plus } from 'lucide-react'
+import { Dumbbell, MoreVertical, Plus } from 'lucide-react'
 import type {
-  WorkoutsQuery,
-  WorkoutsQueryVariables,
   DeleteWorkoutMutation,
   DeleteWorkoutMutationVariables,
+  WorkoutsQuery,
+  WorkoutsQueryVariables,
 } from 'types/graphql'
 
 import { Link, navigate, routes } from '@redwoodjs/router'
@@ -54,7 +54,39 @@ const DELETE_WORKOUT = gql`
 
 export const Loading = () => <div>Loading...</div>
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => {
+  const [templateSelectorModalOpen, setTemplateSelectorModalOpen] = useState(false)
+
+  return (
+    <>
+      <div className="absolute-center-main flex flex-col items-center justify-center gap-2">
+        <Dumbbell className="h-12 w-12" />
+
+        <h3 className="text-2xl font-bold tracking-tight">You have no workouts</h3>
+
+        <p className="mb-4 text-sm text-muted-foreground">Get started by starting a new workout.</p>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>
+              <Plus /> Start New Workout
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent className="dropdown-menu-content">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem onClick={() => setTemplateSelectorModalOpen(true)}>From template</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate(routes.newWorkout())}>Empty</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      {templateSelectorModalOpen ? <TemplateSelectorModal onClose={() => setTemplateSelectorModalOpen(false)} /> : null}
+    </>
+  )
+}
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>
 

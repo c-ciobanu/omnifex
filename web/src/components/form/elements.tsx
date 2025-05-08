@@ -112,7 +112,7 @@ const FormCombobox = (props: FormComboboxProps) => {
               </FormControl>
             </PopoverTrigger>
 
-            <PopoverContent className="popover-content-w-full p-0">
+            <PopoverContent className="popover-content p-0">
               <Command>
                 <CommandInput placeholder="Search option..." className="h-9" />
                 <CommandList>

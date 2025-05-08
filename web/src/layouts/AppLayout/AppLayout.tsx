@@ -170,7 +170,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </nav>
       </Collapsible>
 
-      <main className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">{children}</main>
+      <main className="relative mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">{children}</main>
 
       <Separator className="mx-auto max-w-7xl" />
 

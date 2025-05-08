@@ -86,11 +86,20 @@
     width: var(--radix-dropdown-menu-trigger-width);
     max-height: var(--radix-dropdown-menu-content-available-height);
   }
+
+  .popover-content {
+    width: var(--radix-popover-trigger-width);
+    max-height: var(--radix-popover-content-available-height);
+  }
 }
 
 @layer utilities {
   .min-h-main {
     min-height: calc(100vh - theme('height.14') - theme('height.8'));
+  }
+
+  .absolute-center-main {
+    @apply absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2;
   }
 
   .underline-line-through {
@@ -99,10 +108,5 @@
 
   .tab-size-2 {
     tab-size: 2;
-  }
-
-  .popover-content-w-full {
-    width: var(--radix-popover-trigger-width);
-    max-height: var(--radix-popover-content-available-height);
   }
 }
