@@ -1,11 +1,11 @@
 import { useReducer } from 'react'
 
-import { MoreVertical, Plus } from 'lucide-react'
+import { ClipboardList, MoreVertical, Plus } from 'lucide-react'
 import type {
-  WorkoutTemplatesQuery,
-  WorkoutTemplatesQueryVariables,
   DeleteWorkoutTemplateMutation,
   DeleteWorkoutTemplateMutationVariables,
+  WorkoutTemplatesQuery,
+  WorkoutTemplatesQueryVariables,
 } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -49,7 +49,21 @@ const DELETE_WORKOUT_TEMPLATE = gql`
 
 export const Loading = () => <div>Loading...</div>
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => (
+  <div className="absolute-center-main flex flex-col items-center justify-center gap-2">
+    <ClipboardList className="h-12 w-12" />
+
+    <h3 className="text-2xl font-bold tracking-tight">You have no templates</h3>
+
+    <p className="mb-4 text-sm text-muted-foreground">Get started by creating a new template.</p>
+
+    <Button asChild>
+      <Link to={routes.newWorkoutTemplate()} title="New Template">
+        <Plus /> New Template
+      </Link>
+    </Button>
+  </div>
+)
 
 export const Failure = ({ error }: CellFailureProps<WorkoutTemplatesQueryVariables>) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
