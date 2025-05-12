@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { format, intlFormat, isAfter, subDays } from 'date-fns'
+import { format, getTime, intlFormat, isAfter, subDays } from 'date-fns'
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 import { MetricQuery } from 'types/graphql'
 
@@ -80,7 +80,16 @@ export function Chart(props: ChartProps) {
         >
           <LineChart data={filteredData}>
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="date" tickLine={false} tickMargin={8} tickFormatter={(date) => format(date, 'dd/MM')} />
+
+            <XAxis
+              type="number"
+              dataKey={(item) => getTime(item.date)}
+              domain={['dataMin', 'dataMax']}
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(timestamp) => format(timestamp, 'yy-MM-dd')}
+            />
             <YAxis
               dataKey="value"
               domain={[(dataMin) => Math.floor(dataMin), (dataMax) => Math.ceil(dataMax)]}
@@ -91,8 +100,8 @@ export function Chart(props: ChartProps) {
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(date) =>
-                    intlFormat(date, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                  labelFormatter={(timestamp) =>
+                    intlFormat(timestamp, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                   }
                   indicator="dot"
                 />
