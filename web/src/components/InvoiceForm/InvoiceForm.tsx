@@ -72,13 +72,19 @@ const Item = ({ number, formMethods, onRemove }: ItemProps) => {
         <FormInput name={`items.${number}.name`} validation={{ required: true }} placeholder="Item description" />
       </td>
       <td>
-        <FormInput name={`items.${number}.quantity`} type="number" min={0} validation={{ required: true }} />
+        <FormInput name={`items.${number}.quantity`} type="number" min={0} step="any" validation={{ required: true }} />
       </td>
       <td>
         <FormInput name={`items.${number}.unit`} placeholder="hrs" />
       </td>
       <td>
-        <FormInput name={`items.${number}.unitPrice`} type="number" min={0} validation={{ required: true }} />
+        <FormInput
+          name={`items.${number}.unitPrice`}
+          type="number"
+          min={0}
+          step="any"
+          validation={{ required: true }}
+        />
       </td>
       <td>
         {new Intl.NumberFormat('en-UK', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.price)}
