@@ -3,11 +3,11 @@ import { useState } from 'react'
 import { useLocalStorage } from '@uidotdev/usehooks'
 import { Play } from 'lucide-react'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { Metadata } from '@redwoodjs/web'
 
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 import PomodoroTimer from './PomodoroTimer'
@@ -50,23 +50,17 @@ const PomodoroTimerPage = () => {
 
             <Form onSubmit={onSubmit} config={{ defaultValues: settings }}>
               <CardContent className="space-y-6">
-                <FormField name="pomodoro" label="Pomodoro">
-                  <FormInput name="pomodoro" type="number" validation={{ required: true }} />
-                </FormField>
+                <FormInput name="pomodoro" type="number" label="Pomodoro" validation={{ required: true }} />
 
-                <FormField name="shortBreak" label="Short break">
-                  <FormInput name="shortBreak" type="number" validation={{ required: true }} />
-                </FormField>
+                <FormInput name="shortBreak" type="number" label="Short break" validation={{ required: true }} />
 
-                <FormField name="longBreak" label="Long break">
-                  <FormInput name="longBreak" type="number" validation={{ required: true }} />
-                </FormField>
+                <FormInput name="longBreak" type="number" label="Long break" validation={{ required: true }} />
               </CardContent>
 
               <CardFooter>
-                <Button type="submit" className="w-full">
+                <FormSubmit>
                   <Play /> Start
-                </Button>
+                </FormSubmit>
               </CardFooter>
             </Form>
           </Card>
