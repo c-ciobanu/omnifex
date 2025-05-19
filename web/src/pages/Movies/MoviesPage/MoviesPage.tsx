@@ -1,8 +1,9 @@
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
-import { FormInput } from 'src/components/OldForm/OldForm'
+import { Form } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 
 import MoviesWatchlistCell from './MoviesWatchlistCell'
