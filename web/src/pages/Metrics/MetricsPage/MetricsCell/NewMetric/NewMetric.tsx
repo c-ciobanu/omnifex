@@ -3,10 +3,11 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { CreateMetricMutation, CreateMetricMutationVariables } from 'types/graphql'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import {
   Dialog,
@@ -76,34 +77,33 @@ const NewMetric = () => {
             <DialogTitle>New Metric</DialogTitle>
           </DialogHeader>
 
-          <FormField name="name" label="Name">
-            <FormInput name="name" validation={{ required: true }} />
-          </FormField>
+          <FormInput name="name" label="Name" validation={{ required: true }} />
 
-          <FormField name="unit" label="Unit">
-            <FormInput name="unit" />
-          </FormField>
+          <FormInput name="unit" label="Unit" />
 
-          <FormField name="entry.value" label="Entry Value">
-            <FormInput name="entry.value" type="number" validation={{ required: true }} step="any" />
-          </FormField>
+          <FormInput
+            name="entry.value"
+            type="number"
+            label="Entry Value"
+            validation={{ required: true, valueAsNumber: true }}
+            step="any"
+          />
 
-          <FormField name="entry.date" label="Entry Date">
-            <FormInput
-              name="entry.date"
-              type="date"
-              defaultValue={new Date().toISOString().substring(0, 10)}
-              max={new Date().toISOString().substring(0, 10)}
-              validation={{ required: true, setValueAs: (s) => s }}
-            />
-          </FormField>
+          <FormInput
+            name="entry.date"
+            type="date"
+            label="Entry Date"
+            defaultValue={new Date().toISOString().substring(0, 10)}
+            max={new Date().toISOString().substring(0, 10)}
+            validation={{ required: true, setValueAs: (s) => s }}
+          />
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button type="submit" disabled={loading}>
+            <FormSubmit disabled={loading} className="w-auto">
               Save
-            </Button>
+            </FormSubmit>
           </DialogFooter>
         </Form>
       </DialogContent>
