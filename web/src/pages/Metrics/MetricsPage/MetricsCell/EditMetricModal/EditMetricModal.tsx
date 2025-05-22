@@ -1,10 +1,10 @@
 import type { MetricsQuery, UpdateMetricMutation, UpdateMetricMutationVariables } from 'types/graphql'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
 
 const UPDATE_METRIC = gql`
@@ -49,20 +49,16 @@ const EditMetricModal = (props: EditMetricModalProps) => {
             <DialogTitle>Edit Metric</DialogTitle>
           </DialogHeader>
 
-          <FormField name="name" label="Name">
-            <FormInput name="name" defaultValue={metric.name} validation={{ required: true }} />
-          </FormField>
+          <FormInput name="name" label="Name" defaultValue={metric.name} validation={{ required: true }} />
 
-          <FormField name="unit" label="Unit">
-            <FormInput name="unit" defaultValue={metric.unit} />
-          </FormField>
+          <FormInput name="unit" label="Unit" defaultValue={metric.unit} />
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button type="submit" disabled={loading}>
+            <FormSubmit disabled={loading} className="w-auto">
               Save
-            </Button>
+            </FormSubmit>
           </DialogFooter>
         </Form>
       </DialogContent>
