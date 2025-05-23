@@ -1,10 +1,10 @@
 import type { MetricQuery, UpdateMetricEntryMutation, UpdateMetricEntryMutationVariables } from 'types/graphql'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
 
 const UPDATE_METRIC_ENTRY = gql`
@@ -53,32 +53,30 @@ const EditMetricEntryModal = (props: EditMetricEntryModalProps) => {
             <DialogTitle>Edit Metric Entry</DialogTitle>
           </DialogHeader>
 
-          <FormField name="value" label={`Value [ ${metric.unit} ]`}>
-            <FormInput
-              name="value"
-              type="number"
-              defaultValue={metricEntry.value}
-              validation={{ required: true }}
-              step="any"
-            />
-          </FormField>
+          <FormInput
+            name="value"
+            type="number"
+            label={`Value [ ${metric.unit} ]`}
+            defaultValue={metricEntry.value}
+            validation={{ required: true, valueAsNumber: true }}
+            step="any"
+          />
 
-          <FormField name="date" label="Date">
-            <FormInput
-              name="date"
-              type="date"
-              defaultValue={metricEntry.date}
-              max={new Date().toISOString().substring(0, 10)}
-              validation={{ required: true, setValueAs: (s) => s }}
-            />
-          </FormField>
+          <FormInput
+            name="date"
+            type="date"
+            label="Date"
+            defaultValue={metricEntry.date}
+            max={new Date().toISOString().substring(0, 10)}
+            validation={{ required: true, setValueAs: (s) => s }}
+          />
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button type="submit" disabled={loading}>
+            <FormSubmit disabled={loading} className="w-auto">
               Save
-            </Button>
+            </FormSubmit>
           </DialogFooter>
         </Form>
       </DialogContent>
