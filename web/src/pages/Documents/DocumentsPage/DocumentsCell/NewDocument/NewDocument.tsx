@@ -3,10 +3,11 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { CreateDocumentMutation, CreateDocumentMutationVariables } from 'types/graphql'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import {
   Dialog,
@@ -72,16 +73,14 @@ const NewDocument = () => {
             <DialogTitle>New Document</DialogTitle>
           </DialogHeader>
 
-          <FormField name="title" label="Title">
-            <FormInput name="title" validation={{ required: true }} />
-          </FormField>
+          <FormInput name="title" label="Title" validation={{ required: true }} />
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
 
-            <Button type="submit" disabled={loading}>
+            <FormSubmit disabled={loading} className="w-auto">
               Save
-            </Button>
+            </FormSubmit>
           </DialogFooter>
         </Form>
       </DialogContent>
