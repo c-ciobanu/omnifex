@@ -15,6 +15,7 @@ import { Button } from 'src/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from 'src/components/ui/command'
 import { Input } from 'src/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from 'src/components/ui/popover'
+import { Switch } from 'src/components/ui/switch'
 import { Textarea } from 'src/components/ui/textarea'
 import { cn } from 'src/lib/utils'
 
@@ -146,4 +147,37 @@ const FormCombobox = (props: FormComboboxProps) => {
   )
 }
 
-export { FormCombobox, FormInput, FormTextarea }
+interface FormSwitchProps extends React.ComponentProps<typeof Switch> {
+  name: string
+  validation?: RedwoodRegisterOptions
+  label: string
+  description?: string
+}
+
+const FormSwitch = (props: FormSwitchProps) => {
+  const { name, label, description, validation, ...switchProps } = props
+
+  return (
+    <ControlledFormField
+      name={name}
+      rules={validation}
+      render={({ field }) => (
+        <FormItem>
+          <div className="flex flex-row items-center justify-between gap-2">
+            <FormLabel>{label}</FormLabel>
+
+            <FormControl>
+              <Switch {...switchProps} checked={field.value} onCheckedChange={field.onChange} />
+            </FormControl>
+          </div>
+
+          {description ? <FormDescription>{description}</FormDescription> : null}
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+export { FormCombobox, FormInput, FormTextarea, FormSwitch }
