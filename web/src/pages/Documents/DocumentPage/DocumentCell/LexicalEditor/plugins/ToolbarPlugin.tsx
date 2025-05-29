@@ -61,12 +61,12 @@ import {
 } from 'lucide-react'
 import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog'
 import {
   DropdownMenu,
@@ -523,14 +523,12 @@ const ToolbarPlugin = ({ documentId, saveDisabled }: ToolbarPluginProps) => {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
           <Form onSubmit={onSubmit} className="space-y-6">
-            <FormField name="url" label="Link">
-              <FormInput name="url" type="url" validation={{ required: true }} />
-            </FormField>
+            <FormInput name="url" type="url" label="Link" validation={{ required: true }} />
 
             <DialogFooter>
               <DialogClose>Close</DialogClose>
 
-              <Button type="submit">Save</Button>
+              <FormSubmit className="w-auto">Save</FormSubmit>
             </DialogFooter>
           </Form>
         </DialogContent>
