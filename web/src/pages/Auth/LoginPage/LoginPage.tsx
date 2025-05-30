@@ -1,14 +1,14 @@
 import { useRef } from 'react'
 import { useEffect } from 'react'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 interface FormValues {
@@ -48,19 +48,22 @@ const LoginPage = () => {
 
           <Form onSubmit={onSubmit}>
             <CardContent className="space-y-6">
-              <FormField name="username" label="Username">
-                <FormInput ref={usernameRef} name="username" autoComplete="username" validation={{ required: true }} />
-              </FormField>
+              <FormInput
+                ref={usernameRef}
+                name="username"
+                label="Username"
+                autoComplete="username"
+                validation={{ required: true }}
+              />
 
               <div>
-                <FormField name="password" label="Password">
-                  <FormInput
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    validation={{ required: true }}
-                  />
-                </FormField>
+                <FormInput
+                  name="password"
+                  type="password"
+                  label="Password"
+                  autoComplete="current-password"
+                  validation={{ required: true }}
+                />
 
                 {/* <div className="mt-2 block text-right">
                 <Link to={routes.forgotPassword()} className="text-sm font-semibold text-blue-600 hover:text-blue-500">
@@ -71,9 +74,7 @@ const LoginPage = () => {
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" className="w-full">
-                Sign in
-              </Button>
+              <FormSubmit>Sign in</FormSubmit>
             </CardFooter>
           </Form>
         </Card>
