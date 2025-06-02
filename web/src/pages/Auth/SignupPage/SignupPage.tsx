@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 type FormValues = {
@@ -48,41 +48,37 @@ const SignupPage = () => {
 
           <Form onSubmit={onSubmit}>
             <CardContent className="space-y-6">
-              <FormField name="username" label="Username">
-                <FormInput
-                  ref={usernameRef}
-                  name="username"
-                  autoComplete="username"
-                  validation={{
-                    required: true,
-                    minLength: {
-                      value: 3,
-                      message: 'Username must be at least 3 characters',
-                    },
-                  }}
-                />
-              </FormField>
+              <FormInput
+                ref={usernameRef}
+                name="username"
+                label="Username"
+                autoComplete="username"
+                validation={{
+                  required: true,
+                  minLength: {
+                    value: 3,
+                    message: 'Username must be at least 3 characters',
+                  },
+                }}
+              />
 
-              <FormField name="password" label="Password">
-                <FormInput
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  validation={{
-                    required: true,
-                    minLength: {
-                      value: 8,
-                      message: 'Password must be at least 8 characters',
-                    },
-                  }}
-                />
-              </FormField>
+              <FormInput
+                name="password"
+                type="password"
+                label="Password"
+                autoComplete="new-password"
+                validation={{
+                  required: true,
+                  minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters',
+                  },
+                }}
+              />
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" className="w-full">
-                Sign up
-              </Button>
+              <FormSubmit>Sign up</FormSubmit>
             </CardFooter>
           </Form>
         </Card>
