@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 interface FormValues {
@@ -48,26 +48,23 @@ const ForgotPasswordPage = () => {
 
           <Form onSubmit={onSubmit}>
             <CardContent className="space-y-6">
-              <FormField name="email" label="Email Address">
-                <FormInput
-                  ref={emailRef}
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: 'Email is required',
-                    },
-                  }}
-                />
-              </FormField>
+              <FormInput
+                ref={emailRef}
+                name="email"
+                type="email"
+                label="Email Address"
+                autoComplete="email"
+                validation={{
+                  required: {
+                    value: true,
+                    message: 'Email is required',
+                  },
+                }}
+              />
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" className="w-full">
-                Submit
-              </Button>
+              <FormSubmit>Submit</FormSubmit>
             </CardFooter>
           </Form>
         </Card>
