@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Form, SubmitHandler } from '@redwoodjs/forms'
+import { SubmitHandler } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
-import { FormField, FormInput } from 'src/components/OldForm/OldForm'
-import { Button } from 'src/components/ui/button'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'
 
 interface FormValues {
@@ -63,27 +63,24 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
 
           <Form onSubmit={onSubmit}>
             <CardContent className="space-y-6">
-              <FormField name="password" label="New Password">
-                <FormInput
-                  ref={passwordRef}
-                  name="password"
-                  type="password"
-                  disabled={!enabled}
-                  autoComplete="new-password"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: 'New Password is required',
-                    },
-                  }}
-                />
-              </FormField>
+              <FormInput
+                ref={passwordRef}
+                name="password"
+                type="password"
+                label="New Password"
+                disabled={!enabled}
+                autoComplete="new-password"
+                validation={{
+                  required: {
+                    value: true,
+                    message: 'New Password is required',
+                  },
+                }}
+              />
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" className="w-full" disabled={!enabled}>
-                Submit
-              </Button>
+              <FormSubmit disabled={!enabled}>Submit</FormSubmit>
             </CardFooter>
           </Form>
         </Card>
