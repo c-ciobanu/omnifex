@@ -3,8 +3,7 @@ import { CreateWorkoutTemplateMutation, CreateWorkoutTemplateMutationVariables }
 import { navigate, routes } from '@redwoodjs/router'
 import { Metadata, useMutation } from '@redwoodjs/web'
 
-import { Form, FormSubmit } from 'src/components/form'
-import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
+import WorkoutForm from 'src/components/WorkoutForm/WorkoutForm'
 
 const CREATE_WORKOUT_TEMPLATE = gql`
   mutation CreateWorkoutTemplateMutation($input: WorkoutTemplateInput!) {
@@ -22,25 +21,18 @@ const NewTemplatePage = () => {
     }
   )
 
-  const onSubmit = (data: WorkoutFormValues) => {
-    createWorkoutTemplate({ variables: { input: data } })
-  }
-
   return (
     <>
       <Metadata title="New Workout Template" robots="noindex" />
 
-      <Form<WorkoutFormValues>
-        config={{ defaultValues: workoutFormDefaultValues }}
-        onSubmit={onSubmit}
-        className="space-y-6"
-      >
+      <div className="space-y-6">
         <h2 className="text-2xl font-bold tracking-tight">New Workout Template</h2>
 
-        <WorkoutForm />
-
-        <FormSubmit>Save Workout Template</FormSubmit>
-      </Form>
+        <WorkoutForm
+          onSubmit={(data) => createWorkoutTemplate({ variables: { input: data } })}
+          submitText="Save Workout Template"
+        />
+      </div>
     </>
   )
 }

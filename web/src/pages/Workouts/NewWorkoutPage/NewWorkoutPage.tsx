@@ -6,8 +6,7 @@ import { CreateWorkoutMutation, CreateWorkoutMutationVariables, WorkoutTemplateQ
 import { navigate, routes, useParams } from '@redwoodjs/router'
 import { Metadata, useMutation, useQuery } from '@redwoodjs/web'
 
-import { Form, FormSubmit } from 'src/components/form'
-import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
+import WorkoutForm, { WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
 import { useInterval } from 'src/hooks/useInterval/useInterval'
 import { formatSecondsToDescriptiveMinutesAndSeconds } from 'src/utils/time'
 
@@ -75,32 +74,30 @@ const NewWorkoutPage = () => {
       <WorkoutDuration startDate={startDate.current} />
 
       {loading ? null : (
-        <Form<WorkoutFormValues>
-          config={{
-            defaultValues: workoutTemplate
-              ? {
-                  name: workoutTemplate.name,
-                  exercises: workoutTemplate.exercises.map((exercise, index) => ({
-                    exerciseId: exercise.exercise.id,
-                    order: index + 1,
-                    sets: exercise.sets.map((set) => ({
-                      weightInKg: set.weightInKg,
-                      reps: set.reps,
-                      restInSeconds: set.restInSeconds,
-                    })),
-                  })),
-                }
-              : workoutFormDefaultValues,
-          }}
-          onSubmit={onSubmit}
-          className="space-y-6"
-        >
+        <div className="space-y-6">
           <h2 className="text-2xl font-bold tracking-tight">New Workout</h2>
 
-          <WorkoutForm />
-
-          <FormSubmit>Save Workout</FormSubmit>
-        </Form>
+          <WorkoutForm
+            onSubmit={onSubmit}
+            submitText="Save Workout"
+            defaultValues={
+              workoutTemplate
+                ? {
+                    name: workoutTemplate.name,
+                    exercises: workoutTemplate.exercises.map((exercise, index) => ({
+                      exerciseId: exercise.exercise.id,
+                      order: index + 1,
+                      sets: exercise.sets.map((set) => ({
+                        weightInKg: set.weightInKg,
+                        reps: set.reps,
+                        restInSeconds: set.restInSeconds,
+                      })),
+                    })),
+                  }
+                : undefined
+            }
+          />
+        </div>
       )}
     </>
   )

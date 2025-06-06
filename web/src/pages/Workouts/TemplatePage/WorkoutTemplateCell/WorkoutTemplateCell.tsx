@@ -13,10 +13,9 @@ import {
 } from '@redwoodjs/web'
 
 import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
-import { Form, FormSubmit } from 'src/components/form'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from 'src/components/ui/card'
-import WorkoutForm, { WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'
+import WorkoutForm from 'src/components/WorkoutForm/WorkoutForm'
 
 const UPDATE_WORKOUT_TEMPLATE = gql`
   mutation UpdateWorkoutTemplateMutation($id: Int!, $input: WorkoutTemplateInput!) {
@@ -89,10 +88,6 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
     }
   )
 
-  const onSubmit = (data: WorkoutFormValues) => {
-    updateWorkoutTemplate({ variables: { id: workoutTemplate.id, input: data } })
-  }
-
   return (
     <>
       <Metadata title={workoutTemplate.name} robots="noindex" />
@@ -117,28 +112,22 @@ export const Success = ({ workoutTemplate }: CellSuccessProps<WorkoutTemplateQue
         </div>
 
         {editMode ? (
-          <Form<WorkoutFormValues>
-            config={{
-              defaultValues: {
-                name: workoutTemplate.name,
-                exercises: workoutTemplate.exercises.map((exercise, index) => ({
-                  exerciseId: exercise.exercise.id,
-                  order: index + 1,
-                  sets: exercise.sets.map((set) => ({
-                    weightInKg: set.weightInKg,
-                    reps: set.reps,
-                    restInSeconds: set.restInSeconds,
-                  })),
+          <WorkoutForm
+            onSubmit={(data) => updateWorkoutTemplate({ variables: { id: workoutTemplate.id, input: data } })}
+            submitText="Save Workout Template Changes"
+            defaultValues={{
+              name: workoutTemplate.name,
+              exercises: workoutTemplate.exercises.map((exercise, index) => ({
+                exerciseId: exercise.exercise.id,
+                order: index + 1,
+                sets: exercise.sets.map((set) => ({
+                  weightInKg: set.weightInKg,
+                  reps: set.reps,
+                  restInSeconds: set.restInSeconds,
                 })),
-              },
+              })),
             }}
-            onSubmit={onSubmit}
-            className="space-y-6"
-          >
-            <WorkoutForm />
-
-            <FormSubmit>Save Workout Template Changes</FormSubmit>
-          </Form>
+          />
         ) : (
           <>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

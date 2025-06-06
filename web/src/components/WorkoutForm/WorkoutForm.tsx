@@ -1,34 +1,36 @@
+import { useState } from 'react'
+
 import { Plus, Trash2 } from 'lucide-react'
 
-import { useFieldArray, useFormContext } from '@redwoodjs/forms'
+import { useFieldArray, useForm } from '@redwoodjs/forms'
 
-import { FormCombobox, FormInput } from 'src/components/form/elements'
+import { Form, FormSubmit } from 'src/components/form'
+import { FormInput } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardTitle } from 'src/components/ui/card'
 import { useExercises } from 'src/hooks/useExercises/useExercises'
 
+import ExerciseFormModal, { ExerciseFormValues } from './ExerciseFormModal'
+
 export type WorkoutFormValues = {
   name: string
-  exercises: {
-    exerciseId: number
-    order: number
-    sets: { weightInKg: number; reps: number; restInSeconds: number }[]
-  }[]
+  exercises: (ExerciseFormValues & { order: number })[]
 }
 
-export const workoutFormDefaultValues = {
-  exercises: [
-    {
-      order: 1,
-      exerciseId: undefined,
-      sets: [{ weightInKg: undefined, reps: undefined, restInSeconds: undefined }],
-    },
-  ],
+const workoutFormDefaultValues = {
+  exercises: [],
 }
 
-const WorkoutForm = () => {
+interface Props {
+  onSubmit: (value: WorkoutFormValues) => void
+  submitText: string
+  defaultValues?: Partial<WorkoutFormValues>
+}
+
+const WorkoutForm = ({ onSubmit, submitText, defaultValues }: Props) => {
+  const [showNewExerciseModal, setShowNewExerciseModal] = useState(false)
   const exercises = useExercises()
-  const formMethods = useFormContext<WorkoutFormValues>()
+  const formMethods = useForm<WorkoutFormValues>({ defaultValues: defaultValues ?? workoutFormDefaultValues })
 
   const {
     fields: exercisesFields,
@@ -36,115 +38,77 @@ const WorkoutForm = () => {
     remove: exercisesRemove,
   } = useFieldArray({ control: formMethods.control, name: 'exercises' })
 
-  const addSet = (exerciseIndex: number) => {
-    const exercise = formMethods.getValues(`exercises.${exerciseIndex}`)
-
-    formMethods.setValue(`exercises.${exerciseIndex}.sets`, [
-      ...exercise.sets,
-      workoutFormDefaultValues.exercises[0].sets[0],
-    ])
-  }
-
-  const removeSet = (exerciseIndex: number, setIndex: number) => {
-    const exercise = formMethods.getValues(`exercises.${exerciseIndex}`)
-
-    formMethods.setValue(
-      `exercises.${exerciseIndex}.sets`,
-      exercise.sets.filter((_, index) => index !== setIndex)
-    )
+  const onNewExerciseSubmit = (data: ExerciseFormValues) => {
+    exercisesAppend({ ...data, order: exercisesFields.length + 1 })
+    setShowNewExerciseModal(false)
   }
 
   return (
     <>
-      <Card className="max-w-full">
-        <CardContent className="space-y-6">
-          <FormInput name="name" label="Name" validation={{ required: true }} />
+      <Form<WorkoutFormValues> formMethods={formMethods} onSubmit={onSubmit} className="space-y-6">
+        <Card className="max-w-full">
+          <CardContent className="space-y-6">
+            <FormInput name="name" label="Name" validation={{ required: true }} />
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <CardTitle>Exercises</CardTitle>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <CardTitle>Exercises</CardTitle>
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() =>
-                  exercisesAppend({
-                    ...workoutFormDefaultValues.exercises[0],
-                    order: exercisesFields.length + 1,
-                  })
-                }
-              >
-                <Plus />
-                Add Exercise
-              </Button>
-            </div>
+                <Button type="button" variant="outline" onClick={() => setShowNewExerciseModal(true)}>
+                  <Plus />
+                  Add Exercise
+                </Button>
+              </div>
 
-            {exercisesFields.map((exercise, exerciseIndex) => (
-              <Card key={exercise.id} className="max-w-full">
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <FormCombobox
-                      name={`exercises.${exerciseIndex}.exerciseId`}
-                      options={exercises.map((e) => ({ value: e.id, label: e.name }))}
-                      validation={{ required: true }}
-                    />
+              <Card className="max-w-full">
+                <CardContent className="space-y-6">
+                  {exercisesFields.map((exercise, exerciseIndex) => (
+                    <div key={exercise.id} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-lg font-semibold">
+                          {exercises.find((e) => e.id === exercise.exerciseId)?.name}
+                        </h4>
 
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      onClick={() => exercisesRemove(exerciseIndex)}
-                      disabled={exercisesFields.length <= 1}
-                    >
-                      <Trash2 />
-                    </Button>
-                  </div>
-
-                  {formMethods.watch(`exercises.${exerciseIndex}.sets`)?.map((_, setIndex) => (
-                    <div key={setIndex} className="grid grid-cols-4 gap-4">
-                      <FormInput
-                        name={`exercises.${exerciseIndex}.sets.${setIndex}.weightInKg`}
-                        label="Weight (kg)"
-                        type="number"
-                        validation={{ required: true, valueAsNumber: true }}
-                      />
-
-                      <FormInput
-                        name={`exercises.${exerciseIndex}.sets.${setIndex}.reps`}
-                        label="Reps"
-                        type="number"
-                        validation={{ required: true, valueAsNumber: true }}
-                      />
-
-                      <FormInput
-                        name={`exercises.${exerciseIndex}.sets.${setIndex}.restInSeconds`}
-                        label="Rest (seconds)"
-                        type="number"
-                        validation={{ required: true, valueAsNumber: true }}
-                      />
-
-                      <div className="flex items-end">
                         <Button
-                          variant="outline"
-                          onClick={() => removeSet(exerciseIndex, setIndex)}
-                          disabled={formMethods.watch(`exercises.${exerciseIndex}.sets`).length <= 1}
-                          className="w-full"
+                          type="button"
+                          variant="destructive"
+                          onClick={() => exercisesRemove(exerciseIndex)}
+                          disabled={exercisesFields.length <= 1}
                         >
                           <Trash2 />
                         </Button>
                       </div>
+
+                      <div className="space-y-3">
+                        {exercise.sets.map((set, index) => (
+                          <div
+                            key={`${exercise.id}-set-${index}`}
+                            className="flex items-center justify-between gap-4 rounded-lg bg-muted p-3 text-sm"
+                          >
+                            <p className="font-medium">Set {index + 1}</p>
+                            <p className="grow text-muted-foreground">
+                              {set.weightInKg}kg × {set.reps} reps
+                            </p>
+                            <p className="text-muted-foreground">{set.restInSeconds}s rest</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
-
-                  <Button variant="outline" onClick={() => addSet(exerciseIndex)} className="w-full gap-4">
-                    <Plus />
-                    Add Set
-                  </Button>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+            </div>
+          </CardContent>
+        </Card>
+
+        <FormSubmit>{submitText}</FormSubmit>
+      </Form>
+
+      <ExerciseFormModal
+        open={showNewExerciseModal}
+        onOpenChange={setShowNewExerciseModal}
+        onSubmit={onNewExerciseSubmit}
+      />
     </>
   )
 }
