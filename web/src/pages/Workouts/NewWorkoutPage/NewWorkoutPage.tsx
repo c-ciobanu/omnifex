@@ -79,7 +79,7 @@ const NewWorkoutPage = () => {
 
           <WorkoutForm
             onSubmit={onSubmit}
-            submitText="Save Workout"
+            submitText="End Workout"
             defaultValues={
               workoutTemplate
                 ? {
