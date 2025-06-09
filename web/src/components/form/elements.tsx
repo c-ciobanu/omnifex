@@ -150,7 +150,7 @@ const FormCombobox = (props: FormComboboxProps) => {
 interface FormSwitchProps extends React.ComponentProps<typeof Switch> {
   name: string
   validation?: RedwoodRegisterOptions
-  label: string
+  label?: string
   description?: string
 }
 
@@ -164,7 +164,7 @@ const FormSwitch = (props: FormSwitchProps) => {
       render={({ field }) => (
         <FormItem>
           <div className="flex flex-row items-center justify-between gap-2">
-            <FormLabel>{label}</FormLabel>
+            {label ? <FormLabel>{label}</FormLabel> : null}
 
             <FormControl>
               <Switch {...switchProps} checked={field.value} onCheckedChange={field.onChange} />
