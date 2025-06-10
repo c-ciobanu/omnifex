@@ -96,6 +96,7 @@ const NewWorkoutPage = () => {
                   }
                 : undefined
             }
+            withChecks
           />
         </div>
       )}

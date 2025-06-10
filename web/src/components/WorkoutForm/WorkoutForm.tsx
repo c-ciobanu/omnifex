@@ -5,7 +5,7 @@ import { Plus, Trash2 } from 'lucide-react'
 import { useFieldArray, useForm } from '@redwoodjs/forms'
 
 import { Form, FormSubmit } from 'src/components/form'
-import { FormInput } from 'src/components/form/elements'
+import { FormInput, FormSwitch } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardTitle } from 'src/components/ui/card'
 import { useExercises } from 'src/hooks/useExercises/useExercises'
@@ -14,7 +14,7 @@ import ExerciseFormModal, { ExerciseFormValues } from './ExerciseFormModal'
 
 export type WorkoutFormValues = {
   name: string
-  exercises: (ExerciseFormValues & { order: number })[]
+  exercises: (ExerciseFormValues & { order: number; done?: boolean })[]
 }
 
 const workoutFormDefaultValues = {
@@ -25,9 +25,10 @@ interface Props {
   onSubmit: (value: WorkoutFormValues) => void
   submitText: string
   defaultValues?: Partial<WorkoutFormValues>
+  withChecks?: boolean
 }
 
-const WorkoutForm = ({ onSubmit, submitText, defaultValues }: Props) => {
+const WorkoutForm = ({ onSubmit, submitText, defaultValues, withChecks }: Props) => {
   const [showNewExerciseModal, setShowNewExerciseModal] = useState(false)
   const exercises = useExercises()
   const formMethods = useForm<WorkoutFormValues>({ defaultValues: defaultValues ?? workoutFormDefaultValues })
@@ -69,14 +70,19 @@ const WorkoutForm = ({ onSubmit, submitText, defaultValues }: Props) => {
                           {exercises.find((e) => e.id === exercise.exerciseId)?.name}
                         </h4>
 
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          onClick={() => exercisesRemove(exerciseIndex)}
-                          disabled={exercisesFields.length <= 1}
-                        >
-                          <Trash2 />
-                        </Button>
+                        <div className="flex items-center justify-between gap-2">
+                          {withChecks ? <FormSwitch name={`exercises.${exerciseIndex}.done`} /> : null}
+
+                          <Button
+                            type="button"
+                            size="icon"
+                            variant="destructive"
+                            onClick={() => exercisesRemove(exerciseIndex)}
+                            disabled={exercisesFields.length <= 1}
+                          >
+                            <Trash2 />
+                          </Button>
+                        </div>
                       </div>
 
                       <div className="space-y-3">
