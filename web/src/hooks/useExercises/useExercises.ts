@@ -1,17 +1,8 @@
 import { ExercisesQuery } from 'types/graphql'
 
-import { TypedDocumentNode, useQuery } from '@redwoodjs/web'
+import { useQuery } from '@redwoodjs/web'
 
-export const QUERY: TypedDocumentNode<ExercisesQuery> = gql`
-  query ExercisesQuery {
-    exercises {
-      id
-      name
-      instructions
-      gifUrl
-    }
-  }
-`
+import { QUERY } from 'src/pages/Workouts/ExercisesPage/ExercisesCell'
 
 export function useExercises() {
   const { data, loading } = useQuery<ExercisesQuery>(QUERY)
