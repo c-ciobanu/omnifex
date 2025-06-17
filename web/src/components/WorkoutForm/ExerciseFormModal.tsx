@@ -59,45 +59,47 @@ const ExerciseFormModal = (props: Props) => {
             validation={{ required: true }}
           />
 
-          {setsFields.map((_, setIndex) => (
-            <Card key={setIndex} className="max-w-full">
-              <CardTitle className="flex items-center justify-between">
-                <p>Set {setIndex + 1}</p>
+          <section className="max-h-[50vh] space-y-4 overflow-auto">
+            {setsFields.map((_, setIndex) => (
+              <Card key={setIndex} className="max-w-full">
+                <CardTitle className="flex items-center justify-between">
+                  <p>Set {setIndex + 1}</p>
 
-                <Button
-                  type="button"
-                  variant="destructive"
-                  onClick={() => setsRemove(setIndex)}
-                  disabled={setsFields.length <= 1}
-                >
-                  <Trash2 />
-                </Button>
-              </CardTitle>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => setsRemove(setIndex)}
+                    disabled={setsFields.length <= 1}
+                  >
+                    <Trash2 />
+                  </Button>
+                </CardTitle>
 
-              <CardContent className="space-y-2">
-                <FormInput
-                  name={`sets.${setIndex}.weightInKg`}
-                  label="Weight (kg)"
-                  type="number"
-                  validation={{ required: true, valueAsNumber: true }}
-                />
+                <CardContent className="space-y-2">
+                  <FormInput
+                    name={`sets.${setIndex}.weightInKg`}
+                    label="Weight (kg)"
+                    type="number"
+                    validation={{ required: true, valueAsNumber: true }}
+                  />
 
-                <FormInput
-                  name={`sets.${setIndex}.reps`}
-                  label="Reps"
-                  type="number"
-                  validation={{ required: true, valueAsNumber: true }}
-                />
+                  <FormInput
+                    name={`sets.${setIndex}.reps`}
+                    label="Reps"
+                    type="number"
+                    validation={{ required: true, valueAsNumber: true }}
+                  />
 
-                <FormInput
-                  name={`sets.${setIndex}.restInSeconds`}
-                  label="Rest (seconds)"
-                  type="number"
-                  validation={{ required: true, valueAsNumber: true }}
-                />
-              </CardContent>
-            </Card>
-          ))}
+                  <FormInput
+                    name={`sets.${setIndex}.restInSeconds`}
+                    label="Rest (seconds)"
+                    type="number"
+                    validation={{ required: true, valueAsNumber: true }}
+                  />
+                </CardContent>
+              </Card>
+            ))}
+          </section>
 
           <Button
             variant="outline"
