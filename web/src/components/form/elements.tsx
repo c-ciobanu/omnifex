@@ -99,7 +99,7 @@ const FormCombobox = (props: FormComboboxProps) => {
         <FormItem className="w-full">
           {label ? <FormLabel>{label}</FormLabel> : null}
 
-          <Popover open={open} onOpenChange={setOpen}>
+          <Popover open={open} onOpenChange={setOpen} modal={true}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
