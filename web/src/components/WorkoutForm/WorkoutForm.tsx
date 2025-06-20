@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Plus, Trash2 } from 'lucide-react'
+import { Dumbbell, Plus, Trash2 } from 'lucide-react'
 
 import { useFieldArray, useForm } from '@redwoodjs/forms'
 
@@ -63,6 +63,16 @@ const WorkoutForm = ({ onSubmit, submitText, defaultValues, withChecks }: Props)
 
               <Card className="max-w-full">
                 <CardContent className="space-y-6">
+                  {exercisesFields.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <Dumbbell className="h-12 w-12" />
+
+                      <h3 className="text-2xl font-bold tracking-tight">You have no exercises</h3>
+
+                      <p className="text-sm text-muted-foreground">Get started by adding a new exercises.</p>
+                    </div>
+                  ) : null}
+
                   {exercisesFields.map((exercise, exerciseIndex) => (
                     <div key={exercise.id} className="space-y-2">
                       <div className="flex items-center justify-between">
