@@ -31,11 +31,8 @@ const ExerciseFormModal = (props: Props) => {
   const formMethods = useForm<ExerciseFormValues>({ defaultValues: exerciseFormDefaultValues })
   const exercises = useExercises()
 
-  const {
-    fields: setsFields,
-    append: setsAppend,
-    remove: setsRemove,
-  } = useFieldArray({ control: formMethods.control, name: 'sets' })
+  const { fields, append, remove } = useFieldArray({ control: formMethods.control, name: 'sets' })
+  const sets = formMethods.watch('sets')
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -60,16 +57,16 @@ const ExerciseFormModal = (props: Props) => {
           />
 
           <section className="max-h-[50vh] space-y-4 overflow-auto">
-            {setsFields.map((_, setIndex) => (
-              <Card key={setIndex} className="max-w-full">
+            {fields.map((set, setIndex) => (
+              <Card key={set.id} className="max-w-full">
                 <CardTitle className="flex items-center justify-between">
                   <p>Set {setIndex + 1}</p>
 
                   <Button
                     type="button"
                     variant="destructive"
-                    onClick={() => setsRemove(setIndex)}
-                    disabled={setsFields.length <= 1}
+                    onClick={() => remove(setIndex)}
+                    disabled={fields.length <= 1}
                   >
                     <Trash2 />
                   </Button>
@@ -101,11 +98,7 @@ const ExerciseFormModal = (props: Props) => {
             ))}
           </section>
 
-          <Button
-            variant="outline"
-            onClick={() => setsAppend(exerciseFormDefaultValues.sets[0])}
-            className="w-full gap-4"
-          >
+          <Button variant="outline" onClick={() => append(sets[sets.length - 1])} className="w-full gap-4">
             <Plus />
             Add Set
           </Button>
