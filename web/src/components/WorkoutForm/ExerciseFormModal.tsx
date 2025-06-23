@@ -87,6 +87,7 @@ const ExerciseFormModal = (props: Props) => {
                     label="Weight (kg)"
                     type="number"
                     validation={{ required: true, valueAsNumber: true }}
+                    step={0.01}
                   />
 
                   <FormInput

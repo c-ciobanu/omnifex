@@ -19,7 +19,7 @@ export const schema = gql`
 
   type WorkoutTemplateExerciseSet {
     id: Int!
-    weightInKg: Int!
+    weightInKg: Float!
     reps: Int!
     restInSeconds: Int!
   }
@@ -50,7 +50,7 @@ export const schema = gql`
 
   type WorkoutExerciseSet {
     id: Int!
-    weightInKg: Int!
+    weightInKg: Float!
     reps: Int!
     restInSeconds: Int!
   }
@@ -63,7 +63,7 @@ export const schema = gql`
   }
 
   input CreateWorkoutExerciseSetInput {
-    weightInKg: Int!
+    weightInKg: Float!
     reps: Int!
     restInSeconds: Int!
   }
