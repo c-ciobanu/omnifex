@@ -56,6 +56,15 @@ const ExerciseFormModal = (props: Props) => {
             validation={{ required: true }}
           />
 
+          <div className="mb-4 flex items-center justify-between">
+            <CardTitle>Sets</CardTitle>
+
+            <Button variant="outline" onClick={() => append(sets[sets.length - 1])}>
+              <Plus />
+              Add Set
+            </Button>
+          </div>
+
           <section className="max-h-[50vh] space-y-4 overflow-auto">
             {fields.map((set, setIndex) => (
               <Card key={set.id} className="max-w-full">
@@ -97,11 +106,6 @@ const ExerciseFormModal = (props: Props) => {
               </Card>
             ))}
           </section>
-
-          <Button variant="outline" onClick={() => append(sets[sets.length - 1])} className="w-full gap-4">
-            <Plus />
-            Add Set
-          </Button>
 
           <DialogFooter>
             <DialogClose>Close</DialogClose>
