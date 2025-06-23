@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Calendar, Clock, Dumbbell, Info, Layers } from 'lucide-react'
 import type { WorkoutQuery, WorkoutQueryVariables } from 'types/graphql'
 
-import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, Metadata } from '@redwoodjs/web'
+import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, Metadata } from '@cedarjs/web'
 
 import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
 import { Button } from 'src/components/ui/button'

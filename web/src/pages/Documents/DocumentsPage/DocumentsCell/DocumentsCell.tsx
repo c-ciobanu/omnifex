@@ -8,8 +8,8 @@ import type {
   DocumentsQueryVariables,
 } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
-import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
+import { Link, routes } from '@cedarjs/router'
+import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, useMutation } from '@cedarjs/web'
 
 import {
   AlertDialog,

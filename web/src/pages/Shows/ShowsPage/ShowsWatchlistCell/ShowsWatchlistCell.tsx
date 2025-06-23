@@ -2,8 +2,8 @@ import { getTime, intlFormat, intlFormatDistance, isAfter, isBefore } from 'date
 import { maxTime } from 'date-fns/constants'
 import type { ShowsWatchlistQuery, ShowsWatchlistQueryVariables } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
+import { Link, routes } from '@cedarjs/router'
+import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@cedarjs/web'
 
 export const QUERY: TypedDocumentNode<ShowsWatchlistQuery, ShowsWatchlistQueryVariables> = gql`
   query ShowsWatchlistQuery {

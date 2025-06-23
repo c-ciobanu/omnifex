@@ -1,6 +1,6 @@
 import { Check, ChevronsUpDown } from 'lucide-react'
 
-import { RedwoodRegisterOptions } from '@redwoodjs/forms'
+import { RedwoodRegisterOptions } from '@cedarjs/forms'
 
 import {
   ControlledFormField,

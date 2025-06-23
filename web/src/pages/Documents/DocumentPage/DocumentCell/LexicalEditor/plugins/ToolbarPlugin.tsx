@@ -61,9 +61,9 @@ import {
 } from 'lucide-react'
 import { UpdateDocumentMutation, UpdateDocumentMutationVariables } from 'types/graphql'
 
-import { SubmitHandler } from '@redwoodjs/forms'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { SubmitHandler } from '@cedarjs/forms'
+import { useMutation } from '@cedarjs/web'
+import { toast } from '@cedarjs/web/toast'
 
 import { Form, FormSubmit } from 'src/components/form'
 import { FormInput } from 'src/components/form/elements'

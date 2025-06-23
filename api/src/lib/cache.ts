@@ -1,4 +1,4 @@
-import { createCache, InMemoryClient, RedisClient } from '@redwoodjs/api/cache'
+import { createCache, InMemoryClient, RedisClient } from '@cedarjs/api/cache'
 
 import { logger } from './logger'
 

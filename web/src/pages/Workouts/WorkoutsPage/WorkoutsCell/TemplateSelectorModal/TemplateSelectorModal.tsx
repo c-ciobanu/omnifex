@@ -1,7 +1,7 @@
 import { WorkoutTemplatesQuery } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
-import { useQuery } from '@redwoodjs/web'
+import { Link, routes } from '@cedarjs/router'
+import { useQuery } from '@cedarjs/web'
 
 import { Button } from 'src/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from 'src/components/ui/dialog'

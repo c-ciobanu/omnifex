@@ -1,6 +1,6 @@
 import { Plus, Trash2 } from 'lucide-react'
 
-import { useFieldArray, useFormContext } from '@redwoodjs/forms'
+import { useFieldArray, useFormContext } from '@cedarjs/forms'
 
 import { FormCombobox, FormInput } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'

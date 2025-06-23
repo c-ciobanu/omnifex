@@ -1,6 +1,6 @@
 import type { BookQuery, BookQueryVariables } from 'types/graphql'
 
-import { type CellSuccessProps, type CellFailureProps, Metadata, TypedDocumentNode } from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, Metadata, TypedDocumentNode } from '@cedarjs/web'
 
 import { useAuth } from 'src/auth'
 

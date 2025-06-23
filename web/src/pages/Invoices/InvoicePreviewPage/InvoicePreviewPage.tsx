@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useLocalStorage } from '@uidotdev/usehooks'
 
-import { Metadata } from '@redwoodjs/web'
+import { Metadata } from '@cedarjs/web'
 
 import { Separator } from 'src/components/ui/separator'
 

@@ -1,6 +1,6 @@
 import { ExercisesQuery } from 'types/graphql'
 
-import { TypedDocumentNode, useQuery } from '@redwoodjs/web'
+import { TypedDocumentNode, useQuery } from '@cedarjs/web'
 
 export const QUERY: TypedDocumentNode<ExercisesQuery> = gql`
   query ExercisesQuery {

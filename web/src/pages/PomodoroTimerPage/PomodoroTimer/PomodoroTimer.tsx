@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Pause, Play, SkipForward } from 'lucide-react'
 
-import { Metadata } from '@redwoodjs/web'
+import { Metadata } from '@cedarjs/web'
 
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader } from 'src/components/ui/card'

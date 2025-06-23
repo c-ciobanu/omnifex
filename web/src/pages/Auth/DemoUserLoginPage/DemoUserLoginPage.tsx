@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Loader2 } from 'lucide-react'
 
-import { Metadata } from '@redwoodjs/web'
+import { Metadata } from '@cedarjs/web'
 
 import { useAuth } from 'src/auth'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from 'src/components/ui/card'

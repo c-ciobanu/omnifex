@@ -1,6 +1,6 @@
 import type { MutationResolvers, QueryResolvers } from 'types/graphql'
 
-import { validateWith } from '@redwoodjs/api'
+import { validateWith } from '@cedarjs/api'
 
 import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'

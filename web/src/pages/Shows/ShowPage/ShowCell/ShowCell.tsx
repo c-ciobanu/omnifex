@@ -2,8 +2,8 @@ import { TypedDocumentNode, useMutation } from '@apollo/client'
 import { CircleCheck, Star } from 'lucide-react'
 import type { ShowQuery, ShowQueryVariables } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
-import { type CellFailureProps, type CellSuccessProps, Metadata } from '@redwoodjs/web'
+import { Link, routes } from '@cedarjs/router'
+import { type CellFailureProps, type CellSuccessProps, Metadata } from '@cedarjs/web'
 
 import { useAuth } from 'src/auth'
 import { Button } from 'src/components/ui/button'

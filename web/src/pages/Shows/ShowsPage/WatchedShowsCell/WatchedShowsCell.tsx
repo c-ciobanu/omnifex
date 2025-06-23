@@ -1,7 +1,7 @@
 import type { WatchedShowsQuery, WatchedShowsQueryVariables } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@redwoodjs/web'
+import { Link, routes } from '@cedarjs/router'
+import type { CellSuccessProps, CellFailureProps, TypedDocumentNode } from '@cedarjs/web'
 
 export const QUERY: TypedDocumentNode<WatchedShowsQuery, WatchedShowsQueryVariables> = gql`
   query WatchedShowsQuery {

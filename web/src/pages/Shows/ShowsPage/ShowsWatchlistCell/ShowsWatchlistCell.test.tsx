@@ -1,4 +1,4 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@cedarjs/testing/web'
 
 import { Loading, Empty, Failure, Success } from './ShowsWatchlistCell'
 import { standard } from './ShowsWatchlistCell.mock'

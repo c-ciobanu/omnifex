@@ -1,4 +1,4 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@cedarjs/testing/web'
 
 import { Empty, Failure, Loading, Success } from './SeasonCell'
 import { standard } from './SeasonCell.mock'

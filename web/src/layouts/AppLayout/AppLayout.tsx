@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { Frown, Menu, Smile, X } from 'lucide-react'
 
-import { Link, NavLink, routes } from '@redwoodjs/router'
-import { Toaster } from '@redwoodjs/web/toast'
+import { Link, NavLink, routes } from '@cedarjs/router'
+import { Toaster } from '@cedarjs/web/toast'
 
 import { useAuth } from 'src/auth'
 import { Button, buttonVariants } from 'src/components/ui/button'

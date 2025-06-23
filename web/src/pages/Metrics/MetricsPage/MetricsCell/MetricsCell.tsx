@@ -11,9 +11,9 @@ import type {
   MetricsQueryVariables,
 } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
-import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, useMutation } from '@redwoodjs/web'
-import { useCache } from '@redwoodjs/web/apollo'
+import { Link, routes } from '@cedarjs/router'
+import { type CellFailureProps, type CellSuccessProps, type TypedDocumentNode, useMutation } from '@cedarjs/web'
+import { useCache } from '@cedarjs/web/apollo'
 
 import NewMetricEntryModal, { CREATE_METRIC_ENTRY } from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {

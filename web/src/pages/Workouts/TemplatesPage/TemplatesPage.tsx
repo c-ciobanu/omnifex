@@ -1,5 +1,5 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { Metadata } from '@redwoodjs/web'
+import { navigate, routes } from '@cedarjs/router'
+import { Metadata } from '@cedarjs/web'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from 'src/components/ui/tabs'
 

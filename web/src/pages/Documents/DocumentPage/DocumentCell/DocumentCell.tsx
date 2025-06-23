@@ -1,6 +1,6 @@
 import type { DocumentQuery, DocumentQueryVariables } from 'types/graphql'
 
-import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, Metadata } from '@redwoodjs/web'
+import { type CellSuccessProps, type CellFailureProps, type TypedDocumentNode, Metadata } from '@cedarjs/web'
 
 import LexicalEditor from './LexicalEditor/LexicalEditor'
 

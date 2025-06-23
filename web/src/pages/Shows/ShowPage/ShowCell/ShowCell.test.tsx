@@ -1,4 +1,4 @@
-import { render, screen } from '@redwoodjs/testing/web'
+import { render, screen } from '@cedarjs/testing/web'
 
 import { Empty, Failure, Loading, Success } from './ShowCell'
 import { standard } from './ShowCell.mock'

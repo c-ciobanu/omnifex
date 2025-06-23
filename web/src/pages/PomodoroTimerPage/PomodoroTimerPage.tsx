@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { useLocalStorage } from '@uidotdev/usehooks'
 import { Play } from 'lucide-react'
 
-import { SubmitHandler } from '@redwoodjs/forms'
-import { Metadata } from '@redwoodjs/web'
+import { SubmitHandler } from '@cedarjs/forms'
+import { Metadata } from '@cedarjs/web'
 
 import { Form, FormSubmit } from 'src/components/form'
 import { FormInput } from 'src/components/form/elements'

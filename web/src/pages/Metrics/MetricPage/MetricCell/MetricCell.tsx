@@ -14,8 +14,8 @@ import {
   type TypedDocumentNode,
   Metadata,
   useMutation,
-} from '@redwoodjs/web'
-import { useCache } from '@redwoodjs/web/apollo'
+} from '@cedarjs/web'
+import { useCache } from '@cedarjs/web/apollo'
 
 import NewMetricEntryModal from 'src/components/NewMetricEntryModal/NewMetricEntryModal'
 import {

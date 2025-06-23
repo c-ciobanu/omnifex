@@ -1,8 +1,8 @@
 import { BookListType, MovieListType } from '@prisma/client'
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
 
-import { validate } from '@redwoodjs/api'
-import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError } from '@redwoodjs/auth-dbauth-api'
+import { validate } from '@cedarjs/api'
+import { DbAuthHandler, DbAuthHandlerOptions, PasswordValidationError } from '@cedarjs/auth-dbauth-api'
 
 import { db } from 'src/lib/db'
 

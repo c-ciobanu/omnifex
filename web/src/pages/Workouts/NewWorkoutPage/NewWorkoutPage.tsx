@@ -3,8 +3,8 @@ import { useRef, useState } from 'react'
 import { differenceInSeconds } from 'date-fns'
 import { CreateWorkoutMutation, CreateWorkoutMutationVariables, WorkoutTemplateQuery } from 'types/graphql'
 
-import { navigate, routes, useParams } from '@redwoodjs/router'
-import { Metadata, useMutation, useQuery } from '@redwoodjs/web'
+import { navigate, routes, useParams } from '@cedarjs/router'
+import { Metadata, useMutation, useQuery } from '@cedarjs/web'
 
 import { Form, FormSubmit } from 'src/components/form'
 import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'

@@ -2,8 +2,8 @@ import { useLocalStorage } from '@uidotdev/usehooks'
 import { getTime } from 'date-fns'
 import { MoreVertical, Plus } from 'lucide-react'
 
-import { Link, navigate, routes } from '@redwoodjs/router'
-import { Metadata } from '@redwoodjs/web'
+import { Link, navigate, routes } from '@cedarjs/router'
+import { Metadata } from '@cedarjs/web'
 
 import { Button } from 'src/components/ui/button'
 import {

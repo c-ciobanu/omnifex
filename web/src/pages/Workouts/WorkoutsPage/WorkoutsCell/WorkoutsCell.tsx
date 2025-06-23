@@ -8,8 +8,8 @@ import type {
   WorkoutsQueryVariables,
 } from 'types/graphql'
 
-import { Link, navigate, routes } from '@redwoodjs/router'
-import { useMutation, type CellFailureProps, type CellSuccessProps, type TypedDocumentNode } from '@redwoodjs/web'
+import { Link, navigate, routes } from '@cedarjs/router'
+import { useMutation, type CellFailureProps, type CellSuccessProps, type TypedDocumentNode } from '@cedarjs/web'
 
 import {
   AlertDialog,

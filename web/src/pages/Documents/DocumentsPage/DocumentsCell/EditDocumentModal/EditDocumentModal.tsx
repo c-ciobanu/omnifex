@@ -1,7 +1,7 @@
 import { DocumentsQuery, UpdateDocumentTitleMutation, UpdateDocumentTitleMutationVariables } from 'types/graphql'
 
-import { SubmitHandler } from '@redwoodjs/forms'
-import { useMutation } from '@redwoodjs/web'
+import { SubmitHandler } from '@cedarjs/forms'
+import { useMutation } from '@cedarjs/web'
 
 import { Form, FormSubmit } from 'src/components/form'
 import { FormInput, FormSwitch } from 'src/components/form/elements'

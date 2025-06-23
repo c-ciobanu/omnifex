@@ -1,10 +1,10 @@
 import { useRef } from 'react'
 import { useEffect } from 'react'
 
-import { SubmitHandler } from '@redwoodjs/forms'
-import { Link, routes } from '@redwoodjs/router'
-import { Metadata } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { SubmitHandler } from '@cedarjs/forms'
+import { Link, routes } from '@cedarjs/router'
+import { Metadata } from '@cedarjs/web'
+import { toast } from '@cedarjs/web/toast'
 
 import { useAuth } from 'src/auth'
 import { Form, FormSubmit } from 'src/components/form'

@@ -1,7 +1,7 @@
 import type { MetricsQuery, UpdateMetricMutation, UpdateMetricMutationVariables } from 'types/graphql'
 
-import { SubmitHandler } from '@redwoodjs/forms'
-import { useMutation } from '@redwoodjs/web'
+import { SubmitHandler } from '@cedarjs/forms'
+import { useMutation } from '@cedarjs/web'
 
 import { Form, FormSubmit } from 'src/components/form'
 import { FormInput } from 'src/components/form/elements'

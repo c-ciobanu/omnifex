@@ -7,7 +7,7 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { PrivateSet, Route, Router, Set } from '@redwoodjs/router'
+import { PrivateSet, Route, Router, Set } from '@cedarjs/router'
 
 import UnauthenticatedRoute from 'src/components/UnauthenticatedRoute/UnauthenticatedRoute'
 import AppLayout from 'src/layouts/AppLayout/AppLayout'

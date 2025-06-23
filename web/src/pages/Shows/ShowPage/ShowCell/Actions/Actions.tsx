@@ -1,7 +1,7 @@
 import { Check, EyeOff, ListMinus, ListPlus } from 'lucide-react'
 import { ShowQuery } from 'types/graphql'
 
-import { useMutation } from '@redwoodjs/web'
+import { useMutation } from '@cedarjs/web'
 
 import { Button } from 'src/components/ui/button'
 import {

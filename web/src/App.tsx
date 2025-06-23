@@ -1,5 +1,5 @@
-import { RedwoodProvider } from '@redwoodjs/web'
-import { RedwoodApolloProvider } from '@redwoodjs/web/apollo'
+import { RedwoodProvider } from '@cedarjs/web'
+import { RedwoodApolloProvider } from '@cedarjs/web/apollo'
 
 import Sentry from 'src/lib/sentry'
 import FatalErrorPage from 'src/pages/FatalErrorPage'

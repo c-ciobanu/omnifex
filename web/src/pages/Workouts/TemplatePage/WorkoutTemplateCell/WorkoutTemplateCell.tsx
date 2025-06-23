@@ -10,7 +10,7 @@ import {
   type TypedDocumentNode,
   Metadata,
   useMutation,
-} from '@redwoodjs/web'
+} from '@cedarjs/web'
 
 import ExerciseModal from 'src/components/ExerciseModal/ExerciseModal'
 import { Form, FormSubmit } from 'src/components/form'

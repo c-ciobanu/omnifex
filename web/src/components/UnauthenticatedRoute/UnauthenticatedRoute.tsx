@@ -1,4 +1,4 @@
-import { Redirect, routes } from '@redwoodjs/router'
+import { Redirect, routes } from '@cedarjs/router'
 
 import { useAuth } from 'src/auth'
 

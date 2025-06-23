@@ -1,7 +1,7 @@
 import { CreateWorkoutTemplateMutation, CreateWorkoutTemplateMutationVariables } from 'types/graphql'
 
-import { navigate, routes } from '@redwoodjs/router'
-import { Metadata, useMutation } from '@redwoodjs/web'
+import { navigate, routes } from '@cedarjs/router'
+import { Metadata, useMutation } from '@cedarjs/web'
 
 import { Form, FormSubmit } from 'src/components/form'
 import WorkoutForm, { workoutFormDefaultValues, WorkoutFormValues } from 'src/components/WorkoutForm/WorkoutForm'

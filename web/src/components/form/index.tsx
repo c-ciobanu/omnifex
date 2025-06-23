@@ -12,7 +12,7 @@ import {
   FieldValues,
   RedwoodRegisterOptions,
   Submit,
-} from '@redwoodjs/forms'
+} from '@cedarjs/forms'
 
 import { buttonVariants } from 'src/components/ui/button'
 import { Label } from 'src/components/ui/label'

@@ -3,7 +3,7 @@ import { db } from 'api/src/lib/db'
 import { minioClient } from 'api/src/lib/minio'
 import { createClient } from 'redis'
 
-import { hashPassword } from '@redwoodjs/auth-dbauth-api'
+import { hashPassword } from '@cedarjs/auth-dbauth-api'
 
 import processExercises from './processExercises'
 

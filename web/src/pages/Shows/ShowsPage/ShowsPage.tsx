@@ -1,6 +1,6 @@
-import { SubmitHandler } from '@redwoodjs/forms'
-import { navigate, routes } from '@redwoodjs/router'
-import { Metadata } from '@redwoodjs/web'
+import { SubmitHandler } from '@cedarjs/forms'
+import { navigate, routes } from '@cedarjs/router'
+import { Metadata } from '@cedarjs/web'
 
 import { Form } from 'src/components/form'
 import { FormInput } from 'src/components/form/elements'

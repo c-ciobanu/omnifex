@@ -1,5 +1,5 @@
-import type { Decoded } from '@redwoodjs/api'
-import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
+import type { Decoded } from '@cedarjs/api'
+import { AuthenticationError, ForbiddenError } from '@cedarjs/graphql-server'
 
 import { db } from './db'
 import Sentry from './sentry'

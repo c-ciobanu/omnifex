@@ -2,7 +2,7 @@ import { TypedDocumentNode, useMutation } from '@apollo/client'
 import { Calendar, Check, CircleCheck, Clock3, EyeOff, Star } from 'lucide-react'
 import type { SeasonQuery, SeasonQueryVariables } from 'types/graphql'
 
-import { type CellFailureProps, type CellSuccessProps, Metadata } from '@redwoodjs/web'
+import { type CellFailureProps, type CellSuccessProps, Metadata } from '@cedarjs/web'
 
 import { useAuth } from 'src/auth'
 import { Button } from 'src/components/ui/button'
