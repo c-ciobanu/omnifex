@@ -22,8 +22,8 @@ model WorkoutTemplateExercise {
 }
 
 model WorkoutTemplateExerciseSet {
-  id            Int @id @default(autoincrement())
-  weightInKg    Int
+  id            Int   @id @default(autoincrement())
+  weightInKg    Float
   reps          Int
   restInSeconds Int
 
@@ -62,8 +62,8 @@ model WorkoutExercise {
 }
 
 model WorkoutExerciseSet {
-  id            Int @id @default(autoincrement())
-  weightInKg    Int
+  id            Int   @id @default(autoincrement())
+  weightInKg    Float
   reps          Int
   restInSeconds Int
 
