@@ -38,6 +38,7 @@ const WorkoutForm = ({ onSubmit, submitText, defaultValues, withChecks }: Props)
     append: exercisesAppend,
     remove: exercisesRemove,
   } = useFieldArray({ control: formMethods.control, name: 'exercises' })
+  const exercisesValues = formMethods.watch('exercises')
 
   const onNewExerciseSubmit = (data: ExerciseFormValues) => {
     exercisesAppend({ ...data, order: exercisesFields.length + 1 })
@@ -93,20 +94,22 @@ const WorkoutForm = ({ onSubmit, submitText, defaultValues, withChecks }: Props)
                     </div>
                   </div>
 
-                  <div className="space-y-3">
-                    {exercise.sets.map((set, index) => (
-                      <div
-                        key={`${exercise.id}-set-${index}`}
-                        className="flex items-center justify-between gap-4 rounded-lg bg-muted p-3 text-sm"
-                      >
-                        <p className="font-medium">Set {index + 1}</p>
-                        <p className="grow text-muted-foreground">
-                          {set.weightInKg}kg × {set.reps} reps
-                        </p>
-                        <p className="text-muted-foreground">{set.restInSeconds}s rest</p>
-                      </div>
-                    ))}
-                  </div>
+                  {!withChecks || (withChecks && !exercisesValues[exerciseIndex].done) ? (
+                    <div className="space-y-3">
+                      {exercise.sets.map((set, index) => (
+                        <div
+                          key={`${exercise.id}-set-${index}`}
+                          className="flex items-center justify-between gap-4 rounded-lg bg-muted p-3 text-sm"
+                        >
+                          <p className="font-medium">Set {index + 1}</p>
+                          <p className="grow text-muted-foreground">
+                            {set.weightInKg}kg × {set.reps} reps
+                          </p>
+                          <p className="text-muted-foreground">{set.restInSeconds}s rest</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               ))}
             </CardContent>
