@@ -1,7 +1,6 @@
 import { spawn } from 'child_process'
 import { PassThrough, Readable } from 'stream'
 
-import type { Prisma } from '@prisma/client'
 import { fetch } from '@whatwg-node/fetch'
 import { db } from 'api/src/lib/db'
 import { uploadExerciseGif } from 'api/src/lib/minio'
@@ -64,7 +63,6 @@ export default async ({ args }: { args: Args }) => {
     'https://raw.githubusercontent.com/yuhonas/free-exercise-db/refs/heads/main/dist/exercises.json'
   )
   const exercises: Exercise[] = await response.json()
-  const exerciseData: Prisma.ExerciseCreateManyInput[] = []
 
   const exercisesToProcess = args.max ?? exercises.length
   for (let index = 0; index < exercisesToProcess; index++) {
@@ -85,8 +83,8 @@ export default async ({ args }: { args: Args }) => {
 
     const gifPath = await uploadExerciseGif(fileName, gifBuffer)
 
-    exerciseData.push({ name: exercise.name, instructions: exercise.instructions, gifPath })
-  }
+    const exerciseData = { name: exercise.name, instructions: exercise.instructions, gifPath }
 
-  await db.exercise.createMany({ data: exerciseData })
+    await db.exercise.upsert({ where: { name: exerciseData.name }, update: exerciseData, create: exerciseData })
+  }
 }
