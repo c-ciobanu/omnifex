@@ -1,6 +1,6 @@
 model Movie {
   id               Int      @id @default(autoincrement())
-  director         String
+  director         String?
   genres           String[]
   imdbId           String   @unique
   originalLanguage String
