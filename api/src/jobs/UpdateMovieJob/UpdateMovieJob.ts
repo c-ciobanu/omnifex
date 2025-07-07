@@ -11,7 +11,7 @@ export const UpdateMovieJob = jobs.createJob({
     await db.movie.update({
       where: { tmdbId },
       data: {
-        director: director.name,
+        director: director?.name ?? null,
         genres: tmdbMovie.genres.map((genre) => genre.name),
         imdbId: tmdbMovie.imdb_id,
         originalLanguage: tmdbMovie.original_language,
@@ -20,7 +20,7 @@ export const UpdateMovieJob = jobs.createJob({
         rating: Math.round(tmdbMovie.vote_average * 10) / 10,
         releaseDate: new Date(tmdbMovie.release_date),
         runtime: tmdbMovie.runtime,
-        tagline: tmdbMovie.tagline || undefined,
+        tagline: tmdbMovie.tagline ?? null,
         title: tmdbMovie.title,
         tmdbId: tmdbMovie.id,
         tmdbPosterPath: tmdbMovie.poster_path,
