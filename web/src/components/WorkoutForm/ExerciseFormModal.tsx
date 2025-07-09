@@ -1,4 +1,3 @@
-import { DialogClose } from '@radix-ui/react-dialog'
 import { Plus, Trash2 } from 'lucide-react'
 
 import { useFieldArray, useForm } from '@redwoodjs/forms'
@@ -7,7 +6,7 @@ import { Form, FormSubmit } from 'src/components/form'
 import { FormCombobox, FormInput } from 'src/components/form/elements'
 import { Button } from 'src/components/ui/button'
 import { Card, CardContent, CardTitle } from 'src/components/ui/card'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'src/components/ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogClose } from 'src/components/ui/dialog'
 import { useExercises } from 'src/hooks/useExercises/useExercises'
 
 export interface ExerciseFormValues {
