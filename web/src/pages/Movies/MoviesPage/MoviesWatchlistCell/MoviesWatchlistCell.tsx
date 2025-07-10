@@ -71,8 +71,12 @@ export const Success = ({ moviesWatchlist }: CellSuccessProps<MoviesWatchlistQue
       <h2 className="text-3xl font-bold">On Air</h2>
       <MoviesGrid movies={onAirMovies} />
 
-      <h2 className="text-3xl font-bold">Upcoming</h2>
-      <MoviesGrid movies={upcomingMovies} />
+      {upcomingMovies.length > 0 ? (
+        <>
+          <h2 className="text-3xl font-bold">Upcoming</h2>
+          <MoviesGrid movies={upcomingMovies} />
+        </>
+      ) : null}
     </div>
   )
 }

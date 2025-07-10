@@ -111,8 +111,12 @@ export const Success = ({ showsWatchlist }: CellSuccessProps<ShowsWatchlistQuery
       <h2 className="text-3xl font-bold">On Air</h2>
       <ShowsGrid shows={onAirShows} showAirDates={false} showlastEpisodes />
 
-      <h2 className="text-3xl font-bold">Upcoming</h2>
-      <ShowsGrid shows={upcomingShows} showAirDates showlastEpisodes={false} />
+      {upcomingShows.length > 0 ? (
+        <>
+          <h2 className="text-3xl font-bold">Upcoming</h2>
+          <ShowsGrid shows={upcomingShows} showAirDates showlastEpisodes={false} />
+        </>
+      ) : null}
     </div>
   )
 }
