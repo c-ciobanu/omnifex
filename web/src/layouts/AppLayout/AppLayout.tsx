@@ -6,6 +6,7 @@ import { Link, NavLink, routes } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
+import Logo from 'src/components/logo'
 import { Button, buttonVariants } from 'src/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from 'src/components/ui/collapsible'
 import {
@@ -64,7 +65,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center">
               <Link to={isAuthenticated ? routes.documents() : routes.home()} onClick={() => setIsOpen(false)}>
-                <img className="h-8 w-8" src="/img/logo.svg" alt="Omnifex" />
+                <Logo />
               </Link>
 
               <div className="ml-10 hidden items-baseline space-x-4 md:flex">
