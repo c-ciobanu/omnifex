@@ -17,6 +17,8 @@ import { useAuth } from './auth'
 const Routes = () => {
   return (
     <Router useAuth={useAuth}>
+      <Route path="/landing" page={LandingPage} name="landing" />
+
       <Set wrap={AppLayout}>
         <Set wrap={UnauthenticatedRoute}>
           <Route path="/login" page={AuthLoginPage} name="login" />
