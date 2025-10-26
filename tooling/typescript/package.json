@@ -1,0 +1,7 @@
+{
+  "name": "@omnifex/tsconfig",
+  "private": true,
+  "files": [
+    "*.json"
+  ]
+}
