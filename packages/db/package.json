@@ -3,44 +3,33 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
-    },
-    "./client": {
-      "types": "./dist/client.d.ts",
-      "default": "./src/client.ts"
-    },
-    "./schema": {
-      "types": "./dist/schema.d.ts",
-      "default": "./src/schema.ts"
-    }
+    ".": "./src/index.ts",
+    "./env": "./env.ts"
   },
-  "license": "MIT",
   "scripts": {
-    "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "dev": "tsc",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
-    "push": "pnpm with-env drizzle-kit push",
-    "studio": "pnpm with-env drizzle-kit studio",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "typecheck": "tsc --noEmit",
+    "migrate": "pnpm with-env prisma migrate dev",
+    "studio": "pnpm with-env prisma studio",
+    "watch": "docker compose up",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.44.7",
-    "drizzle-zod": "^0.8.3",
+    "@prisma/adapter-pg": "6.18.0",
+    "@prisma/client": "6.18.0",
+    "@t3-oss/env-core": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@omnifex/eslint-config": "workspace:*",
     "@omnifex/prettier-config": "workspace:*",
     "@omnifex/tsconfig": "workspace:*",
-    "drizzle-kit": "^0.31.5",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
+    "prisma": "6.18.0",
     "typescript": "catalog:"
   },
   "prettier": "@omnifex/prettier-config"

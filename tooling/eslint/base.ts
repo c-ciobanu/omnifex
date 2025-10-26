@@ -19,8 +19,7 @@ export const restrictEnvAccess = defineConfig(
         {
           object: "process",
           property: "env",
-          message:
-            "Use `import { env } from '~/env'` instead to ensure validated types.",
+          message: "Use `import { env } from '~/env'` instead to ensure validated types.",
         },
       ],
       "no-restricted-imports": [
@@ -28,8 +27,7 @@ export const restrictEnvAccess = defineConfig(
         {
           name: "process",
           importNames: ["env"],
-          message:
-            "Use `import { env } from '~/env'` instead to ensure validated types.",
+          message: "Use `import { env } from '~/env'` instead to ensure validated types.",
         },
       ],
     },
@@ -54,18 +52,12 @@ export const baseConfig = defineConfig(
     ],
     rules: {
       ...turboPlugin.configs.recommended.rules,
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
-      ],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "@typescript-eslint/consistent-type-imports": [
         "warn",
         { prefer: "type-imports", fixStyle: "separate-type-imports" },
       ],
-      "@typescript-eslint/no-misused-promises": [
-        2,
-        { checksVoidReturn: { attributes: false } },
-      ],
+      "@typescript-eslint/no-misused-promises": [2, { checksVoidReturn: { attributes: false } }],
       "@typescript-eslint/no-unnecessary-condition": [
         "error",
         {

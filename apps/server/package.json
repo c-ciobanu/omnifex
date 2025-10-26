@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path .prettierignore",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "1.14.4",
+    "@omnifex/auth": "workspace:*",
+    "@omnifex/db": "workspace:*",
+    "@orpc/server": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "dotenv": "16.6.1",
+    "hono": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@omnifex/eslint-config": "workspace:*",
+    "@omnifex/prettier-config": "workspace:*",
+    "@omnifex/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "tsx": "4.20.6",
+    "typescript": "catalog:"
+  },
+  "prettier": "@omnifex/prettier-config"
+}

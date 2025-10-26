@@ -1,43 +1,25 @@
-import type { BetterAuthOptions, BetterAuthPlugin } from "better-auth";
-import { expo } from "@better-auth/expo";
+import type { BetterAuthOptions } from "better-auth";
 import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { oAuthProxy } from "better-auth/plugins";
+import { prismaAdapter } from "better-auth/adapters/prisma";
 
-import { db } from "@omnifex/db/client";
+import { prisma } from "@omnifex/db";
 
-export function initAuth<
-  TExtraPlugins extends BetterAuthPlugin[] = [],
->(options: {
-  baseUrl: string;
-  productionUrl: string;
-  secret: string | undefined;
-
-  discordClientId: string;
-  discordClientSecret: string;
-  extraPlugins?: TExtraPlugins;
-}) {
+export function initAuth() {
   const config = {
-    database: drizzleAdapter(db, {
-      provider: "pg",
+    database: prismaAdapter(prisma, {
+      provider: "postgresql",
     }),
-    baseURL: options.baseUrl,
-    secret: options.secret,
-    plugins: [
-      oAuthProxy({
-        productionURL: options.productionUrl,
-      }),
-      expo(),
-      ...(options.extraPlugins ?? []),
-    ],
-    socialProviders: {
-      discord: {
-        clientId: options.discordClientId,
-        clientSecret: options.discordClientSecret,
-        redirectURI: `${options.productionUrl}/api/auth/callback/discord`,
+    trustedOrigins: [process.env.CORS_ORIGIN ?? ""],
+    emailAndPassword: {
+      enabled: true,
+    },
+    advanced: {
+      defaultCookieAttributes: {
+        sameSite: "none",
+        secure: true,
+        httpOnly: true,
       },
     },
-    trustedOrigins: ["expo://"],
     onAPIError: {
       onError(error, ctx) {
         console.error("BETTER AUTH API ERROR", error, ctx);

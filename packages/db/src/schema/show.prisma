@@ -1,0 +1,108 @@
+model Show {
+  id               Int      @id @default(autoincrement())
+  creators         String[]
+  genres           String[]
+  imdbId           String?  @unique
+  originalLanguage String
+  originalTitle    String
+  overview         String
+  rating           Decimal  @db.Decimal(3, 1)
+  tagline          String?
+  title            String
+  tmdbBackdropPath String?
+  tmdbId           Int      @unique
+  tmdbPosterPath   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  seasons         ShowSeason[]
+  episodes        ShowEpisode[]
+  watchedEpisodes WatchedEpisode[]
+  inWatchlist     WatchlistShow[]
+  abandoned       AbandonedShow[]
+}
+
+model ShowSeason {
+  id             Int       @id @default(autoincrement())
+  airDate        DateTime? @db.Date
+  number         Int
+  overview       String
+  rating         Decimal   @db.Decimal(3, 1)
+  tmdbPosterPath String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  show            Show             @relation(fields: [showId], references: [id])
+  showId          Int
+  episodes        ShowEpisode[]
+  watchedEpisodes WatchedEpisode[]
+
+  @@unique([showId, number])
+}
+
+model ShowEpisode {
+  id            Int       @id @default(autoincrement())
+  airDate       DateTime? @db.Date
+  number        Int
+  overview      String
+  rating        Decimal   @db.Decimal(3, 1)
+  runtime       Int?
+  title         String
+  tmdbStillPath String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  show     Show             @relation(fields: [showId], references: [id])
+  showId   Int
+  season   ShowSeason       @relation(fields: [seasonId], references: [id])
+  seasonId Int
+  watched  WatchedEpisode[]
+
+  @@unique([seasonId, number])
+}
+
+model WatchlistShow {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  show   Show   @relation(fields: [showId], references: [id])
+  showId Int
+
+  @@unique([userId, showId])
+}
+
+model AbandonedShow {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  show   Show   @relation(fields: [showId], references: [id])
+  showId Int
+
+  @@unique([userId, showId])
+}
+
+model WatchedEpisode {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  show      Show        @relation(fields: [showId], references: [id])
+  showId    Int
+  season    ShowSeason  @relation(fields: [seasonId], references: [id])
+  seasonId  Int
+  episode   ShowEpisode @relation(fields: [episodeId], references: [id])
+  episodeId Int
+
+  @@unique([userId, episodeId])
+}

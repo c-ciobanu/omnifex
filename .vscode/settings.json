@@ -7,11 +7,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSave": true,
-  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
-  "eslint.runtime": "node",
-  "eslint.workingDirectories": [
-    { "mode": "auto" },
-  ],
+  "eslint.workingDirectories": [{ "mode": "auto" }],
   "files.associations": {
     "*.css": "tailwindcss"
   },
@@ -24,9 +20,6 @@
   "prettier.ignorePath": ".gitignore",
   "tailwindCSS.classFunctions": ["cva", "cx", "cn"],
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.autoImportFileExcludePatterns": [
-    "next/router.d.ts",
-    "next/dist/client/router.d.ts"
-  ],
+  "typescript.preferences.autoImportFileExcludePatterns": ["next/router.d.ts", "next/dist/client/router.d.ts"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

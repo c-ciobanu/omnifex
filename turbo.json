@@ -11,8 +11,9 @@
     },
     "dev": {
       "dependsOn": ["^dev"],
+      "with": ["watch"],
       "cache": false,
-      "persistent": false
+      "persistent": true
     },
     "format": {
       "outputs": [".cache/.prettiercache"],
@@ -32,17 +33,16 @@
     "//#clean": {
       "cache": false
     },
-    "push": {
+    "generate": {
+      "cache": false
+    },
+    "migrate": {
       "cache": false,
       "interactive": true
     },
-    "studio": {
+    "watch": {
       "cache": false,
       "persistent": true
-    },
-    "ui-add": {
-      "cache": false,
-      "interactive": true
     }
   },
   "globalEnv": [
