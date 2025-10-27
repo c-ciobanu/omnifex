@@ -1,0 +1,12 @@
+{
+  "extends": "@omnifex/tsconfig/app.json",
+  "compilerOptions": {
+    "lib": ["dom"],
+    "types": ["vite/client"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

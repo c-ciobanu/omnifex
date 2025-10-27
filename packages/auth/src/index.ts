@@ -1,6 +1,7 @@
 import type { BetterAuthOptions } from "better-auth";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { username } from "better-auth/plugins";
 
 import { prisma } from "@omnifex/db";
 
@@ -13,6 +14,7 @@ export function initAuth() {
     emailAndPassword: {
       enabled: true,
     },
+    plugins: [username()],
     advanced: {
       defaultCookieAttributes: {
         sameSite: "none",
