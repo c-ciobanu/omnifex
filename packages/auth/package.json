@@ -16,16 +16,16 @@
   "dependencies": {
     "@omnifex/db": "workspace:*",
     "@t3-oss/env-core": "catalog:",
-    "better-auth": "catalog:",
+    "better-auth": "catalog:better-auth",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@better-auth/cli": "catalog:",
+    "@better-auth/cli": "catalog:better-auth",
     "@omnifex/eslint-config": "workspace:*",
     "@omnifex/prettier-config": "workspace:*",
     "@omnifex/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "eslint": "catalog:",
+    "eslint": "catalog:eslint",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },

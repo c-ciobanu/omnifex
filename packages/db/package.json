@@ -27,7 +27,7 @@
     "@omnifex/prettier-config": "workspace:*",
     "@omnifex/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "eslint": "catalog:",
+    "eslint": "catalog:eslint",
     "prettier": "catalog:",
     "prisma": "6.18.0",
     "typescript": "catalog:"

@@ -12,13 +12,13 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "@hono/node-server": "1.14.4",
+    "@hono/node-server": "1.19.5",
     "@omnifex/auth": "workspace:*",
     "@omnifex/db": "workspace:*",
-    "@orpc/server": "catalog:",
+    "@orpc/server": "catalog:orpc",
     "@t3-oss/env-core": "catalog:",
-    "dotenv": "16.6.1",
-    "hono": "catalog:",
+    "dotenv": "17.2.3",
+    "hono": "4.10.3",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "@omnifex/prettier-config": "workspace:*",
     "@omnifex/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "eslint": "catalog:",
+    "eslint": "catalog:eslint",
     "prettier": "catalog:",
     "tsx": "4.20.6",
     "typescript": "catalog:"
