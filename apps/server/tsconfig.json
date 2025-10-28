@@ -1,3 +1,4 @@
 {
-  "extends": "@omnifex/tsconfig/app.json"
+  "extends": "@omnifex/tsconfig/app.json",
+  "include": ["src"]
 }

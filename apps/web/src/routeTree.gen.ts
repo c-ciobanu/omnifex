@@ -23,6 +23,7 @@ import { Route as ToolsPomodoroRouteImport } from './routes/tools.pomodoro'
 import { Route as SearchShowsRouteImport } from './routes/search.shows'
 import { Route as SearchMoviesRouteImport } from './routes/search.movies'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
+import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
 
 const WorkoutsRoute = WorkoutsRouteImport.update({
@@ -95,6 +96,11 @@ const SearchBooksRoute = SearchBooksRouteImport.update({
   path: '/search/books',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MoviesTmdbIdRoute = MoviesTmdbIdRouteImport.update({
+  id: '/movies_/$tmdbId',
+  path: '/movies/$tmdbId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginDemoRoute = LoginDemoRouteImport.update({
   id: '/login_/demo',
   path: '/login/demo',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
   '/login/demo': typeof LoginDemoRoute
+  '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
   '/login/demo': typeof LoginDemoRoute
+  '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
   '/login_/demo': typeof LoginDemoRoute
+  '/movies_/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workouts'
     | '/login/demo'
+    | '/movies/$tmdbId'
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workouts'
     | '/login/demo'
+    | '/movies/$tmdbId'
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workouts'
     | '/login_/demo'
+    | '/movies_/$tmdbId'
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
@@ -219,6 +231,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   WorkoutsRoute: typeof WorkoutsRoute
   LoginDemoRoute: typeof LoginDemoRoute
+  MoviesTmdbIdRoute: typeof MoviesTmdbIdRoute
   SearchBooksRoute: typeof SearchBooksRoute
   SearchMoviesRoute: typeof SearchMoviesRoute
   SearchShowsRoute: typeof SearchShowsRoute
@@ -325,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchBooksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/movies_/$tmdbId': {
+      id: '/movies_/$tmdbId'
+      path: '/movies/$tmdbId'
+      fullPath: '/movies/$tmdbId'
+      preLoaderRoute: typeof MoviesTmdbIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login_/demo': {
       id: '/login_/demo'
       path: '/login/demo'
@@ -347,6 +367,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   WorkoutsRoute: WorkoutsRoute,
   LoginDemoRoute: LoginDemoRoute,
+  MoviesTmdbIdRoute: MoviesTmdbIdRoute,
   SearchBooksRoute: SearchBooksRoute,
   SearchMoviesRoute: SearchMoviesRoute,
   SearchShowsRoute: SearchShowsRoute,

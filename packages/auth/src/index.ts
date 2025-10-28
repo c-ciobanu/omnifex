@@ -3,7 +3,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { username } from "better-auth/plugins";
 
-import { prisma } from "@omnifex/db";
+import { BookListType, MovieListType, prisma } from "@omnifex/db";
 
 export function initAuth() {
   const config = {
@@ -13,6 +13,27 @@ export function initAuth() {
     trustedOrigins: [process.env.CORS_ORIGIN ?? ""],
     emailAndPassword: {
       enabled: true,
+    },
+    databaseHooks: {
+      user: {
+        create: {
+          after: async (user) => {
+            await prisma.movieList.createMany({
+              data: [
+                { name: "Watchlist", type: MovieListType.WATCHLIST, userId: user.id },
+                { name: "Watched", type: MovieListType.WATCHED, userId: user.id },
+              ],
+            });
+
+            await prisma.bookList.createMany({
+              data: [
+                { name: "Reading List", type: BookListType.READING_LIST, userId: user.id },
+                { name: "Read", type: BookListType.READ, userId: user.id },
+              ],
+            });
+          },
+        },
+      },
     },
     plugins: [username()],
     advanced: {

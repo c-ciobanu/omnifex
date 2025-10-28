@@ -3,7 +3,7 @@ import "../index.css";
 import type { orpc } from "@/utils/orpc";
 import type { QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import Logo from "@/components/logo";
+import { Logo } from "@/components/logo";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";

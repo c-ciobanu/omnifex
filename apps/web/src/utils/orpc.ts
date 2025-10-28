@@ -1,3 +1,4 @@
+import type { InferClientOutputs } from "@orpc/client";
 import { env } from "@/env";
 import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
@@ -6,6 +7,8 @@ import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import type { AppRouterClient } from "../../../server/src/routers";
+
+export type OrpcClientOutputs = InferClientOutputs<AppRouterClient>;
 
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
