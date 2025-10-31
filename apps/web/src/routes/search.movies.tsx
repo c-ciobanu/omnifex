@@ -34,7 +34,7 @@ function MoviesGrid({ title }: MoviesGridProps) {
               to="/movies/$tmdbId"
               params={{ tmdbId: String(movie.tmdbId) }}
               title={movie.title}
-              className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-white"
+              className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-gray-100"
             >
               <img src={movie.posterUrl} alt={`${movie.title} poster`} className="h-44 w-full" />
               <div>
