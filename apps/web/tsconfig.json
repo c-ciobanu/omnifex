@@ -1,7 +1,7 @@
 {
   "extends": "@omnifex/tsconfig/app.json",
   "compilerOptions": {
-    "lib": ["dom"],
+    "lib": ["DOM", "DOM.Iterable"],
     "types": ["vite/client"],
     "jsx": "react-jsx",
     "baseUrl": ".",

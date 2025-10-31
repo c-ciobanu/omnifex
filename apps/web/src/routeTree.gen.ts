@@ -24,6 +24,7 @@ import { Route as SearchShowsRouteImport } from './routes/search.shows'
 import { Route as SearchMoviesRouteImport } from './routes/search.movies'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
 import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
+import { Route as MetricsIdRouteImport } from './routes/metrics_.$id'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
 
 const WorkoutsRoute = WorkoutsRouteImport.update({
@@ -101,6 +102,11 @@ const MoviesTmdbIdRoute = MoviesTmdbIdRouteImport.update({
   path: '/movies/$tmdbId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MetricsIdRoute = MetricsIdRouteImport.update({
+  id: '/metrics_/$id',
+  path: '/metrics/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginDemoRoute = LoginDemoRouteImport.update({
   id: '/login_/demo',
   path: '/login/demo',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
   '/login/demo': typeof LoginDemoRoute
+  '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
   '/login/demo': typeof LoginDemoRoute
+  '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
   '/login_/demo': typeof LoginDemoRoute
+  '/metrics_/$id': typeof MetricsIdRoute
   '/movies_/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workouts'
     | '/login/demo'
+    | '/metrics/$id'
     | '/movies/$tmdbId'
     | '/search/books'
     | '/search/movies'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workouts'
     | '/login/demo'
+    | '/metrics/$id'
     | '/movies/$tmdbId'
     | '/search/books'
     | '/search/movies'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workouts'
     | '/login_/demo'
+    | '/metrics_/$id'
     | '/movies_/$tmdbId'
     | '/search/books'
     | '/search/movies'
@@ -231,6 +243,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   WorkoutsRoute: typeof WorkoutsRoute
   LoginDemoRoute: typeof LoginDemoRoute
+  MetricsIdRoute: typeof MetricsIdRoute
   MoviesTmdbIdRoute: typeof MoviesTmdbIdRoute
   SearchBooksRoute: typeof SearchBooksRoute
   SearchMoviesRoute: typeof SearchMoviesRoute
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoviesTmdbIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/metrics_/$id': {
+      id: '/metrics_/$id'
+      path: '/metrics/$id'
+      fullPath: '/metrics/$id'
+      preLoaderRoute: typeof MetricsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login_/demo': {
       id: '/login_/demo'
       path: '/login/demo'
@@ -367,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   WorkoutsRoute: WorkoutsRoute,
   LoginDemoRoute: LoginDemoRoute,
+  MetricsIdRoute: MetricsIdRoute,
   MoviesTmdbIdRoute: MoviesTmdbIdRoute,
   SearchBooksRoute: SearchBooksRoute,
   SearchMoviesRoute: SearchMoviesRoute,
