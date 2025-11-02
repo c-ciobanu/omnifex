@@ -1,0 +1,28 @@
+name: omnifex
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: runner-web
+      args:
+        - VITE_SERVER_URL=${SERVER_URL:?}
+    ports:
+      - '3100:80'
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: runner-server
+    ports:
+      - '3000:3000'
+    environment:
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:?}
+      - BETTER_AUTH_URL=${SERVER_URL:?}
+      - CORS_ORIGIN=${WEB_URL:?}
+      - DATABASE_URL=${DATABASE_URL:?}
+      - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN:?}
