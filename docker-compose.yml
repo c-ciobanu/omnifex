@@ -1,0 +1,49 @@
+name: omnifex
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: runner-web
+      args:
+        - VITE_SERVER_URL=${SERVER_URL:?}
+    ports:
+      - '3100:80'
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: runner-server
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:?}
+      - BETTER_AUTH_URL=${SERVER_URL:?}
+      - CORS_ORIGIN=${WEB_URL:?}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/omnifex
+      - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN:?}
+
+  postgres:
+    image: postgres:18-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: omnifex
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - omnifex-postgresql-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d omnifex" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  omnifex-postgresql-data:

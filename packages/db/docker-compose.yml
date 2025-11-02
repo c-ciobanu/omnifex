@@ -2,21 +2,20 @@ name: omnifex-db
 
 services:
   postgres:
-    image: postgres:16-alpine
-    container_name: omnifex-postgres
+    image: postgres:18-alpine
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: omnifex
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
-      - omnifex_postgres_data:/var/lib/postgresql/data
+      - omnifex-postgresql-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d omnifex" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
-  omnifex_postgres_data:
+  omnifex-postgresql-data:
