@@ -7,6 +7,9 @@ import { dbEnv } from "@omnifex/db/env";
 export const env = createEnv({
   extends: [dbEnv(), authEnv()],
   server: {
+    QUEUES_DASHBOARD_PASSWORD: z.string().min(1),
+    REDIS_HOST: z.string().min(1),
+    REDIS_PORT: z.coerce.number(),
     TMDB_API_ACCESS_TOKEN: z.string().min(1),
   },
   runtimeEnv: process.env,

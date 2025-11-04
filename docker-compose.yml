@@ -23,11 +23,16 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      valkey:
+        condition: service_healthy
     environment:
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:?}
       - BETTER_AUTH_URL=${SERVER_URL:?}
       - CORS_ORIGIN=${WEB_URL:?}
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/omnifex
+      - QUEUES_DASHBOARD_PASSWORD=${QUEUES_DASHBOARD_PASSWORD:?}
+      - REDIS_HOST=valkey
+      - REDIS_PORT=6379
       - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN:?}
 
   postgres:
@@ -45,5 +50,16 @@ services:
       timeout: 5s
       retries: 5
 
+  valkey:
+    image: valkey/valkey:9-alpine
+    volumes:
+      - omnifex-valkey-data:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "valkey-cli ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   omnifex-postgresql-data:
+  omnifex-valkey-data:
