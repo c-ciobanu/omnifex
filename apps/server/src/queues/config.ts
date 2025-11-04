@@ -9,9 +9,6 @@ export const defaultJobOptions = {
 } satisfies DefaultJobOptions;
 
 export const defaultQueueOptions = {
-  connection: {
-    host: env.REDIS_HOST,
-    port: env.REDIS_PORT,
-  },
+  connection: { url: env.REDIS_URL },
   defaultJobOptions,
 } satisfies QueueOptions;

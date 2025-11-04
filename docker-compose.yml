@@ -31,8 +31,7 @@ services:
       - CORS_ORIGIN=${WEB_URL:?}
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/omnifex
       - QUEUES_DASHBOARD_PASSWORD=${QUEUES_DASHBOARD_PASSWORD:?}
-      - REDIS_HOST=valkey
-      - REDIS_PORT=6379
+      - REDIS_URL=valkey:6379
       - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN:?}
 
   postgres:
