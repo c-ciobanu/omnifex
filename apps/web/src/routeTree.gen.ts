@@ -20,12 +20,14 @@ import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsPomodoroRouteImport } from './routes/tools.pomodoro'
+import { Route as ShowsTmdbIdRouteImport } from './routes/shows_.$tmdbId'
 import { Route as SearchShowsRouteImport } from './routes/search.shows'
 import { Route as SearchMoviesRouteImport } from './routes/search.movies'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
 import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
 import { Route as MetricsIdRouteImport } from './routes/metrics_.$id'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
+import { Route as ShowsTmdbIdSeasonsNumberRouteImport } from './routes/shows_.$tmdbId_.seasons.$number'
 
 const WorkoutsRoute = WorkoutsRouteImport.update({
   id: '/workouts',
@@ -82,6 +84,11 @@ const ToolsPomodoroRoute = ToolsPomodoroRouteImport.update({
   path: '/tools/pomodoro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShowsTmdbIdRoute = ShowsTmdbIdRouteImport.update({
+  id: '/shows_/$tmdbId',
+  path: '/shows/$tmdbId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchShowsRoute = SearchShowsRouteImport.update({
   id: '/search/shows',
   path: '/search/shows',
@@ -112,6 +119,12 @@ const LoginDemoRoute = LoginDemoRouteImport.update({
   path: '/login/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShowsTmdbIdSeasonsNumberRoute =
+  ShowsTmdbIdSeasonsNumberRouteImport.update({
+    id: '/shows_/$tmdbId_/seasons/$number',
+    path: '/shows/$tmdbId/seasons/$number',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -130,7 +143,9 @@ export interface FileRoutesByFullPath {
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
+  '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
+  '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -149,7 +164,9 @@ export interface FileRoutesByTo {
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
+  '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
+  '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -169,7 +186,9 @@ export interface FileRoutesById {
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
+  '/shows_/$tmdbId': typeof ShowsTmdbIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
+  '/shows_/$tmdbId_/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -190,7 +209,9 @@ export interface FileRouteTypes {
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
+    | '/shows/$tmdbId'
     | '/tools/pomodoro'
+    | '/shows/$tmdbId/seasons/$number'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -209,7 +230,9 @@ export interface FileRouteTypes {
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
+    | '/shows/$tmdbId'
     | '/tools/pomodoro'
+    | '/shows/$tmdbId/seasons/$number'
   id:
     | '__root__'
     | '/'
@@ -228,7 +251,9 @@ export interface FileRouteTypes {
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
+    | '/shows_/$tmdbId'
     | '/tools/pomodoro'
+    | '/shows_/$tmdbId_/seasons/$number'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -248,7 +273,9 @@ export interface RootRouteChildren {
   SearchBooksRoute: typeof SearchBooksRoute
   SearchMoviesRoute: typeof SearchMoviesRoute
   SearchShowsRoute: typeof SearchShowsRoute
+  ShowsTmdbIdRoute: typeof ShowsTmdbIdRoute
   ToolsPomodoroRoute: typeof ToolsPomodoroRoute
+  ShowsTmdbIdSeasonsNumberRoute: typeof ShowsTmdbIdSeasonsNumberRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -330,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsPomodoroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shows_/$tmdbId': {
+      id: '/shows_/$tmdbId'
+      path: '/shows/$tmdbId'
+      fullPath: '/shows/$tmdbId'
+      preLoaderRoute: typeof ShowsTmdbIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search/shows': {
       id: '/search/shows'
       path: '/search/shows'
@@ -372,6 +406,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shows_/$tmdbId_/seasons/$number': {
+      id: '/shows_/$tmdbId_/seasons/$number'
+      path: '/shows/$tmdbId/seasons/$number'
+      fullPath: '/shows/$tmdbId/seasons/$number'
+      preLoaderRoute: typeof ShowsTmdbIdSeasonsNumberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -392,7 +433,9 @@ const rootRouteChildren: RootRouteChildren = {
   SearchBooksRoute: SearchBooksRoute,
   SearchMoviesRoute: SearchMoviesRoute,
   SearchShowsRoute: SearchShowsRoute,
+  ShowsTmdbIdRoute: ShowsTmdbIdRoute,
   ToolsPomodoroRoute: ToolsPomodoroRoute,
+  ShowsTmdbIdSeasonsNumberRoute: ShowsTmdbIdSeasonsNumberRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -57,13 +57,13 @@ export const moviesRouter = {
   }),
 
   get: publicProcedure.input(z.object({ tmdbId: z.int() })).handler(async ({ input, context }) => {
-    let m = await prisma.movie.findUnique({ where: { tmdbId: input.tmdbId } });
+    let movie = await prisma.movie.findUnique({ where: { tmdbId: input.tmdbId } });
 
-    if (!m) {
+    if (!movie) {
       const tmdbMovie = await getTMDBMovie(input.tmdbId);
       const director = tmdbMovie.credits.crew.find((el) => el.job === "Director");
 
-      m = await prisma.movie.create({
+      movie = await prisma.movie.create({
         data: {
           director: director?.name,
           genres: tmdbMovie.genres.map((genre) => genre.name),
@@ -85,7 +85,7 @@ export const moviesRouter = {
     let userInfo;
     if (context.session) {
       const movieListItems = await prisma.movieListItem.findMany({
-        where: { list: { type: { not: MovieListType.CUSTOM }, userId: context.session.user.id }, movieId: m.id },
+        where: { list: { type: { not: MovieListType.CUSTOM }, userId: context.session.user.id }, movieId: movie.id },
         select: { list: { select: { type: true } } },
       });
 
@@ -95,7 +95,7 @@ export const moviesRouter = {
       };
     }
 
-    return { ...mapMovie(m), userInfo };
+    return { ...mapMovie(movie), userInfo };
   }),
 
   getWatched: protectedProcedure.handler(async ({ context }) => {

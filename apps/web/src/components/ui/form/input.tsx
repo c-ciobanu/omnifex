@@ -4,20 +4,19 @@ import { Field, FieldDescription, FieldError, FieldLabel } from "../field";
 import { Input } from "../input";
 
 interface Props {
-  label: string;
+  label?: string;
   description?: string;
-  className?: string;
   inputProps?: React.ComponentProps<typeof Input>;
 }
 
-export function InputField({ label, description, className, inputProps = {} }: Props) {
+export function InputField({ label, description, inputProps = {} }: Props) {
   const field = useFieldContext<string>();
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
   const id = `form-tanstack-input-${field.name}`;
   return (
-    <Field data-invalid={isInvalid} className={className}>
-      <FieldLabel htmlFor={id}>{label}</FieldLabel>
+    <Field data-invalid={isInvalid}>
+      {label ? <FieldLabel htmlFor={id}>{label}</FieldLabel> : null}
 
       <Input
         {...inputProps}
