@@ -14,6 +14,7 @@ export function InputField({ label, description, inputProps = {} }: Props) {
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
   const id = `form-tanstack-input-${field.name}`;
+
   return (
     <Field data-invalid={isInvalid}>
       {label ? <FieldLabel htmlFor={id}>{label}</FieldLabel> : null}
@@ -30,7 +31,7 @@ export function InputField({ label, description, inputProps = {} }: Props) {
 
       {description ? <FieldDescription>{description}</FieldDescription> : null}
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
     </Field>
   );
 }
