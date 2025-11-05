@@ -30,6 +30,7 @@ services:
       - BETTER_AUTH_URL=${SERVER_URL:?}
       - CORS_ORIGIN=${WEB_URL:?}
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/omnifex
+      - GOOGLE_BOOKS_API_KEY=${GOOGLE_BOOKS_API_KEY:?}
       - QUEUES_DASHBOARD_PASSWORD=${QUEUES_DASHBOARD_PASSWORD:?}
       - REDIS_URL=valkey:6379
       - TMDB_API_ACCESS_TOKEN=${TMDB_API_ACCESS_TOKEN:?}
