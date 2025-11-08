@@ -1,27 +1,26 @@
 import { useFieldContext } from "@/hooks/form-context";
 
 import { Field, FieldDescription, FieldError, FieldLabel } from "../field";
-import { Input } from "../input";
+import { Textarea } from "../textarea";
 
 interface Props {
   label?: string;
   description?: string;
-  inputProps?: React.ComponentProps<typeof Input>;
-  className?: string;
+  textareaProps?: React.ComponentProps<typeof Textarea>;
 }
 
-export function InputField({ label, description, inputProps = {}, className }: Props) {
+export function TextareaField({ label, description, textareaProps = {} }: Props) {
   const field = useFieldContext<string>();
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const id = `form-tanstack-input-${field.name}`;
+  const id = `form-tanstack-textarea-${field.name}`;
 
   return (
-    <Field data-invalid={isInvalid} className={className}>
+    <Field data-invalid={isInvalid}>
       {label ? <FieldLabel htmlFor={id}>{label}</FieldLabel> : null}
 
-      <Input
-        {...inputProps}
+      <Textarea
+        {...textareaProps}
         id={id}
         name={field.name}
         value={field.state.value}

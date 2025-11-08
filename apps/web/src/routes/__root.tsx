@@ -67,6 +67,8 @@ function Component() {
   const navigationLinks = session ? authenticatedNavigation : guestNavigation;
   const menuLinks = session ? authenticatedMenu : guestMenu;
 
+  const isInvoicePreviewPage = router.matchRoute({ to: "/invoices/$id/preview" }) !== false;
+
   async function signOut() {
     await authClient.signOut({
       fetchOptions: {
@@ -78,11 +80,15 @@ function Component() {
     });
   }
 
+  if (isInvoicePreviewPage) {
+    return <Outlet />;
+  }
+
   return (
     <>
       <HeadContent />
 
-      <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange storageKey="vite-ui-theme">
+      <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange storageKey="theme">
         <Collapsible asChild className="bg-slate-800" open={isOpen} onOpenChange={setIsOpen}>
           <nav>
             <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
