@@ -1,8 +1,6 @@
-import { Field, FieldError } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
+import { useAppForm } from "@/hooks/form";
 import { orpc } from "@/utils/orpc";
-import { useForm } from "@tanstack/react-form";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import * as z from "zod";
@@ -58,7 +56,7 @@ function Component() {
   const router = useRouter();
   const search = Route.useSearch();
 
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       title: "",
     },
@@ -79,27 +77,9 @@ function Component() {
         }}
         className="mb-4"
       >
-        <form.Field
+        <form.AppField
           name="title"
-          children={(field) => {
-            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-
-            return (
-              <Field data-invalid={isInvalid}>
-                <Input
-                  id={field.name}
-                  type="search"
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  aria-invalid={isInvalid}
-                  placeholder="Search for a movie"
-                />
-                {isInvalid && <FieldError errors={field.state.meta.errors} />}
-              </Field>
-            );
-          }}
+          children={(field) => <field.InputField inputProps={{ type: "search", placeholder: "Search for a movie" }} />}
         />
       </form>
 

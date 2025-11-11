@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { FieldGroup } from "@/components/ui/field";
+import { useAppForm } from "@/hooks/form";
 import { authClient } from "@/lib/auth-client";
-import { useForm } from "@tanstack/react-form";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -24,7 +22,7 @@ function Component() {
   const router = useRouter();
   const search = Route.useSearch();
 
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       username: "",
       password: "",
@@ -61,61 +59,32 @@ function Component() {
             }}
           >
             <FieldGroup>
-              <form.Field
+              <form.AppField
                 name="username"
-                children={(field) => {
-                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Username</FieldLabel>
-                      <Input
-                        id={field.name}
-                        name={field.name}
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        aria-invalid={isInvalid}
-                        autoComplete="username"
-                        autoFocus
-                      />
-                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                    </Field>
-                  );
-                }}
+                children={(field) => (
+                  <field.InputField label="Username" inputProps={{ autoComplete: "username", autoFocus: true }} />
+                )}
               />
 
-              <form.Field
+              <form.AppField
                 name="password"
-                children={(field) => {
-                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                      <Input
-                        id={field.name}
-                        type="password"
-                        name={field.name}
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        aria-invalid={isInvalid}
-                        autoComplete="current-password"
-                      />
-                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                    </Field>
-                  );
-                }}
+                children={(field) => (
+                  <field.InputField
+                    label="Password"
+                    inputProps={{ type: "password", autoComplete: "current-password" }}
+                  />
+                )}
               />
             </FieldGroup>
           </form>
         </CardContent>
 
         <CardFooter>
-          <Button type="submit" form="sign-in-form">
-            Sign in
-          </Button>
+          <form.AppForm>
+            <form.SubmitButton form="sign-in-form" className="w-full">
+              Sign in
+            </form.SubmitButton>
+          </form.AppForm>
         </CardFooter>
       </Card>
 
