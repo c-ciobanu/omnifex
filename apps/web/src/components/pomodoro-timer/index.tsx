@@ -53,14 +53,14 @@ export function PomodoroTimer({ settings }: PomodoroTimerProps) {
   const [secondsLeft, setSecondsLeft] = useState(settings.pomodoro * 60);
   const [isRunning, setIsRunning] = useState(true);
 
-  const workerRef = useRef<Worker>(new Worker(new URL("./worker", import.meta.url), { type: "module" }));
+  const workerRef = useRef<Worker>(undefined);
 
   async function tick(skip = false) {
     const nextPhaseName = phases[currentPhaseNumber + 1];
     const secondsToNextPhase = skip ? 0 : secondsLeft - 1;
 
     if (!nextPhaseName && secondsToNextPhase === 0) {
-      workerRef.current.terminate();
+      workerRef.current?.terminate();
 
       setSecondsLeft(0);
 
@@ -109,11 +109,13 @@ export function PomodoroTimer({ settings }: PomodoroTimerProps) {
   });
 
   useEffect(() => {
+    workerRef.current = new Worker(new URL("./worker", import.meta.url), { type: "module" });
+
     workerRef.current.onmessage = () => tickRef.current();
     workerRef.current.postMessage("start");
 
     return () => {
-      workerRef.current.terminate();
+      workerRef.current?.terminate();
     };
   }, []);
 
@@ -133,7 +135,7 @@ export function PomodoroTimer({ settings }: PomodoroTimerProps) {
             size="icon"
             className="w-24"
             onClick={() => {
-              workerRef.current.postMessage(isRunning ? "pause" : "start");
+              workerRef.current?.postMessage(isRunning ? "pause" : "start");
               setIsRunning((state) => !state);
             }}
           >
@@ -145,12 +147,12 @@ export function PomodoroTimer({ settings }: PomodoroTimerProps) {
             size="icon"
             className="w-24"
             onClick={async () => {
-              workerRef.current.postMessage("pause");
+              workerRef.current?.postMessage("pause");
 
               await tick(true);
 
               if (isRunning) {
-                workerRef.current.postMessage("start");
+                workerRef.current?.postMessage("start");
               }
             }}
           >
