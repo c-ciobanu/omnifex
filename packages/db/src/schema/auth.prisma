@@ -21,6 +21,7 @@ model User {
   metrics          Metric[]
   sessions         Session[]
   accounts         Account[]
+  bookmarks        Bookmark[]
 
   @@map("user")
 }

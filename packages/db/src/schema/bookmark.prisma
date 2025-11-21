@@ -1,0 +1,11 @@
+model Bookmark {
+  id      Int     @id @default(autoincrement())
+  name    String
+  url     String
+  iconUrl String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@map("bookmark")
+}

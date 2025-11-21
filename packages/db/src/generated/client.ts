@@ -76,6 +76,11 @@ export type BookList = Prisma.BookListModel
  */
 export type BookListItem = Prisma.BookListItemModel
 /**
+ * Model Bookmark
+ * 
+ */
+export type Bookmark = Prisma.BookmarkModel
+/**
  * Model Document
  * 
  */
