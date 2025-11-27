@@ -10,3 +10,14 @@ export const optionalString = z
 
     return value;
   });
+
+export const nullableString = z
+  .string()
+  .trim()
+  .transform((value) => {
+    if (value === "") {
+      return null;
+    }
+
+    return value;
+  });
