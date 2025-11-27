@@ -1,6 +1,7 @@
 import type { RouterClient } from "@orpc/server";
 
 import { publicProcedure } from "../lib/orpc";
+import { bookmarksRouter } from "./bookmarks";
 import { booksRouter } from "./books";
 import { documentsRouter } from "./documents";
 import { metricsRouter } from "./metrics";
@@ -12,6 +13,7 @@ export const appRouter = {
     return "OK";
   }),
   books: booksRouter,
+  bookmarks: bookmarksRouter,
   documents: documentsRouter,
   metrics: metricsRouter,
   movies: moviesRouter,
