@@ -23,6 +23,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { FrownIcon, MenuIcon, SmileIcon, XIcon } from "lucide-react";
 
 const authenticatedNavigation = linkOptions([
+  { to: "/dashboard", label: "Dashboard" },
   { to: "/movies", label: "Movies" },
   { to: "/shows", label: "Shows" },
   { to: "/books", label: "Books" },
@@ -93,7 +94,7 @@ function Component() {
           <nav>
             <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
               <div className="flex items-center">
-                <Link to={session ? "/documents" : "/"} onClick={() => setIsOpen(false)}>
+                <Link to={session ? "/dashboard" : "/"} onClick={() => setIsOpen(false)}>
                   <Logo />
                 </Link>
 

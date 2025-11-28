@@ -35,7 +35,7 @@ function Component() {
         },
         {
           onSuccess: async () => {
-            await router.navigate({ to: "/documents" });
+            await router.navigate({ to: "/dashboard" });
           },
           onError: (error) => {
             toast.error(error.error.message);

@@ -39,7 +39,7 @@ function Component() {
       }
 
       await router.invalidate();
-      await router.navigate({ to: search.redirect ?? "/documents" });
+      await router.navigate({ to: search.redirect ?? "/dashboard" });
     },
   });
 

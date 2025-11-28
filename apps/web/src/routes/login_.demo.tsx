@@ -21,7 +21,7 @@ function Component() {
     }
 
     await router.invalidate();
-    await router.navigate({ to: "/documents" });
+    await router.navigate({ to: "/dashboard" });
   }
 
   useEffect(() => {
