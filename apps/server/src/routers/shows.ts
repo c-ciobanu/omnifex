@@ -91,6 +91,7 @@ export const showsRouter = {
               },
             },
           },
+          orderBy: { number: "asc" },
         },
         _count: {
           select: {
