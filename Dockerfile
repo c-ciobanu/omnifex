@@ -53,7 +53,7 @@ COPY --from=installer-server /app/pruned/dist ./dist
 
 COPY --from=builder-server /app/out/full/packages/db ./packages/db
 
-CMD ["sh", "-c", "cd packages/db && npx prisma migrate deploy && cd ../.. && node dist/index.js"]
+CMD ["sh", "-c", "cd packages/db && npx prisma@6.18.0 migrate deploy && cd ../.. && node dist/index.js"]
 
 FROM nginx:mainline-alpine AS runner-web
 

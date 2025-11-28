@@ -17,8 +17,8 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "6.18.0",
-    "@prisma/client": "6.18.0",
+    "@prisma/adapter-pg": "catalog:prisma",
+    "@prisma/client": "catalog:prisma",
     "@t3-oss/env-core": "catalog:",
     "zod": "catalog:"
   },
@@ -29,7 +29,7 @@
     "@types/node": "catalog:",
     "eslint": "catalog:eslint",
     "prettier": "catalog:",
-    "prisma": "6.18.0",
+    "prisma": "catalog:prisma",
     "typescript": "catalog:"
   },
   "prettier": "@omnifex/prettier-config"

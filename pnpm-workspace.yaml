@@ -21,6 +21,11 @@ catalogs:
   orpc:
     "@orpc/client": 1.10.2
     "@orpc/server": 1.10.2
+  # Update Dockerfile runner-server
+  prisma:
+    "prisma": 6.18.0
+    "@prisma/client": 6.18.0
+    "@prisma/adapter-pg": 6.18.0
 
 linkWorkspacePackages: true
 
