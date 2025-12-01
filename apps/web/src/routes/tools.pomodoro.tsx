@@ -3,6 +3,7 @@ import { PomodoroTimer } from "@/components/pomodoro-timer";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/form";
+import { zodTypes } from "@/lib/zod";
 import { createFileRoute } from "@tanstack/react-router";
 import { PlayIcon } from "lucide-react";
 import { useLocalStorage } from "usehooks-ts";
@@ -13,9 +14,9 @@ export const Route = createFileRoute("/tools/pomodoro")({
 });
 
 const formSchema = z.object({
-  pomodoro: z.coerce.number<number>(),
-  shortBreak: z.coerce.number<number>(),
-  longBreak: z.coerce.number<number>(),
+  pomodoro: zodTypes.number,
+  shortBreak: zodTypes.number,
+  longBreak: zodTypes.number,
 });
 
 type FormValues = z.infer<typeof formSchema>;

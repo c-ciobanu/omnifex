@@ -1,6 +1,6 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
 import { useAppForm } from "@/hooks/form";
-import { optionalString } from "@/lib/zod";
+import { zodTypes } from "@/lib/zod";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation } from "@tanstack/react-query";
 import * as z from "zod";
@@ -10,7 +10,7 @@ import { FieldGroup } from "./ui/field";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name must be at least 1 character"),
-  unit: optionalString,
+  unit: zodTypes.optionalString,
 });
 
 interface Props {

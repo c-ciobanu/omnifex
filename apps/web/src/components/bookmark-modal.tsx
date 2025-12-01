@@ -1,5 +1,5 @@
 import { useAppForm } from "@/hooks/form";
-import { nullableString } from "@/lib/zod";
+import { zodTypes } from "@/lib/zod";
 import * as z from "zod";
 
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -8,7 +8,7 @@ import { FieldGroup } from "./ui/field";
 const formSchema = z.object({
   name: z.string().trim().min(1),
   url: z.url(),
-  iconUrl: nullableString,
+  iconUrl: zodTypes.nullableString,
 });
 
 type FormValues = z.infer<typeof formSchema>;

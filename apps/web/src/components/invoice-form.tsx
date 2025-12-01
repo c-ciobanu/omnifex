@@ -1,5 +1,5 @@
 import { useAppForm } from "@/hooks/form";
-import { optionalString } from "@/lib/zod";
+import { zodTypes } from "@/lib/zod";
 import { useStore } from "@tanstack/react-form";
 import { PlusCircleIcon, Trash2Icon } from "lucide-react";
 import * as z from "zod";
@@ -11,7 +11,7 @@ import { Separator } from "./ui/separator";
 const formSchema = z.object({
   number: z.string().min(1),
   issueDate: z.string().min(1),
-  saleDate: optionalString,
+  saleDate: zodTypes.optionalString,
   dueDate: z.string().min(1),
   paymentType: z.string().min(1),
   paymentDetails: z.object({
@@ -23,7 +23,7 @@ const formSchema = z.object({
   conversion: z
     .object({
       currency: z.string().min(1),
-      rate: z.number(),
+      rate: zodTypes.number,
       table: z.string().min(1),
       date: z.string().min(1),
     })
@@ -41,13 +41,13 @@ const formSchema = z.object({
   items: z.array(
     z.object({
       name: z.string().min(1),
-      quantity: z.number(),
-      unit: optionalString,
-      unitPrice: z.number(),
-      price: z.number(),
+      quantity: zodTypes.number,
+      unit: zodTypes.optionalString,
+      unitPrice: zodTypes.number,
+      price: zodTypes.number,
     }),
   ),
-  footer: optionalString,
+  footer: zodTypes.optionalString,
 });
 
 type InvoiceFormValues = z.infer<typeof formSchema>;

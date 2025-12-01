@@ -1,5 +1,6 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
 import { useAppForm } from "@/hooks/form";
+import { zodTypes } from "@/lib/zod";
 import { orpc } from "@/utils/orpc";
 import { useMutation } from "@tanstack/react-query";
 import * as z from "zod";
@@ -8,7 +9,7 @@ import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogT
 import { FieldGroup } from "./ui/field";
 
 const formSchema = z.object({
-  value: z.coerce.number<number>(),
+  value: zodTypes.number,
   date: z.iso.date(),
 });
 

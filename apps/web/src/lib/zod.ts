@@ -1,23 +1,25 @@
 import * as z from "zod";
 
-export const optionalString = z
-  .string()
-  .trim()
-  .transform((value) => {
-    if (value === "") {
-      return undefined;
-    }
+export const zodTypes = {
+  optionalString: z
+    .string()
+    .trim()
+    .transform((value) => {
+      if (value === "") {
+        return undefined;
+      }
 
-    return value;
-  });
+      return value;
+    }),
+  nullableString: z
+    .string()
+    .trim()
+    .transform((value) => {
+      if (value === "") {
+        return null;
+      }
 
-export const nullableString = z
-  .string()
-  .trim()
-  .transform((value) => {
-    if (value === "") {
-      return null;
-    }
-
-    return value;
-  });
+      return value;
+    }),
+  number: z.coerce.number<number>(),
+};
