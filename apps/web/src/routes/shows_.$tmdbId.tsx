@@ -2,11 +2,13 @@ import placeholderTallUrl from "@/assets/placeholder-tall.svg";
 import { ShowActions } from "@/components/show-actions";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CircleCheckIcon, StarIcon } from "lucide-react";
+import { millisecondsInSecond } from "date-fns/constants";
+import { CircleCheckIcon, RefreshCwIcon, StarIcon } from "lucide-react";
 
 export const Route = createFileRoute("/shows_/$tmdbId")({
   component: Component,
@@ -14,6 +16,8 @@ export const Route = createFileRoute("/shows_/$tmdbId")({
 
 function Component() {
   const { tmdbId } = Route.useParams();
+
+  const { data: session } = authClient.useSession();
 
   const { data: show, isLoading } = useQuery(orpc.shows.get.queryOptions({ input: { tmdbId: Number(tmdbId) } }));
 
@@ -23,6 +27,13 @@ function Component() {
 
   const watchSeasonMutation = useMutation(orpc.shows.watchSeason.mutationOptions({ onSuccess }));
   const unwatchSeasonMutation = useMutation(orpc.shows.unwatchSeason.mutationOptions({ onSuccess }));
+  const updateMutation = useMutation(
+    orpc.shows.triggerManualUpdate.mutationOptions({
+      onSuccess: () => {
+        setTimeout(onSuccess, millisecondsInSecond * 5);
+      },
+    }),
+  );
 
   function toggleWatchSeason(seasonId: number, watched: boolean) {
     if (watched) {
@@ -40,6 +51,21 @@ function Component() {
     <>
       <div className="flex flex-col gap-6 lg:flex-row">
         <div>
+          {session?.user.role === "admin" ? (
+            <div className="flex items-center gap-2">
+              <p>Last updated at: {show.updatedAt.toLocaleString()}</p>
+              <Button
+                variant="outline"
+                size="icon-sm"
+                onClick={() => {
+                  updateMutation.mutate({ tmdbId: Number(tmdbId) });
+                }}
+              >
+                <RefreshCwIcon />
+              </Button>
+            </div>
+          ) : null}
+
           <h2 className="text-2xl font-bold">{show.title}</h2>
 
           {show.tagline ? <q>{show.tagline}</q> : null}

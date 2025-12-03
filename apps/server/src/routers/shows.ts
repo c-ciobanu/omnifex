@@ -4,8 +4,9 @@ import * as z from "zod";
 import type { Show, ShowEpisode, ShowSeason } from "@omnifex/db";
 import { prisma } from "@omnifex/db";
 
-import { protectedProcedure, publicProcedure } from "../lib/orpc";
+import { adminProcedure, protectedProcedure, publicProcedure } from "../lib/orpc";
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows } from "../lib/tmdb";
+import { updateShowQueue } from "../queues";
 
 const mapShow = (show: Show) => ({
   ...show,
@@ -66,6 +67,10 @@ const unabandonShow = async (id: number, userId: string) => {
 };
 
 export const showsRouter = {
+  triggerManualUpdate: adminProcedure.input(z.object({ tmdbId: z.int() })).handler(async ({ input }) => {
+    await updateShowQueue.add(input.tmdbId.toString(), input);
+  }),
+
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {
     const tmdbShows = await searchTMDBShows({ title: input.title });
 

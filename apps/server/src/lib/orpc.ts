@@ -11,9 +11,17 @@ const requireAuth = o.middleware(async ({ context, next }) => {
     throw new ORPCError("UNAUTHORIZED");
   }
 
-  return next({
-    context: { session: context.session },
-  });
+  return next({ context: { session: context.session } });
 });
 
 export const protectedProcedure = publicProcedure.use(requireAuth);
+
+const requireAdmin = o.middleware(async ({ context, next }) => {
+  if (context.session?.user.role !== "admin") {
+    throw new ORPCError("UNAUTHORIZED");
+  }
+
+  return next({ context: { session: context.session } });
+});
+
+export const adminProcedure = publicProcedure.use(requireAdmin);
