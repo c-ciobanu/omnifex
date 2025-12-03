@@ -1,7 +1,7 @@
 import type { BetterAuthOptions } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { betterAuth } from "better-auth/minimal";
-import { username } from "better-auth/plugins";
+import { admin, username } from "better-auth/plugins";
 
 import { BookListType, MovieListType, prisma } from "@omnifex/db";
 
@@ -35,7 +35,7 @@ export function initAuth() {
         },
       },
     },
-    plugins: [username()],
+    plugins: [username(), admin()],
     advanced: {
       defaultCookieAttributes: {
         sameSite: "none",
