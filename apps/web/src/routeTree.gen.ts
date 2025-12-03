@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkoutsRouteImport } from './routes/workouts'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShowsRouteImport } from './routes/shows'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
 import { Route as LoginRouteImport } from './routes/login'
@@ -48,6 +49,11 @@ const SignupRoute = SignupRouteImport.update({
 const ShowsRoute = ShowsRouteImport.update({
   id: '/shows',
   path: '/shows',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoviesRoute = MoviesRouteImport.update({
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
+  '/settings': typeof SettingsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
@@ -198,6 +205,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
+  '/settings': typeof SettingsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
@@ -226,6 +234,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
+  '/settings': typeof SettingsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
@@ -255,6 +264,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/metrics'
     | '/movies'
+    | '/settings'
     | '/shows'
     | '/signup'
     | '/workouts'
@@ -282,6 +292,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/metrics'
     | '/movies'
+    | '/settings'
     | '/shows'
     | '/signup'
     | '/workouts'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/metrics'
     | '/movies'
+    | '/settings'
     | '/shows'
     | '/signup'
     | '/workouts'
@@ -337,6 +349,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MetricsRoute: typeof MetricsRoute
   MoviesRoute: typeof MoviesRoute
+  SettingsRoute: typeof SettingsRoute
   ShowsRoute: typeof ShowsRoute
   SignupRoute: typeof SignupRoute
   WorkoutsRoute: typeof WorkoutsRoute
@@ -377,6 +390,13 @@ declare module '@tanstack/react-router' {
       path: '/shows'
       fullPath: '/shows'
       preLoaderRoute: typeof ShowsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movies': {
@@ -545,6 +565,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MetricsRoute: MetricsRoute,
   MoviesRoute: MoviesRoute,
+  SettingsRoute: SettingsRoute,
   ShowsRoute: ShowsRoute,
   SignupRoute: SignupRoute,
   WorkoutsRoute: WorkoutsRoute,

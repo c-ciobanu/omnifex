@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
@@ -41,7 +42,7 @@ const guestNavigation = linkOptions([
   { to: "/tools/pomodoro", label: "Pomodoro Timer" },
 ]);
 
-const authenticatedMenu = linkOptions([]);
+const authenticatedMenu = linkOptions([{ to: "/settings", label: "Settings" }]);
 const guestMenu = linkOptions([
   { to: "/login", label: "Sign in" },
   { to: "/signup", label: "Sign up" },
@@ -127,7 +128,12 @@ function Component() {
                       </Link>
                     ))}
 
-                    {session ? <DropdownMenuItem onClick={signOut}>Sign out</DropdownMenuItem> : null}
+                    {session ? (
+                      <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={signOut}>Sign out</DropdownMenuItem>
+                      </>
+                    ) : null}
                   </DropdownMenuContent>
                 </DropdownMenu>
 
