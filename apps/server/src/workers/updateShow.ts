@@ -36,6 +36,10 @@ export const updateShowWorker = new Worker<UpdateShowDataType>(
     });
 
     for (const tmdbSeason of tmdbSeasons) {
+      if (tmdbSeason.episodes.length === 0) {
+        continue;
+      }
+
       const seasonData = {
         airDate: tmdbSeason.air_date ? new Date(tmdbSeason.air_date) : undefined,
         number: tmdbSeason.season_number,
