@@ -51,6 +51,7 @@ export const updateShowWorker = new Worker<UpdateShowDataType>(
         where: { showId_number: { showId: show.id, number: tmdbSeason.season_number } },
         update: seasonData,
         create: { ...seasonData, showId: show.id },
+        include: { episodes: true },
       });
 
       for (const tmdbEpisode of tmdbSeason.episodes) {
@@ -67,6 +68,15 @@ export const updateShowWorker = new Worker<UpdateShowDataType>(
           where: { seasonId_number: { seasonId: season.id, number: tmdbEpisode.episode_number } },
           update: episodeData,
           create: { ...episodeData, showId: show.id, seasonId: season.id },
+        });
+      }
+
+      if (season.episodes.length !== tmdbSeason.episodes.length) {
+        await prisma.showEpisode.deleteMany({
+          where: {
+            seasonId: season.id,
+            number: { notIn: tmdbSeason.episodes.map((e) => e.episode_number) },
+          },
         });
       }
     }
