@@ -101,7 +101,7 @@ model WatchedEpisode {
   showId    Int
   season    ShowSeason  @relation(fields: [seasonId], references: [id])
   seasonId  Int
-  episode   ShowEpisode @relation(fields: [episodeId], references: [id])
+  episode   ShowEpisode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
   episodeId Int
 
   @@unique([userId, episodeId])
