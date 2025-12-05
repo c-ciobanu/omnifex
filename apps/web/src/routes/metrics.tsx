@@ -21,7 +21,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Spinner } from "@/components/ui/spinner";
-import { authClient } from "@/lib/auth-client";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
@@ -30,14 +29,10 @@ import { MoreVerticalIcon, PlusIcon } from "lucide-react";
 
 export const Route = createFileRoute("/metrics")({
   component: Component,
-  beforeLoad: async ({ location }) => {
-    const { data: session } = await authClient.getSession();
-
-    if (!session) {
-      return redirect({ to: "/login", search: { redirect: location.href } });
+  beforeLoad: ({ context, location }) => {
+    if (!context.auth?.session) {
+      throw redirect({ to: "/login", search: { redirect: location.href } });
     }
-
-    return { session };
   },
 });
 

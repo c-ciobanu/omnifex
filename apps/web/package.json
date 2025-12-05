@@ -64,6 +64,7 @@
     "@omnifex/eslint-config": "workspace:*",
     "@omnifex/prettier-config": "workspace:*",
     "@omnifex/tsconfig": "workspace:*",
+    "@tanstack/eslint-plugin-router": "1.139.0",
     "@tanstack/react-query-devtools": "5.90.2",
     "@tanstack/react-router-devtools": "1.133.32",
     "@tanstack/router-plugin": "1.133.32",

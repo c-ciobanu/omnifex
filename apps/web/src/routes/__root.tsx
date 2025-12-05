@@ -1,7 +1,5 @@
 import "../index.css";
 
-import type { orpc } from "@/utils/orpc";
-import type { QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Logo } from "@/components/logo";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -49,8 +47,7 @@ const guestMenu = linkOptions([
 ]);
 
 export interface RouterAppContext {
-  orpc: typeof orpc;
-  queryClient: QueryClient;
+  auth: ReturnType<typeof authClient.useSession>["data"];
 }
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({

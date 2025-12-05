@@ -3,18 +3,29 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 
 import { Spinner } from "./components/ui/spinner";
+import { authClient } from "./lib/auth-client";
 import { routeTree } from "./routeTree.gen";
-import { orpc, queryClient } from "./utils/orpc";
+import { queryClient } from "./utils/orpc";
 
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",
   defaultPendingComponent: () => <Spinner />,
-  context: { orpc, queryClient },
+  context: { auth: null },
   Wrap: function WrapComponent({ children }: { children: React.ReactNode }) {
     return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
   },
 });
+
+function App() {
+  const { data, isPending } = authClient.useSession();
+
+  if (isPending) {
+    return null;
+  }
+
+  return <RouterProvider router={router} context={{ auth: data }} />;
+}
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -31,5 +42,5 @@ if (!rootElement) {
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
 
-  root.render(<RouterProvider router={router} />);
+  root.render(<App />);
 }

@@ -3,20 +3,15 @@ import { ShowsWatchlist } from "@/components/shows-watchlist";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WatchedShows } from "@/components/watched-shows";
 import { useAppForm } from "@/hooks/form";
-import { authClient } from "@/lib/auth-client";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import * as z from "zod";
 
 export const Route = createFileRoute("/shows")({
   component: Component,
-  beforeLoad: async ({ location }) => {
-    const { data: session } = await authClient.getSession();
-
-    if (!session) {
-      return redirect({ to: "/login", search: { redirect: location.href } });
+  beforeLoad: ({ context, location }) => {
+    if (!context.auth?.session) {
+      throw redirect({ to: "/login", search: { redirect: location.href } });
     }
-
-    return { session };
   },
 });
 
