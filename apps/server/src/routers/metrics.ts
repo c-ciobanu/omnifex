@@ -29,7 +29,7 @@ export const metricsRouter = {
     .input(
       z.object({
         name: z.string().min(1),
-        unit: z.string().optional(),
+        unit: z.string().nullable(),
         entry: z.object({ value: z.number(), date: z.iso.date() }),
       }),
     )
@@ -46,7 +46,7 @@ export const metricsRouter = {
     }),
 
   update: protectedProcedure
-    .input(z.object({ id: z.int(), name: z.string().min(1), unit: z.string().optional() }))
+    .input(z.object({ id: z.int(), name: z.string().min(1), unit: z.string().nullable() }))
     .handler(async ({ input, context }) => {
       const { id, ...metricData } = input;
 

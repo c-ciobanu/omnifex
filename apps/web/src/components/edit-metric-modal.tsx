@@ -10,7 +10,7 @@ import { FieldGroup } from "./ui/field";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name must be at least 1 character"),
-  unit: zodTypes.optionalString,
+  unit: zodTypes.nullableString,
 });
 
 interface Props {
