@@ -40,6 +40,10 @@
       "cache": false,
       "interactive": true
     },
+    "ui-add": {
+      "cache": false,
+      "interactive": true
+    },
     "watch": {
       "cache": false,
       "interactive": false,

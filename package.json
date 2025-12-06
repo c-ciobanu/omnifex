@@ -19,7 +19,8 @@
     "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
     "auth:generate": "pnpm -F @omnifex/auth generate",
-    "db:migrate": "turbo -F @omnifex/db migrate"
+    "db:migrate": "turbo -F @omnifex/db migrate",
+    "web:ui-add": "turbo -F web ui-add"
   },
   "devDependencies": {
     "@omnifex/prettier-config": "workspace:*",
