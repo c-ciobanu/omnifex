@@ -1,3 +1,4 @@
+import { ComboboxField } from "@/components/ui/form/combobox";
 import { InputField } from "@/components/ui/form/input";
 import { SelectField } from "@/components/ui/form/select";
 import { SubmitButton } from "@/components/ui/form/submit-button";
@@ -10,6 +11,6 @@ import { fieldContext, formContext } from "./form-context";
 export const { useAppForm } = createFormHook({
   fieldContext,
   formContext,
-  fieldComponents: { InputField, SelectField, SwitchField, TextareaField },
+  fieldComponents: { InputField, SelectField, SwitchField, TextareaField, ComboboxField },
   formComponents: { SubmitButton },
 });

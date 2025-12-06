@@ -1,6 +1,6 @@
 import { useFieldContext } from "@/hooks/form-context";
 
-import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from "../field";
+import { Field, FieldDescription, FieldError, FieldLabel } from "../field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 
 interface Props {
@@ -17,13 +17,7 @@ export function SelectField({ label, description, options }: Props) {
 
   return (
     <Field orientation="responsive" data-invalid={isInvalid}>
-      <FieldContent>
-        {label ? <FieldLabel htmlFor={id}>{label}</FieldLabel> : null}
-
-        {description ? <FieldDescription>{description}</FieldDescription> : null}
-
-        {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
-      </FieldContent>
+      {label ? <FieldLabel htmlFor={id}>{label}</FieldLabel> : null}
 
       <Select name={field.name} value={field.state.value} onValueChange={field.handleChange}>
         <SelectTrigger id={id} aria-invalid={isInvalid} className="min-w-[120px]">
@@ -36,6 +30,10 @@ export function SelectField({ label, description, options }: Props) {
           ))}
         </SelectContent>
       </Select>
+
+      {description ? <FieldDescription>{description}</FieldDescription> : null}
+
+      {isInvalid ? <FieldError errors={field.state.meta.errors} /> : null}
     </Field>
   );
 }

@@ -182,7 +182,7 @@ export function InvoiceForm({ submitButtonText, defaultValues, onSubmit }: Props
             <form.AppField
               name="currency"
               children={(field) => (
-                <field.SelectField
+                <field.ComboboxField
                   label="Currency"
                   options={Intl.supportedValuesOf("currency").map((e) => ({ value: e, label: e }))}
                 />
@@ -195,7 +195,7 @@ export function InvoiceForm({ submitButtonText, defaultValues, onSubmit }: Props
               <form.AppField
                 name="conversion.currency"
                 children={(field) => (
-                  <field.SelectField
+                  <field.ComboboxField
                     label="Show converted prices in"
                     options={Intl.supportedValuesOf("currency").map((e) => ({ value: e, label: e }))}
                   />
