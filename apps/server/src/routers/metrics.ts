@@ -1,3 +1,4 @@
+import { ORPCError } from "@orpc/server";
 import * as z from "zod";
 
 import { prisma } from "@omnifex/db";
@@ -59,24 +60,34 @@ export const metricsRouter = {
 
   createEntry: protectedProcedure
     .input(z.object({ metricId: z.int(), value: z.number(), date: z.iso.date() }))
-    .handler(async ({ input }) => {
+    .handler(async ({ input, context }) => {
       const { date, ...otherData } = input;
+
+      const metric = await prisma.metric.findUnique({
+        where: { id: input.metricId, userId: context.session.user.id },
+      });
+
+      if (!metric) {
+        throw new ORPCError("FORBIDDEN");
+      }
 
       return prisma.metricEntry.create({ data: { ...otherData, date: new Date(date) } });
     }),
 
   updateEntry: protectedProcedure
     .input(z.object({ id: z.int(), metricId: z.int(), value: z.number(), date: z.iso.date() }))
-    .handler(async ({ input }) => {
-      const { id, date, ...otherData } = input;
+    .handler(async ({ input, context }) => {
+      const { id, metricId, date, ...otherData } = input;
 
       return prisma.metricEntry.update({
         data: { ...otherData, date: new Date(date) },
-        where: { id },
+        where: { id, metric: { id: metricId, userId: context.session.user.id } },
       });
     }),
 
-  deleteEntry: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input }) => {
-    return prisma.metricEntry.delete({ where: { id: input.id } });
+  deleteEntry: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
+    return prisma.metricEntry.delete({
+      where: { id: input.id, metric: { userId: context.session.user.id } },
+    });
   }),
 };
