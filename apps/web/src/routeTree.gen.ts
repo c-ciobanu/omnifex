@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkoutsRouteImport } from './routes/workouts'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShowsRouteImport } from './routes/shows'
+import { Route as ShoppingListsRouteImport } from './routes/shopping-lists'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
@@ -23,6 +24,7 @@ import { Route as BooksRouteImport } from './routes/books'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsPomodoroRouteImport } from './routes/tools.pomodoro'
 import { Route as ShowsTmdbIdRouteImport } from './routes/shows_.$tmdbId'
+import { Route as ShoppingListsIdRouteImport } from './routes/shopping-lists_.$id'
 import { Route as SearchShowsRouteImport } from './routes/search.shows'
 import { Route as SearchMoviesRouteImport } from './routes/search.movies'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
@@ -49,6 +51,11 @@ const SignupRoute = SignupRouteImport.update({
 const ShowsRoute = ShowsRouteImport.update({
   id: '/shows',
   path: '/shows',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShoppingListsRoute = ShoppingListsRouteImport.update({
+  id: '/shopping-lists',
+  path: '/shopping-lists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -104,6 +111,11 @@ const ToolsPomodoroRoute = ToolsPomodoroRouteImport.update({
 const ShowsTmdbIdRoute = ShowsTmdbIdRouteImport.update({
   id: '/shows_/$tmdbId',
   path: '/shows/$tmdbId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShoppingListsIdRoute = ShoppingListsIdRouteImport.update({
+  id: '/shopping-lists_/$id',
+  path: '/shopping-lists/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchShowsRoute = SearchShowsRouteImport.update({
@@ -178,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/settings': typeof SettingsRoute
+  '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
@@ -191,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
+  '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
@@ -206,6 +220,7 @@ export interface FileRoutesByTo {
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/settings': typeof SettingsRoute
+  '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
@@ -219,6 +234,7 @@ export interface FileRoutesByTo {
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
+  '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
@@ -235,6 +251,7 @@ export interface FileRoutesById {
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/settings': typeof SettingsRoute
+  '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/workouts': typeof WorkoutsRoute
@@ -248,6 +265,7 @@ export interface FileRoutesById {
   '/search/books': typeof SearchBooksRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
+  '/shopping-lists_/$id': typeof ShoppingListsIdRoute
   '/shows_/$tmdbId': typeof ShowsTmdbIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices_/$id_/preview': typeof InvoicesIdPreviewRoute
@@ -265,6 +283,7 @@ export interface FileRouteTypes {
     | '/metrics'
     | '/movies'
     | '/settings'
+    | '/shopping-lists'
     | '/shows'
     | '/signup'
     | '/workouts'
@@ -278,6 +297,7 @@ export interface FileRouteTypes {
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
+    | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/tools/pomodoro'
     | '/invoices/$id/preview'
@@ -293,6 +313,7 @@ export interface FileRouteTypes {
     | '/metrics'
     | '/movies'
     | '/settings'
+    | '/shopping-lists'
     | '/shows'
     | '/signup'
     | '/workouts'
@@ -306,6 +327,7 @@ export interface FileRouteTypes {
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
+    | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/tools/pomodoro'
     | '/invoices/$id/preview'
@@ -321,6 +343,7 @@ export interface FileRouteTypes {
     | '/metrics'
     | '/movies'
     | '/settings'
+    | '/shopping-lists'
     | '/shows'
     | '/signup'
     | '/workouts'
@@ -334,6 +357,7 @@ export interface FileRouteTypes {
     | '/search/books'
     | '/search/movies'
     | '/search/shows'
+    | '/shopping-lists_/$id'
     | '/shows_/$tmdbId'
     | '/tools/pomodoro'
     | '/invoices_/$id_/preview'
@@ -350,6 +374,7 @@ export interface RootRouteChildren {
   MetricsRoute: typeof MetricsRoute
   MoviesRoute: typeof MoviesRoute
   SettingsRoute: typeof SettingsRoute
+  ShoppingListsRoute: typeof ShoppingListsRoute
   ShowsRoute: typeof ShowsRoute
   SignupRoute: typeof SignupRoute
   WorkoutsRoute: typeof WorkoutsRoute
@@ -363,6 +388,7 @@ export interface RootRouteChildren {
   SearchBooksRoute: typeof SearchBooksRoute
   SearchMoviesRoute: typeof SearchMoviesRoute
   SearchShowsRoute: typeof SearchShowsRoute
+  ShoppingListsIdRoute: typeof ShoppingListsIdRoute
   ShowsTmdbIdRoute: typeof ShowsTmdbIdRoute
   ToolsPomodoroRoute: typeof ToolsPomodoroRoute
   InvoicesIdPreviewRoute: typeof InvoicesIdPreviewRoute
@@ -390,6 +416,13 @@ declare module '@tanstack/react-router' {
       path: '/shows'
       fullPath: '/shows'
       preLoaderRoute: typeof ShowsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shopping-lists': {
+      id: '/shopping-lists'
+      path: '/shopping-lists'
+      fullPath: '/shopping-lists'
+      preLoaderRoute: typeof ShoppingListsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -467,6 +500,13 @@ declare module '@tanstack/react-router' {
       path: '/shows/$tmdbId'
       fullPath: '/shows/$tmdbId'
       preLoaderRoute: typeof ShowsTmdbIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shopping-lists_/$id': {
+      id: '/shopping-lists_/$id'
+      path: '/shopping-lists/$id'
+      fullPath: '/shopping-lists/$id'
+      preLoaderRoute: typeof ShoppingListsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search/shows': {
@@ -566,6 +606,7 @@ const rootRouteChildren: RootRouteChildren = {
   MetricsRoute: MetricsRoute,
   MoviesRoute: MoviesRoute,
   SettingsRoute: SettingsRoute,
+  ShoppingListsRoute: ShoppingListsRoute,
   ShowsRoute: ShowsRoute,
   SignupRoute: SignupRoute,
   WorkoutsRoute: WorkoutsRoute,
@@ -579,6 +620,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchBooksRoute: SearchBooksRoute,
   SearchMoviesRoute: SearchMoviesRoute,
   SearchShowsRoute: SearchShowsRoute,
+  ShoppingListsIdRoute: ShoppingListsIdRoute,
   ShowsTmdbIdRoute: ShowsTmdbIdRoute,
   ToolsPomodoroRoute: ToolsPomodoroRoute,
   InvoicesIdPreviewRoute: InvoicesIdPreviewRoute,
