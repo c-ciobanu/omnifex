@@ -405,6 +405,8 @@ export const ModelName = {
   MovieListItem: 'MovieListItem',
   BackgroundJob: 'BackgroundJob',
   RW_DataMigration: 'RW_DataMigration',
+  ShoppingList: 'ShoppingList',
+  ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
   ShowSeason: 'ShowSeason',
   ShowEpisode: 'ShowEpisode',
@@ -433,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1618,6 +1620,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.RW_DataMigrationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.RW_DataMigrationCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShoppingList: {
+      payload: Prisma.$ShoppingListPayload<ExtArgs>
+      fields: Prisma.ShoppingListFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShoppingListFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShoppingListFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>
+        }
+        findFirst: {
+          args: Prisma.ShoppingListFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShoppingListFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>
+        }
+        findMany: {
+          args: Prisma.ShoppingListFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>[]
+        }
+        create: {
+          args: Prisma.ShoppingListCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>
+        }
+        createMany: {
+          args: Prisma.ShoppingListCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShoppingListCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>[]
+        }
+        delete: {
+          args: Prisma.ShoppingListDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>
+        }
+        update: {
+          args: Prisma.ShoppingListUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShoppingListDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShoppingListUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShoppingListUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShoppingListUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListPayload>
+        }
+        aggregate: {
+          args: Prisma.ShoppingListAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShoppingList>
+        }
+        groupBy: {
+          args: Prisma.ShoppingListGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoppingListGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShoppingListCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoppingListCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShoppingListItem: {
+      payload: Prisma.$ShoppingListItemPayload<ExtArgs>
+      fields: Prisma.ShoppingListItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShoppingListItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShoppingListItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>
+        }
+        findFirst: {
+          args: Prisma.ShoppingListItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShoppingListItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>
+        }
+        findMany: {
+          args: Prisma.ShoppingListItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>[]
+        }
+        create: {
+          args: Prisma.ShoppingListItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>
+        }
+        createMany: {
+          args: Prisma.ShoppingListItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShoppingListItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>[]
+        }
+        delete: {
+          args: Prisma.ShoppingListItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>
+        }
+        update: {
+          args: Prisma.ShoppingListItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShoppingListItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShoppingListItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShoppingListItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShoppingListItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoppingListItemPayload>
+        }
+        aggregate: {
+          args: Prisma.ShoppingListItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShoppingListItem>
+        }
+        groupBy: {
+          args: Prisma.ShoppingListItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoppingListItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShoppingListItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoppingListItemCountAggregateOutputType> | number
         }
       }
     }
@@ -2846,6 +2996,29 @@ export const RW_DataMigrationScalarFieldEnum = {
 export type RW_DataMigrationScalarFieldEnum = (typeof RW_DataMigrationScalarFieldEnum)[keyof typeof RW_DataMigrationScalarFieldEnum]
 
 
+export const ShoppingListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ShoppingListScalarFieldEnum = (typeof ShoppingListScalarFieldEnum)[keyof typeof ShoppingListScalarFieldEnum]
+
+
+export const ShoppingListItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  bought: 'bought',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  listId: 'listId'
+} as const
+
+export type ShoppingListItemScalarFieldEnum = (typeof ShoppingListItemScalarFieldEnum)[keyof typeof ShoppingListItemScalarFieldEnum]
+
+
 export const ShowScalarFieldEnum = {
   id: 'id',
   creators: 'creators',
@@ -3251,6 +3424,8 @@ export type GlobalOmitConfig = {
   movieListItem?: Prisma.MovieListItemOmit
   backgroundJob?: Prisma.BackgroundJobOmit
   rW_DataMigration?: Prisma.RW_DataMigrationOmit
+  shoppingList?: Prisma.ShoppingListOmit
+  shoppingListItem?: Prisma.ShoppingListItemOmit
   show?: Prisma.ShowOmit
   showSeason?: Prisma.ShowSeasonOmit
   showEpisode?: Prisma.ShowEpisodeOmit

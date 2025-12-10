@@ -64,6 +64,8 @@ export const ModelName = {
   MovieListItem: 'MovieListItem',
   BackgroundJob: 'BackgroundJob',
   RW_DataMigration: 'RW_DataMigration',
+  ShoppingList: 'ShoppingList',
+  ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
   ShowSeason: 'ShowSeason',
   ShowEpisode: 'ShowEpisode',
@@ -317,6 +319,29 @@ export const RW_DataMigrationScalarFieldEnum = {
 } as const
 
 export type RW_DataMigrationScalarFieldEnum = (typeof RW_DataMigrationScalarFieldEnum)[keyof typeof RW_DataMigrationScalarFieldEnum]
+
+
+export const ShoppingListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ShoppingListScalarFieldEnum = (typeof ShoppingListScalarFieldEnum)[keyof typeof ShoppingListScalarFieldEnum]
+
+
+export const ShoppingListItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  bought: 'bought',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  listId: 'listId'
+} as const
+
+export type ShoppingListItemScalarFieldEnum = (typeof ShoppingListItemScalarFieldEnum)[keyof typeof ShoppingListItemScalarFieldEnum]
 
 
 export const ShowScalarFieldEnum = {

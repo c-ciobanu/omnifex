@@ -97,6 +97,16 @@ export type BackgroundJob = Prisma.BackgroundJobModel
  */
 export type RW_DataMigration = Prisma.RW_DataMigrationModel
 /**
+ * Model ShoppingList
+ * 
+ */
+export type ShoppingList = Prisma.ShoppingListModel
+/**
+ * Model ShoppingListItem
+ * 
+ */
+export type ShoppingListItem = Prisma.ShoppingListItemModel
+/**
  * Model Show
  * 
  */

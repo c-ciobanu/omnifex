@@ -26,6 +26,7 @@ model User {
   sessions         Session[]
   accounts         Account[]
   bookmarks        Bookmark[]
+  shoppingLists    ShoppingList[]
 
   @@map("user")
 }
