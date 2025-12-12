@@ -2,12 +2,17 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { FieldGroup } from "@/components/ui/field";
 import { useAppForm } from "@/hooks/form";
 import { authClient } from "@/lib/auth-client";
-import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 import * as z from "zod";
 
 export const Route = createFileRoute("/signup")({
   component: Component,
+  beforeLoad: ({ context }) => {
+    if (context.auth?.session) {
+      throw redirect({ to: "/dashboard" });
+    }
+  },
 });
 
 const formSchema = z.object({

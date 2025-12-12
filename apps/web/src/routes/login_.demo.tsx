@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login_/demo")({
   component: Component,
+  beforeLoad: ({ context }) => {
+    if (context.auth?.session) {
+      throw redirect({ to: "/dashboard" });
+    }
+  },
 });
 
 function Component() {
