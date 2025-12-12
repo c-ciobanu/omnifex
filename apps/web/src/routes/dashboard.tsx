@@ -1,4 +1,5 @@
 import { Bookmarks } from "@/components/bookmarks";
+import { DashboardShoppingList } from "@/components/dashboard-shopping-list";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
@@ -11,5 +12,10 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function Component() {
-  return <Bookmarks />;
+  return (
+    <div className="space-y-4">
+      <DashboardShoppingList />
+      <Bookmarks />
+    </div>
+  );
 }

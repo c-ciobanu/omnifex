@@ -30,6 +30,18 @@ export const shoppingListsRouter = {
     });
   }),
 
+  getForDashboard: protectedProcedure.handler(async ({ context }) => {
+    return prisma.shoppingList.findFirst({
+      where: { userId: context.session.user.id, featuredOnDashboard: true },
+      include: {
+        items: {
+          where: { bought: false },
+          orderBy: { name: "asc" },
+        },
+      },
+    });
+  }),
+
   create: protectedProcedure.input(shoppingListInputSchema).handler(async ({ input, context }) => {
     if (input.featuredOnDashboard) {
       await prisma.shoppingList.updateMany({
