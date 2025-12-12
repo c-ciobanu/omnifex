@@ -5,6 +5,11 @@ import { prisma } from "@omnifex/db";
 
 import { protectedProcedure } from "../lib/orpc";
 
+const shoppingListInputSchema = z.object({
+  name: z.string().trim().min(1),
+  featuredOnDashboard: z.boolean(),
+});
+
 export const shoppingListsRouter = {
   getAll: protectedProcedure.handler(async ({ context }) => {
     return prisma.shoppingList.findMany({
@@ -16,7 +21,7 @@ export const shoppingListsRouter = {
     });
   }),
 
-  get: protectedProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input, context }) => {
+  get: protectedProcedure.input(z.object({ id: z.string().trim().min(1) })).handler(async ({ input, context }) => {
     return prisma.shoppingList.findUnique({
       where: { id: input.id, userId: context.session.user.id },
       include: {
@@ -25,24 +30,38 @@ export const shoppingListsRouter = {
     });
   }),
 
-  create: protectedProcedure.input(z.object({ name: z.string().min(1) })).handler(async ({ input, context }) => {
+  create: protectedProcedure.input(shoppingListInputSchema).handler(async ({ input, context }) => {
+    if (input.featuredOnDashboard) {
+      await prisma.shoppingList.updateMany({
+        where: { userId: context.session.user.id },
+        data: { featuredOnDashboard: false },
+      });
+    }
+
     return prisma.shoppingList.create({ data: { ...input, userId: context.session.user.id } });
   }),
 
   update: protectedProcedure
-    .input(z.object({ id: z.string().min(1), name: z.string().min(1) }))
+    .input(shoppingListInputSchema.extend({ id: z.string().trim().min(1) }))
     .handler(async ({ input, context }) => {
       const { id, ...data } = input;
+
+      if (input.featuredOnDashboard) {
+        await prisma.shoppingList.updateMany({
+          where: { userId: context.session.user.id },
+          data: { featuredOnDashboard: false },
+        });
+      }
 
       return prisma.shoppingList.update({ data, where: { id, userId: context.session.user.id } });
     }),
 
-  delete: protectedProcedure.input(z.object({ id: z.string().min(1) })).handler(async ({ input, context }) => {
+  delete: protectedProcedure.input(z.object({ id: z.string().trim().min(1) })).handler(async ({ input, context }) => {
     return prisma.shoppingList.delete({ where: { id: input.id, userId: context.session.user.id } });
   }),
 
   createItem: protectedProcedure
-    .input(z.object({ listId: z.string().min(1), name: z.string().min(1) }))
+    .input(z.object({ listId: z.string().trim().min(1), name: z.string().trim().min(1) }))
     .handler(async ({ input, context }) => {
       const shoppingList = await prisma.shoppingList.findUnique({
         where: { id: input.listId, userId: context.session.user.id },
@@ -56,7 +75,7 @@ export const shoppingListsRouter = {
     }),
 
   updateItem: protectedProcedure
-    .input(z.object({ id: z.int(), listId: z.string().min(1), bought: z.boolean() }))
+    .input(z.object({ id: z.int(), listId: z.string().trim().min(1), bought: z.boolean() }))
     .handler(async ({ input, context }) => {
       const { id, listId, bought } = input;
 

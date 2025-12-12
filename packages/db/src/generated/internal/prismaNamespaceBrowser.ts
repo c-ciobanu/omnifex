@@ -324,6 +324,7 @@ export type RW_DataMigrationScalarFieldEnum = (typeof RW_DataMigrationScalarFiel
 export const ShoppingListScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  featuredOnDashboard: 'featuredOnDashboard',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'

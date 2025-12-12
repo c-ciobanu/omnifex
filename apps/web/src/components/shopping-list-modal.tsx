@@ -6,6 +6,7 @@ import { FieldGroup } from "./ui/field";
 
 const formSchema = z.object({
   name: z.string().trim().min(1),
+  featuredOnDashboard: z.boolean(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -20,6 +21,7 @@ export function ShoppingListModal({ defaultValues, onClose, onSubmit }: Props) {
   const form = useAppForm({
     defaultValues: defaultValues ?? {
       name: "",
+      featuredOnDashboard: false,
     },
     validators: {
       onSubmit: formSchema,
@@ -48,6 +50,16 @@ export function ShoppingListModal({ defaultValues, onClose, onSubmit }: Props) {
         >
           <FieldGroup>
             <form.AppField name="name" children={(field) => <field.InputField label="Name" />} />
+
+            <form.AppField
+              name="featuredOnDashboard"
+              children={(field) => (
+                <field.SwitchField
+                  label="Featured On Dashboard"
+                  description="Only one shopping list can be featured on the dashboard"
+                />
+              )}
+            />
           </FieldGroup>
         </form>
 
