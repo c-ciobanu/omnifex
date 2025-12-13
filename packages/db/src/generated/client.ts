@@ -161,6 +161,16 @@ export type AbandonedShow = Prisma.AbandonedShowModel
  */
 export type WatchedEpisode = Prisma.WatchedEpisodeModel
 /**
+ * Model ToDoList
+ * 
+ */
+export type ToDoList = Prisma.ToDoListModel
+/**
+ * Model ToDoListItem
+ * 
+ */
+export type ToDoListItem = Prisma.ToDoListItemModel
+/**
  * Model WorkoutTemplate
  * 
  */

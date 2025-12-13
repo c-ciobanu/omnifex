@@ -72,6 +72,8 @@ export const ModelName = {
   WatchlistShow: 'WatchlistShow',
   AbandonedShow: 'AbandonedShow',
   WatchedEpisode: 'WatchedEpisode',
+  ToDoList: 'ToDoList',
+  ToDoListItem: 'ToDoListItem',
   WorkoutTemplate: 'WorkoutTemplate',
   WorkoutTemplateExercise: 'WorkoutTemplateExercise',
   WorkoutTemplateExerciseSet: 'WorkoutTemplateExerciseSet',
@@ -429,6 +431,30 @@ export const WatchedEpisodeScalarFieldEnum = {
 } as const
 
 export type WatchedEpisodeScalarFieldEnum = (typeof WatchedEpisodeScalarFieldEnum)[keyof typeof WatchedEpisodeScalarFieldEnum]
+
+
+export const ToDoListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  featuredOnDashboard: 'featuredOnDashboard',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ToDoListScalarFieldEnum = (typeof ToDoListScalarFieldEnum)[keyof typeof ToDoListScalarFieldEnum]
+
+
+export const ToDoListItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  completed: 'completed',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  listId: 'listId'
+} as const
+
+export type ToDoListItemScalarFieldEnum = (typeof ToDoListItemScalarFieldEnum)[keyof typeof ToDoListItemScalarFieldEnum]
 
 
 export const WorkoutTemplateScalarFieldEnum = {

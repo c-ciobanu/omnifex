@@ -413,6 +413,8 @@ export const ModelName = {
   WatchlistShow: 'WatchlistShow',
   AbandonedShow: 'AbandonedShow',
   WatchedEpisode: 'WatchedEpisode',
+  ToDoList: 'ToDoList',
+  ToDoListItem: 'ToDoListItem',
   WorkoutTemplate: 'WorkoutTemplate',
   WorkoutTemplateExercise: 'WorkoutTemplateExercise',
   WorkoutTemplateExerciseSet: 'WorkoutTemplateExerciseSet',
@@ -435,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2215,6 +2217,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ToDoList: {
+      payload: Prisma.$ToDoListPayload<ExtArgs>
+      fields: Prisma.ToDoListFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ToDoListFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ToDoListFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>
+        }
+        findFirst: {
+          args: Prisma.ToDoListFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ToDoListFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>
+        }
+        findMany: {
+          args: Prisma.ToDoListFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>[]
+        }
+        create: {
+          args: Prisma.ToDoListCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>
+        }
+        createMany: {
+          args: Prisma.ToDoListCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ToDoListCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>[]
+        }
+        delete: {
+          args: Prisma.ToDoListDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>
+        }
+        update: {
+          args: Prisma.ToDoListUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>
+        }
+        deleteMany: {
+          args: Prisma.ToDoListDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ToDoListUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ToDoListUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>[]
+        }
+        upsert: {
+          args: Prisma.ToDoListUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListPayload>
+        }
+        aggregate: {
+          args: Prisma.ToDoListAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateToDoList>
+        }
+        groupBy: {
+          args: Prisma.ToDoListGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToDoListGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ToDoListCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToDoListCountAggregateOutputType> | number
+        }
+      }
+    }
+    ToDoListItem: {
+      payload: Prisma.$ToDoListItemPayload<ExtArgs>
+      fields: Prisma.ToDoListItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ToDoListItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ToDoListItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>
+        }
+        findFirst: {
+          args: Prisma.ToDoListItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ToDoListItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>
+        }
+        findMany: {
+          args: Prisma.ToDoListItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>[]
+        }
+        create: {
+          args: Prisma.ToDoListItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>
+        }
+        createMany: {
+          args: Prisma.ToDoListItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ToDoListItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>[]
+        }
+        delete: {
+          args: Prisma.ToDoListItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>
+        }
+        update: {
+          args: Prisma.ToDoListItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.ToDoListItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ToDoListItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ToDoListItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.ToDoListItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToDoListItemPayload>
+        }
+        aggregate: {
+          args: Prisma.ToDoListItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateToDoListItem>
+        }
+        groupBy: {
+          args: Prisma.ToDoListItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToDoListItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ToDoListItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToDoListItemCountAggregateOutputType> | number
+        }
+      }
+    }
     WorkoutTemplate: {
       payload: Prisma.$WorkoutTemplatePayload<ExtArgs>
       fields: Prisma.WorkoutTemplateFieldRefs
@@ -3106,6 +3256,30 @@ export const WatchedEpisodeScalarFieldEnum = {
 export type WatchedEpisodeScalarFieldEnum = (typeof WatchedEpisodeScalarFieldEnum)[keyof typeof WatchedEpisodeScalarFieldEnum]
 
 
+export const ToDoListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  featuredOnDashboard: 'featuredOnDashboard',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ToDoListScalarFieldEnum = (typeof ToDoListScalarFieldEnum)[keyof typeof ToDoListScalarFieldEnum]
+
+
+export const ToDoListItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  completed: 'completed',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  listId: 'listId'
+} as const
+
+export type ToDoListItemScalarFieldEnum = (typeof ToDoListItemScalarFieldEnum)[keyof typeof ToDoListItemScalarFieldEnum]
+
+
 export const WorkoutTemplateScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -3433,6 +3607,8 @@ export type GlobalOmitConfig = {
   watchlistShow?: Prisma.WatchlistShowOmit
   abandonedShow?: Prisma.AbandonedShowOmit
   watchedEpisode?: Prisma.WatchedEpisodeOmit
+  toDoList?: Prisma.ToDoListOmit
+  toDoListItem?: Prisma.ToDoListItemOmit
   workoutTemplate?: Prisma.WorkoutTemplateOmit
   workoutTemplateExercise?: Prisma.WorkoutTemplateExerciseOmit
   workoutTemplateExerciseSet?: Prisma.WorkoutTemplateExerciseSetOmit

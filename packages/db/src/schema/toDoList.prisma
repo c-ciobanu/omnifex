@@ -1,0 +1,28 @@
+model ToDoList {
+  id                  String  @id @default(uuid())
+  name                String
+  featuredOnDashboard Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  items  ToDoListItem[]
+
+  @@map("to-do-list")
+}
+
+model ToDoListItem {
+  id        Int     @id @default(autoincrement())
+  name      String
+  completed Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  list   ToDoList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
+
+  @@map("to-do-list-item")
+}
