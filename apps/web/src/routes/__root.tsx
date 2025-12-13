@@ -28,6 +28,7 @@ const authenticatedNavigation = linkOptions([
   { to: "/books", label: "Books" },
   { to: "/documents", label: "Documents" },
   { to: "/metrics", label: "Metrics" },
+  { to: "/to-do-lists", label: "To Do Lists" },
   { to: "/shopping-lists", label: "Shopping Lists" },
   { to: "/invoices", label: "Invoices" },
   { to: "/tools/pomodoro", label: "Pomodoro Timer" },

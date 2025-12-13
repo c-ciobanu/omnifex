@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkoutsRouteImport } from './routes/workouts'
+import { Route as ToDoListsRouteImport } from './routes/to-do-lists'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShowsRouteImport } from './routes/shows'
 import { Route as ShoppingListsRouteImport } from './routes/shopping-lists'
@@ -23,6 +24,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsPomodoroRouteImport } from './routes/tools.pomodoro'
+import { Route as ToDoListsIdRouteImport } from './routes/to-do-lists_.$id'
 import { Route as ShowsTmdbIdRouteImport } from './routes/shows_.$tmdbId'
 import { Route as ShoppingListsIdRouteImport } from './routes/shopping-lists_.$id'
 import { Route as SearchShowsRouteImport } from './routes/search.shows'
@@ -41,6 +43,11 @@ import { Route as ShowsTmdbIdSeasonsNumberRouteImport } from './routes/shows_.$t
 const WorkoutsRoute = WorkoutsRouteImport.update({
   id: '/workouts',
   path: '/workouts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToDoListsRoute = ToDoListsRouteImport.update({
+  id: '/to-do-lists',
+  path: '/to-do-lists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -106,6 +113,11 @@ const IndexRoute = IndexRouteImport.update({
 const ToolsPomodoroRoute = ToolsPomodoroRouteImport.update({
   id: '/tools/pomodoro',
   path: '/tools/pomodoro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToDoListsIdRoute = ToDoListsIdRouteImport.update({
+  id: '/to-do-lists_/$id',
+  path: '/to-do-lists/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShowsTmdbIdRoute = ShowsTmdbIdRouteImport.update({
@@ -193,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
+  '/to-do-lists': typeof ToDoListsRoute
   '/workouts': typeof WorkoutsRoute
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
@@ -206,6 +219,7 @@ export interface FileRoutesByFullPath {
   '/search/shows': typeof SearchShowsRoute
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
+  '/to-do-lists/$id': typeof ToDoListsIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
@@ -223,6 +237,7 @@ export interface FileRoutesByTo {
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
+  '/to-do-lists': typeof ToDoListsRoute
   '/workouts': typeof WorkoutsRoute
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
@@ -236,6 +251,7 @@ export interface FileRoutesByTo {
   '/search/shows': typeof SearchShowsRoute
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
+  '/to-do-lists/$id': typeof ToDoListsIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
@@ -254,6 +270,7 @@ export interface FileRoutesById {
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
+  '/to-do-lists': typeof ToDoListsRoute
   '/workouts': typeof WorkoutsRoute
   '/books_/$googleId': typeof BooksGoogleIdRoute
   '/documents_/$id': typeof DocumentsIdRoute
@@ -267,6 +284,7 @@ export interface FileRoutesById {
   '/search/shows': typeof SearchShowsRoute
   '/shopping-lists_/$id': typeof ShoppingListsIdRoute
   '/shows_/$tmdbId': typeof ShowsTmdbIdRoute
+  '/to-do-lists_/$id': typeof ToDoListsIdRoute
   '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices_/$id_/preview': typeof InvoicesIdPreviewRoute
   '/shows_/$tmdbId_/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
@@ -286,6 +304,7 @@ export interface FileRouteTypes {
     | '/shopping-lists'
     | '/shows'
     | '/signup'
+    | '/to-do-lists'
     | '/workouts'
     | '/books/$googleId'
     | '/documents/$id'
@@ -299,6 +318,7 @@ export interface FileRouteTypes {
     | '/search/shows'
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
+    | '/to-do-lists/$id'
     | '/tools/pomodoro'
     | '/invoices/$id/preview'
     | '/shows/$tmdbId/seasons/$number'
@@ -316,6 +336,7 @@ export interface FileRouteTypes {
     | '/shopping-lists'
     | '/shows'
     | '/signup'
+    | '/to-do-lists'
     | '/workouts'
     | '/books/$googleId'
     | '/documents/$id'
@@ -329,6 +350,7 @@ export interface FileRouteTypes {
     | '/search/shows'
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
+    | '/to-do-lists/$id'
     | '/tools/pomodoro'
     | '/invoices/$id/preview'
     | '/shows/$tmdbId/seasons/$number'
@@ -346,6 +368,7 @@ export interface FileRouteTypes {
     | '/shopping-lists'
     | '/shows'
     | '/signup'
+    | '/to-do-lists'
     | '/workouts'
     | '/books_/$googleId'
     | '/documents_/$id'
@@ -359,6 +382,7 @@ export interface FileRouteTypes {
     | '/search/shows'
     | '/shopping-lists_/$id'
     | '/shows_/$tmdbId'
+    | '/to-do-lists_/$id'
     | '/tools/pomodoro'
     | '/invoices_/$id_/preview'
     | '/shows_/$tmdbId_/seasons/$number'
@@ -377,6 +401,7 @@ export interface RootRouteChildren {
   ShoppingListsRoute: typeof ShoppingListsRoute
   ShowsRoute: typeof ShowsRoute
   SignupRoute: typeof SignupRoute
+  ToDoListsRoute: typeof ToDoListsRoute
   WorkoutsRoute: typeof WorkoutsRoute
   BooksGoogleIdRoute: typeof BooksGoogleIdRoute
   DocumentsIdRoute: typeof DocumentsIdRoute
@@ -390,6 +415,7 @@ export interface RootRouteChildren {
   SearchShowsRoute: typeof SearchShowsRoute
   ShoppingListsIdRoute: typeof ShoppingListsIdRoute
   ShowsTmdbIdRoute: typeof ShowsTmdbIdRoute
+  ToDoListsIdRoute: typeof ToDoListsIdRoute
   ToolsPomodoroRoute: typeof ToolsPomodoroRoute
   InvoicesIdPreviewRoute: typeof InvoicesIdPreviewRoute
   ShowsTmdbIdSeasonsNumberRoute: typeof ShowsTmdbIdSeasonsNumberRoute
@@ -402,6 +428,13 @@ declare module '@tanstack/react-router' {
       path: '/workouts'
       fullPath: '/workouts'
       preLoaderRoute: typeof WorkoutsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/to-do-lists': {
+      id: '/to-do-lists'
+      path: '/to-do-lists'
+      fullPath: '/to-do-lists'
+      preLoaderRoute: typeof ToDoListsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup': {
@@ -493,6 +526,13 @@ declare module '@tanstack/react-router' {
       path: '/tools/pomodoro'
       fullPath: '/tools/pomodoro'
       preLoaderRoute: typeof ToolsPomodoroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/to-do-lists_/$id': {
+      id: '/to-do-lists_/$id'
+      path: '/to-do-lists/$id'
+      fullPath: '/to-do-lists/$id'
+      preLoaderRoute: typeof ToDoListsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shows_/$tmdbId': {
@@ -609,6 +649,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShoppingListsRoute: ShoppingListsRoute,
   ShowsRoute: ShowsRoute,
   SignupRoute: SignupRoute,
+  ToDoListsRoute: ToDoListsRoute,
   WorkoutsRoute: WorkoutsRoute,
   BooksGoogleIdRoute: BooksGoogleIdRoute,
   DocumentsIdRoute: DocumentsIdRoute,
@@ -622,6 +663,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchShowsRoute: SearchShowsRoute,
   ShoppingListsIdRoute: ShoppingListsIdRoute,
   ShowsTmdbIdRoute: ShowsTmdbIdRoute,
+  ToDoListsIdRoute: ToDoListsIdRoute,
   ToolsPomodoroRoute: ToolsPomodoroRoute,
   InvoicesIdPreviewRoute: InvoicesIdPreviewRoute,
   ShowsTmdbIdSeasonsNumberRoute: ShowsTmdbIdSeasonsNumberRoute,
