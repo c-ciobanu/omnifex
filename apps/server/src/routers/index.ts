@@ -7,6 +7,7 @@ import { metricsRouter } from "./metrics";
 import { moviesRouter } from "./movies";
 import { shoppingListsRouter } from "./shoppingLists";
 import { showsRouter } from "./shows";
+import { toDoListsRouter } from "./toDoLists";
 
 export const appRouter = {
   books: booksRouter,
@@ -16,6 +17,7 @@ export const appRouter = {
   movies: moviesRouter,
   shoppingLists: shoppingListsRouter,
   shows: showsRouter,
+  toDoLists: toDoListsRouter,
 };
 
 export type AppRouter = typeof appRouter;
