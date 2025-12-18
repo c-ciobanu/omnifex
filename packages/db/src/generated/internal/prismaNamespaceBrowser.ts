@@ -57,6 +57,7 @@ export const ModelName = {
   BookListItem: 'BookListItem',
   Bookmark: 'Bookmark',
   Document: 'Document',
+  File: 'File',
   Metric: 'Metric',
   MetricEntry: 'MetricEntry',
   Movie: 'Movie',
@@ -225,6 +226,20 @@ export const DocumentScalarFieldEnum = {
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  key: 'key',
+  contentType: 'contentType',
+  contentSize: 'contentSize',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
 export const MetricScalarFieldEnum = {

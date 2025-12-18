@@ -259,6 +259,7 @@ export type UserWhereInput = {
   bookmarks?: Prisma.BookmarkListRelationFilter
   shoppingLists?: Prisma.ShoppingListListRelationFilter
   toDoLists?: Prisma.ToDoListListRelationFilter
+  files?: Prisma.FileListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -289,6 +290,7 @@ export type UserOrderByWithRelationInput = {
   bookmarks?: Prisma.BookmarkOrderByRelationAggregateInput
   shoppingLists?: Prisma.ShoppingListOrderByRelationAggregateInput
   toDoLists?: Prisma.ToDoListOrderByRelationAggregateInput
+  files?: Prisma.FileOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -322,6 +324,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   bookmarks?: Prisma.BookmarkListRelationFilter
   shoppingLists?: Prisma.ShoppingListListRelationFilter
   toDoLists?: Prisma.ToDoListListRelationFilter
+  files?: Prisma.FileListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -390,6 +393,7 @@ export type UserCreateInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -420,6 +424,7 @@ export type UserUncheckedCreateInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -450,6 +455,7 @@ export type UserUpdateInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -480,6 +486,7 @@ export type UserUncheckedUpdateInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -677,6 +684,20 @@ export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentsInput, Prisma.UserUpdateWithoutDocumentsInput>, Prisma.UserUncheckedUpdateWithoutDocumentsInput>
 }
 
+export type UserCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.UserUpsertWithoutFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesInput, Prisma.UserUpdateWithoutFilesInput>, Prisma.UserUncheckedUpdateWithoutFilesInput>
+}
+
 export type UserCreateNestedOneWithoutMetricsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMetricsInput, Prisma.UserUncheckedCreateWithoutMetricsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMetricsInput
@@ -830,6 +851,7 @@ export type UserCreateWithoutAccountsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -859,6 +881,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -904,6 +927,7 @@ export type UserUpdateWithoutAccountsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -933,6 +957,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -962,6 +987,7 @@ export type UserCreateWithoutSessionsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -991,6 +1017,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1036,6 +1063,7 @@ export type UserUpdateWithoutSessionsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1065,6 +1093,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookListsInput = {
@@ -1094,6 +1123,7 @@ export type UserCreateWithoutBookListsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookListsInput = {
@@ -1123,6 +1153,7 @@ export type UserUncheckedCreateWithoutBookListsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookListsInput = {
@@ -1168,6 +1199,7 @@ export type UserUpdateWithoutBookListsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookListsInput = {
@@ -1197,6 +1229,7 @@ export type UserUncheckedUpdateWithoutBookListsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -1226,6 +1259,7 @@ export type UserCreateWithoutBookmarksInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -1255,6 +1289,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -1300,6 +1335,7 @@ export type UserUpdateWithoutBookmarksInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -1329,6 +1365,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDocumentsInput = {
@@ -1358,6 +1395,7 @@ export type UserCreateWithoutDocumentsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -1387,6 +1425,7 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -1432,6 +1471,7 @@ export type UserUpdateWithoutDocumentsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -1453,6 +1493,143 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
+  toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFilesInput = {
+  id?: string
+  username: string
+  displayUsername?: string | null
+  email: string
+  emailVerified?: boolean
+  name: string
+  image?: string | null
+  role?: string
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movieLists?: Prisma.MovieListCreateNestedManyWithoutUserInput
+  watchedEpisodes?: Prisma.WatchedEpisodeCreateNestedManyWithoutUserInput
+  showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
+  abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
+  bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
+  shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
+  toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFilesInput = {
+  id?: string
+  username: string
+  displayUsername?: string | null
+  email: string
+  emailVerified?: boolean
+  name: string
+  image?: string | null
+  role?: string
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movieLists?: Prisma.MovieListUncheckedCreateNestedManyWithoutUserInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
+  abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
+  bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
+  shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
+  toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+}
+
+export type UserUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
+}
+
+export type UserUpdateWithoutFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movieLists?: Prisma.MovieListUpdateManyWithoutUserNestedInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUpdateManyWithoutUserNestedInput
+  showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
+  abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
+  bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
+  shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
+  toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movieLists?: Prisma.MovieListUncheckedUpdateManyWithoutUserNestedInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
+  abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
+  bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
@@ -1490,6 +1667,7 @@ export type UserCreateWithoutMetricsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMetricsInput = {
@@ -1519,6 +1697,7 @@ export type UserUncheckedCreateWithoutMetricsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMetricsInput = {
@@ -1564,6 +1743,7 @@ export type UserUpdateWithoutMetricsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMetricsInput = {
@@ -1593,6 +1773,7 @@ export type UserUncheckedUpdateWithoutMetricsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMovieListsInput = {
@@ -1622,6 +1803,7 @@ export type UserCreateWithoutMovieListsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMovieListsInput = {
@@ -1651,6 +1833,7 @@ export type UserUncheckedCreateWithoutMovieListsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMovieListsInput = {
@@ -1696,6 +1879,7 @@ export type UserUpdateWithoutMovieListsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMovieListsInput = {
@@ -1725,6 +1909,7 @@ export type UserUncheckedUpdateWithoutMovieListsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShoppingListsInput = {
@@ -1754,6 +1939,7 @@ export type UserCreateWithoutShoppingListsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShoppingListsInput = {
@@ -1783,6 +1969,7 @@ export type UserUncheckedCreateWithoutShoppingListsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShoppingListsInput = {
@@ -1828,6 +2015,7 @@ export type UserUpdateWithoutShoppingListsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShoppingListsInput = {
@@ -1857,6 +2045,7 @@ export type UserUncheckedUpdateWithoutShoppingListsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShowsWatchlistInput = {
@@ -1886,6 +2075,7 @@ export type UserCreateWithoutShowsWatchlistInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShowsWatchlistInput = {
@@ -1915,6 +2105,7 @@ export type UserUncheckedCreateWithoutShowsWatchlistInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShowsWatchlistInput = {
@@ -1960,6 +2151,7 @@ export type UserUpdateWithoutShowsWatchlistInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShowsWatchlistInput = {
@@ -1989,6 +2181,7 @@ export type UserUncheckedUpdateWithoutShowsWatchlistInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAbandonedShowsInput = {
@@ -2018,6 +2211,7 @@ export type UserCreateWithoutAbandonedShowsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAbandonedShowsInput = {
@@ -2047,6 +2241,7 @@ export type UserUncheckedCreateWithoutAbandonedShowsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAbandonedShowsInput = {
@@ -2092,6 +2287,7 @@ export type UserUpdateWithoutAbandonedShowsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAbandonedShowsInput = {
@@ -2121,6 +2317,7 @@ export type UserUncheckedUpdateWithoutAbandonedShowsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWatchedEpisodesInput = {
@@ -2150,6 +2347,7 @@ export type UserCreateWithoutWatchedEpisodesInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWatchedEpisodesInput = {
@@ -2179,6 +2377,7 @@ export type UserUncheckedCreateWithoutWatchedEpisodesInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWatchedEpisodesInput = {
@@ -2224,6 +2423,7 @@ export type UserUpdateWithoutWatchedEpisodesInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWatchedEpisodesInput = {
@@ -2253,6 +2453,7 @@ export type UserUncheckedUpdateWithoutWatchedEpisodesInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutToDoListsInput = {
@@ -2282,6 +2483,7 @@ export type UserCreateWithoutToDoListsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutToDoListsInput = {
@@ -2311,6 +2513,7 @@ export type UserUncheckedCreateWithoutToDoListsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutToDoListsInput = {
@@ -2356,6 +2559,7 @@ export type UserUpdateWithoutToDoListsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutToDoListsInput = {
@@ -2385,6 +2589,7 @@ export type UserUncheckedUpdateWithoutToDoListsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutTemplatesInput = {
@@ -2414,6 +2619,7 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
@@ -2443,6 +2649,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutTemplatesInput = {
@@ -2488,6 +2695,7 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
@@ -2517,6 +2725,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutsInput = {
@@ -2546,6 +2755,7 @@ export type UserCreateWithoutWorkoutsInput = {
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutsInput = {
@@ -2575,6 +2785,7 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
   shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutsInput = {
@@ -2620,6 +2831,7 @@ export type UserUpdateWithoutWorkoutsInput = {
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutsInput = {
@@ -2649,6 +2861,7 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2671,6 +2884,7 @@ export type UserCountOutputType = {
   bookmarks: number
   shoppingLists: number
   toDoLists: number
+  files: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2688,6 +2902,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
   shoppingLists?: boolean | UserCountOutputTypeCountShoppingListsArgs
   toDoLists?: boolean | UserCountOutputTypeCountToDoListsArgs
+  files?: boolean | UserCountOutputTypeCountFilesArgs
 }
 
 /**
@@ -2798,6 +3013,13 @@ export type UserCountOutputTypeCountToDoListsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.ToDoListWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2827,6 +3049,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   shoppingLists?: boolean | Prisma.User$shoppingListsArgs<ExtArgs>
   toDoLists?: boolean | Prisma.User$toDoListsArgs<ExtArgs>
+  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2894,6 +3117,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   shoppingLists?: boolean | Prisma.User$shoppingListsArgs<ExtArgs>
   toDoLists?: boolean | Prisma.User$toDoListsArgs<ExtArgs>
+  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2916,6 +3140,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
     shoppingLists: Prisma.$ShoppingListPayload<ExtArgs>[]
     toDoLists: Prisma.$ToDoListPayload<ExtArgs>[]
+    files: Prisma.$FilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3339,6 +3564,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shoppingLists<T extends Prisma.User$shoppingListsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shoppingListsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShoppingListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   toDoLists<T extends Prisma.User$toDoListsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$toDoListsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ToDoListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  files<T extends Prisma.User$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4102,6 +4328,30 @@ export type User$toDoListsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ToDoListScalarFieldEnum | Prisma.ToDoListScalarFieldEnum[]
+}
+
+/**
+ * User.files
+ */
+export type User$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

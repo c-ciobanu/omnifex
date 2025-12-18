@@ -62,6 +62,11 @@ export type Bookmark = Prisma.BookmarkModel
  */
 export type Document = Prisma.DocumentModel
 /**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel
+/**
  * Model Metric
  * 
  */
