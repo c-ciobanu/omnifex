@@ -3,6 +3,7 @@ import type { RouterClient } from "@orpc/server";
 import { bookmarksRouter } from "./bookmarks";
 import { booksRouter } from "./books";
 import { documentsRouter } from "./documents";
+import { filesRouter } from "./files";
 import { metricsRouter } from "./metrics";
 import { moviesRouter } from "./movies";
 import { shoppingListsRouter } from "./shoppingLists";
@@ -13,6 +14,7 @@ export const appRouter = {
   books: booksRouter,
   bookmarks: bookmarksRouter,
   documents: documentsRouter,
+  files: filesRouter,
   metrics: metricsRouter,
   movies: moviesRouter,
   shoppingLists: shoppingListsRouter,
