@@ -27,6 +27,7 @@ const authenticatedNavigation = linkOptions([
   { to: "/shows", label: "Shows" },
   { to: "/books", label: "Books" },
   { to: "/documents", label: "Documents" },
+  { to: "/files", label: "Files" },
   { to: "/metrics", label: "Metrics" },
   { to: "/to-do-lists", label: "To Do Lists" },
   { to: "/shopping-lists", label: "Shopping Lists" },

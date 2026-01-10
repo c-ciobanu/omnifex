@@ -19,6 +19,7 @@ import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InvoicesRouteImport } from './routes/invoices'
+import { Route as FilesRouteImport } from './routes/files'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as BooksRouteImport } from './routes/books'
@@ -88,6 +89,11 @@ const LoginRoute = LoginRouteImport.update({
 const InvoicesRoute = InvoicesRouteImport.update({
   id: '/invoices',
   path: '/invoices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilesRoute = FilesRouteImport.update({
+  id: '/files',
+  path: '/files',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -197,6 +203,7 @@ export interface FileRoutesByFullPath {
   '/books': typeof BooksRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
+  '/files': typeof FilesRoute
   '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
   '/metrics': typeof MetricsRoute
@@ -229,6 +236,7 @@ export interface FileRoutesByTo {
   '/books': typeof BooksRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
+  '/files': typeof FilesRoute
   '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
   '/metrics': typeof MetricsRoute
@@ -262,6 +270,7 @@ export interface FileRoutesById {
   '/books': typeof BooksRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
+  '/files': typeof FilesRoute
   '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
   '/metrics': typeof MetricsRoute
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/books'
     | '/dashboard'
     | '/documents'
+    | '/files'
     | '/invoices'
     | '/login'
     | '/metrics'
@@ -328,6 +338,7 @@ export interface FileRouteTypes {
     | '/books'
     | '/dashboard'
     | '/documents'
+    | '/files'
     | '/invoices'
     | '/login'
     | '/metrics'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/books'
     | '/dashboard'
     | '/documents'
+    | '/files'
     | '/invoices'
     | '/login'
     | '/metrics'
@@ -393,6 +405,7 @@ export interface RootRouteChildren {
   BooksRoute: typeof BooksRoute
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRoute
+  FilesRoute: typeof FilesRoute
   InvoicesRoute: typeof InvoicesRoute
   LoginRoute: typeof LoginRoute
   MetricsRoute: typeof MetricsRoute
@@ -491,6 +504,13 @@ declare module '@tanstack/react-router' {
       path: '/invoices'
       fullPath: '/invoices'
       preLoaderRoute: typeof InvoicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/files': {
+      id: '/files'
+      path: '/files'
+      fullPath: '/files'
+      preLoaderRoute: typeof FilesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -641,6 +661,7 @@ const rootRouteChildren: RootRouteChildren = {
   BooksRoute: BooksRoute,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRoute,
+  FilesRoute: FilesRoute,
   InvoicesRoute: InvoicesRoute,
   LoginRoute: LoginRoute,
   MetricsRoute: MetricsRoute,
