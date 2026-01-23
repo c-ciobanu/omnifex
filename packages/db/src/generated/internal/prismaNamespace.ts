@@ -399,6 +399,7 @@ export const ModelName = {
   Bookmark: 'Bookmark',
   Document: 'Document',
   File: 'File',
+  Manga: 'Manga',
   Metric: 'Metric',
   MetricEntry: 'MetricEntry',
   Movie: 'Movie',
@@ -438,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1179,6 +1180,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.FileCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.FileCountAggregateOutputType> | number
+        }
+      }
+    }
+    Manga: {
+      payload: Prisma.$MangaPayload<ExtArgs>
+      fields: Prisma.MangaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MangaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MangaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        findFirst: {
+          args: Prisma.MangaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MangaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        findMany: {
+          args: Prisma.MangaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>[]
+        }
+        create: {
+          args: Prisma.MangaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        createMany: {
+          args: Prisma.MangaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MangaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>[]
+        }
+        delete: {
+          args: Prisma.MangaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        update: {
+          args: Prisma.MangaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        deleteMany: {
+          args: Prisma.MangaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MangaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MangaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>[]
+        }
+        upsert: {
+          args: Prisma.MangaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaPayload>
+        }
+        aggregate: {
+          args: Prisma.MangaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateManga>
+        }
+        groupBy: {
+          args: Prisma.MangaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MangaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaCountAggregateOutputType> | number
         }
       }
     }
@@ -3139,6 +3214,24 @@ export const FileScalarFieldEnum = {
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
+export const MangaScalarFieldEnum = {
+  id: 'id',
+  artists: 'artists',
+  authors: 'authors',
+  chapters: 'chapters',
+  coverUrl: 'coverUrl',
+  description: 'description',
+  genres: 'genres',
+  mangaDexId: 'mangaDexId',
+  releaseYear: 'releaseYear',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MangaScalarFieldEnum = (typeof MangaScalarFieldEnum)[keyof typeof MangaScalarFieldEnum]
+
+
 export const MetricScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -3682,6 +3775,7 @@ export type GlobalOmitConfig = {
   bookmark?: Prisma.BookmarkOmit
   document?: Prisma.DocumentOmit
   file?: Prisma.FileOmit
+  manga?: Prisma.MangaOmit
   metric?: Prisma.MetricOmit
   metricEntry?: Prisma.MetricEntryOmit
   movie?: Prisma.MovieOmit

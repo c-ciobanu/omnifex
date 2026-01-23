@@ -58,6 +58,7 @@ export const ModelName = {
   Bookmark: 'Bookmark',
   Document: 'Document',
   File: 'File',
+  Manga: 'Manga',
   Metric: 'Metric',
   MetricEntry: 'MetricEntry',
   Movie: 'Movie',
@@ -240,6 +241,24 @@ export const FileScalarFieldEnum = {
 } as const
 
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
+
+
+export const MangaScalarFieldEnum = {
+  id: 'id',
+  artists: 'artists',
+  authors: 'authors',
+  chapters: 'chapters',
+  coverUrl: 'coverUrl',
+  description: 'description',
+  genres: 'genres',
+  mangaDexId: 'mangaDexId',
+  releaseYear: 'releaseYear',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MangaScalarFieldEnum = (typeof MangaScalarFieldEnum)[keyof typeof MangaScalarFieldEnum]
 
 
 export const MetricScalarFieldEnum = {

@@ -67,6 +67,11 @@ export type Document = Prisma.DocumentModel
  */
 export type File = Prisma.FileModel
 /**
+ * Model Manga
+ * 
+ */
+export type Manga = Prisma.MangaModel
+/**
  * Model Metric
  * 
  */
