@@ -17,6 +17,7 @@ import { Route as ShoppingListsRouteImport } from './routes/shopping-lists'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
+import { Route as MangasRouteImport } from './routes/mangas'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InvoicesRouteImport } from './routes/invoices'
 import { Route as FilesRouteImport } from './routes/files'
@@ -30,9 +31,11 @@ import { Route as ShowsTmdbIdRouteImport } from './routes/shows_.$tmdbId'
 import { Route as ShoppingListsIdRouteImport } from './routes/shopping-lists_.$id'
 import { Route as SearchShowsRouteImport } from './routes/search.shows'
 import { Route as SearchMoviesRouteImport } from './routes/search.movies'
+import { Route as SearchMangasRouteImport } from './routes/search.mangas'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
 import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
 import { Route as MetricsIdRouteImport } from './routes/metrics_.$id'
+import { Route as MangasMangaDexIdRouteImport } from './routes/mangas_.$mangaDexId'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
 import { Route as InvoicesNewRouteImport } from './routes/invoices_.new'
 import { Route as InvoicesIdRouteImport } from './routes/invoices_.$id'
@@ -79,6 +82,11 @@ const MoviesRoute = MoviesRouteImport.update({
 const MetricsRoute = MetricsRouteImport.update({
   id: '/metrics',
   path: '/metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MangasRoute = MangasRouteImport.update({
+  id: '/mangas',
+  path: '/mangas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -146,6 +154,11 @@ const SearchMoviesRoute = SearchMoviesRouteImport.update({
   path: '/search/movies',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SearchMangasRoute = SearchMangasRouteImport.update({
+  id: '/search/mangas',
+  path: '/search/mangas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchBooksRoute = SearchBooksRouteImport.update({
   id: '/search/books',
   path: '/search/books',
@@ -159,6 +172,11 @@ const MoviesTmdbIdRoute = MoviesTmdbIdRouteImport.update({
 const MetricsIdRoute = MetricsIdRouteImport.update({
   id: '/metrics_/$id',
   path: '/metrics/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MangasMangaDexIdRoute = MangasMangaDexIdRouteImport.update({
+  id: '/mangas_/$mangaDexId',
+  path: '/mangas/$mangaDexId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginDemoRoute = LoginDemoRouteImport.update({
@@ -206,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/files': typeof FilesRoute
   '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
+  '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/settings': typeof SettingsRoute
@@ -219,9 +238,11 @@ export interface FileRoutesByFullPath {
   '/invoices/$id': typeof InvoicesIdRoute
   '/invoices/new': typeof InvoicesNewRoute
   '/login/demo': typeof LoginDemoRoute
+  '/mangas/$mangaDexId': typeof MangasMangaDexIdRoute
   '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
+  '/search/mangas': typeof SearchMangasRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
@@ -239,6 +260,7 @@ export interface FileRoutesByTo {
   '/files': typeof FilesRoute
   '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
+  '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/settings': typeof SettingsRoute
@@ -252,9 +274,11 @@ export interface FileRoutesByTo {
   '/invoices/$id': typeof InvoicesIdRoute
   '/invoices/new': typeof InvoicesNewRoute
   '/login/demo': typeof LoginDemoRoute
+  '/mangas/$mangaDexId': typeof MangasMangaDexIdRoute
   '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
+  '/search/mangas': typeof SearchMangasRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
@@ -273,6 +297,7 @@ export interface FileRoutesById {
   '/files': typeof FilesRoute
   '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
+  '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/settings': typeof SettingsRoute
@@ -286,9 +311,11 @@ export interface FileRoutesById {
   '/invoices_/$id': typeof InvoicesIdRoute
   '/invoices_/new': typeof InvoicesNewRoute
   '/login_/demo': typeof LoginDemoRoute
+  '/mangas_/$mangaDexId': typeof MangasMangaDexIdRoute
   '/metrics_/$id': typeof MetricsIdRoute
   '/movies_/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
+  '/search/mangas': typeof SearchMangasRoute
   '/search/movies': typeof SearchMoviesRoute
   '/search/shows': typeof SearchShowsRoute
   '/shopping-lists_/$id': typeof ShoppingListsIdRoute
@@ -308,6 +335,7 @@ export interface FileRouteTypes {
     | '/files'
     | '/invoices'
     | '/login'
+    | '/mangas'
     | '/metrics'
     | '/movies'
     | '/settings'
@@ -321,9 +349,11 @@ export interface FileRouteTypes {
     | '/invoices/$id'
     | '/invoices/new'
     | '/login/demo'
+    | '/mangas/$mangaDexId'
     | '/metrics/$id'
     | '/movies/$tmdbId'
     | '/search/books'
+    | '/search/mangas'
     | '/search/movies'
     | '/search/shows'
     | '/shopping-lists/$id'
@@ -341,6 +371,7 @@ export interface FileRouteTypes {
     | '/files'
     | '/invoices'
     | '/login'
+    | '/mangas'
     | '/metrics'
     | '/movies'
     | '/settings'
@@ -354,9 +385,11 @@ export interface FileRouteTypes {
     | '/invoices/$id'
     | '/invoices/new'
     | '/login/demo'
+    | '/mangas/$mangaDexId'
     | '/metrics/$id'
     | '/movies/$tmdbId'
     | '/search/books'
+    | '/search/mangas'
     | '/search/movies'
     | '/search/shows'
     | '/shopping-lists/$id'
@@ -374,6 +407,7 @@ export interface FileRouteTypes {
     | '/files'
     | '/invoices'
     | '/login'
+    | '/mangas'
     | '/metrics'
     | '/movies'
     | '/settings'
@@ -387,9 +421,11 @@ export interface FileRouteTypes {
     | '/invoices_/$id'
     | '/invoices_/new'
     | '/login_/demo'
+    | '/mangas_/$mangaDexId'
     | '/metrics_/$id'
     | '/movies_/$tmdbId'
     | '/search/books'
+    | '/search/mangas'
     | '/search/movies'
     | '/search/shows'
     | '/shopping-lists_/$id'
@@ -408,6 +444,7 @@ export interface RootRouteChildren {
   FilesRoute: typeof FilesRoute
   InvoicesRoute: typeof InvoicesRoute
   LoginRoute: typeof LoginRoute
+  MangasRoute: typeof MangasRoute
   MetricsRoute: typeof MetricsRoute
   MoviesRoute: typeof MoviesRoute
   SettingsRoute: typeof SettingsRoute
@@ -421,9 +458,11 @@ export interface RootRouteChildren {
   InvoicesIdRoute: typeof InvoicesIdRoute
   InvoicesNewRoute: typeof InvoicesNewRoute
   LoginDemoRoute: typeof LoginDemoRoute
+  MangasMangaDexIdRoute: typeof MangasMangaDexIdRoute
   MetricsIdRoute: typeof MetricsIdRoute
   MoviesTmdbIdRoute: typeof MoviesTmdbIdRoute
   SearchBooksRoute: typeof SearchBooksRoute
+  SearchMangasRoute: typeof SearchMangasRoute
   SearchMoviesRoute: typeof SearchMoviesRoute
   SearchShowsRoute: typeof SearchShowsRoute
   ShoppingListsIdRoute: typeof ShoppingListsIdRoute
@@ -490,6 +529,13 @@ declare module '@tanstack/react-router' {
       path: '/metrics'
       fullPath: '/metrics'
       preLoaderRoute: typeof MetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mangas': {
+      id: '/mangas'
+      path: '/mangas'
+      fullPath: '/mangas'
+      preLoaderRoute: typeof MangasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -583,6 +629,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchMoviesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/search/mangas': {
+      id: '/search/mangas'
+      path: '/search/mangas'
+      fullPath: '/search/mangas'
+      preLoaderRoute: typeof SearchMangasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search/books': {
       id: '/search/books'
       path: '/search/books'
@@ -602,6 +655,13 @@ declare module '@tanstack/react-router' {
       path: '/metrics/$id'
       fullPath: '/metrics/$id'
       preLoaderRoute: typeof MetricsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mangas_/$mangaDexId': {
+      id: '/mangas_/$mangaDexId'
+      path: '/mangas/$mangaDexId'
+      fullPath: '/mangas/$mangaDexId'
+      preLoaderRoute: typeof MangasMangaDexIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login_/demo': {
@@ -664,6 +724,7 @@ const rootRouteChildren: RootRouteChildren = {
   FilesRoute: FilesRoute,
   InvoicesRoute: InvoicesRoute,
   LoginRoute: LoginRoute,
+  MangasRoute: MangasRoute,
   MetricsRoute: MetricsRoute,
   MoviesRoute: MoviesRoute,
   SettingsRoute: SettingsRoute,
@@ -677,9 +738,11 @@ const rootRouteChildren: RootRouteChildren = {
   InvoicesIdRoute: InvoicesIdRoute,
   InvoicesNewRoute: InvoicesNewRoute,
   LoginDemoRoute: LoginDemoRoute,
+  MangasMangaDexIdRoute: MangasMangaDexIdRoute,
   MetricsIdRoute: MetricsIdRoute,
   MoviesTmdbIdRoute: MoviesTmdbIdRoute,
   SearchBooksRoute: SearchBooksRoute,
+  SearchMangasRoute: SearchMangasRoute,
   SearchMoviesRoute: SearchMoviesRoute,
   SearchShowsRoute: SearchShowsRoute,
   ShoppingListsIdRoute: ShoppingListsIdRoute,

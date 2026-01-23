@@ -194,7 +194,7 @@ function Component() {
               <h3 className="truncate text-sm font-medium">{file.name}</h3>
 
               <div className="text-muted-foreground flex items-center justify-between text-xs">
-                <span>{filesize(file.contentSize, { standard: "jedec" })}</span>
+                <span>{filesize(file.contentSize)}</span>
                 <span>{file.createdAt.toLocaleDateString()}</span>
               </div>
             </CardContent>

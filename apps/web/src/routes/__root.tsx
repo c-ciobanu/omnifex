@@ -26,6 +26,7 @@ const authenticatedNavigation = linkOptions([
   { to: "/movies", label: "Movies" },
   { to: "/shows", label: "Shows" },
   { to: "/books", label: "Books" },
+  { to: "/mangas", label: "Mangas" },
   { to: "/documents", label: "Documents" },
   { to: "/files", label: "Files" },
   { to: "/metrics", label: "Metrics" },
@@ -38,6 +39,7 @@ const guestNavigation = linkOptions([
   { to: "/search/movies", label: "Search Movies" },
   { to: "/search/shows", label: "Search Shows" },
   { to: "/search/books", label: "Search Books" },
+  { to: "/search/mangas", label: "Search Mangas" },
   { to: "/invoices", label: "Invoices" },
   { to: "/tools/pomodoro", label: "Pomodoro Timer" },
 ]);
