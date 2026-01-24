@@ -1,4 +1,6 @@
+import { MangaActions } from "@/components/manga-actions";
 import { Spinner } from "@/components/ui/spinner";
+import { authClient } from "@/lib/auth-client";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,6 +12,8 @@ export const Route = createFileRoute("/mangas_/$mangaDexId")({
 
 function Component() {
   const { mangaDexId } = Route.useParams();
+
+  const { data: session } = authClient.useSession();
 
   const { data: manga, isLoading } = useQuery(orpc.mangas.get.queryOptions({ input: { mangaDexId } }));
 
@@ -51,6 +55,12 @@ function Component() {
           </div>
         </div>
       </div>
+
+      {session ? (
+        <div className="lg:w-72 lg:shrink-0">
+          <MangaActions manga={manga} />
+        </div>
+      ) : null}
     </div>
   );
 }

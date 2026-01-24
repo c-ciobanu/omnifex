@@ -1,6 +1,6 @@
 import type { InferClientOutputs } from "@orpc/client";
 import { env } from "@/env";
-import { createORPCClient } from "@orpc/client";
+import { createORPCClient, onError } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
@@ -33,6 +33,13 @@ export const link = new RPCLink({
       credentials: "include",
     });
   },
+  interceptors: [
+    onError((error) => {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }),
+  ],
 });
 
 export const client: AppRouterClient = createORPCClient(link);
