@@ -1,6 +1,7 @@
 import { ORPCError } from "@orpc/server";
 import * as z from "zod";
 
+import type { Manga } from "@omnifex/db";
 import { MangaStatus, prisma } from "@omnifex/db";
 
 import type { MangaProgressUpdateInput } from "../../../../packages/db/src/generated/models";
@@ -14,6 +15,11 @@ const MANGA_DEX_STATUS_MAP: Record<MangaDexManga["attributes"]["status"], MangaS
   hiatus: MangaStatus.ON_HIATUS,
   ongoing: MangaStatus.ONGOING,
 };
+
+const mapManga = (manga: Manga, coverSize?: "256" | "512") => ({
+  ...manga,
+  coverUrl: coverSize ? `${manga.coverUrl}.${coverSize}.jpg` : manga.coverUrl,
+});
 
 export const mangasRouter = {
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {
@@ -44,7 +50,7 @@ export const mangasRouter = {
 
       const coverArt = mangaDexManga.relationships.find((e) => e.type === "cover_art");
       const coverUrl = coverArt
-        ? `https://uploads.mangadex.org/covers/${mangaDexManga.id}/${coverArt.attributes.fileName}.512.jpg`
+        ? `https://uploads.mangadex.org/covers/${mangaDexManga.id}/${coverArt.attributes.fileName}`
         : undefined;
 
       const genreTags = mangaDexManga.attributes.tags.filter((e) => e.attributes.group === "genre");
@@ -98,7 +104,7 @@ export const mangasRouter = {
       include: { manga: true },
     });
 
-    return progressList.map((e) => e.manga);
+    return progressList.map((e) => mapManga(e.manga, "256"));
   }),
 
   getReading: protectedProcedure.handler(async ({ context }) => {
@@ -107,7 +113,7 @@ export const mangasRouter = {
       include: { manga: true },
     });
 
-    return progressList.map(({ manga, ...userProgress }) => ({ ...manga, userProgress }));
+    return progressList.map(({ manga, ...userProgress }) => ({ ...mapManga(manga, "256"), userProgress }));
   }),
 
   getAbandoned: protectedProcedure.handler(async ({ context }) => {
@@ -116,7 +122,7 @@ export const mangasRouter = {
       include: { manga: true },
     });
 
-    return progressList.map((e) => e.manga);
+    return progressList.map((e) => mapManga(e.manga, "256"));
   }),
 
   setLastChapterRead: protectedProcedure
