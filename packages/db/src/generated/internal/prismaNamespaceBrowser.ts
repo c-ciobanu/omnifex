@@ -59,6 +59,7 @@ export const ModelName = {
   Document: 'Document',
   File: 'File',
   Manga: 'Manga',
+  MangaProgress: 'MangaProgress',
   Metric: 'Metric',
   MetricEntry: 'MetricEntry',
   Movie: 'Movie',
@@ -244,21 +245,36 @@ export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof File
 
 
 export const MangaScalarFieldEnum = {
-  id: 'id',
+  aniListId: 'aniListId',
   artists: 'artists',
   authors: 'authors',
   chapters: 'chapters',
   coverUrl: 'coverUrl',
   description: 'description',
   genres: 'genres',
+  id: 'id',
   mangaDexId: 'mangaDexId',
+  mangaUpdatesId: 'mangaUpdatesId',
   releaseYear: 'releaseYear',
+  status: 'status',
   title: 'title',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type MangaScalarFieldEnum = (typeof MangaScalarFieldEnum)[keyof typeof MangaScalarFieldEnum]
+
+
+export const MangaProgressScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  lastChapterRead: 'lastChapterRead',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  mangaId: 'mangaId'
+} as const
+
+export type MangaProgressScalarFieldEnum = (typeof MangaProgressScalarFieldEnum)[keyof typeof MangaProgressScalarFieldEnum]
 
 
 export const MetricScalarFieldEnum = {

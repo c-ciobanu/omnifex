@@ -10,7 +10,7 @@ type PaginatedResponse<T> = BaseResponse<T> & {
   total: number;
 };
 
-interface Manga {
+export interface Manga {
   id: string;
   type: "manga";
   attributes: {
@@ -28,15 +28,27 @@ interface Manga {
       en?: string;
     };
     isLocked: boolean;
-    links?: Record<string, string>;
+    links?: {
+      al?: string;
+      ap?: string;
+      bw?: string;
+      kt?: string;
+      mu?: string;
+      amz?: string;
+      cdj?: string;
+      ebj?: string;
+      mal?: string;
+      raw?: string;
+      engtl?: string;
+    };
     officialLinks: null;
     originalLanguage: string;
     lastVolume?: string;
     lastChapter?: string;
-    publicationDemographic?: string;
+    publicationDemographic?: "shounen" | "shoujo" | "josei" | "seinen";
     status: "completed" | "ongoing" | "cancelled" | "hiatus";
     year?: number;
-    contentRating: string;
+    contentRating: "safe" | "suggestive" | "erotica" | "pornographic";
     tags: {
       id: string;
       type: "tag";
@@ -50,7 +62,7 @@ interface Manga {
       };
       relationships: [];
     }[];
-    state: string;
+    state: "draft" | "submitted" | "published" | "rejected";
     chapterNumbersResetOnNewVolume: boolean;
     createdAt: string;
     updatedAt: string;

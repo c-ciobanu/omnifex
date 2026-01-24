@@ -1,10 +1,19 @@
 import { ORPCError } from "@orpc/server";
 import * as z from "zod";
 
-import { prisma } from "@omnifex/db";
+import { MangaStatus, prisma } from "@omnifex/db";
 
+import type { MangaProgressUpdateInput } from "../../../../packages/db/src/generated/models";
+import type { Manga as MangaDexManga } from "../lib/mangaDex";
 import { getManga, getMangaLatestChapter, searchMangas } from "../lib/mangaDex";
-import { publicProcedure } from "../lib/orpc";
+import { protectedProcedure, publicProcedure } from "../lib/orpc";
+
+const MANGA_DEX_STATUS_MAP: Record<MangaDexManga["attributes"]["status"], MangaStatus> = {
+  cancelled: MangaStatus.CANCELLED,
+  completed: MangaStatus.ENDED,
+  hiatus: MangaStatus.ON_HIATUS,
+  ongoing: MangaStatus.ONGOING,
+};
 
 export const mangasRouter = {
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {
@@ -27,7 +36,7 @@ export const mangasRouter = {
     });
   }),
 
-  get: publicProcedure.input(z.object({ mangaDexId: z.string() })).handler(async ({ input }) => {
+  get: publicProcedure.input(z.object({ mangaDexId: z.string() })).handler(async ({ input, context }) => {
     let manga = await prisma.manga.findUnique({ where: { mangaDexId: input.mangaDexId } });
 
     if (!manga) {
@@ -60,6 +69,7 @@ export const mangasRouter = {
 
       manga = await prisma.manga.create({
         data: {
+          aniListId: mangaDexManga.attributes.links?.al,
           artists: artists.map((e) => e.attributes.name),
           authors: authors.map((e) => e.attributes.name),
           chapters,
@@ -67,12 +77,109 @@ export const mangasRouter = {
           description,
           genres: genreTags.map((e) => e.attributes.name.en),
           mangaDexId: mangaDexManga.id,
+          mangaUpdatesId: mangaDexManga.attributes.links?.mu,
           releaseYear,
+          status: MANGA_DEX_STATUS_MAP[mangaDexManga.attributes.status],
           title,
         },
       });
     }
 
-    return manga;
+    const userProgress = context.session
+      ? await prisma.mangaProgress.findFirst({ where: { userId: context.session.user.id, mangaId: manga.id } })
+      : null;
+
+    return { ...manga, userProgress };
+  }),
+
+  setLastChapterRead: protectedProcedure
+    .input(z.object({ id: z.int(), chapter: z.int().gte(1) }))
+    .handler(async ({ input, context }) => {
+      const manga = await prisma.manga.findUnique({ where: { id: input.id } });
+
+      if (!manga) {
+        throw new ORPCError("NOT_FOUND");
+      }
+
+      if (input.chapter > manga.chapters) {
+        throw new ORPCError("BAD_REQUEST");
+      }
+
+      const data = {
+        status: input.chapter === manga.chapters && manga.status === "ENDED" ? "READ" : "READING",
+        lastChapterRead: input.chapter,
+      } satisfies MangaProgressUpdateInput;
+
+      return prisma.mangaProgress.upsert({
+        where: { userId_mangaId: { userId: context.session.user.id, mangaId: input.id } },
+        update: data,
+        create: { ...data, userId: context.session.user.id, mangaId: input.id },
+      });
+    }),
+
+  unread: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
+    const userProgress = await prisma.mangaProgress.findFirst({
+      where: { userId: context.session.user.id, mangaId: input.id },
+    });
+
+    if (userProgress?.status === "TO_READ") {
+      throw new ORPCError("BAD_REQUEST");
+    }
+
+    return prisma.mangaProgress.delete({
+      where: { userId_mangaId: { userId: context.session.user.id, mangaId: input.id } },
+    });
+  }),
+
+  addToReadingList: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
+    const userProgress = await prisma.mangaProgress.findFirst({
+      where: { userId: context.session.user.id, mangaId: input.id },
+    });
+
+    if (userProgress) {
+      throw new ORPCError("BAD_REQUEST");
+    }
+
+    return prisma.mangaProgress.create({
+      data: { userId: context.session.user.id, mangaId: input.id, status: "TO_READ" },
+    });
+  }),
+
+  removeFromReadingList: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
+    const userProgress = await prisma.mangaProgress.findFirst({
+      where: { userId: context.session.user.id, mangaId: input.id },
+    });
+
+    if (userProgress?.status !== "TO_READ") {
+      throw new ORPCError("BAD_REQUEST");
+    }
+
+    return prisma.mangaProgress.delete({
+      where: { userId_mangaId: { userId: context.session.user.id, mangaId: input.id } },
+    });
+  }),
+
+  abandon: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
+    const userProgress = await prisma.mangaProgress.findFirst({
+      where: { userId: context.session.user.id, mangaId: input.id },
+    });
+
+    if (userProgress?.status !== "READING") {
+      throw new ORPCError("BAD_REQUEST");
+    }
+
+    return prisma.mangaProgress.update({ where: { id: userProgress.id }, data: { status: "ABANDONED" } });
+  }),
+
+  unabandon: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
+    const userProgress = await prisma.mangaProgress.findFirst({
+      where: { userId: context.session.user.id, mangaId: input.id },
+    });
+
+    if (userProgress?.status !== "ABANDONED") {
+      throw new ORPCError("BAD_REQUEST");
+    }
+
+    return prisma.mangaProgress.update({ where: { id: userProgress.id }, data: { status: "READING" } });
   }),
 };

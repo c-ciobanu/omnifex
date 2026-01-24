@@ -72,6 +72,11 @@ export type File = Prisma.FileModel
  */
 export type Manga = Prisma.MangaModel
 /**
+ * Model MangaProgress
+ * 
+ */
+export type MangaProgress = Prisma.MangaProgressModel
+/**
  * Model Metric
  * 
  */

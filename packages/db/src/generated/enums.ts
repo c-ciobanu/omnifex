@@ -17,6 +17,26 @@ export const BookListType = {
 export type BookListType = (typeof BookListType)[keyof typeof BookListType]
 
 
+export const MangaStatus = {
+  ENDED: 'ENDED',
+  ONGOING: 'ONGOING',
+  CANCELLED: 'CANCELLED',
+  ON_HIATUS: 'ON_HIATUS'
+} as const
+
+export type MangaStatus = (typeof MangaStatus)[keyof typeof MangaStatus]
+
+
+export const MangaProgressStatus = {
+  ABANDONED: 'ABANDONED',
+  READ: 'READ',
+  READING: 'READING',
+  TO_READ: 'TO_READ'
+} as const
+
+export type MangaProgressStatus = (typeof MangaProgressStatus)[keyof typeof MangaProgressStatus]
+
+
 export const MovieListType = {
   WATCHLIST: 'WATCHLIST',
   WATCHED: 'WATCHED',

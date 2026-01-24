@@ -1,15 +1,52 @@
+enum MangaStatus {
+  ENDED
+  ONGOING
+  CANCELLED
+  ON_HIATUS
+}
+
 model Manga {
-  id          Int      @id @default(autoincrement())
-  artists     String[]
-  authors     String[]
-  chapters    Int
-  coverUrl    String
-  description String
-  genres      String[]
-  mangaDexId  String   @unique
-  releaseYear Int
-  title       String
+  aniListId      String?
+  artists        String[]
+  authors        String[]
+  chapters       Int
+  coverUrl       String
+  description    String
+  genres         String[]
+  id             Int         @id @default(autoincrement())
+  mangaDexId     String      @unique
+  mangaUpdatesId String?
+  releaseYear    Int
+  status         MangaStatus
+  title          String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  userProgresses MangaProgress[]
+
+  @@map("manga")
+}
+
+enum MangaProgressStatus {
+  ABANDONED
+  READ
+  READING
+  TO_READ
+}
+
+model MangaProgress {
+  id              Int                 @id @default(autoincrement())
+  status          MangaProgressStatus
+  lastChapterRead Int?
+
+  createdAt DateTime @default(now())
+
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  manga   Manga  @relation(fields: [mangaId], references: [id])
+  mangaId Int
+
+  @@unique([userId, mangaId])
+  @@map("manga-progress")
 }

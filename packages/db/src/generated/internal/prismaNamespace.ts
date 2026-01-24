@@ -400,6 +400,7 @@ export const ModelName = {
   Document: 'Document',
   File: 'File',
   Manga: 'Manga',
+  MangaProgress: 'MangaProgress',
   Metric: 'Metric',
   MetricEntry: 'MetricEntry',
   Movie: 'Movie',
@@ -439,7 +440,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1254,6 +1255,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MangaCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MangaCountAggregateOutputType> | number
+        }
+      }
+    }
+    MangaProgress: {
+      payload: Prisma.$MangaProgressPayload<ExtArgs>
+      fields: Prisma.MangaProgressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MangaProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MangaProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>
+        }
+        findFirst: {
+          args: Prisma.MangaProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MangaProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>
+        }
+        findMany: {
+          args: Prisma.MangaProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>[]
+        }
+        create: {
+          args: Prisma.MangaProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>
+        }
+        createMany: {
+          args: Prisma.MangaProgressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MangaProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>[]
+        }
+        delete: {
+          args: Prisma.MangaProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>
+        }
+        update: {
+          args: Prisma.MangaProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>
+        }
+        deleteMany: {
+          args: Prisma.MangaProgressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MangaProgressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MangaProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>[]
+        }
+        upsert: {
+          args: Prisma.MangaProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaProgressPayload>
+        }
+        aggregate: {
+          args: Prisma.MangaProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMangaProgress>
+        }
+        groupBy: {
+          args: Prisma.MangaProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaProgressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MangaProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaProgressCountAggregateOutputType> | number
         }
       }
     }
@@ -3215,21 +3290,36 @@ export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof File
 
 
 export const MangaScalarFieldEnum = {
-  id: 'id',
+  aniListId: 'aniListId',
   artists: 'artists',
   authors: 'authors',
   chapters: 'chapters',
   coverUrl: 'coverUrl',
   description: 'description',
   genres: 'genres',
+  id: 'id',
   mangaDexId: 'mangaDexId',
+  mangaUpdatesId: 'mangaUpdatesId',
   releaseYear: 'releaseYear',
+  status: 'status',
   title: 'title',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type MangaScalarFieldEnum = (typeof MangaScalarFieldEnum)[keyof typeof MangaScalarFieldEnum]
+
+
+export const MangaProgressScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  lastChapterRead: 'lastChapterRead',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  mangaId: 'mangaId'
+} as const
+
+export type MangaProgressScalarFieldEnum = (typeof MangaProgressScalarFieldEnum)[keyof typeof MangaProgressScalarFieldEnum]
 
 
 export const MetricScalarFieldEnum = {
@@ -3638,6 +3728,34 @@ export type ListEnumBookListTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'MangaStatus'
+ */
+export type EnumMangaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MangaStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MangaStatus[]'
+ */
+export type ListEnumMangaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MangaStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MangaProgressStatus'
+ */
+export type EnumMangaProgressStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MangaProgressStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MangaProgressStatus[]'
+ */
+export type ListEnumMangaProgressStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MangaProgressStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3776,6 +3894,7 @@ export type GlobalOmitConfig = {
   document?: Prisma.DocumentOmit
   file?: Prisma.FileOmit
   manga?: Prisma.MangaOmit
+  mangaProgress?: Prisma.MangaProgressOmit
   metric?: Prisma.MetricOmit
   metricEntry?: Prisma.MetricEntryOmit
   movie?: Prisma.MovieOmit

@@ -26,51 +26,60 @@ export type AggregateManga = {
 }
 
 export type MangaAvgAggregateOutputType = {
-  id: number | null
   chapters: number | null
+  id: number | null
   releaseYear: number | null
 }
 
 export type MangaSumAggregateOutputType = {
-  id: number | null
   chapters: number | null
+  id: number | null
   releaseYear: number | null
 }
 
 export type MangaMinAggregateOutputType = {
-  id: number | null
+  aniListId: string | null
   chapters: number | null
   coverUrl: string | null
   description: string | null
+  id: number | null
   mangaDexId: string | null
+  mangaUpdatesId: string | null
   releaseYear: number | null
+  status: $Enums.MangaStatus | null
   title: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type MangaMaxAggregateOutputType = {
-  id: number | null
+  aniListId: string | null
   chapters: number | null
   coverUrl: string | null
   description: string | null
+  id: number | null
   mangaDexId: string | null
+  mangaUpdatesId: string | null
   releaseYear: number | null
+  status: $Enums.MangaStatus | null
   title: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type MangaCountAggregateOutputType = {
-  id: number
+  aniListId: number
   artists: number
   authors: number
   chapters: number
   coverUrl: number
   description: number
   genres: number
+  id: number
   mangaDexId: number
+  mangaUpdatesId: number
   releaseYear: number
+  status: number
   title: number
   createdAt: number
   updatedAt: number
@@ -79,51 +88,60 @@ export type MangaCountAggregateOutputType = {
 
 
 export type MangaAvgAggregateInputType = {
-  id?: true
   chapters?: true
+  id?: true
   releaseYear?: true
 }
 
 export type MangaSumAggregateInputType = {
-  id?: true
   chapters?: true
+  id?: true
   releaseYear?: true
 }
 
 export type MangaMinAggregateInputType = {
-  id?: true
+  aniListId?: true
   chapters?: true
   coverUrl?: true
   description?: true
+  id?: true
   mangaDexId?: true
+  mangaUpdatesId?: true
   releaseYear?: true
+  status?: true
   title?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type MangaMaxAggregateInputType = {
-  id?: true
+  aniListId?: true
   chapters?: true
   coverUrl?: true
   description?: true
+  id?: true
   mangaDexId?: true
+  mangaUpdatesId?: true
   releaseYear?: true
+  status?: true
   title?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type MangaCountAggregateInputType = {
-  id?: true
+  aniListId?: true
   artists?: true
   authors?: true
   chapters?: true
   coverUrl?: true
   description?: true
   genres?: true
+  id?: true
   mangaDexId?: true
+  mangaUpdatesId?: true
   releaseYear?: true
+  status?: true
   title?: true
   createdAt?: true
   updatedAt?: true
@@ -217,15 +235,18 @@ export type MangaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 export type MangaGroupByOutputType = {
-  id: number
+  aniListId: string | null
   artists: string[]
   authors: string[]
   chapters: number
   coverUrl: string
   description: string
   genres: string[]
+  id: number
   mangaDexId: string
+  mangaUpdatesId: string | null
   releaseYear: number
+  status: $Enums.MangaStatus
   title: string
   createdAt: Date
   updatedAt: Date
@@ -255,33 +276,41 @@ export type MangaWhereInput = {
   AND?: Prisma.MangaWhereInput | Prisma.MangaWhereInput[]
   OR?: Prisma.MangaWhereInput[]
   NOT?: Prisma.MangaWhereInput | Prisma.MangaWhereInput[]
-  id?: Prisma.IntFilter<"Manga"> | number
+  aniListId?: Prisma.StringNullableFilter<"Manga"> | string | null
   artists?: Prisma.StringNullableListFilter<"Manga">
   authors?: Prisma.StringNullableListFilter<"Manga">
   chapters?: Prisma.IntFilter<"Manga"> | number
   coverUrl?: Prisma.StringFilter<"Manga"> | string
   description?: Prisma.StringFilter<"Manga"> | string
   genres?: Prisma.StringNullableListFilter<"Manga">
+  id?: Prisma.IntFilter<"Manga"> | number
   mangaDexId?: Prisma.StringFilter<"Manga"> | string
+  mangaUpdatesId?: Prisma.StringNullableFilter<"Manga"> | string | null
   releaseYear?: Prisma.IntFilter<"Manga"> | number
+  status?: Prisma.EnumMangaStatusFilter<"Manga"> | $Enums.MangaStatus
   title?: Prisma.StringFilter<"Manga"> | string
   createdAt?: Prisma.DateTimeFilter<"Manga"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Manga"> | Date | string
+  userProgresses?: Prisma.MangaProgressListRelationFilter
 }
 
 export type MangaOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
+  aniListId?: Prisma.SortOrderInput | Prisma.SortOrder
   artists?: Prisma.SortOrder
   authors?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
   coverUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   genres?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   mangaDexId?: Prisma.SortOrder
+  mangaUpdatesId?: Prisma.SortOrderInput | Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userProgresses?: Prisma.MangaProgressOrderByRelationAggregateInput
 }
 
 export type MangaWhereUniqueInput = Prisma.AtLeast<{
@@ -290,28 +319,35 @@ export type MangaWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.MangaWhereInput | Prisma.MangaWhereInput[]
   OR?: Prisma.MangaWhereInput[]
   NOT?: Prisma.MangaWhereInput | Prisma.MangaWhereInput[]
+  aniListId?: Prisma.StringNullableFilter<"Manga"> | string | null
   artists?: Prisma.StringNullableListFilter<"Manga">
   authors?: Prisma.StringNullableListFilter<"Manga">
   chapters?: Prisma.IntFilter<"Manga"> | number
   coverUrl?: Prisma.StringFilter<"Manga"> | string
   description?: Prisma.StringFilter<"Manga"> | string
   genres?: Prisma.StringNullableListFilter<"Manga">
+  mangaUpdatesId?: Prisma.StringNullableFilter<"Manga"> | string | null
   releaseYear?: Prisma.IntFilter<"Manga"> | number
+  status?: Prisma.EnumMangaStatusFilter<"Manga"> | $Enums.MangaStatus
   title?: Prisma.StringFilter<"Manga"> | string
   createdAt?: Prisma.DateTimeFilter<"Manga"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Manga"> | Date | string
+  userProgresses?: Prisma.MangaProgressListRelationFilter
 }, "id" | "mangaDexId">
 
 export type MangaOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
+  aniListId?: Prisma.SortOrderInput | Prisma.SortOrder
   artists?: Prisma.SortOrder
   authors?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
   coverUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   genres?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   mangaDexId?: Prisma.SortOrder
+  mangaUpdatesId?: Prisma.SortOrderInput | Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -326,21 +362,25 @@ export type MangaScalarWhereWithAggregatesInput = {
   AND?: Prisma.MangaScalarWhereWithAggregatesInput | Prisma.MangaScalarWhereWithAggregatesInput[]
   OR?: Prisma.MangaScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MangaScalarWhereWithAggregatesInput | Prisma.MangaScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Manga"> | number
+  aniListId?: Prisma.StringNullableWithAggregatesFilter<"Manga"> | string | null
   artists?: Prisma.StringNullableListFilter<"Manga">
   authors?: Prisma.StringNullableListFilter<"Manga">
   chapters?: Prisma.IntWithAggregatesFilter<"Manga"> | number
   coverUrl?: Prisma.StringWithAggregatesFilter<"Manga"> | string
   description?: Prisma.StringWithAggregatesFilter<"Manga"> | string
   genres?: Prisma.StringNullableListFilter<"Manga">
+  id?: Prisma.IntWithAggregatesFilter<"Manga"> | number
   mangaDexId?: Prisma.StringWithAggregatesFilter<"Manga"> | string
+  mangaUpdatesId?: Prisma.StringNullableWithAggregatesFilter<"Manga"> | string | null
   releaseYear?: Prisma.IntWithAggregatesFilter<"Manga"> | number
+  status?: Prisma.EnumMangaStatusWithAggregatesFilter<"Manga"> | $Enums.MangaStatus
   title?: Prisma.StringWithAggregatesFilter<"Manga"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Manga"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Manga"> | Date | string
 }
 
 export type MangaCreateInput = {
+  aniListId?: string | null
   artists?: Prisma.MangaCreateartistsInput | string[]
   authors?: Prisma.MangaCreateauthorsInput | string[]
   chapters: number
@@ -348,28 +388,36 @@ export type MangaCreateInput = {
   description: string
   genres?: Prisma.MangaCreategenresInput | string[]
   mangaDexId: string
+  mangaUpdatesId?: string | null
   releaseYear: number
+  status: $Enums.MangaStatus
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userProgresses?: Prisma.MangaProgressCreateNestedManyWithoutMangaInput
 }
 
 export type MangaUncheckedCreateInput = {
-  id?: number
+  aniListId?: string | null
   artists?: Prisma.MangaCreateartistsInput | string[]
   authors?: Prisma.MangaCreateauthorsInput | string[]
   chapters: number
   coverUrl: string
   description: string
   genres?: Prisma.MangaCreategenresInput | string[]
+  id?: number
   mangaDexId: string
+  mangaUpdatesId?: string | null
   releaseYear: number
+  status: $Enums.MangaStatus
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutMangaInput
 }
 
 export type MangaUpdateInput = {
+  aniListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   artists?: Prisma.MangaUpdateartistsInput | string[]
   authors?: Prisma.MangaUpdateauthorsInput | string[]
   chapters?: Prisma.IntFieldUpdateOperationsInput | number
@@ -377,43 +425,54 @@ export type MangaUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   genres?: Prisma.MangaUpdategenresInput | string[]
   mangaDexId?: Prisma.StringFieldUpdateOperationsInput | string
+  mangaUpdatesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumMangaStatusFieldUpdateOperationsInput | $Enums.MangaStatus
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userProgresses?: Prisma.MangaProgressUpdateManyWithoutMangaNestedInput
 }
 
 export type MangaUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  aniListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   artists?: Prisma.MangaUpdateartistsInput | string[]
   authors?: Prisma.MangaUpdateauthorsInput | string[]
   chapters?: Prisma.IntFieldUpdateOperationsInput | number
   coverUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   genres?: Prisma.MangaUpdategenresInput | string[]
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaDexId?: Prisma.StringFieldUpdateOperationsInput | string
+  mangaUpdatesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumMangaStatusFieldUpdateOperationsInput | $Enums.MangaStatus
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutMangaNestedInput
 }
 
 export type MangaCreateManyInput = {
-  id?: number
+  aniListId?: string | null
   artists?: Prisma.MangaCreateartistsInput | string[]
   authors?: Prisma.MangaCreateauthorsInput | string[]
   chapters: number
   coverUrl: string
   description: string
   genres?: Prisma.MangaCreategenresInput | string[]
+  id?: number
   mangaDexId: string
+  mangaUpdatesId?: string | null
   releaseYear: number
+  status: $Enums.MangaStatus
   title: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MangaUpdateManyMutationInput = {
+  aniListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   artists?: Prisma.MangaUpdateartistsInput | string[]
   authors?: Prisma.MangaUpdateauthorsInput | string[]
   chapters?: Prisma.IntFieldUpdateOperationsInput | number
@@ -421,76 +480,95 @@ export type MangaUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   genres?: Prisma.MangaUpdategenresInput | string[]
   mangaDexId?: Prisma.StringFieldUpdateOperationsInput | string
+  mangaUpdatesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumMangaStatusFieldUpdateOperationsInput | $Enums.MangaStatus
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MangaUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  aniListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   artists?: Prisma.MangaUpdateartistsInput | string[]
   authors?: Prisma.MangaUpdateauthorsInput | string[]
   chapters?: Prisma.IntFieldUpdateOperationsInput | number
   coverUrl?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   genres?: Prisma.MangaUpdategenresInput | string[]
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaDexId?: Prisma.StringFieldUpdateOperationsInput | string
+  mangaUpdatesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumMangaStatusFieldUpdateOperationsInput | $Enums.MangaStatus
   title?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MangaCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  aniListId?: Prisma.SortOrder
   artists?: Prisma.SortOrder
   authors?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
   coverUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   genres?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   mangaDexId?: Prisma.SortOrder
+  mangaUpdatesId?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type MangaAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
 }
 
 export type MangaMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  aniListId?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
   coverUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   mangaDexId?: Prisma.SortOrder
+  mangaUpdatesId?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type MangaMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  aniListId?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
   coverUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   mangaDexId?: Prisma.SortOrder
+  mangaUpdatesId?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type MangaSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   chapters?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
+}
+
+export type MangaScalarRelationFilter = {
+  is?: Prisma.MangaWhereInput
+  isNot?: Prisma.MangaWhereInput
 }
 
 export type MangaCreateartistsInput = {
@@ -520,83 +598,241 @@ export type MangaUpdategenresInput = {
   push?: string | string[]
 }
 
+export type EnumMangaStatusFieldUpdateOperationsInput = {
+  set?: $Enums.MangaStatus
+}
+
+export type MangaCreateNestedOneWithoutUserProgressesInput = {
+  create?: Prisma.XOR<Prisma.MangaCreateWithoutUserProgressesInput, Prisma.MangaUncheckedCreateWithoutUserProgressesInput>
+  connectOrCreate?: Prisma.MangaCreateOrConnectWithoutUserProgressesInput
+  connect?: Prisma.MangaWhereUniqueInput
+}
+
+export type MangaUpdateOneRequiredWithoutUserProgressesNestedInput = {
+  create?: Prisma.XOR<Prisma.MangaCreateWithoutUserProgressesInput, Prisma.MangaUncheckedCreateWithoutUserProgressesInput>
+  connectOrCreate?: Prisma.MangaCreateOrConnectWithoutUserProgressesInput
+  upsert?: Prisma.MangaUpsertWithoutUserProgressesInput
+  connect?: Prisma.MangaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MangaUpdateToOneWithWhereWithoutUserProgressesInput, Prisma.MangaUpdateWithoutUserProgressesInput>, Prisma.MangaUncheckedUpdateWithoutUserProgressesInput>
+}
+
+export type MangaCreateWithoutUserProgressesInput = {
+  aniListId?: string | null
+  artists?: Prisma.MangaCreateartistsInput | string[]
+  authors?: Prisma.MangaCreateauthorsInput | string[]
+  chapters: number
+  coverUrl: string
+  description: string
+  genres?: Prisma.MangaCreategenresInput | string[]
+  mangaDexId: string
+  mangaUpdatesId?: string | null
+  releaseYear: number
+  status: $Enums.MangaStatus
+  title: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MangaUncheckedCreateWithoutUserProgressesInput = {
+  aniListId?: string | null
+  artists?: Prisma.MangaCreateartistsInput | string[]
+  authors?: Prisma.MangaCreateauthorsInput | string[]
+  chapters: number
+  coverUrl: string
+  description: string
+  genres?: Prisma.MangaCreategenresInput | string[]
+  id?: number
+  mangaDexId: string
+  mangaUpdatesId?: string | null
+  releaseYear: number
+  status: $Enums.MangaStatus
+  title: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MangaCreateOrConnectWithoutUserProgressesInput = {
+  where: Prisma.MangaWhereUniqueInput
+  create: Prisma.XOR<Prisma.MangaCreateWithoutUserProgressesInput, Prisma.MangaUncheckedCreateWithoutUserProgressesInput>
+}
+
+export type MangaUpsertWithoutUserProgressesInput = {
+  update: Prisma.XOR<Prisma.MangaUpdateWithoutUserProgressesInput, Prisma.MangaUncheckedUpdateWithoutUserProgressesInput>
+  create: Prisma.XOR<Prisma.MangaCreateWithoutUserProgressesInput, Prisma.MangaUncheckedCreateWithoutUserProgressesInput>
+  where?: Prisma.MangaWhereInput
+}
+
+export type MangaUpdateToOneWithWhereWithoutUserProgressesInput = {
+  where?: Prisma.MangaWhereInput
+  data: Prisma.XOR<Prisma.MangaUpdateWithoutUserProgressesInput, Prisma.MangaUncheckedUpdateWithoutUserProgressesInput>
+}
+
+export type MangaUpdateWithoutUserProgressesInput = {
+  aniListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artists?: Prisma.MangaUpdateartistsInput | string[]
+  authors?: Prisma.MangaUpdateauthorsInput | string[]
+  chapters?: Prisma.IntFieldUpdateOperationsInput | number
+  coverUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  genres?: Prisma.MangaUpdategenresInput | string[]
+  mangaDexId?: Prisma.StringFieldUpdateOperationsInput | string
+  mangaUpdatesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumMangaStatusFieldUpdateOperationsInput | $Enums.MangaStatus
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MangaUncheckedUpdateWithoutUserProgressesInput = {
+  aniListId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  artists?: Prisma.MangaUpdateartistsInput | string[]
+  authors?: Prisma.MangaUpdateauthorsInput | string[]
+  chapters?: Prisma.IntFieldUpdateOperationsInput | number
+  coverUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  genres?: Prisma.MangaUpdategenresInput | string[]
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  mangaDexId?: Prisma.StringFieldUpdateOperationsInput | string
+  mangaUpdatesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumMangaStatusFieldUpdateOperationsInput | $Enums.MangaStatus
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type MangaCountOutputType
+ */
+
+export type MangaCountOutputType = {
+  userProgresses: number
+}
+
+export type MangaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  userProgresses?: boolean | MangaCountOutputTypeCountUserProgressesArgs
+}
+
+/**
+ * MangaCountOutputType without action
+ */
+export type MangaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MangaCountOutputType
+   */
+  select?: Prisma.MangaCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MangaCountOutputType without action
+ */
+export type MangaCountOutputTypeCountUserProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MangaProgressWhereInput
+}
 
 
 export type MangaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
+  aniListId?: boolean
   artists?: boolean
   authors?: boolean
   chapters?: boolean
   coverUrl?: boolean
   description?: boolean
   genres?: boolean
+  id?: boolean
   mangaDexId?: boolean
+  mangaUpdatesId?: boolean
   releaseYear?: boolean
+  status?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userProgresses?: boolean | Prisma.Manga$userProgressesArgs<ExtArgs>
+  _count?: boolean | Prisma.MangaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["manga"]>
 
 export type MangaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
+  aniListId?: boolean
   artists?: boolean
   authors?: boolean
   chapters?: boolean
   coverUrl?: boolean
   description?: boolean
   genres?: boolean
+  id?: boolean
   mangaDexId?: boolean
+  mangaUpdatesId?: boolean
   releaseYear?: boolean
+  status?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["manga"]>
 
 export type MangaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
+  aniListId?: boolean
   artists?: boolean
   authors?: boolean
   chapters?: boolean
   coverUrl?: boolean
   description?: boolean
   genres?: boolean
+  id?: boolean
   mangaDexId?: boolean
+  mangaUpdatesId?: boolean
   releaseYear?: boolean
+  status?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["manga"]>
 
 export type MangaSelectScalar = {
-  id?: boolean
+  aniListId?: boolean
   artists?: boolean
   authors?: boolean
   chapters?: boolean
   coverUrl?: boolean
   description?: boolean
   genres?: boolean
+  id?: boolean
   mangaDexId?: boolean
+  mangaUpdatesId?: boolean
   releaseYear?: boolean
+  status?: boolean
   title?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MangaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "artists" | "authors" | "chapters" | "coverUrl" | "description" | "genres" | "mangaDexId" | "releaseYear" | "title" | "createdAt" | "updatedAt", ExtArgs["result"]["manga"]>
+export type MangaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"aniListId" | "artists" | "authors" | "chapters" | "coverUrl" | "description" | "genres" | "id" | "mangaDexId" | "mangaUpdatesId" | "releaseYear" | "status" | "title" | "createdAt" | "updatedAt", ExtArgs["result"]["manga"]>
+export type MangaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  userProgresses?: boolean | Prisma.Manga$userProgressesArgs<ExtArgs>
+  _count?: boolean | Prisma.MangaCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type MangaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type MangaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $MangaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Manga"
-  objects: {}
+  objects: {
+    userProgresses: Prisma.$MangaProgressPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    aniListId: string | null
     artists: string[]
     authors: string[]
     chapters: number
     coverUrl: string
     description: string
     genres: string[]
+    id: number
     mangaDexId: string
+    mangaUpdatesId: string | null
     releaseYear: number
+    status: $Enums.MangaStatus
     title: string
     createdAt: Date
     updatedAt: Date
@@ -683,8 +919,8 @@ export interface MangaDelegate<ExtArgs extends runtime.Types.Extensions.Internal
    * // Get first 10 Manga
    * const manga = await prisma.manga.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const mangaWithIdOnly = await prisma.manga.findMany({ select: { id: true } })
+   * // Only select the `aniListId`
+   * const mangaWithAniListIdOnly = await prisma.manga.findMany({ select: { aniListId: true } })
    * 
    */
   findMany<T extends MangaFindManyArgs>(args?: Prisma.SelectSubset<T, MangaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -728,9 +964,9 @@ export interface MangaDelegate<ExtArgs extends runtime.Types.Extensions.Internal
    *   ]
    * })
    * 
-   * // Create many Manga and only return the `id`
-   * const mangaWithIdOnly = await prisma.manga.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many Manga and only return the `aniListId`
+   * const mangaWithAniListIdOnly = await prisma.manga.createManyAndReturn({
+   *   select: { aniListId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -819,9 +1055,9 @@ export interface MangaDelegate<ExtArgs extends runtime.Types.Extensions.Internal
    *   ]
    * })
    * 
-   * // Update zero or more Manga and only return the `id`
-   * const mangaWithIdOnly = await prisma.manga.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more Manga and only return the `aniListId`
+   * const mangaWithAniListIdOnly = await prisma.manga.updateManyAndReturn({
+   *   select: { aniListId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -994,6 +1230,7 @@ readonly fields: MangaFieldRefs;
  */
 export interface Prisma__MangaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  userProgresses<T extends Prisma.Manga$userProgressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Manga$userProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1023,15 +1260,18 @@ export interface Prisma__MangaClient<T, Null = never, ExtArgs extends runtime.Ty
  * Fields of the Manga model
  */
 export interface MangaFieldRefs {
-  readonly id: Prisma.FieldRef<"Manga", 'Int'>
+  readonly aniListId: Prisma.FieldRef<"Manga", 'String'>
   readonly artists: Prisma.FieldRef<"Manga", 'String[]'>
   readonly authors: Prisma.FieldRef<"Manga", 'String[]'>
   readonly chapters: Prisma.FieldRef<"Manga", 'Int'>
   readonly coverUrl: Prisma.FieldRef<"Manga", 'String'>
   readonly description: Prisma.FieldRef<"Manga", 'String'>
   readonly genres: Prisma.FieldRef<"Manga", 'String[]'>
+  readonly id: Prisma.FieldRef<"Manga", 'Int'>
   readonly mangaDexId: Prisma.FieldRef<"Manga", 'String'>
+  readonly mangaUpdatesId: Prisma.FieldRef<"Manga", 'String'>
   readonly releaseYear: Prisma.FieldRef<"Manga", 'Int'>
+  readonly status: Prisma.FieldRef<"Manga", 'MangaStatus'>
   readonly title: Prisma.FieldRef<"Manga", 'String'>
   readonly createdAt: Prisma.FieldRef<"Manga", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Manga", 'DateTime'>
@@ -1052,6 +1292,10 @@ export type MangaFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
+  /**
    * Filter, which Manga to fetch.
    */
   where: Prisma.MangaWhereUniqueInput
@@ -1070,6 +1314,10 @@ export type MangaFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
+  /**
    * Filter, which Manga to fetch.
    */
   where: Prisma.MangaWhereUniqueInput
@@ -1087,6 +1335,10 @@ export type MangaFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Manga
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
   /**
    * Filter, which Manga to fetch.
    */
@@ -1136,6 +1388,10 @@ export type MangaFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
+  /**
    * Filter, which Manga to fetch.
    */
   where?: Prisma.MangaWhereInput
@@ -1184,6 +1440,10 @@ export type MangaFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
+  /**
    * Filter, which Manga to fetch.
    */
   where?: Prisma.MangaWhereInput
@@ -1226,6 +1486,10 @@ export type MangaCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Manga
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
   /**
    * The data needed to create a Manga.
    */
@@ -1274,6 +1538,10 @@ export type MangaUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Manga
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
   /**
    * The data needed to update a Manga.
    */
@@ -1341,6 +1609,10 @@ export type MangaUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
+  /**
    * The filter to search for the Manga to update in case it exists.
    */
   where: Prisma.MangaWhereUniqueInput
@@ -1367,6 +1639,10 @@ export type MangaDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
+  /**
    * Filter which Manga to delete.
    */
   where: Prisma.MangaWhereUniqueInput
@@ -1387,6 +1663,30 @@ export type MangaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Manga.userProgresses
+ */
+export type Manga$userProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MangaProgress
+   */
+  select?: Prisma.MangaProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MangaProgress
+   */
+  omit?: Prisma.MangaProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaProgressInclude<ExtArgs> | null
+  where?: Prisma.MangaProgressWhereInput
+  orderBy?: Prisma.MangaProgressOrderByWithRelationInput | Prisma.MangaProgressOrderByWithRelationInput[]
+  cursor?: Prisma.MangaProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MangaProgressScalarFieldEnum | Prisma.MangaProgressScalarFieldEnum[]
+}
+
+/**
  * Manga without action
  */
 export type MangaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1398,4 +1698,8 @@ export type MangaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Manga
    */
   omit?: Prisma.MangaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaInclude<ExtArgs> | null
 }
