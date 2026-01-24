@@ -92,6 +92,33 @@ export const mangasRouter = {
     return { ...manga, userProgress };
   }),
 
+  getRead: protectedProcedure.handler(async ({ context }) => {
+    const progressList = await prisma.mangaProgress.findMany({
+      where: { userId: context.session.user.id, status: "READ" },
+      include: { manga: true },
+    });
+
+    return progressList.map((e) => e.manga);
+  }),
+
+  getReading: protectedProcedure.handler(async ({ context }) => {
+    const progressList = await prisma.mangaProgress.findMany({
+      where: { userId: context.session.user.id, status: { in: ["READING", "TO_READ"] } },
+      include: { manga: true },
+    });
+
+    return progressList.map(({ manga, ...userProgress }) => ({ ...manga, userProgress }));
+  }),
+
+  getAbandoned: protectedProcedure.handler(async ({ context }) => {
+    const progressList = await prisma.mangaProgress.findMany({
+      where: { userId: context.session.user.id, status: "ABANDONED" },
+      include: { manga: true },
+    });
+
+    return progressList.map((e) => e.manga);
+  }),
+
   setLastChapterRead: protectedProcedure
     .input(z.object({ id: z.int(), chapter: z.int().gte(1) }))
     .handler(async ({ input, context }) => {

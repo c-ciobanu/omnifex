@@ -1,3 +1,7 @@
+import { AbandonedMangas } from "@/components/abandoned-mangas";
+import { MangasReadingList } from "@/components/mangas-reading-list";
+import { ReadMangas } from "@/components/read-mangas";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppForm } from "@/hooks/form";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import * as z from "zod";
@@ -45,19 +49,23 @@ function Component() {
         />
       </form>
 
-      {/* <Tabs defaultValue="readingList">
+      <Tabs defaultValue="reading">
         <TabsList>
-          <TabsTrigger value="readingList">Reading List</TabsTrigger>
+          <TabsTrigger value="reading">Reading</TabsTrigger>
+          <TabsTrigger value="abandoned">Abandoned</TabsTrigger>
           <TabsTrigger value="read">Read</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="readingList">
-          <BooksReadingList />
+        <TabsContent value="reading">
+          <MangasReadingList />
+        </TabsContent>
+        <TabsContent value="abandoned">
+          <AbandonedMangas />
         </TabsContent>
         <TabsContent value="read">
-          <ReadBooks />
+          <ReadMangas />
         </TabsContent>
-      </Tabs> */}
+      </Tabs>
     </>
   );
 }
