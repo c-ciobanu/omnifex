@@ -6,6 +6,7 @@ import { MangaStatus, prisma } from "@omnifex/db";
 
 import type { MangaProgressUpdateInput } from "../../../../packages/db/src/generated/models";
 import type { Manga as MangaDexManga } from "../lib/mangaDex";
+import { env } from "../env";
 import { getManga, getMangaLatestChapter, searchMangas } from "../lib/mangaDex";
 import { protectedProcedure, publicProcedure } from "../lib/orpc";
 
@@ -16,10 +17,14 @@ const MANGA_DEX_STATUS_MAP: Record<MangaDexManga["attributes"]["status"], MangaS
   ongoing: MangaStatus.ONGOING,
 };
 
-const mapManga = (manga: Manga, coverSize?: "256" | "512") => ({
-  ...manga,
-  coverUrl: coverSize ? `${manga.coverUrl}.${coverSize}.jpg` : manga.coverUrl,
-});
+const mapManga = (manga: Manga, coverSize?: "256" | "512") => {
+  const mangaDexCoverUrl = coverSize ? `${manga.coverUrl}.${coverSize}.jpg` : manga.coverUrl;
+
+  return {
+    ...manga,
+    coverUrl: `${env.BETTER_AUTH_URL}/proxy/mangadex?url=${mangaDexCoverUrl}`,
+  };
+};
 
 export const mangasRouter = {
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {
@@ -29,7 +34,7 @@ export const mangasRouter = {
       const coverArt = mangaDexManga.relationships.find((e) => e.type === "cover_art");
 
       const coverUrl = coverArt?.attributes
-        ? `https://uploads.mangadex.org/covers/${mangaDexManga.id}/${coverArt.attributes.fileName}.256.jpg`
+        ? `${env.BETTER_AUTH_URL}/proxy/mangadex?url=https://uploads.mangadex.org/covers/${mangaDexManga.id}/${coverArt.attributes.fileName}.256.jpg`
         : undefined;
 
       return {
@@ -95,7 +100,7 @@ export const mangasRouter = {
       ? await prisma.mangaProgress.findFirst({ where: { userId: context.session.user.id, mangaId: manga.id } })
       : null;
 
-    return { ...manga, userProgress };
+    return { ...mapManga(manga, "512"), userProgress };
   }),
 
   getRead: protectedProcedure.handler(async ({ context }) => {
