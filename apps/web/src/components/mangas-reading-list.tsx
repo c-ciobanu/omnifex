@@ -2,7 +2,7 @@ import type { OrpcClientOutputs } from "@/utils/orpc";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { BookOpenIcon } from "lucide-react";
+import { BookOpenIcon, CircleCheckBigIcon } from "lucide-react";
 
 import { Spinner } from "./ui/spinner";
 
@@ -32,6 +32,10 @@ function MangasGrid({ mangas }: MangasGridProps) {
                 <BookOpenIcon className="size-4" />
                 {chaptersLeftToRead}
               </div>
+
+              {manga.status === "ENDED" ? (
+                <CircleCheckBigIcon className="absolute right-2 bottom-2 size-5 text-green-500" />
+              ) : null}
 
               <div className="absolute inset-0 bg-linear-to-t from-black/70 to-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div className="absolute top-2 left-2 text-sm text-white">
