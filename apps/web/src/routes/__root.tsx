@@ -348,7 +348,7 @@ function Component() {
           </div>
         </footer>
 
-        <Toaster position="top-center" richColors />
+        <Toaster position="bottom-center" richColors closeButton />
       </ThemeProvider>
 
       <TanStackRouterDevtools position="bottom-left" />
