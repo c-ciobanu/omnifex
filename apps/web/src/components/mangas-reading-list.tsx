@@ -1,16 +1,15 @@
+import type { OrpcClientOutputs } from "@/utils/orpc";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
 import { Spinner } from "./ui/spinner";
 
-export function MangasReadingList() {
-  const { data: mangas, isLoading } = useQuery(orpc.mangas.getReading.queryOptions());
+interface MangasGridProps {
+  mangas: OrpcClientOutputs["mangas"]["getReading"];
+}
 
-  if (isLoading || !mangas) {
-    return <Spinner />;
-  }
-
+function MangasGrid({ mangas }: MangasGridProps) {
   return (
     <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-6">
       {mangas.map((manga) => (
@@ -36,5 +35,34 @@ export function MangasReadingList() {
         </li>
       ))}
     </ul>
+  );
+}
+
+export function MangasReadingList() {
+  const { data: mangas, isLoading } = useQuery(orpc.mangas.getReading.queryOptions());
+
+  if (isLoading || !mangas) {
+    return <Spinner />;
+  }
+
+  const readingMangas = mangas.filter((e) => e.userProgress.lastChapterRead !== null);
+  const toReadMangas = mangas.filter((e) => e.userProgress.lastChapterRead === null);
+
+  return (
+    <div className="space-y-4">
+      {readingMangas.length > 0 ? (
+        <>
+          <h2 className="text-3xl font-bold">Reading</h2>
+          <MangasGrid mangas={readingMangas} />
+        </>
+      ) : null}
+
+      {toReadMangas.length > 0 ? (
+        <>
+          <h2 className="text-3xl font-bold">To Read</h2>
+          <MangasGrid mangas={toReadMangas} />
+        </>
+      ) : null}
+    </div>
   );
 }
