@@ -12,12 +12,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createRootRouteWithContext, HeadContent, Link, linkOptions, Outlet, useRouter } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Link,
+  linkOptions,
+  Outlet,
+  useLocation,
+  useMatchRoute,
+  useRouter,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { FrownIcon, MenuIcon, SmileIcon, XIcon } from "lucide-react";
 
@@ -35,6 +52,32 @@ const authenticatedNavigation = linkOptions([
   { to: "/invoices", label: "Invoices" },
   { to: "/tools/pomodoro", label: "Pomodoro Timer" },
 ]);
+
+const desktopAuthenticatedNavigation = [
+  linkOptions({ to: "/dashboard", label: "Dashboard" }),
+  {
+    section: "Media",
+    links: linkOptions([
+      { to: "/movies", label: "Movies" },
+      { to: "/shows", label: "Shows" },
+      { to: "/books", label: "Books" },
+      { to: "/mangas", label: "Mangas" },
+    ]),
+  },
+  linkOptions({ to: "/documents", label: "Documents" }),
+  linkOptions({ to: "/files", label: "Files" }),
+  linkOptions({ to: "/metrics", label: "Metrics" }),
+  {
+    section: "Lists",
+    links: linkOptions([
+      { to: "/to-do-lists", label: "To Do" },
+      { to: "/shopping-lists", label: "Shopping" },
+    ]),
+  },
+  linkOptions({ to: "/invoices", label: "Invoices" }),
+  linkOptions({ to: "/tools/pomodoro", label: "Pomodoro Timer" }),
+];
+
 const guestNavigation = linkOptions([
   { to: "/search/movies", label: "Search Movies" },
   { to: "/search/shows", label: "Search Shows" },
@@ -63,14 +106,15 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
 function Component() {
   const router = useRouter();
+  const location = useLocation();
+  const matchRoute = useMatchRoute();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: session } = authClient.useSession();
 
   const navigationLinks = session ? authenticatedNavigation : guestNavigation;
   const menuLinks = session ? authenticatedMenu : guestMenu;
-
-  const isInvoicePreviewPage = router.matchRoute({ to: "/invoices/$id/preview" }) !== false;
 
   async function signOut() {
     await authClient.signOut({
@@ -83,6 +127,7 @@ function Component() {
     });
   }
 
+  const isInvoicePreviewPage = matchRoute({ to: "/invoices/$id/preview" }) !== false;
   if (isInvoicePreviewPage) {
     return <Outlet />;
   }
@@ -101,16 +146,63 @@ function Component() {
                 </Link>
 
                 <div className="ml-10 hidden items-baseline space-x-4 md:flex">
-                  {navigationLinks.map((navigationLink) => (
-                    <Link
-                      {...navigationLink}
-                      key={navigationLink.to}
-                      className={cn(buttonVariants({ variant: "ghost" }), "text-gray-300")}
-                      activeProps={{ className: cn(buttonVariants({ variant: "ghost" }), "bg-gray-900 text-white") }}
-                    >
-                      {navigationLink.label}
-                    </Link>
-                  ))}
+                  {session ? (
+                    <NavigationMenu viewport={false}>
+                      <NavigationMenuList>
+                        {desktopAuthenticatedNavigation.map((e) =>
+                          "section" in e ? (
+                            <NavigationMenuItem key={e.section}>
+                              <NavigationMenuTrigger
+                                className={cn(
+                                  buttonVariants({ variant: "ghost" }),
+                                  "bg-transparent text-gray-300",
+                                  e.links.some((item) => location.pathname.startsWith(item.to)) &&
+                                    "bg-gray-900 text-white",
+                                )}
+                              >
+                                {e.section}
+                              </NavigationMenuTrigger>
+
+                              <NavigationMenuContent className="z-50">
+                                <div className="w-40">
+                                  {e.links.map((item) => (
+                                    <NavigationMenuLink key={item.to} asChild>
+                                      <Link {...item} activeProps={{ className: "bg-gray-900 text-white" }}>
+                                        {item.label}
+                                      </Link>
+                                    </NavigationMenuLink>
+                                  ))}
+                                </div>
+                              </NavigationMenuContent>
+                            </NavigationMenuItem>
+                          ) : (
+                            <NavigationMenuItem key={e.to}>
+                              <Link
+                                {...e}
+                                className={cn(buttonVariants({ variant: "ghost" }), "text-gray-300")}
+                                activeProps={{
+                                  className: cn(buttonVariants({ variant: "ghost" }), "bg-gray-900 text-white"),
+                                }}
+                              >
+                                {e.label}
+                              </Link>
+                            </NavigationMenuItem>
+                          ),
+                        )}
+                      </NavigationMenuList>
+                    </NavigationMenu>
+                  ) : (
+                    guestNavigation.map((navigationLink) => (
+                      <Link
+                        {...navigationLink}
+                        key={navigationLink.to}
+                        className={cn(buttonVariants({ variant: "ghost" }), "text-gray-300")}
+                        activeProps={{ className: cn(buttonVariants({ variant: "ghost" }), "bg-gray-900 text-white") }}
+                      >
+                        {navigationLink.label}
+                      </Link>
+                    ))
+                  )}
                 </div>
               </div>
 

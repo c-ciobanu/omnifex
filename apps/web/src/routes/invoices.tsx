@@ -64,7 +64,7 @@ function Component() {
                   <DropdownMenuItem
                     onClick={() =>
                       window.open(
-                        router.buildLocation({ to: "/invoices/$id/preview", params: { id: invoice.id } }).url,
+                        router.buildLocation({ to: "/invoices/$id/preview", params: { id: invoice.id } }).href,
                         "_blank",
                       )
                     }

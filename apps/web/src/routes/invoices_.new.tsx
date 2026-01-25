@@ -32,7 +32,7 @@ function Component() {
 
     setInvoices((state) => state.concat([invoice]));
 
-    window.open(router.buildLocation({ to: "/invoices/$id/preview", params: { id: newId } }).url, "_blank");
+    window.open(router.buildLocation({ to: "/invoices/$id/preview", params: { id: newId } }).href, "_blank");
     await navigate({ to: "/invoices/$id", params: { id: newId } });
   };
 

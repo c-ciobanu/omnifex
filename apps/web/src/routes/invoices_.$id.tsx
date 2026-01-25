@@ -38,7 +38,7 @@ function Component() {
         <Button
           variant="outline"
           onClick={() =>
-            window.open(router.buildLocation({ to: "/invoices/$id/preview", params: { id } }).url, "_blank")
+            window.open(router.buildLocation({ to: "/invoices/$id/preview", params: { id } }).href, "_blank")
           }
         >
           <PrinterIcon />
