@@ -25,7 +25,6 @@ import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ToolsPomodoroRouteImport } from './routes/tools.pomodoro'
 import { Route as ToDoListsIdRouteImport } from './routes/to-do-lists_.$id'
 import { Route as ShowsTmdbIdRouteImport } from './routes/shows_.$tmdbId'
 import { Route as ShoppingListsIdRouteImport } from './routes/shopping-lists_.$id'
@@ -122,11 +121,6 @@ const BooksRoute = BooksRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ToolsPomodoroRoute = ToolsPomodoroRouteImport.update({
-  id: '/tools/pomodoro',
-  path: '/tools/pomodoro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToDoListsIdRoute = ToDoListsIdRouteImport.update({
@@ -248,7 +242,6 @@ export interface FileRoutesByFullPath {
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists/$id': typeof ToDoListsIdRoute
-  '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
@@ -284,7 +277,6 @@ export interface FileRoutesByTo {
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists/$id': typeof ToDoListsIdRoute
-  '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
@@ -321,7 +313,6 @@ export interface FileRoutesById {
   '/shopping-lists_/$id': typeof ShoppingListsIdRoute
   '/shows_/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists_/$id': typeof ToDoListsIdRoute
-  '/tools/pomodoro': typeof ToolsPomodoroRoute
   '/invoices_/$id_/preview': typeof InvoicesIdPreviewRoute
   '/shows_/$tmdbId_/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
@@ -359,7 +350,6 @@ export interface FileRouteTypes {
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/to-do-lists/$id'
-    | '/tools/pomodoro'
     | '/invoices/$id/preview'
     | '/shows/$tmdbId/seasons/$number'
   fileRoutesByTo: FileRoutesByTo
@@ -395,7 +385,6 @@ export interface FileRouteTypes {
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/to-do-lists/$id'
-    | '/tools/pomodoro'
     | '/invoices/$id/preview'
     | '/shows/$tmdbId/seasons/$number'
   id:
@@ -431,7 +420,6 @@ export interface FileRouteTypes {
     | '/shopping-lists_/$id'
     | '/shows_/$tmdbId'
     | '/to-do-lists_/$id'
-    | '/tools/pomodoro'
     | '/invoices_/$id_/preview'
     | '/shows_/$tmdbId_/seasons/$number'
   fileRoutesById: FileRoutesById
@@ -468,7 +456,6 @@ export interface RootRouteChildren {
   ShoppingListsIdRoute: typeof ShoppingListsIdRoute
   ShowsTmdbIdRoute: typeof ShowsTmdbIdRoute
   ToDoListsIdRoute: typeof ToDoListsIdRoute
-  ToolsPomodoroRoute: typeof ToolsPomodoroRoute
   InvoicesIdPreviewRoute: typeof InvoicesIdPreviewRoute
   ShowsTmdbIdSeasonsNumberRoute: typeof ShowsTmdbIdSeasonsNumberRoute
 }
@@ -585,13 +572,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tools/pomodoro': {
-      id: '/tools/pomodoro'
-      path: '/tools/pomodoro'
-      fullPath: '/tools/pomodoro'
-      preLoaderRoute: typeof ToolsPomodoroRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/to-do-lists_/$id': {
@@ -748,7 +728,6 @@ const rootRouteChildren: RootRouteChildren = {
   ShoppingListsIdRoute: ShoppingListsIdRoute,
   ShowsTmdbIdRoute: ShowsTmdbIdRoute,
   ToDoListsIdRoute: ToDoListsIdRoute,
-  ToolsPomodoroRoute: ToolsPomodoroRoute,
   InvoicesIdPreviewRoute: InvoicesIdPreviewRoute,
   ShowsTmdbIdSeasonsNumberRoute: ShowsTmdbIdSeasonsNumberRoute,
 }

@@ -50,7 +50,6 @@ const authenticatedNavigation = linkOptions([
   { to: "/to-do-lists", label: "To Do Lists" },
   { to: "/shopping-lists", label: "Shopping Lists" },
   { to: "/invoices", label: "Invoices" },
-  { to: "/tools/pomodoro", label: "Pomodoro Timer" },
 ]);
 
 const desktopAuthenticatedNavigation = [
@@ -75,7 +74,6 @@ const desktopAuthenticatedNavigation = [
     ]),
   },
   linkOptions({ to: "/invoices", label: "Invoices" }),
-  linkOptions({ to: "/tools/pomodoro", label: "Pomodoro Timer" }),
 ];
 
 const guestNavigation = linkOptions([
@@ -84,7 +82,6 @@ const guestNavigation = linkOptions([
   { to: "/search/books", label: "Search Books" },
   { to: "/search/mangas", label: "Search Mangas" },
   { to: "/invoices", label: "Invoices" },
-  { to: "/tools/pomodoro", label: "Pomodoro Timer" },
 ]);
 
 const authenticatedMenu = linkOptions([{ to: "/settings", label: "Settings" }]);
@@ -323,17 +320,6 @@ function Component() {
             Icons by{" "}
             <a href="https://icons8.com" target="_blank" rel="noreferrer">
               Icons8
-            </a>
-          </p>
-
-          <p>
-            Sound effects from{" "}
-            <a
-              href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Pixabay
             </a>
           </p>
 
