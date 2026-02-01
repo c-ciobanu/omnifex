@@ -32,7 +32,6 @@ import {
   linkOptions,
   Outlet,
   useLocation,
-  useMatchRoute,
   useRouter,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
@@ -49,7 +48,6 @@ const authenticatedNavigation = linkOptions([
   { to: "/metrics", label: "Metrics" },
   { to: "/to-do-lists", label: "To Do Lists" },
   { to: "/shopping-lists", label: "Shopping Lists" },
-  { to: "/invoices", label: "Invoices" },
 ]);
 
 const desktopAuthenticatedNavigation = [
@@ -73,7 +71,6 @@ const desktopAuthenticatedNavigation = [
       { to: "/shopping-lists", label: "Shopping" },
     ]),
   },
-  linkOptions({ to: "/invoices", label: "Invoices" }),
 ];
 
 const guestNavigation = linkOptions([
@@ -81,7 +78,6 @@ const guestNavigation = linkOptions([
   { to: "/search/shows", label: "Search Shows" },
   { to: "/search/books", label: "Search Books" },
   { to: "/search/mangas", label: "Search Mangas" },
-  { to: "/invoices", label: "Invoices" },
 ]);
 
 const authenticatedMenu = linkOptions([{ to: "/settings", label: "Settings" }]);
@@ -104,7 +100,6 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 function Component() {
   const router = useRouter();
   const location = useLocation();
-  const matchRoute = useMatchRoute();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -122,11 +117,6 @@ function Component() {
         },
       },
     });
-  }
-
-  const isInvoicePreviewPage = matchRoute({ to: "/invoices/$id/preview" }) !== false;
-  if (isInvoicePreviewPage) {
-    return <Outlet />;
   }
 
   return (

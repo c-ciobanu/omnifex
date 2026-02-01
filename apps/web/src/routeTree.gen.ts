@@ -19,7 +19,6 @@ import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
 import { Route as MangasRouteImport } from './routes/mangas'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as InvoicesRouteImport } from './routes/invoices'
 import { Route as FilesRouteImport } from './routes/files'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -36,11 +35,8 @@ import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
 import { Route as MetricsIdRouteImport } from './routes/metrics_.$id'
 import { Route as MangasMangaDexIdRouteImport } from './routes/mangas_.$mangaDexId'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
-import { Route as InvoicesNewRouteImport } from './routes/invoices_.new'
-import { Route as InvoicesIdRouteImport } from './routes/invoices_.$id'
 import { Route as DocumentsIdRouteImport } from './routes/documents_.$id'
 import { Route as BooksGoogleIdRouteImport } from './routes/books_.$googleId'
-import { Route as InvoicesIdPreviewRouteImport } from './routes/invoices_.$id_.preview'
 import { Route as ShowsTmdbIdSeasonsNumberRouteImport } from './routes/shows_.$tmdbId_.seasons.$number'
 
 const WorkoutsRoute = WorkoutsRouteImport.update({
@@ -91,11 +87,6 @@ const MangasRoute = MangasRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InvoicesRoute = InvoicesRouteImport.update({
-  id: '/invoices',
-  path: '/invoices',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FilesRoute = FilesRouteImport.update({
@@ -178,16 +169,6 @@ const LoginDemoRoute = LoginDemoRouteImport.update({
   path: '/login/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InvoicesNewRoute = InvoicesNewRouteImport.update({
-  id: '/invoices_/new',
-  path: '/invoices/new',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InvoicesIdRoute = InvoicesIdRouteImport.update({
-  id: '/invoices_/$id',
-  path: '/invoices/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DocumentsIdRoute = DocumentsIdRouteImport.update({
   id: '/documents_/$id',
   path: '/documents/$id',
@@ -196,11 +177,6 @@ const DocumentsIdRoute = DocumentsIdRouteImport.update({
 const BooksGoogleIdRoute = BooksGoogleIdRouteImport.update({
   id: '/books_/$googleId',
   path: '/books/$googleId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InvoicesIdPreviewRoute = InvoicesIdPreviewRouteImport.update({
-  id: '/invoices_/$id_/preview',
-  path: '/invoices/$id/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShowsTmdbIdSeasonsNumberRoute =
@@ -216,7 +192,6 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
   '/files': typeof FilesRoute
-  '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
   '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
@@ -229,8 +204,6 @@ export interface FileRoutesByFullPath {
   '/workouts': typeof WorkoutsRoute
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
-  '/invoices/$id': typeof InvoicesIdRoute
-  '/invoices/new': typeof InvoicesNewRoute
   '/login/demo': typeof LoginDemoRoute
   '/mangas/$mangaDexId': typeof MangasMangaDexIdRoute
   '/metrics/$id': typeof MetricsIdRoute
@@ -242,7 +215,6 @@ export interface FileRoutesByFullPath {
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists/$id': typeof ToDoListsIdRoute
-  '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRoutesByTo {
@@ -251,7 +223,6 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
   '/files': typeof FilesRoute
-  '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
   '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
@@ -264,8 +235,6 @@ export interface FileRoutesByTo {
   '/workouts': typeof WorkoutsRoute
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
-  '/invoices/$id': typeof InvoicesIdRoute
-  '/invoices/new': typeof InvoicesNewRoute
   '/login/demo': typeof LoginDemoRoute
   '/mangas/$mangaDexId': typeof MangasMangaDexIdRoute
   '/metrics/$id': typeof MetricsIdRoute
@@ -277,7 +246,6 @@ export interface FileRoutesByTo {
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists/$id': typeof ToDoListsIdRoute
-  '/invoices/$id/preview': typeof InvoicesIdPreviewRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRoutesById {
@@ -287,7 +255,6 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
   '/files': typeof FilesRoute
-  '/invoices': typeof InvoicesRoute
   '/login': typeof LoginRoute
   '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
@@ -300,8 +267,6 @@ export interface FileRoutesById {
   '/workouts': typeof WorkoutsRoute
   '/books_/$googleId': typeof BooksGoogleIdRoute
   '/documents_/$id': typeof DocumentsIdRoute
-  '/invoices_/$id': typeof InvoicesIdRoute
-  '/invoices_/new': typeof InvoicesNewRoute
   '/login_/demo': typeof LoginDemoRoute
   '/mangas_/$mangaDexId': typeof MangasMangaDexIdRoute
   '/metrics_/$id': typeof MetricsIdRoute
@@ -313,7 +278,6 @@ export interface FileRoutesById {
   '/shopping-lists_/$id': typeof ShoppingListsIdRoute
   '/shows_/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists_/$id': typeof ToDoListsIdRoute
-  '/invoices_/$id_/preview': typeof InvoicesIdPreviewRoute
   '/shows_/$tmdbId_/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRouteTypes {
@@ -324,7 +288,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/documents'
     | '/files'
-    | '/invoices'
     | '/login'
     | '/mangas'
     | '/metrics'
@@ -337,8 +300,6 @@ export interface FileRouteTypes {
     | '/workouts'
     | '/books/$googleId'
     | '/documents/$id'
-    | '/invoices/$id'
-    | '/invoices/new'
     | '/login/demo'
     | '/mangas/$mangaDexId'
     | '/metrics/$id'
@@ -350,7 +311,6 @@ export interface FileRouteTypes {
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/to-do-lists/$id'
-    | '/invoices/$id/preview'
     | '/shows/$tmdbId/seasons/$number'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -359,7 +319,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/documents'
     | '/files'
-    | '/invoices'
     | '/login'
     | '/mangas'
     | '/metrics'
@@ -372,8 +331,6 @@ export interface FileRouteTypes {
     | '/workouts'
     | '/books/$googleId'
     | '/documents/$id'
-    | '/invoices/$id'
-    | '/invoices/new'
     | '/login/demo'
     | '/mangas/$mangaDexId'
     | '/metrics/$id'
@@ -385,7 +342,6 @@ export interface FileRouteTypes {
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/to-do-lists/$id'
-    | '/invoices/$id/preview'
     | '/shows/$tmdbId/seasons/$number'
   id:
     | '__root__'
@@ -394,7 +350,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/documents'
     | '/files'
-    | '/invoices'
     | '/login'
     | '/mangas'
     | '/metrics'
@@ -407,8 +362,6 @@ export interface FileRouteTypes {
     | '/workouts'
     | '/books_/$googleId'
     | '/documents_/$id'
-    | '/invoices_/$id'
-    | '/invoices_/new'
     | '/login_/demo'
     | '/mangas_/$mangaDexId'
     | '/metrics_/$id'
@@ -420,7 +373,6 @@ export interface FileRouteTypes {
     | '/shopping-lists_/$id'
     | '/shows_/$tmdbId'
     | '/to-do-lists_/$id'
-    | '/invoices_/$id_/preview'
     | '/shows_/$tmdbId_/seasons/$number'
   fileRoutesById: FileRoutesById
 }
@@ -430,7 +382,6 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRoute
   FilesRoute: typeof FilesRoute
-  InvoicesRoute: typeof InvoicesRoute
   LoginRoute: typeof LoginRoute
   MangasRoute: typeof MangasRoute
   MetricsRoute: typeof MetricsRoute
@@ -443,8 +394,6 @@ export interface RootRouteChildren {
   WorkoutsRoute: typeof WorkoutsRoute
   BooksGoogleIdRoute: typeof BooksGoogleIdRoute
   DocumentsIdRoute: typeof DocumentsIdRoute
-  InvoicesIdRoute: typeof InvoicesIdRoute
-  InvoicesNewRoute: typeof InvoicesNewRoute
   LoginDemoRoute: typeof LoginDemoRoute
   MangasMangaDexIdRoute: typeof MangasMangaDexIdRoute
   MetricsIdRoute: typeof MetricsIdRoute
@@ -456,7 +405,6 @@ export interface RootRouteChildren {
   ShoppingListsIdRoute: typeof ShoppingListsIdRoute
   ShowsTmdbIdRoute: typeof ShowsTmdbIdRoute
   ToDoListsIdRoute: typeof ToDoListsIdRoute
-  InvoicesIdPreviewRoute: typeof InvoicesIdPreviewRoute
   ShowsTmdbIdSeasonsNumberRoute: typeof ShowsTmdbIdSeasonsNumberRoute
 }
 
@@ -530,13 +478,6 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invoices': {
-      id: '/invoices'
-      path: '/invoices'
-      fullPath: '/invoices'
-      preLoaderRoute: typeof InvoicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/files': {
@@ -651,20 +592,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/invoices_/new': {
-      id: '/invoices_/new'
-      path: '/invoices/new'
-      fullPath: '/invoices/new'
-      preLoaderRoute: typeof InvoicesNewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invoices_/$id': {
-      id: '/invoices_/$id'
-      path: '/invoices/$id'
-      fullPath: '/invoices/$id'
-      preLoaderRoute: typeof InvoicesIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/documents_/$id': {
       id: '/documents_/$id'
       path: '/documents/$id'
@@ -677,13 +604,6 @@ declare module '@tanstack/react-router' {
       path: '/books/$googleId'
       fullPath: '/books/$googleId'
       preLoaderRoute: typeof BooksGoogleIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invoices_/$id_/preview': {
-      id: '/invoices_/$id_/preview'
-      path: '/invoices/$id/preview'
-      fullPath: '/invoices/$id/preview'
-      preLoaderRoute: typeof InvoicesIdPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shows_/$tmdbId_/seasons/$number': {
@@ -702,7 +622,6 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRoute,
   FilesRoute: FilesRoute,
-  InvoicesRoute: InvoicesRoute,
   LoginRoute: LoginRoute,
   MangasRoute: MangasRoute,
   MetricsRoute: MetricsRoute,
@@ -715,8 +634,6 @@ const rootRouteChildren: RootRouteChildren = {
   WorkoutsRoute: WorkoutsRoute,
   BooksGoogleIdRoute: BooksGoogleIdRoute,
   DocumentsIdRoute: DocumentsIdRoute,
-  InvoicesIdRoute: InvoicesIdRoute,
-  InvoicesNewRoute: InvoicesNewRoute,
   LoginDemoRoute: LoginDemoRoute,
   MangasMangaDexIdRoute: MangasMangaDexIdRoute,
   MetricsIdRoute: MetricsIdRoute,
@@ -728,7 +645,6 @@ const rootRouteChildren: RootRouteChildren = {
   ShoppingListsIdRoute: ShoppingListsIdRoute,
   ShowsTmdbIdRoute: ShowsTmdbIdRoute,
   ToDoListsIdRoute: ToDoListsIdRoute,
-  InvoicesIdPreviewRoute: InvoicesIdPreviewRoute,
   ShowsTmdbIdSeasonsNumberRoute: ShowsTmdbIdSeasonsNumberRoute,
 }
 export const routeTree = rootRouteImport
