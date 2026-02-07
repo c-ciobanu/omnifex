@@ -11,7 +11,6 @@ import { Hono } from "hono";
 import { basicAuth } from "hono/basic-auth";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
-import { validator } from "hono/validator";
 
 import { createContext } from "./context";
 import { env } from "./env";
@@ -79,35 +78,6 @@ app.route("/queues/dashboard", bullMQServerAdapter.registerPlugin());
 app.get("/", (c) => {
   return c.text("OK");
 });
-
-app.get(
-  "/proxy/mangadex",
-  validator("query", (value, c) => {
-    const { url } = value;
-
-    if (!url || typeof url !== "string") {
-      return c.text("url query param is required", 400);
-    }
-
-    return { url };
-  }),
-  async (c) => {
-    const { url } = c.req.valid("query");
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      return c.notFound();
-    }
-
-    const imageBuffer = await response.arrayBuffer();
-
-    return c.body(imageBuffer, 200, {
-      "Content-Type": response.headers.get("content-type") ?? "image/jpeg",
-      "Cache-Control": "public, max-age=604800",
-    });
-  },
-);
 
 serve({ fetch: app.fetch, port: 3000 }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`);
