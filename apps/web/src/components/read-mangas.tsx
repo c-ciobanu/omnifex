@@ -15,7 +15,7 @@ export function ReadMangas() {
     <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
       {mangas.map((manga) => (
         <li key={manga.id}>
-          <Link to="/mangas/$mangaDexId" params={{ mangaDexId: manga.mangaDexId }} title={manga.title}>
+          <Link to="/mangas/$mangaUpdatesId" params={{ mangaUpdatesId: manga.mangaUpdatesId }} title={manga.title}>
             <img src={manga.coverUrl} alt={`${manga.title} cover`} className="h-full w-full" />
           </Link>
         </li>

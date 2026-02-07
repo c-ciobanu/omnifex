@@ -7,3 +7,4 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 export const prisma = new PrismaClient({ adapter });
 
 export * from "./generated/client";
+export * from "./generated/models";

@@ -33,7 +33,7 @@ import { Route as SearchMangasRouteImport } from './routes/search.mangas'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
 import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
 import { Route as MetricsIdRouteImport } from './routes/metrics_.$id'
-import { Route as MangasMangaDexIdRouteImport } from './routes/mangas_.$mangaDexId'
+import { Route as MangasMangaUpdatesIdRouteImport } from './routes/mangas_.$mangaUpdatesId'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
 import { Route as DocumentsIdRouteImport } from './routes/documents_.$id'
 import { Route as BooksGoogleIdRouteImport } from './routes/books_.$googleId'
@@ -159,9 +159,9 @@ const MetricsIdRoute = MetricsIdRouteImport.update({
   path: '/metrics/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MangasMangaDexIdRoute = MangasMangaDexIdRouteImport.update({
-  id: '/mangas_/$mangaDexId',
-  path: '/mangas/$mangaDexId',
+const MangasMangaUpdatesIdRoute = MangasMangaUpdatesIdRouteImport.update({
+  id: '/mangas_/$mangaUpdatesId',
+  path: '/mangas/$mangaUpdatesId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginDemoRoute = LoginDemoRouteImport.update({
@@ -205,7 +205,7 @@ export interface FileRoutesByFullPath {
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/login/demo': typeof LoginDemoRoute
-  '/mangas/$mangaDexId': typeof MangasMangaDexIdRoute
+  '/mangas/$mangaUpdatesId': typeof MangasMangaUpdatesIdRoute
   '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
@@ -236,7 +236,7 @@ export interface FileRoutesByTo {
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/login/demo': typeof LoginDemoRoute
-  '/mangas/$mangaDexId': typeof MangasMangaDexIdRoute
+  '/mangas/$mangaUpdatesId': typeof MangasMangaUpdatesIdRoute
   '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
@@ -268,7 +268,7 @@ export interface FileRoutesById {
   '/books_/$googleId': typeof BooksGoogleIdRoute
   '/documents_/$id': typeof DocumentsIdRoute
   '/login_/demo': typeof LoginDemoRoute
-  '/mangas_/$mangaDexId': typeof MangasMangaDexIdRoute
+  '/mangas_/$mangaUpdatesId': typeof MangasMangaUpdatesIdRoute
   '/metrics_/$id': typeof MetricsIdRoute
   '/movies_/$tmdbId': typeof MoviesTmdbIdRoute
   '/search/books': typeof SearchBooksRoute
@@ -301,7 +301,7 @@ export interface FileRouteTypes {
     | '/books/$googleId'
     | '/documents/$id'
     | '/login/demo'
-    | '/mangas/$mangaDexId'
+    | '/mangas/$mangaUpdatesId'
     | '/metrics/$id'
     | '/movies/$tmdbId'
     | '/search/books'
@@ -332,7 +332,7 @@ export interface FileRouteTypes {
     | '/books/$googleId'
     | '/documents/$id'
     | '/login/demo'
-    | '/mangas/$mangaDexId'
+    | '/mangas/$mangaUpdatesId'
     | '/metrics/$id'
     | '/movies/$tmdbId'
     | '/search/books'
@@ -363,7 +363,7 @@ export interface FileRouteTypes {
     | '/books_/$googleId'
     | '/documents_/$id'
     | '/login_/demo'
-    | '/mangas_/$mangaDexId'
+    | '/mangas_/$mangaUpdatesId'
     | '/metrics_/$id'
     | '/movies_/$tmdbId'
     | '/search/books'
@@ -395,7 +395,7 @@ export interface RootRouteChildren {
   BooksGoogleIdRoute: typeof BooksGoogleIdRoute
   DocumentsIdRoute: typeof DocumentsIdRoute
   LoginDemoRoute: typeof LoginDemoRoute
-  MangasMangaDexIdRoute: typeof MangasMangaDexIdRoute
+  MangasMangaUpdatesIdRoute: typeof MangasMangaUpdatesIdRoute
   MetricsIdRoute: typeof MetricsIdRoute
   MoviesTmdbIdRoute: typeof MoviesTmdbIdRoute
   SearchBooksRoute: typeof SearchBooksRoute
@@ -578,11 +578,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MetricsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mangas_/$mangaDexId': {
-      id: '/mangas_/$mangaDexId'
-      path: '/mangas/$mangaDexId'
-      fullPath: '/mangas/$mangaDexId'
-      preLoaderRoute: typeof MangasMangaDexIdRouteImport
+    '/mangas_/$mangaUpdatesId': {
+      id: '/mangas_/$mangaUpdatesId'
+      path: '/mangas/$mangaUpdatesId'
+      fullPath: '/mangas/$mangaUpdatesId'
+      preLoaderRoute: typeof MangasMangaUpdatesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login_/demo': {
@@ -635,7 +635,7 @@ const rootRouteChildren: RootRouteChildren = {
   BooksGoogleIdRoute: BooksGoogleIdRoute,
   DocumentsIdRoute: DocumentsIdRoute,
   LoginDemoRoute: LoginDemoRoute,
-  MangasMangaDexIdRoute: MangasMangaDexIdRoute,
+  MangasMangaUpdatesIdRoute: MangasMangaUpdatesIdRoute,
   MetricsIdRoute: MetricsIdRoute,
   MoviesTmdbIdRoute: MoviesTmdbIdRoute,
   SearchBooksRoute: SearchBooksRoute,

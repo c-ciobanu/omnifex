@@ -88,7 +88,9 @@ export function MangaActions({ manga }: Props) {
   const [isChapterNumberDialogFormOpen, setIsChapterNumberDialogFormOpen] = useState(false);
 
   function onSuccess() {
-    void queryClient.invalidateQueries(orpc.mangas.get.queryOptions({ input: { mangaDexId: manga.mangaDexId } }));
+    void queryClient.invalidateQueries(
+      orpc.mangas.get.queryOptions({ input: { mangaUpdatesId: manga.mangaUpdatesId } }),
+    );
   }
 
   const setLastChapterReadMutation = useMutation(

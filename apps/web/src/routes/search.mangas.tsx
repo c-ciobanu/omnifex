@@ -3,7 +3,6 @@ import { useAppForm } from "@/hooks/form";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
-import Markdown from "react-markdown";
 import * as z from "zod";
 
 export const Route = createFileRoute("/search/mangas")({
@@ -28,10 +27,10 @@ function MangasGrid({ title }: MangasGridProps) {
     <ul className="grid grid-cols-1 divide-y divide-white sm:grid-cols-2 sm:divide-none lg:grid-cols-3">
       {mangas.map((manga) => {
         return (
-          <li key={manga.mangaDexId}>
+          <li key={manga.mangaUpdatesId}>
             <Link
-              to="/mangas/$mangaDexId"
-              params={{ mangaDexId: manga.mangaDexId }}
+              to="/mangas/$mangaUpdatesId"
+              params={{ mangaUpdatesId: manga.mangaUpdatesId }}
               title={manga.title}
               className="grid grid-cols-[128px_1fr] gap-6 py-6 hover:bg-gray-100"
             >
@@ -39,9 +38,7 @@ function MangasGrid({ title }: MangasGridProps) {
               <div>
                 <p>{manga.title}</p>
                 <p className="text-gray-500">{manga.releaseYear}</p>
-                <p className="line-clamp-3 text-sm text-gray-500 sm:line-clamp-4">
-                  <Markdown>{manga.description}</Markdown>
-                </p>
+                <p className="line-clamp-3 text-sm text-gray-500 sm:line-clamp-4">{manga.description}</p>
               </div>
             </Link>
           </li>

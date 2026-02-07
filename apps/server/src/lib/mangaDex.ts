@@ -107,7 +107,7 @@ interface Chapter {
 
 const baseUrl = "https://api.mangadex.org";
 
-export const searchMangas = async ({ title }: { title: string }) => {
+export const searchMangas = async (title: string) => {
   const response = await fetch(`${baseUrl}/manga?limit=20&includes[]=cover_art&title=${title}&order[relevance]=desc`);
 
   const json = (await response.json()) as PaginatedResponse<Manga[]>;
@@ -127,8 +127,6 @@ export const getMangaLatestChapter = async (id: string) => {
   const response = await fetch(`${baseUrl}/chapter?manga=${id}&limit=1&order[chapter]=desc`);
 
   const json = (await response.json()) as PaginatedResponse<Chapter[]>;
-
-  console.log(json.data[0]?.attributes);
 
   return json.data[0];
 };

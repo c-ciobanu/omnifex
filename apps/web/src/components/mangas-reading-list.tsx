@@ -21,8 +21,8 @@ function MangasGrid({ mangas }: MangasGridProps) {
         return (
           <li key={manga.id}>
             <Link
-              to="/mangas/$mangaDexId"
-              params={{ mangaDexId: manga.mangaDexId }}
+              to="/mangas/$mangaUpdatesId"
+              params={{ mangaUpdatesId: manga.mangaUpdatesId }}
               title={manga.title}
               className="group relative"
             >

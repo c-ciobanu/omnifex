@@ -6,16 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import Markdown from "react-markdown";
 
-export const Route = createFileRoute("/mangas_/$mangaDexId")({
+export const Route = createFileRoute("/mangas_/$mangaUpdatesId")({
   component: Component,
 });
 
 function Component() {
-  const { mangaDexId } = Route.useParams();
+  const { mangaUpdatesId } = Route.useParams();
 
   const { data: session } = authClient.useSession();
 
-  const { data: manga, isLoading } = useQuery(orpc.mangas.get.queryOptions({ input: { mangaDexId } }));
+  const { data: manga, isLoading } = useQuery(orpc.mangas.get.queryOptions({ input: { mangaUpdatesId } }));
 
   if (isLoading || !manga) {
     return <Spinner />;

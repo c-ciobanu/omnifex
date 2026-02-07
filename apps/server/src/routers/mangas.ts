@@ -1,97 +1,86 @@
 import { ORPCError } from "@orpc/server";
 import * as z from "zod";
 
-import type { Manga } from "@omnifex/db";
+import type { MangaProgressUpdateInput } from "@omnifex/db";
 import { MangaStatus, prisma } from "@omnifex/db";
 
-import type { MangaProgressUpdateInput } from "../../../../packages/db/src/generated/models";
-import type { Manga as MangaDexManga } from "../lib/mangaDex";
-import { env } from "../env";
-import { getManga, getMangaLatestChapter, searchMangas } from "../lib/mangaDex";
+import type { MangaBakaStatus } from "../lib/mangaBaka";
+import { getMangaByMangaUpdatesId } from "../lib/mangaBaka";
+import { searchMangas } from "../lib/mangaUpdates";
 import { protectedProcedure, publicProcedure } from "../lib/orpc";
 
-const MANGA_DEX_STATUS_MAP: Record<MangaDexManga["attributes"]["status"], MangaStatus> = {
+const MANGA_BAKA_STATUS_MAP: Record<Exclude<MangaBakaStatus, "unknown">, MangaStatus> = {
   cancelled: MangaStatus.CANCELLED,
   completed: MangaStatus.ENDED,
   hiatus: MangaStatus.ON_HIATUS,
-  ongoing: MangaStatus.ONGOING,
-};
-
-const mapManga = (manga: Manga, coverSize?: "256" | "512") => {
-  const mangaDexCoverUrl = coverSize ? `${manga.coverUrl}.${coverSize}.jpg` : manga.coverUrl;
-
-  return {
-    ...manga,
-    coverUrl: `${env.BETTER_AUTH_URL}/proxy/mangadex?url=${mangaDexCoverUrl}`,
-  };
+  releasing: MangaStatus.ONGOING,
+  upcoming: MangaStatus.ONGOING,
 };
 
 export const mangasRouter = {
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {
-    const mangaDexMangas = await searchMangas({ title: input.title });
+    const mangaUpdatesMangas = await searchMangas(input.title);
 
-    return mangaDexMangas.map((mangaDexManga) => {
-      const coverArt = mangaDexManga.relationships.find((e) => e.type === "cover_art");
+    return mangaUpdatesMangas
+      .map((mangaUpdatesManga) => {
+        const mangaUpdatesId = mangaUpdatesManga.url?.split("/").at(-2);
 
-      const coverUrl = coverArt?.attributes
-        ? `${env.BETTER_AUTH_URL}/proxy/mangadex?url=https://uploads.mangadex.org/covers/${mangaDexManga.id}/${coverArt.attributes.fileName}.256.jpg`
-        : undefined;
+        if (!mangaUpdatesId) {
+          return;
+        }
 
-      return {
-        coverUrl,
-        description: mangaDexManga.attributes.description.en,
-        mangaDexId: mangaDexManga.id,
-        releaseYear: mangaDexManga.attributes.year,
-        title: mangaDexManga.attributes.title["ja-ro"] ?? mangaDexManga.attributes.title.en,
-      };
-    });
+        return {
+          coverUrl: mangaUpdatesManga.image?.url?.original,
+          description: mangaUpdatesManga.description,
+          mangaUpdatesId,
+          releaseYear: mangaUpdatesManga.year,
+          title: mangaUpdatesManga.title,
+        };
+      })
+      .filter((e) => e !== undefined);
   }),
 
-  get: publicProcedure.input(z.object({ mangaDexId: z.string() })).handler(async ({ input, context }) => {
-    let manga = await prisma.manga.findUnique({ where: { mangaDexId: input.mangaDexId } });
+  get: publicProcedure.input(z.object({ mangaUpdatesId: z.string() })).handler(async ({ input, context }) => {
+    const { mangaUpdatesId } = input;
+
+    let manga = await prisma.manga.findUnique({ where: { mangaUpdatesId } });
 
     if (!manga) {
-      const mangaDexManga = await getManga(input.mangaDexId);
+      const [mangaBakaManga, error] = await getMangaByMangaUpdatesId(mangaUpdatesId);
 
-      const coverArt = mangaDexManga.relationships.find((e) => e.type === "cover_art");
-      const coverUrl = coverArt
-        ? `https://uploads.mangadex.org/covers/${mangaDexManga.id}/${coverArt.attributes.fileName}`
-        : undefined;
+      if (error) {
+        throw new ORPCError("CONFLICT", { message: error.message });
+      }
 
-      const genreTags = mangaDexManga.attributes.tags.filter((e) => e.attributes.group === "genre");
-
-      const authors = mangaDexManga.relationships.filter((e) => e.type === "author");
-      const artists = mangaDexManga.relationships.filter((e) => e.type === "artist");
-      const description = mangaDexManga.attributes.description.en;
-      const releaseYear = mangaDexManga.attributes.year;
-      const title = mangaDexManga.attributes.title["ja-ro"] ?? mangaDexManga.attributes.title.en;
-
-      if (!coverUrl || !description || !releaseYear || !title) {
+      if (!mangaBakaManga) {
         throw new ORPCError("NOT_FOUND");
       }
 
-      let chapters = mangaDexManga.attributes.lastChapter ? Number(mangaDexManga.attributes.lastChapter) : undefined;
+      const coverUrl = mangaBakaManga.cover.x350.x1;
+      const description = mangaBakaManga.description;
+      const releaseYear = mangaBakaManga.year;
+      const title = mangaBakaManga.title;
+      const chapters = mangaBakaManga.total_chapters ? Number(mangaBakaManga.total_chapters) : undefined;
 
-      if (!chapters) {
-        const lastChapter = await getMangaLatestChapter(mangaDexManga.id);
-
-        chapters = lastChapter ? Number(lastChapter.attributes.chapter) : 0;
+      if (!chapters || !coverUrl || !description || !releaseYear || !title || mangaBakaManga.status === "unknown") {
+        throw new ORPCError("NOT_FOUND");
       }
 
       manga = await prisma.manga.create({
         data: {
-          aniListId: mangaDexManga.attributes.links?.al,
-          artists: artists.map((e) => e.attributes.name),
-          authors: authors.map((e) => e.attributes.name),
+          aniListId: mangaBakaManga.source.anilist.id ? String(mangaBakaManga.source.anilist.id) : undefined,
+          artists: mangaBakaManga.artists ?? [],
+          authors: mangaBakaManga.authors ?? [],
           chapters,
           coverUrl,
           description,
-          genres: genreTags.map((e) => e.attributes.name.en),
-          mangaDexId: mangaDexManga.id,
-          mangaUpdatesId: mangaDexManga.attributes.links?.mu,
+          genres: mangaBakaManga.genres ?? [],
+          malId: mangaBakaManga.source.my_anime_list.id ? String(mangaBakaManga.source.my_anime_list.id) : undefined,
+          mangaBakaId: String(mangaBakaManga.id),
+          mangaUpdatesId,
           releaseYear,
-          status: MANGA_DEX_STATUS_MAP[mangaDexManga.attributes.status],
-          title,
+          status: MANGA_BAKA_STATUS_MAP[mangaBakaManga.status],
+          title: mangaBakaManga.title,
         },
       });
     }
@@ -100,7 +89,7 @@ export const mangasRouter = {
       ? await prisma.mangaProgress.findFirst({ where: { userId: context.session.user.id, mangaId: manga.id } })
       : null;
 
-    return { ...mapManga(manga, "512"), userProgress };
+    return { ...manga, userProgress };
   }),
 
   getRead: protectedProcedure.handler(async ({ context }) => {
@@ -109,7 +98,7 @@ export const mangasRouter = {
       include: { manga: true },
     });
 
-    return progressList.map((e) => mapManga(e.manga, "256"));
+    return progressList.map((e) => e.manga);
   }),
 
   getReading: protectedProcedure.handler(async ({ context }) => {
@@ -118,7 +107,7 @@ export const mangasRouter = {
       include: { manga: true },
     });
 
-    return progressList.map(({ manga, ...userProgress }) => ({ ...mapManga(manga, "256"), userProgress }));
+    return progressList.map(({ manga, ...userProgress }) => ({ ...manga, userProgress }));
   }),
 
   getAbandoned: protectedProcedure.handler(async ({ context }) => {
@@ -127,7 +116,7 @@ export const mangasRouter = {
       include: { manga: true },
     });
 
-    return progressList.map((e) => mapManga(e.manga, "256"));
+    return progressList.map((e) => e.manga);
   }),
 
   setLastChapterRead: protectedProcedure

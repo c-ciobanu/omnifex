@@ -6,7 +6,7 @@ enum MangaStatus {
 }
 
 model Manga {
-  aniListId      String?
+  aniListId      String?     @unique
   artists        String[]
   authors        String[]
   chapters       Int
@@ -14,8 +14,10 @@ model Manga {
   description    String
   genres         String[]
   id             Int         @id @default(autoincrement())
-  mangaDexId     String      @unique
-  mangaUpdatesId String?
+  mangaBakaId    String?     @unique
+  mangaDexId     String?     @unique
+  mangaUpdatesId String      @unique
+  malId          String?     @unique
   releaseYear    Int
   status         MangaStatus
   title          String
