@@ -14,8 +14,7 @@ model Manga {
   description    String
   genres         String[]
   id             Int         @id @default(autoincrement())
-  mangaBakaId    String?     @unique
-  mangaDexId     String?     @unique
+  mangaBakaId    String      @unique
   mangaUpdatesId String      @unique
   malId          String?     @unique
   releaseYear    Int

@@ -254,7 +254,6 @@ export const MangaScalarFieldEnum = {
   genres: 'genres',
   id: 'id',
   mangaBakaId: 'mangaBakaId',
-  mangaDexId: 'mangaDexId',
   mangaUpdatesId: 'mangaUpdatesId',
   malId: 'malId',
   releaseYear: 'releaseYear',
