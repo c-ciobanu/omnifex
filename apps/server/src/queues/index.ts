@@ -18,4 +18,19 @@ export interface UpdateShowDataType {
 
 export const updateShowQueue = new Queue<UpdateShowDataType>("update-show", defaultQueueOptions);
 
-export const queues = [checkMovieChangesQueue, checkShowChangesQueue, updateMovieQueue, updateShowQueue];
+export const updateMangasQueue = new Queue("update-mangas", defaultQueueOptions);
+
+export interface UpdateMangaDataType {
+  mangaBakaId: string;
+}
+
+export const updateMangaQueue = new Queue<UpdateMangaDataType>("update-manga", defaultQueueOptions);
+
+export const queues = [
+  checkMovieChangesQueue,
+  checkShowChangesQueue,
+  updateMangaQueue,
+  updateMangasQueue,
+  updateMovieQueue,
+  updateShowQueue,
+];

@@ -1,4 +1,4 @@
-import { checkMovieChangesQueue, checkShowChangesQueue } from "../queues";
+import { checkMovieChangesQueue, checkShowChangesQueue, updateMangasQueue } from "../queues";
 
 export async function upsertCronJobs() {
   await checkMovieChangesQueue.upsertJobScheduler("check-movie-changes-scheduler", {
@@ -7,5 +7,9 @@ export async function upsertCronJobs() {
 
   await checkShowChangesQueue.upsertJobScheduler("check-show-changes-scheduler", {
     pattern: "0 2 * * 4", // 02:00 on Thursday
+  });
+
+  await updateMangasQueue.upsertJobScheduler("update-mangas-scheduler", {
+    pattern: "0 2 * * 5", // 02:00 on Friday
   });
 }

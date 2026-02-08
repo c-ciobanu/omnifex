@@ -721,12 +721,19 @@ interface MangaBakaSeries {
   };
 }
 
-interface GetMangaByMangaUpdatesIdResponse {
-  /** @description Included in response when `?with_series=1` is provided. Hidden when `?with_series=0` is set */
-  series?: MangaBakaSeries[];
-}
-
 const baseUrl = "https://api.mangabaka.dev/v1";
+
+export const getManga = async (id: string): Promise<[undefined, Error] | [MangaBakaSeries, undefined]> => {
+  const response = await fetch(`${baseUrl}/series/${id}`);
+
+  if (response.status !== 200) {
+    return [undefined, new Error(response.statusText)];
+  }
+
+  const json = (await response.json()) as { data: MangaBakaSeries };
+
+  return [json.data, undefined];
+};
 
 export const getMangaByMangaUpdatesId = async (
   id: string,
@@ -737,7 +744,7 @@ export const getMangaByMangaUpdatesId = async (
     return [undefined, new Error(response.statusText)];
   }
 
-  const json = (await response.json()) as { data: GetMangaByMangaUpdatesIdResponse };
+  const json = (await response.json()) as { data: { series?: MangaBakaSeries[] } };
 
   return [json.data.series?.[0], undefined];
 };

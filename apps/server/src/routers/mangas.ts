@@ -9,7 +9,7 @@ import { getMangaByMangaUpdatesId } from "../lib/mangaBaka";
 import { searchMangas } from "../lib/mangaUpdates";
 import { protectedProcedure, publicProcedure } from "../lib/orpc";
 
-const MANGA_BAKA_STATUS_MAP: Record<Exclude<MangaBakaStatus, "unknown">, MangaStatus> = {
+export const MANGA_BAKA_STATUS_MAP: Record<Exclude<MangaBakaStatus, "unknown">, MangaStatus> = {
   cancelled: MangaStatus.CANCELLED,
   completed: MangaStatus.ENDED,
   hiatus: MangaStatus.ON_HIATUS,
@@ -80,7 +80,7 @@ export const mangasRouter = {
           mangaUpdatesId,
           releaseYear,
           status: MANGA_BAKA_STATUS_MAP[mangaBakaManga.status],
-          title: mangaBakaManga.title,
+          title,
         },
       });
     }
