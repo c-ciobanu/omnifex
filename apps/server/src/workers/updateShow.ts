@@ -80,6 +80,13 @@ export const updateShowWorker = new Worker<UpdateShowDataType>(
         });
       }
     }
+
+    await prisma.showSeason.deleteMany({
+      where: {
+        showId: show.id,
+        number: { notIn: tmdbSeasons.map((e) => e.season_number) },
+      },
+    });
   },
   defaultWorkerOptions,
 );
