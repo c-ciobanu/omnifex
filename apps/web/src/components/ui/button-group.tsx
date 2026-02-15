@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot as SlotPrimitive } from "radix-ui";
 import { cva } from "class-variance-authority";
 
 const buttonGroupVariants = cva(
@@ -44,7 +44,7 @@ function ButtonGroupText({
 }: React.ComponentProps<"div"> & {
   asChild?: boolean;
 }) {
-  const Comp = asChild ? Slot : "div";
+  const Comp = asChild ? SlotPrimitive.Slot : "div";
 
   return (
     <Comp
