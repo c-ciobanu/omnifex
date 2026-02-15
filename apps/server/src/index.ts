@@ -12,6 +12,8 @@ import { basicAuth } from "hono/basic-auth";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 
+import { decimalSerializer } from "@omnifex/orpc";
+
 import { createContext } from "./context";
 import { env } from "./env";
 import { auth } from "./lib/auth";
@@ -37,6 +39,7 @@ app.use(
 app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 
 const rpcHandler = new RPCHandler(appRouter, {
+  customJsonSerializers: [decimalSerializer],
   interceptors: [
     onError((error) => {
       console.error(error);

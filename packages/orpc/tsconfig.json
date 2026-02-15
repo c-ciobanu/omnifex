@@ -1,0 +1,3 @@
+{
+  "extends": "@omnifex/tsconfig/base.json"
+}

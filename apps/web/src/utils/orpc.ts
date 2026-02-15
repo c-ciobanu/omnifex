@@ -6,6 +6,8 @@ import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+import { decimalSerializer } from "@omnifex/orpc";
+
 import type { AppRouterClient } from "../../../server/src/routers";
 
 export type OrpcClientOutputs = InferClientOutputs<AppRouterClient>;
@@ -33,6 +35,7 @@ export const link = new RPCLink({
       credentials: "include",
     });
   },
+  customJsonSerializers: [decimalSerializer],
   interceptors: [
     onError((error) => {
       if (error instanceof Error) {
