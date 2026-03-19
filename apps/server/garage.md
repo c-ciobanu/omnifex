@@ -1,0 +1,5 @@
+- garage layout assign -z dc1 -c 1G <node_id>
+- garage layout apply --version 1
+- garage bucket create omnifex-bucket
+- garage key create omnifex-app-key
+- garage bucket allow --read --write --owner omnifex-bucket --key omnifex-app-key
