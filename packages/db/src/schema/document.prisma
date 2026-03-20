@@ -11,4 +11,5 @@ model Document {
   userId String
 
   @@unique([userId, title])
+  @@map("document")
 }

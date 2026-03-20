@@ -18,6 +18,8 @@ model Movie {
   updatedAt DateTime @updatedAt
 
   listed MovieListItem[]
+
+  @@map("movie")
 }
 
 enum MovieListType {
@@ -39,6 +41,7 @@ model MovieList {
   movies MovieListItem[]
 
   @@unique([userId, name])
+  @@map("movie-list")
 }
 
 model MovieListItem {
@@ -52,4 +55,5 @@ model MovieListItem {
   movieId Int
 
   @@unique([listId, movieId])
+  @@map("movie-list-item")
 }

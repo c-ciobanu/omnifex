@@ -21,6 +21,8 @@ model Show {
   watchedEpisodes WatchedEpisode[]
   inWatchlist     WatchlistShow[]
   abandoned       AbandonedShow[]
+
+  @@map("show")
 }
 
 model ShowSeason {
@@ -40,6 +42,7 @@ model ShowSeason {
   watchedEpisodes WatchedEpisode[]
 
   @@unique([showId, number])
+  @@map("show-season")
 }
 
 model ShowEpisode {
@@ -62,6 +65,7 @@ model ShowEpisode {
   watched  WatchedEpisode[]
 
   @@unique([seasonId, number])
+  @@map("show-episode")
 }
 
 model WatchlistShow {
@@ -75,6 +79,7 @@ model WatchlistShow {
   showId Int
 
   @@unique([userId, showId])
+  @@map("watchlist-show")
 }
 
 model AbandonedShow {
@@ -88,6 +93,7 @@ model AbandonedShow {
   showId Int
 
   @@unique([userId, showId])
+  @@map("abandoned-show")
 }
 
 model WatchedEpisode {
@@ -105,4 +111,5 @@ model WatchedEpisode {
   episodeId Int
 
   @@unique([userId, episodeId])
+  @@map("watched-episode")
 }

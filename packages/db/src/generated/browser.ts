@@ -102,16 +102,6 @@ export type MovieList = Prisma.MovieListModel
  */
 export type MovieListItem = Prisma.MovieListItemModel
 /**
- * Model BackgroundJob
- * 
- */
-export type BackgroundJob = Prisma.BackgroundJobModel
-/**
- * Model RW_DataMigration
- * 
- */
-export type RW_DataMigration = Prisma.RW_DataMigrationModel
-/**
  * Model ShoppingList
  * 
  */

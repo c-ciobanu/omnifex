@@ -65,8 +65,6 @@ export const ModelName = {
   Movie: 'Movie',
   MovieList: 'MovieList',
   MovieListItem: 'MovieListItem',
-  BackgroundJob: 'BackgroundJob',
-  RW_DataMigration: 'RW_DataMigration',
   ShoppingList: 'ShoppingList',
   ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
@@ -344,34 +342,6 @@ export const MovieListItemScalarFieldEnum = {
 } as const
 
 export type MovieListItemScalarFieldEnum = (typeof MovieListItemScalarFieldEnum)[keyof typeof MovieListItemScalarFieldEnum]
-
-
-export const BackgroundJobScalarFieldEnum = {
-  id: 'id',
-  attempts: 'attempts',
-  handler: 'handler',
-  queue: 'queue',
-  priority: 'priority',
-  runAt: 'runAt',
-  lockedAt: 'lockedAt',
-  lockedBy: 'lockedBy',
-  lastError: 'lastError',
-  failedAt: 'failedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type BackgroundJobScalarFieldEnum = (typeof BackgroundJobScalarFieldEnum)[keyof typeof BackgroundJobScalarFieldEnum]
-
-
-export const RW_DataMigrationScalarFieldEnum = {
-  version: 'version',
-  name: 'name',
-  startedAt: 'startedAt',
-  finishedAt: 'finishedAt'
-} as const
-
-export type RW_DataMigrationScalarFieldEnum = (typeof RW_DataMigrationScalarFieldEnum)[keyof typeof RW_DataMigrationScalarFieldEnum]
 
 
 export const ShoppingListScalarFieldEnum = {

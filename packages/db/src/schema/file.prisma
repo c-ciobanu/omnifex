@@ -12,4 +12,5 @@ model File {
   userId String
 
   @@unique([userId, name])
+  @@map("file")
 }

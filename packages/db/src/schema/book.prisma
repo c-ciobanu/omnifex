@@ -13,6 +13,8 @@ model Book {
   updatedAt DateTime @updatedAt
 
   listed BookListItem[]
+
+  @@map("book")
 }
 
 enum BookListType {
@@ -34,6 +36,7 @@ model BookList {
   books  BookListItem[]
 
   @@unique([userId, name])
+  @@map("book-list")
 }
 
 model BookListItem {
@@ -47,4 +50,5 @@ model BookListItem {
   bookId Int
 
   @@unique([listId, bookId])
+  @@map("book-list-item")
 }

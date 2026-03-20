@@ -406,8 +406,6 @@ export const ModelName = {
   Movie: 'Movie',
   MovieList: 'MovieList',
   MovieListItem: 'MovieListItem',
-  BackgroundJob: 'BackgroundJob',
-  RW_DataMigration: 'RW_DataMigration',
   ShoppingList: 'ShoppingList',
   ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
@@ -440,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "backgroundJob" | "rW_DataMigration" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem" | "workoutTemplate" | "workoutTemplateExercise" | "workoutTemplateExerciseSet" | "workout" | "workoutExercise" | "workoutExerciseSet" | "exercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1699,154 +1697,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MovieListItemCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MovieListItemCountAggregateOutputType> | number
-        }
-      }
-    }
-    BackgroundJob: {
-      payload: Prisma.$BackgroundJobPayload<ExtArgs>
-      fields: Prisma.BackgroundJobFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.BackgroundJobFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.BackgroundJobFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>
-        }
-        findFirst: {
-          args: Prisma.BackgroundJobFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.BackgroundJobFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>
-        }
-        findMany: {
-          args: Prisma.BackgroundJobFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>[]
-        }
-        create: {
-          args: Prisma.BackgroundJobCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>
-        }
-        createMany: {
-          args: Prisma.BackgroundJobCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.BackgroundJobCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>[]
-        }
-        delete: {
-          args: Prisma.BackgroundJobDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>
-        }
-        update: {
-          args: Prisma.BackgroundJobUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>
-        }
-        deleteMany: {
-          args: Prisma.BackgroundJobDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.BackgroundJobUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.BackgroundJobUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>[]
-        }
-        upsert: {
-          args: Prisma.BackgroundJobUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BackgroundJobPayload>
-        }
-        aggregate: {
-          args: Prisma.BackgroundJobAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBackgroundJob>
-        }
-        groupBy: {
-          args: Prisma.BackgroundJobGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BackgroundJobGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.BackgroundJobCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.BackgroundJobCountAggregateOutputType> | number
-        }
-      }
-    }
-    RW_DataMigration: {
-      payload: Prisma.$RW_DataMigrationPayload<ExtArgs>
-      fields: Prisma.RW_DataMigrationFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RW_DataMigrationFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RW_DataMigrationFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>
-        }
-        findFirst: {
-          args: Prisma.RW_DataMigrationFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RW_DataMigrationFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>
-        }
-        findMany: {
-          args: Prisma.RW_DataMigrationFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>[]
-        }
-        create: {
-          args: Prisma.RW_DataMigrationCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>
-        }
-        createMany: {
-          args: Prisma.RW_DataMigrationCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RW_DataMigrationCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>[]
-        }
-        delete: {
-          args: Prisma.RW_DataMigrationDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>
-        }
-        update: {
-          args: Prisma.RW_DataMigrationUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>
-        }
-        deleteMany: {
-          args: Prisma.RW_DataMigrationDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RW_DataMigrationUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RW_DataMigrationUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>[]
-        }
-        upsert: {
-          args: Prisma.RW_DataMigrationUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RW_DataMigrationPayload>
-        }
-        aggregate: {
-          args: Prisma.RW_DataMigrationAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRW_DataMigration>
-        }
-        groupBy: {
-          args: Prisma.RW_DataMigrationGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RW_DataMigrationGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RW_DataMigrationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RW_DataMigrationCountAggregateOutputType> | number
         }
       }
     }
@@ -3391,34 +3241,6 @@ export const MovieListItemScalarFieldEnum = {
 export type MovieListItemScalarFieldEnum = (typeof MovieListItemScalarFieldEnum)[keyof typeof MovieListItemScalarFieldEnum]
 
 
-export const BackgroundJobScalarFieldEnum = {
-  id: 'id',
-  attempts: 'attempts',
-  handler: 'handler',
-  queue: 'queue',
-  priority: 'priority',
-  runAt: 'runAt',
-  lockedAt: 'lockedAt',
-  lockedBy: 'lockedBy',
-  lastError: 'lastError',
-  failedAt: 'failedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type BackgroundJobScalarFieldEnum = (typeof BackgroundJobScalarFieldEnum)[keyof typeof BackgroundJobScalarFieldEnum]
-
-
-export const RW_DataMigrationScalarFieldEnum = {
-  version: 'version',
-  name: 'name',
-  startedAt: 'startedAt',
-  finishedAt: 'finishedAt'
-} as const
-
-export type RW_DataMigrationScalarFieldEnum = (typeof RW_DataMigrationScalarFieldEnum)[keyof typeof RW_DataMigrationScalarFieldEnum]
-
-
 export const ShoppingListScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -3901,8 +3723,6 @@ export type GlobalOmitConfig = {
   movie?: Prisma.MovieOmit
   movieList?: Prisma.MovieListOmit
   movieListItem?: Prisma.MovieListItemOmit
-  backgroundJob?: Prisma.BackgroundJobOmit
-  rW_DataMigration?: Prisma.RW_DataMigrationOmit
   shoppingList?: Prisma.ShoppingListOmit
   shoppingListItem?: Prisma.ShoppingListItemOmit
   show?: Prisma.ShowOmit
