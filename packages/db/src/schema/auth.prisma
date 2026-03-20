@@ -14,22 +14,20 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  movieLists       MovieList[]
-  watchedEpisodes  WatchedEpisode[]
-  showsWatchlist   WatchlistShow[]
-  abandonedShows   AbandonedShow[]
-  bookLists        BookList[]
-  documents        Document[]
-  workoutTemplates WorkoutTemplate[]
-  workouts         Workout[]
-  metrics          Metric[]
-  sessions         Session[]
-  accounts         Account[]
-  bookmarks        Bookmark[]
-  shoppingLists    ShoppingList[]
-  toDoLists        ToDoList[]
-  files            File[]
-  mangaProgresses  MangaProgress[]
+  movieLists      MovieList[]
+  watchedEpisodes WatchedEpisode[]
+  showsWatchlist  WatchlistShow[]
+  abandonedShows  AbandonedShow[]
+  bookLists       BookList[]
+  documents       Document[]
+  metrics         Metric[]
+  sessions        Session[]
+  accounts        Account[]
+  bookmarks       Bookmark[]
+  shoppingLists   ShoppingList[]
+  toDoLists       ToDoList[]
+  files           File[]
+  mangaProgresses MangaProgress[]
 
   @@map("user")
 }

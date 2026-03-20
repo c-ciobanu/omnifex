@@ -251,8 +251,6 @@ export type UserWhereInput = {
   abandonedShows?: Prisma.AbandonedShowListRelationFilter
   bookLists?: Prisma.BookListListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
-  workoutTemplates?: Prisma.WorkoutTemplateListRelationFilter
-  workouts?: Prisma.WorkoutListRelationFilter
   metrics?: Prisma.MetricListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
@@ -283,8 +281,6 @@ export type UserOrderByWithRelationInput = {
   abandonedShows?: Prisma.AbandonedShowOrderByRelationAggregateInput
   bookLists?: Prisma.BookListOrderByRelationAggregateInput
   documents?: Prisma.DocumentOrderByRelationAggregateInput
-  workoutTemplates?: Prisma.WorkoutTemplateOrderByRelationAggregateInput
-  workouts?: Prisma.WorkoutOrderByRelationAggregateInput
   metrics?: Prisma.MetricOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
@@ -318,8 +314,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   abandonedShows?: Prisma.AbandonedShowListRelationFilter
   bookLists?: Prisma.BookListListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
-  workoutTemplates?: Prisma.WorkoutTemplateListRelationFilter
-  workouts?: Prisma.WorkoutListRelationFilter
   metrics?: Prisma.MetricListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
@@ -388,8 +382,6 @@ export type UserCreateInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -420,8 +412,6 @@ export type UserUncheckedCreateInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -452,8 +442,6 @@ export type UserUpdateInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -484,8 +472,6 @@ export type UserUncheckedUpdateInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -817,34 +803,6 @@ export type UserUpdateOneRequiredWithoutToDoListsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutToDoListsInput, Prisma.UserUpdateWithoutToDoListsInput>, Prisma.UserUncheckedUpdateWithoutToDoListsInput>
 }
 
-export type UserCreateNestedOneWithoutWorkoutTemplatesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutTemplatesInput, Prisma.UserUncheckedCreateWithoutWorkoutTemplatesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutTemplatesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutWorkoutTemplatesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutTemplatesInput, Prisma.UserUncheckedCreateWithoutWorkoutTemplatesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutTemplatesInput
-  upsert?: Prisma.UserUpsertWithoutWorkoutTemplatesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkoutTemplatesInput, Prisma.UserUpdateWithoutWorkoutTemplatesInput>, Prisma.UserUncheckedUpdateWithoutWorkoutTemplatesInput>
-}
-
-export type UserCreateNestedOneWithoutWorkoutsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutsInput, Prisma.UserUncheckedCreateWithoutWorkoutsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutWorkoutsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutsInput, Prisma.UserUncheckedCreateWithoutWorkoutsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutsInput
-  upsert?: Prisma.UserUpsertWithoutWorkoutsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkoutsInput, Prisma.UserUpdateWithoutWorkoutsInput>, Prisma.UserUncheckedUpdateWithoutWorkoutsInput>
-}
-
 export type UserCreateWithoutAccountsInput = {
   id?: string
   username: string
@@ -865,8 +823,6 @@ export type UserCreateWithoutAccountsInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
@@ -896,8 +852,6 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
@@ -943,8 +897,6 @@ export type UserUpdateWithoutAccountsInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
@@ -974,8 +926,6 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
@@ -1005,8 +955,6 @@ export type UserCreateWithoutSessionsInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
@@ -1036,8 +984,6 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
@@ -1083,8 +1029,6 @@ export type UserUpdateWithoutSessionsInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
@@ -1114,8 +1058,6 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
@@ -1144,8 +1086,6 @@ export type UserCreateWithoutBookListsInput = {
   showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -1175,8 +1115,6 @@ export type UserUncheckedCreateWithoutBookListsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -1222,8 +1160,6 @@ export type UserUpdateWithoutBookListsInput = {
   showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -1253,8 +1189,6 @@ export type UserUncheckedUpdateWithoutBookListsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1285,8 +1219,6 @@ export type UserCreateWithoutBookmarksInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -1316,8 +1248,6 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -1363,8 +1293,6 @@ export type UserUpdateWithoutBookmarksInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -1394,8 +1322,6 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1424,8 +1350,6 @@ export type UserCreateWithoutDocumentsInput = {
   showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -1455,8 +1379,6 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -1502,8 +1424,6 @@ export type UserUpdateWithoutDocumentsInput = {
   showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -1533,8 +1453,6 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1565,8 +1483,6 @@ export type UserCreateWithoutFilesInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -1596,8 +1512,6 @@ export type UserUncheckedCreateWithoutFilesInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -1643,8 +1557,6 @@ export type UserUpdateWithoutFilesInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -1674,8 +1586,6 @@ export type UserUncheckedUpdateWithoutFilesInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1705,8 +1615,6 @@ export type UserCreateWithoutMangaProgressesInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -1736,8 +1644,6 @@ export type UserUncheckedCreateWithoutMangaProgressesInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -1783,8 +1689,6 @@ export type UserUpdateWithoutMangaProgressesInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -1814,8 +1718,6 @@ export type UserUncheckedUpdateWithoutMangaProgressesInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1845,8 +1747,6 @@ export type UserCreateWithoutMetricsInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
@@ -1876,8 +1776,6 @@ export type UserUncheckedCreateWithoutMetricsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
@@ -1923,8 +1821,6 @@ export type UserUpdateWithoutMetricsInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
@@ -1954,8 +1850,6 @@ export type UserUncheckedUpdateWithoutMetricsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
@@ -1984,8 +1878,6 @@ export type UserCreateWithoutMovieListsInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -2015,8 +1907,6 @@ export type UserUncheckedCreateWithoutMovieListsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -2062,8 +1952,6 @@ export type UserUpdateWithoutMovieListsInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -2093,8 +1981,6 @@ export type UserUncheckedUpdateWithoutMovieListsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2125,8 +2011,6 @@ export type UserCreateWithoutShoppingListsInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -2156,8 +2040,6 @@ export type UserUncheckedCreateWithoutShoppingListsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -2203,8 +2085,6 @@ export type UserUpdateWithoutShoppingListsInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -2234,8 +2114,6 @@ export type UserUncheckedUpdateWithoutShoppingListsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2264,8 +2142,6 @@ export type UserCreateWithoutShowsWatchlistInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -2295,8 +2171,6 @@ export type UserUncheckedCreateWithoutShowsWatchlistInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -2342,8 +2216,6 @@ export type UserUpdateWithoutShowsWatchlistInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -2373,8 +2245,6 @@ export type UserUncheckedUpdateWithoutShowsWatchlistInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2404,8 +2274,6 @@ export type UserCreateWithoutAbandonedShowsInput = {
   showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -2435,8 +2303,6 @@ export type UserUncheckedCreateWithoutAbandonedShowsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -2482,8 +2348,6 @@ export type UserUpdateWithoutAbandonedShowsInput = {
   showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -2513,8 +2377,6 @@ export type UserUncheckedUpdateWithoutAbandonedShowsInput = {
   showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2544,8 +2406,6 @@ export type UserCreateWithoutWatchedEpisodesInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -2575,8 +2435,6 @@ export type UserUncheckedCreateWithoutWatchedEpisodesInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -2622,8 +2480,6 @@ export type UserUpdateWithoutWatchedEpisodesInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -2653,8 +2509,6 @@ export type UserUncheckedUpdateWithoutWatchedEpisodesInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2685,8 +2539,6 @@ export type UserCreateWithoutToDoListsInput = {
   abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -2716,8 +2568,6 @@ export type UserUncheckedCreateWithoutToDoListsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
   bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
   metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -2763,8 +2613,6 @@ export type UserUpdateWithoutToDoListsInput = {
   abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -2794,293 +2642,11 @@ export type UserUncheckedUpdateWithoutToDoListsInput = {
   abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
   bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
   metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
   shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
-  mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutWorkoutTemplatesInput = {
-  id?: string
-  username: string
-  displayUsername?: string | null
-  email: string
-  emailVerified?: boolean
-  name: string
-  image?: string | null
-  role?: string
-  banned?: boolean | null
-  banReason?: string | null
-  banExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  movieLists?: Prisma.MovieListCreateNestedManyWithoutUserInput
-  watchedEpisodes?: Prisma.WatchedEpisodeCreateNestedManyWithoutUserInput
-  showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
-  abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
-  bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
-  metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
-  shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
-  toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
-  mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
-  id?: string
-  username: string
-  displayUsername?: string | null
-  email: string
-  emailVerified?: boolean
-  name: string
-  image?: string | null
-  role?: string
-  banned?: boolean | null
-  banReason?: string | null
-  banExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  movieLists?: Prisma.MovieListUncheckedCreateNestedManyWithoutUserInput
-  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedCreateNestedManyWithoutUserInput
-  showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
-  abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
-  bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
-  metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
-  shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
-  toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
-  mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutWorkoutTemplatesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutWorkoutTemplatesInput, Prisma.UserUncheckedCreateWithoutWorkoutTemplatesInput>
-}
-
-export type UserUpsertWithoutWorkoutTemplatesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutWorkoutTemplatesInput, Prisma.UserUncheckedUpdateWithoutWorkoutTemplatesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutWorkoutTemplatesInput, Prisma.UserUncheckedCreateWithoutWorkoutTemplatesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutWorkoutTemplatesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutWorkoutTemplatesInput, Prisma.UserUncheckedUpdateWithoutWorkoutTemplatesInput>
-}
-
-export type UserUpdateWithoutWorkoutTemplatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  movieLists?: Prisma.MovieListUpdateManyWithoutUserNestedInput
-  watchedEpisodes?: Prisma.WatchedEpisodeUpdateManyWithoutUserNestedInput
-  showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
-  abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
-  bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
-  metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
-  shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
-  toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
-  mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  movieLists?: Prisma.MovieListUncheckedUpdateManyWithoutUserNestedInput
-  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedUpdateManyWithoutUserNestedInput
-  showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
-  abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
-  bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
-  metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
-  shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
-  toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
-  mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutWorkoutsInput = {
-  id?: string
-  username: string
-  displayUsername?: string | null
-  email: string
-  emailVerified?: boolean
-  name: string
-  image?: string | null
-  role?: string
-  banned?: boolean | null
-  banReason?: string | null
-  banExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  movieLists?: Prisma.MovieListCreateNestedManyWithoutUserInput
-  watchedEpisodes?: Prisma.WatchedEpisodeCreateNestedManyWithoutUserInput
-  showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
-  abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
-  bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
-  metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
-  shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
-  toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUserInput
-  mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutWorkoutsInput = {
-  id?: string
-  username: string
-  displayUsername?: string | null
-  email: string
-  emailVerified?: boolean
-  name: string
-  image?: string | null
-  role?: string
-  banned?: boolean | null
-  banReason?: string | null
-  banExpires?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  movieLists?: Prisma.MovieListUncheckedCreateNestedManyWithoutUserInput
-  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedCreateNestedManyWithoutUserInput
-  showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
-  abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
-  bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
-  metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
-  shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
-  toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
-  mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutWorkoutsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutWorkoutsInput, Prisma.UserUncheckedCreateWithoutWorkoutsInput>
-}
-
-export type UserUpsertWithoutWorkoutsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutWorkoutsInput, Prisma.UserUncheckedUpdateWithoutWorkoutsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutWorkoutsInput, Prisma.UserUncheckedCreateWithoutWorkoutsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutWorkoutsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutWorkoutsInput, Prisma.UserUncheckedUpdateWithoutWorkoutsInput>
-}
-
-export type UserUpdateWithoutWorkoutsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  movieLists?: Prisma.MovieListUpdateManyWithoutUserNestedInput
-  watchedEpisodes?: Prisma.WatchedEpisodeUpdateManyWithoutUserNestedInput
-  showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
-  abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
-  bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
-  metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
-  shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
-  toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUserNestedInput
-  mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutWorkoutsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  movieLists?: Prisma.MovieListUncheckedUpdateManyWithoutUserNestedInput
-  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedUpdateManyWithoutUserNestedInput
-  showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
-  abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
-  bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
-  metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
-  shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
-  toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -3097,8 +2663,6 @@ export type UserCountOutputType = {
   abandonedShows: number
   bookLists: number
   documents: number
-  workoutTemplates: number
-  workouts: number
   metrics: number
   sessions: number
   accounts: number
@@ -3116,8 +2680,6 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   abandonedShows?: boolean | UserCountOutputTypeCountAbandonedShowsArgs
   bookLists?: boolean | UserCountOutputTypeCountBookListsArgs
   documents?: boolean | UserCountOutputTypeCountDocumentsArgs
-  workoutTemplates?: boolean | UserCountOutputTypeCountWorkoutTemplatesArgs
-  workouts?: boolean | UserCountOutputTypeCountWorkoutsArgs
   metrics?: boolean | UserCountOutputTypeCountMetricsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
@@ -3178,20 +2740,6 @@ export type UserCountOutputTypeCountBookListsArgs<ExtArgs extends runtime.Types.
  */
 export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DocumentWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountWorkoutTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.WorkoutTemplateWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountWorkoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.WorkoutWhereInput
 }
 
 /**
@@ -3271,8 +2819,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   abandonedShows?: boolean | Prisma.User$abandonedShowsArgs<ExtArgs>
   bookLists?: boolean | Prisma.User$bookListsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
-  workoutTemplates?: boolean | Prisma.User$workoutTemplatesArgs<ExtArgs>
-  workouts?: boolean | Prisma.User$workoutsArgs<ExtArgs>
   metrics?: boolean | Prisma.User$metricsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -3340,8 +2886,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   abandonedShows?: boolean | Prisma.User$abandonedShowsArgs<ExtArgs>
   bookLists?: boolean | Prisma.User$bookListsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
-  workoutTemplates?: boolean | Prisma.User$workoutTemplatesArgs<ExtArgs>
-  workouts?: boolean | Prisma.User$workoutsArgs<ExtArgs>
   metrics?: boolean | Prisma.User$metricsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -3364,8 +2908,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     abandonedShows: Prisma.$AbandonedShowPayload<ExtArgs>[]
     bookLists: Prisma.$BookListPayload<ExtArgs>[]
     documents: Prisma.$DocumentPayload<ExtArgs>[]
-    workoutTemplates: Prisma.$WorkoutTemplatePayload<ExtArgs>[]
-    workouts: Prisma.$WorkoutPayload<ExtArgs>[]
     metrics: Prisma.$MetricPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
@@ -3789,8 +3331,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   abandonedShows<T extends Prisma.User$abandonedShowsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$abandonedShowsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AbandonedShowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookLists<T extends Prisma.User$bookListsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookListsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  workoutTemplates<T extends Prisma.User$workoutTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workoutTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkoutTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  workouts<T extends Prisma.User$workoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   metrics<T extends Prisma.User$metricsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$metricsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MetricPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4370,54 +3910,6 @@ export type User$documentsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.DocumentScalarFieldEnum | Prisma.DocumentScalarFieldEnum[]
-}
-
-/**
- * User.workoutTemplates
- */
-export type User$workoutTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the WorkoutTemplate
-   */
-  select?: Prisma.WorkoutTemplateSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the WorkoutTemplate
-   */
-  omit?: Prisma.WorkoutTemplateOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.WorkoutTemplateInclude<ExtArgs> | null
-  where?: Prisma.WorkoutTemplateWhereInput
-  orderBy?: Prisma.WorkoutTemplateOrderByWithRelationInput | Prisma.WorkoutTemplateOrderByWithRelationInput[]
-  cursor?: Prisma.WorkoutTemplateWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.WorkoutTemplateScalarFieldEnum | Prisma.WorkoutTemplateScalarFieldEnum[]
-}
-
-/**
- * User.workouts
- */
-export type User$workoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Workout
-   */
-  select?: Prisma.WorkoutSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Workout
-   */
-  omit?: Prisma.WorkoutOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.WorkoutInclude<ExtArgs> | null
-  where?: Prisma.WorkoutWhereInput
-  orderBy?: Prisma.WorkoutOrderByWithRelationInput | Prisma.WorkoutOrderByWithRelationInput[]
-  cursor?: Prisma.WorkoutWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.WorkoutScalarFieldEnum | Prisma.WorkoutScalarFieldEnum[]
 }
 
 /**

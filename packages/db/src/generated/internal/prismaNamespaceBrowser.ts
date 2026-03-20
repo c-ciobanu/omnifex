@@ -74,14 +74,7 @@ export const ModelName = {
   AbandonedShow: 'AbandonedShow',
   WatchedEpisode: 'WatchedEpisode',
   ToDoList: 'ToDoList',
-  ToDoListItem: 'ToDoListItem',
-  WorkoutTemplate: 'WorkoutTemplate',
-  WorkoutTemplateExercise: 'WorkoutTemplateExercise',
-  WorkoutTemplateExerciseSet: 'WorkoutTemplateExerciseSet',
-  Workout: 'Workout',
-  WorkoutExercise: 'WorkoutExercise',
-  WorkoutExerciseSet: 'WorkoutExerciseSet',
-  Exercise: 'Exercise'
+  ToDoListItem: 'ToDoListItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -476,88 +469,6 @@ export const ToDoListItemScalarFieldEnum = {
 } as const
 
 export type ToDoListItemScalarFieldEnum = (typeof ToDoListItemScalarFieldEnum)[keyof typeof ToDoListItemScalarFieldEnum]
-
-
-export const WorkoutTemplateScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
-} as const
-
-export type WorkoutTemplateScalarFieldEnum = (typeof WorkoutTemplateScalarFieldEnum)[keyof typeof WorkoutTemplateScalarFieldEnum]
-
-
-export const WorkoutTemplateExerciseScalarFieldEnum = {
-  id: 'id',
-  order: 'order',
-  workoutTemplateId: 'workoutTemplateId',
-  exerciseId: 'exerciseId'
-} as const
-
-export type WorkoutTemplateExerciseScalarFieldEnum = (typeof WorkoutTemplateExerciseScalarFieldEnum)[keyof typeof WorkoutTemplateExerciseScalarFieldEnum]
-
-
-export const WorkoutTemplateExerciseSetScalarFieldEnum = {
-  id: 'id',
-  weightInKg: 'weightInKg',
-  reps: 'reps',
-  restInSeconds: 'restInSeconds',
-  workoutTemplateExerciseId: 'workoutTemplateExerciseId'
-} as const
-
-export type WorkoutTemplateExerciseSetScalarFieldEnum = (typeof WorkoutTemplateExerciseSetScalarFieldEnum)[keyof typeof WorkoutTemplateExerciseSetScalarFieldEnum]
-
-
-export const WorkoutScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  date: 'date',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  durationInSeconds: 'durationInSeconds',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
-} as const
-
-export type WorkoutScalarFieldEnum = (typeof WorkoutScalarFieldEnum)[keyof typeof WorkoutScalarFieldEnum]
-
-
-export const WorkoutExerciseScalarFieldEnum = {
-  id: 'id',
-  order: 'order',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  workoutId: 'workoutId',
-  exerciseId: 'exerciseId'
-} as const
-
-export type WorkoutExerciseScalarFieldEnum = (typeof WorkoutExerciseScalarFieldEnum)[keyof typeof WorkoutExerciseScalarFieldEnum]
-
-
-export const WorkoutExerciseSetScalarFieldEnum = {
-  id: 'id',
-  weightInKg: 'weightInKg',
-  reps: 'reps',
-  restInSeconds: 'restInSeconds',
-  exerciseId: 'exerciseId'
-} as const
-
-export type WorkoutExerciseSetScalarFieldEnum = (typeof WorkoutExerciseSetScalarFieldEnum)[keyof typeof WorkoutExerciseSetScalarFieldEnum]
-
-
-export const ExerciseScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  instructions: 'instructions',
-  gifPath: 'gifPath',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
 
 
 export const SortOrder = {

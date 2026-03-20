@@ -151,38 +151,3 @@ export type ToDoList = Prisma.ToDoListModel
  * 
  */
 export type ToDoListItem = Prisma.ToDoListItemModel
-/**
- * Model WorkoutTemplate
- * 
- */
-export type WorkoutTemplate = Prisma.WorkoutTemplateModel
-/**
- * Model WorkoutTemplateExercise
- * 
- */
-export type WorkoutTemplateExercise = Prisma.WorkoutTemplateExerciseModel
-/**
- * Model WorkoutTemplateExerciseSet
- * 
- */
-export type WorkoutTemplateExerciseSet = Prisma.WorkoutTemplateExerciseSetModel
-/**
- * Model Workout
- * 
- */
-export type Workout = Prisma.WorkoutModel
-/**
- * Model WorkoutExercise
- * 
- */
-export type WorkoutExercise = Prisma.WorkoutExerciseModel
-/**
- * Model WorkoutExerciseSet
- * 
- */
-export type WorkoutExerciseSet = Prisma.WorkoutExerciseSetModel
-/**
- * Model Exercise
- * 
- */
-export type Exercise = Prisma.ExerciseModel

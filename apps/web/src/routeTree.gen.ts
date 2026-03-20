@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WorkoutsRouteImport } from './routes/workouts'
 import { Route as ToDoListsRouteImport } from './routes/to-do-lists'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShowsRouteImport } from './routes/shows'
@@ -39,11 +38,6 @@ import { Route as DocumentsIdRouteImport } from './routes/documents_.$id'
 import { Route as BooksGoogleIdRouteImport } from './routes/books_.$googleId'
 import { Route as ShowsTmdbIdSeasonsNumberRouteImport } from './routes/shows_.$tmdbId_.seasons.$number'
 
-const WorkoutsRoute = WorkoutsRouteImport.update({
-  id: '/workouts',
-  path: '/workouts',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ToDoListsRoute = ToDoListsRouteImport.update({
   id: '/to-do-lists',
   path: '/to-do-lists',
@@ -201,7 +195,6 @@ export interface FileRoutesByFullPath {
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/to-do-lists': typeof ToDoListsRoute
-  '/workouts': typeof WorkoutsRoute
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/login/demo': typeof LoginDemoRoute
@@ -232,7 +225,6 @@ export interface FileRoutesByTo {
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/to-do-lists': typeof ToDoListsRoute
-  '/workouts': typeof WorkoutsRoute
   '/books/$googleId': typeof BooksGoogleIdRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/login/demo': typeof LoginDemoRoute
@@ -264,7 +256,6 @@ export interface FileRoutesById {
   '/shows': typeof ShowsRoute
   '/signup': typeof SignupRoute
   '/to-do-lists': typeof ToDoListsRoute
-  '/workouts': typeof WorkoutsRoute
   '/books_/$googleId': typeof BooksGoogleIdRoute
   '/documents_/$id': typeof DocumentsIdRoute
   '/login_/demo': typeof LoginDemoRoute
@@ -297,7 +288,6 @@ export interface FileRouteTypes {
     | '/shows'
     | '/signup'
     | '/to-do-lists'
-    | '/workouts'
     | '/books/$googleId'
     | '/documents/$id'
     | '/login/demo'
@@ -328,7 +318,6 @@ export interface FileRouteTypes {
     | '/shows'
     | '/signup'
     | '/to-do-lists'
-    | '/workouts'
     | '/books/$googleId'
     | '/documents/$id'
     | '/login/demo'
@@ -359,7 +348,6 @@ export interface FileRouteTypes {
     | '/shows'
     | '/signup'
     | '/to-do-lists'
-    | '/workouts'
     | '/books_/$googleId'
     | '/documents_/$id'
     | '/login_/demo'
@@ -391,7 +379,6 @@ export interface RootRouteChildren {
   ShowsRoute: typeof ShowsRoute
   SignupRoute: typeof SignupRoute
   ToDoListsRoute: typeof ToDoListsRoute
-  WorkoutsRoute: typeof WorkoutsRoute
   BooksGoogleIdRoute: typeof BooksGoogleIdRoute
   DocumentsIdRoute: typeof DocumentsIdRoute
   LoginDemoRoute: typeof LoginDemoRoute
@@ -410,13 +397,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/workouts': {
-      id: '/workouts'
-      path: '/workouts'
-      fullPath: '/workouts'
-      preLoaderRoute: typeof WorkoutsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/to-do-lists': {
       id: '/to-do-lists'
       path: '/to-do-lists'
@@ -631,7 +611,6 @@ const rootRouteChildren: RootRouteChildren = {
   ShowsRoute: ShowsRoute,
   SignupRoute: SignupRoute,
   ToDoListsRoute: ToDoListsRoute,
-  WorkoutsRoute: WorkoutsRoute,
   BooksGoogleIdRoute: BooksGoogleIdRoute,
   DocumentsIdRoute: DocumentsIdRoute,
   LoginDemoRoute: LoginDemoRoute,
