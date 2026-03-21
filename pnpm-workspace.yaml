@@ -4,28 +4,29 @@ packages:
   - tooling/*
 
 catalog:
-  "@t3-oss/env-core": 0.13.8
-  "@tailwindcss/postcss": 4.1.16
+  "@t3-oss/env-core": 0.13.10
+  "@tailwindcss/postcss": 4.2.2
   "@types/node": 24.12.0
-  prettier: 3.6.2
+  prettier: 3.8.1
   typescript: 5.9.3
-  zod: 4.1.12
+  zod: 4.3.6
 
 catalogs:
   eslint:
     "@eslint/js": 9.38.0
     eslint: 9.38.0
   better-auth:
-    "@better-auth/cli": 1.4.4
-    better-auth: 1.4.4
+    "@better-auth/cli": 1.4.21
+    better-auth: 1.4.22
   orpc:
-    "@orpc/client": 1.10.2
-    "@orpc/server": 1.10.2
+    "@orpc/client": 1.13.9
+    "@orpc/server": 1.13.9
+    "@orpc/tanstack-query": 1.13.9
   # Update Dockerfile runner-server
   prisma:
-    "prisma": 6.18.0
-    "@prisma/client": 6.18.0
-    "@prisma/adapter-pg": 6.18.0
+    "prisma": 6.19.2
+    "@prisma/client": 6.19.2
+    "@prisma/adapter-pg": 6.19.2
 
 linkWorkspacePackages: true
 

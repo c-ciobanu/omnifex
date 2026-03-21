@@ -24,9 +24,9 @@
   },
   "devDependencies": {
     "@omnifex/prettier-config": "workspace:*",
-    "dotenv-cli": "10.0.0",
+    "dotenv-cli": "11.0.0",
     "prettier": "catalog:",
-    "turbo": "2.8.14",
+    "turbo": "2.8.20",
     "typescript": "catalog:"
   },
   "prettier": "@omnifex/prettier-config"
