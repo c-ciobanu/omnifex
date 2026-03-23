@@ -34,8 +34,8 @@ function Component() {
     onSubmit: async ({ value }) => {
       await authClient.signUp.email(
         {
-          name: "John Doe",
-          email: "john.doe@example.com",
+          name: value.username,
+          email: `${value.username}@example.com`,
           ...value,
         },
         {
