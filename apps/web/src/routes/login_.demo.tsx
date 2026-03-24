@@ -18,7 +18,7 @@ function Component() {
   const router = useRouter();
 
   async function signIn() {
-    const { error } = await authClient.signIn.username({ username: "demo", password: "demo" });
+    const { error } = await authClient.signIn.username({ username: "demo", password: "password" });
 
     if (error) {
       toast.error(error.message);
