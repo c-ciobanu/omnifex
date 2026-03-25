@@ -723,7 +723,7 @@ interface MangaBakaSeries {
 
 const baseUrl = "https://api.mangabaka.dev/v1";
 
-export const getManga = async (id: string): Promise<[undefined, Error] | [MangaBakaSeries, undefined]> => {
+export async function getManga(id: string): Promise<[undefined, Error] | [MangaBakaSeries, undefined]> {
   const response = await fetch(`${baseUrl}/series/${id}`);
 
   if (response.status !== 200) {
@@ -733,11 +733,11 @@ export const getManga = async (id: string): Promise<[undefined, Error] | [MangaB
   const json = (await response.json()) as { data: MangaBakaSeries };
 
   return [json.data, undefined];
-};
+}
 
-export const getMangaByMangaUpdatesId = async (
+export async function getMangaByMangaUpdatesId(
   id: string,
-): Promise<[undefined, Error] | [MangaBakaSeries | undefined, undefined]> => {
+): Promise<[undefined, Error] | [MangaBakaSeries | undefined, undefined]> {
   const response = await fetch(`${baseUrl}/source/manga-updates/${id}`);
 
   if (response.status !== 200) {
@@ -747,4 +747,4 @@ export const getMangaByMangaUpdatesId = async (
   const json = (await response.json()) as { data: { series?: MangaBakaSeries[] } };
 
   return [json.data.series?.[0], undefined];
-};
+}

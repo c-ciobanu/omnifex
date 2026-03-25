@@ -36,7 +36,7 @@ export const Route = createFileRoute("/metrics")({
   },
 });
 
-const getMetricDateColor = (date: Date) => {
+function getMetricDateColor(date: Date) {
   if (isToday(date)) {
     return "text-green-500";
   }
@@ -52,7 +52,7 @@ const getMetricDateColor = (date: Date) => {
   }
 
   return undefined;
-};
+}
 
 const initialState = { isOpen: false, metricIndex: -1 };
 

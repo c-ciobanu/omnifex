@@ -36,21 +36,21 @@ export function ShowActions({ id, tmdbId, episodesNumber, userProgress }: ShowAc
   const abandonMutation = useMutation(orpc.shows.abandon.mutationOptions({ onSuccess }));
   const unabandonMutation = useMutation(orpc.shows.unabandon.mutationOptions({ onSuccess }));
 
-  const toggleToWatchStatus = () => {
+  function toggleToWatchStatus() {
     if (inWatchlist) {
       unwatchlistMutation.mutate({ id });
     } else {
       watchlistMutation.mutate({ id });
     }
-  };
+  }
 
-  const toggleAbandonedStatus = () => {
+  function toggleAbandonedStatus() {
     if (abandoned) {
       unabandonMutation.mutate({ id });
     } else {
       abandonMutation.mutate({ id });
     }
-  };
+  }
 
   return (
     <div className="flex flex-col gap-4">

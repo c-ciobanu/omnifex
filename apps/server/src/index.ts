@@ -90,13 +90,13 @@ await upsertCronJobs();
 
 void Promise.all(workers.map((worker) => worker.run()));
 
-const gracefulShutdown = async (signal: "SIGINT" | "SIGTERM") => {
+async function gracefulShutdown(signal: "SIGINT" | "SIGTERM") {
   console.log(`Received ${signal}, closing server...`);
 
   await Promise.all(workers.map((worker) => worker.close()));
 
   process.exit(0);
-};
+}
 
 process.on("SIGINT", () => void gracefulShutdown("SIGINT"));
 

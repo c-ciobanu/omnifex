@@ -23,21 +23,21 @@ export function MovieActions({ movie }: MovieActionsProps) {
   const watchlistMutation = useMutation(orpc.movies.watchlist.mutationOptions({ onSuccess }));
   const unwatchlistMutation = useMutation(orpc.movies.unwatchlist.mutationOptions({ onSuccess }));
 
-  const toggleWatchedStatus = () => {
+  function toggleWatchedStatus() {
     if (watched) {
       unwatchMutation.mutate({ id });
     } else {
       watchMutation.mutate({ id });
     }
-  };
+  }
 
-  const toggleToWatchStatus = () => {
+  function toggleToWatchStatus() {
     if (inWatchlist) {
       unwatchlistMutation.mutate({ id });
     } else {
       watchlistMutation.mutate({ id });
     }
-  };
+  }
 
   return (
     <div className="flex flex-col gap-4">

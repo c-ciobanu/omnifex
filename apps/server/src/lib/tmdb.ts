@@ -82,7 +82,7 @@ export interface TMDBMovie {
   };
 }
 
-export const searchTMDBMovies = async ({ title }: { title: string }) => {
+export async function searchTMDBMovies({ title }: { title: string }) {
   const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${title}`, {
     method: "GET",
     headers: {
@@ -93,9 +93,9 @@ export const searchTMDBMovies = async ({ title }: { title: string }) => {
   const json = (await response.json()) as SearchMovieResponse;
 
   return json.results;
-};
+}
 
-export const getTMDBMovie = async (tmdbId: number) => {
+export async function getTMDBMovie(tmdbId: number) {
   const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?append_to_response=credits`, {
     method: "GET",
     headers: {
@@ -106,7 +106,7 @@ export const getTMDBMovie = async (tmdbId: number) => {
   const json = (await response.json()) as TMDBMovie;
 
   return json;
-};
+}
 
 export interface ChangesResponse {
   results: { id: number; adult: boolean }[];
@@ -115,7 +115,7 @@ export interface ChangesResponse {
   total_results: number;
 }
 
-export const getTMDBMovieChanges = async (page = 1, from: string, to: string) => {
+export async function getTMDBMovieChanges(page = 1, from: string, to: string) {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/changes?page=${page}&start_date=${from}&end_date=${to}`,
     {
@@ -129,7 +129,7 @@ export const getTMDBMovieChanges = async (page = 1, from: string, to: string) =>
   const json = (await response.json()) as ChangesResponse;
 
   return json;
-};
+}
 
 interface SearchTvResponse {
   page: number;
@@ -298,7 +298,7 @@ interface TMDBShowSeason {
   vote_average: number;
 }
 
-export const searchTMDBShows = async ({ title }: { title: string }) => {
+export async function searchTMDBShows({ title }: { title: string }) {
   const response = await fetch(`https://api.themoviedb.org/3/search/tv?query=${title}`, {
     method: "GET",
     headers: {
@@ -309,9 +309,9 @@ export const searchTMDBShows = async ({ title }: { title: string }) => {
   const json = (await response.json()) as SearchTvResponse;
 
   return json.results;
-};
+}
 
-export const getTMDBShow = async (tmdbId: number) => {
+export async function getTMDBShow(tmdbId: number) {
   const response = await fetch(`https://api.themoviedb.org/3/tv/${tmdbId}?append_to_response=external_ids`, {
     method: "GET",
     headers: {
@@ -322,9 +322,9 @@ export const getTMDBShow = async (tmdbId: number) => {
   const json = (await response.json()) as TMDBShow;
 
   return json;
-};
+}
 
-export const getTMDBShowSeason = async (tmdbId: number, season: number) => {
+export async function getTMDBShowSeason(tmdbId: number, season: number) {
   const response = await fetch(`https://api.themoviedb.org/3/tv/${tmdbId}/season/${season}`, {
     method: "GET",
     headers: {
@@ -335,9 +335,9 @@ export const getTMDBShowSeason = async (tmdbId: number, season: number) => {
   const json = (await response.json()) as TMDBShowSeason;
 
   return json;
-};
+}
 
-export const getTMDBShowChanges = async (page = 1, from: string, to: string) => {
+export async function getTMDBShowChanges(page = 1, from: string, to: string) {
   const response = await fetch(
     `https://api.themoviedb.org/3/tv/changes?page=${page}&start_date=${from}&end_date=${to}`,
     {
@@ -351,4 +351,4 @@ export const getTMDBShowChanges = async (page = 1, from: string, to: string) => 
   const json = (await response.json()) as ChangesResponse;
 
   return json;
-};
+}

@@ -125,7 +125,7 @@ interface SearchMangasResponse {
 
 const baseUrl = "https://api.mangaupdates.com/v1";
 
-export const searchMangas = async (title: string) => {
+export async function searchMangas(title: string) {
   const response = await fetch(`${baseUrl}/series/search`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -135,4 +135,4 @@ export const searchMangas = async (title: string) => {
   const json = (await response.json()) as SearchMangasResponse;
 
   return json.results?.map((e) => e.record).filter((e) => e !== undefined) ?? [];
-};
+}

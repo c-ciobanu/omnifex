@@ -108,21 +108,21 @@ export function MangaActions({ manga }: Props) {
   const abandonMutation = useMutation(orpc.mangas.abandon.mutationOptions({ onSuccess }));
   const unabandonMutation = useMutation(orpc.mangas.unabandon.mutationOptions({ onSuccess }));
 
-  const toggleToWatchStatus = () => {
+  function toggleToWatchStatus() {
     if (userProgress?.status === "TO_READ") {
       removeFromReadingListMutation.mutate({ id });
     } else {
       addToReadingListMutation.mutate({ id });
     }
-  };
+  }
 
-  const toggleAbandonedStatus = () => {
+  function toggleAbandonedStatus() {
     if (userProgress?.status === "ABANDONED") {
       unabandonMutation.mutate({ id });
     } else {
       abandonMutation.mutate({ id });
     }
-  };
+  }
 
   const readPercentage = Math.round(((userProgress?.lastChapterRead ?? 0) / manga.chapters) * 100);
 

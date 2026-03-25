@@ -96,7 +96,7 @@ function Component() {
 
   const createPresignedDownloadUrlMutation = useMutation(orpc.files.createPresignedDownloadUrl.mutationOptions());
 
-  const downloadFile = async (file: UploadedFile) => {
+  async function downloadFile(file: UploadedFile) {
     const downloadUrl = await createPresignedDownloadUrlMutation.mutateAsync({ id: file.id });
 
     const link = document.createElement("a");
@@ -108,7 +108,7 @@ function Component() {
     link.click();
 
     document.body.removeChild(link);
-  };
+  }
 
   const form = useAppForm({
     defaultValues: {

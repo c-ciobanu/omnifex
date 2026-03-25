@@ -271,31 +271,31 @@ export function ToolbarPlugin({ documentId, saveDisabled }: Props) {
     });
   }
 
-  const formatList = (type: keyof typeof listTypeCommands) => {
+  function formatList(type: keyof typeof listTypeCommands) {
     if (blockType !== type) {
       editor.dispatchCommand(listTypeCommands[type], undefined);
     }
-  };
+  }
 
-  const formatHeading = (headingType: HeadingTagType) => {
+  function formatHeading(headingType: HeadingTagType) {
     if (blockType !== headingType) {
       editor.update(() => {
         const selection = $getSelection();
         $setBlocksType(selection, () => $createHeadingNode(headingType));
       });
     }
-  };
+  }
 
-  const formatQuote = () => {
+  function formatQuote() {
     if (blockType !== "quote") {
       editor.update(() => {
         const selection = $getSelection();
         $setBlocksType(selection, () => $createQuoteNode());
       });
     }
-  };
+  }
 
-  const formatCode = () => {
+  function formatCode() {
     if (blockType !== "code") {
       editor.update(() => {
         let selection = $getSelection();
@@ -315,7 +315,7 @@ export function ToolbarPlugin({ documentId, saveDisabled }: Props) {
         }
       });
     }
-  };
+  }
 
   const form = useAppForm({
     defaultValues: {

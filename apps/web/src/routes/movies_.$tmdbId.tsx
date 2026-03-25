@@ -10,12 +10,12 @@ export const Route = createFileRoute("/movies_/$tmdbId")({
   component: Component,
 });
 
-const formatMinutesToHoursAndMinutes = (minutes: number) => {
+function formatMinutesToHoursAndMinutes(minutes: number) {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
 
   return `${h}h ${m}m`;
-};
+}
 
 function Component() {
   const { tmdbId } = Route.useParams();

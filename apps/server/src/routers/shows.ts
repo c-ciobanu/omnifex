@@ -8,23 +8,29 @@ import { adminProcedure, protectedProcedure, publicProcedure } from "../lib/orpc
 import { getTMDBShow, getTMDBShowSeason, searchTMDBShows } from "../lib/tmdb";
 import { updateShowQueue } from "../queues";
 
-const mapShow = (show: Show) => ({
-  ...show,
-  backdropUrl: show.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${show.tmdbBackdropPath}` : undefined,
-  posterUrl: `https://image.tmdb.org/t/p/w342${show.tmdbPosterPath}`,
-});
+function mapShow(show: Show) {
+  return {
+    ...show,
+    backdropUrl: show.tmdbBackdropPath ? `https://image.tmdb.org/t/p/w1280${show.tmdbBackdropPath}` : undefined,
+    posterUrl: `https://image.tmdb.org/t/p/w342${show.tmdbPosterPath}`,
+  };
+}
 
-const mapSeason = <T extends ShowSeason>(season: T) => ({
-  ...season,
-  posterUrl: season.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}` : undefined,
-});
+function mapSeason<T extends ShowSeason>(season: T) {
+  return {
+    ...season,
+    posterUrl: season.tmdbPosterPath ? `https://image.tmdb.org/t/p/w342${season.tmdbPosterPath}` : undefined,
+  };
+}
 
-const mapEpisode = (episode: ShowEpisode) => ({
-  ...episode,
-  stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
-});
+function mapEpisode(episode: ShowEpisode) {
+  return {
+    ...episode,
+    stillUrl: episode.tmdbStillPath ? `https://image.tmdb.org/t/p/w342${episode.tmdbStillPath}` : undefined,
+  };
+}
 
-export const getUserShowProgress = async (id: number, userId: string) => {
+export async function getUserShowProgress(id: number, userId: string) {
   const show = await prisma.show.findUnique({
     where: { id },
     select: {
@@ -50,21 +56,21 @@ export const getUserShowProgress = async (id: number, userId: string) => {
     inWatchlist: show._count.inWatchlist === 1,
     abandoned: show._count.abandoned === 1,
   };
-};
+}
 
-export const isShowInWatchlist = async (id: number, userId: string) => {
+export async function isShowInWatchlist(id: number, userId: string) {
   const count = await prisma.watchlistShow.count({ where: { showId: id, userId } });
 
   return count === 1;
-};
+}
 
-const unwatchlistShow = async (id: number, userId: string) => {
+async function unwatchlistShow(id: number, userId: string) {
   return prisma.watchlistShow.delete({ where: { userId_showId: { userId, showId: id } } });
-};
+}
 
-const unabandonShow = async (id: number, userId: string) => {
+async function unabandonShow(id: number, userId: string) {
   return prisma.abandonedShow.delete({ where: { userId_showId: { userId, showId: id } } });
-};
+}
 
 export const showsRouter = {
   triggerManualUpdate: adminProcedure.input(z.object({ tmdbId: z.int() })).handler(async ({ input }) => {

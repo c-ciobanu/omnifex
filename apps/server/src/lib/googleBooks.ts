@@ -19,7 +19,7 @@ export type GoogleBook = Omit<books_v1.Schema$Volume, "id" | "volumeInfo"> & {
   };
 };
 
-export const searchGoogleBooks = async ({ title }: { title: string }) => {
+export async function searchGoogleBooks({ title }: { title: string }) {
   const response = await booksAPI.volumes.list({
     q: title,
     printType: "books",
@@ -28,10 +28,10 @@ export const searchGoogleBooks = async ({ title }: { title: string }) => {
   });
 
   return response.data.items;
-};
+}
 
-export const getGoogleBook = async (googleId: string) => {
+export async function getGoogleBook(googleId: string) {
   const response = await booksAPI.volumes.get({ volumeId: googleId });
 
   return response.data as GoogleBook;
-};
+}

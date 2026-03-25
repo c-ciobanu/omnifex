@@ -7,28 +7,30 @@ import { MovieListType, prisma } from "@omnifex/db";
 import { protectedProcedure, publicProcedure } from "../lib/orpc";
 import { getTMDBMovie, searchTMDBMovies } from "../lib/tmdb";
 
-const mapMovie = (movie: Movie) => ({
-  ...movie,
-  posterUrl: `https://image.tmdb.org/t/p/w342${movie.tmdbPosterPath}`,
-});
+function mapMovie(movie: Movie) {
+  return {
+    ...movie,
+    posterUrl: `https://image.tmdb.org/t/p/w342${movie.tmdbPosterPath}`,
+  };
+}
 
-const isMovieWatched = async (id: number, userId: string) => {
+async function isMovieWatched(id: number, userId: string) {
   const count = await prisma.movieListItem.count({
     where: { movieId: id, list: { type: MovieListType.WATCHLIST, userId } },
   });
 
   return count === 1;
-};
+}
 
-const isMovieInWatchlist = async (id: number, userId: string) => {
+async function isMovieInWatchlist(id: number, userId: string) {
   const count = await prisma.movieListItem.count({
     where: { list: { type: MovieListType.WATCHLIST, userId }, movieId: id },
   });
 
   return count === 1;
-};
+}
 
-const unwatchlistMovie = async (id: number, userId: string) => {
+async function unwatchlistMovie(id: number, userId: string) {
   const list = await prisma.movieList.findFirst({
     where: { userId, type: MovieListType.WATCHLIST },
     select: { id: true },
@@ -39,7 +41,7 @@ const unwatchlistMovie = async (id: number, userId: string) => {
   }
 
   return prisma.movieListItem.delete({ where: { listId_movieId: { listId: list.id, movieId: id } } });
-};
+}
 
 export const moviesRouter = {
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {

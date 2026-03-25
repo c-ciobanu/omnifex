@@ -8,28 +8,30 @@ import type { GoogleBook } from "../lib/googleBooks";
 import { getGoogleBook, searchGoogleBooks } from "../lib/googleBooks";
 import { protectedProcedure, publicProcedure } from "../lib/orpc";
 
-const mapBook = <T extends Book>(book: T) => ({
-  ...book,
-  coverUrl: `https://books.google.com/books/content?id=${book.googleId}&printsec=frontcover&img=1&zoom=3`,
-});
+function mapBook<T extends Book>(book: T) {
+  return {
+    ...book,
+    coverUrl: `https://books.google.com/books/content?id=${book.googleId}&printsec=frontcover&img=1&zoom=3`,
+  };
+}
 
-export const isBookRead = async (id: number, userId: string) => {
+export async function isBookRead(id: number, userId: string) {
   const count = await prisma.bookListItem.count({
     where: { bookId: id, list: { type: BookListType.READ, userId } },
   });
 
   return count === 1;
-};
+}
 
-export const isBookInReadingList = async (id: number, userId: string) => {
+export async function isBookInReadingList(id: number, userId: string) {
   const count = await prisma.bookListItem.count({
     where: { list: { type: BookListType.READING_LIST, userId }, bookId: id },
   });
 
   return count === 1;
-};
+}
 
-const unreadingListBook = async (id: number, userId: string) => {
+async function unreadingListBook(id: number, userId: string) {
   const list = await prisma.bookList.findFirst({
     where: { userId, type: BookListType.READING_LIST },
     select: { id: true },
@@ -40,7 +42,7 @@ const unreadingListBook = async (id: number, userId: string) => {
   }
 
   return prisma.bookListItem.delete({ where: { listId_bookId: { listId: list.id, bookId: id } } });
-};
+}
 
 export const booksRouter = {
   find: publicProcedure.input(z.object({ title: z.string().min(1) })).handler(async ({ input }) => {

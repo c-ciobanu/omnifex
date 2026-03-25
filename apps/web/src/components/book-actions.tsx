@@ -23,21 +23,21 @@ export function BookActions({ book }: Props) {
   const readingListMutation = useMutation(orpc.books.readingList.mutationOptions({ onSuccess }));
   const unreadingListMutation = useMutation(orpc.books.unreadingList.mutationOptions({ onSuccess }));
 
-  const toggleReadStatus = () => {
+  function toggleReadStatus() {
     if (read) {
       unreadMutation.mutate({ id });
     } else {
       readMutation.mutate({ id });
     }
-  };
+  }
 
-  const toggleToReadStatus = () => {
+  function toggleToReadStatus() {
     if (inReadingList) {
       unreadingListMutation.mutate({ id });
     } else {
       readingListMutation.mutate({ id });
     }
-  };
+  }
 
   return (
     <div className="flex flex-col gap-4">
