@@ -18,6 +18,7 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
+    "knip": "knip",
     "auth:generate": "pnpm -F @omnifex/auth generate",
     "db:migrate": "turbo -F @omnifex/db migrate",
     "web:ui-add": "turbo -F web ui-add"
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@omnifex/prettier-config": "workspace:*",
     "dotenv-cli": "11.0.0",
+    "knip": "6.1.0",
     "prettier": "catalog:",
     "turbo": "2.8.20",
     "typescript": "catalog:"

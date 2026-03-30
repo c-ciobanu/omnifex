@@ -3,7 +3,7 @@ import { secondsInMonth, secondsInQuarter } from "date-fns/constants";
 
 import { env } from "../env";
 
-export const defaultJobOptions = {
+const defaultJobOptions = {
   removeOnComplete: { age: secondsInMonth },
   removeOnFail: { age: secondsInQuarter },
 } satisfies DefaultJobOptions;

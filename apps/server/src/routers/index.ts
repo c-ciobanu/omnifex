@@ -24,5 +24,5 @@ export const appRouter = {
   toDoLists: toDoListsRouter,
 };
 
-export type AppRouter = typeof appRouter;
-export type AppRouterClient = RouterClient<typeof appRouter>;
+type AppRouter = typeof appRouter;
+export type AppRouterClient = RouterClient<AppRouter>;

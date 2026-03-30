@@ -86,7 +86,7 @@ const guestMenu = linkOptions([
   { to: "/signup", label: "Sign up" },
 ]);
 
-export interface RouterAppContext {
+interface RouterAppContext {
   auth: ReturnType<typeof authClient.useSession>["data"];
 }
 

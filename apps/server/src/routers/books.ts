@@ -15,7 +15,7 @@ function mapBook<T extends Book>(book: T) {
   };
 }
 
-export async function isBookRead(id: number, userId: string) {
+async function isBookRead(id: number, userId: string) {
   const count = await prisma.bookListItem.count({
     where: { bookId: id, list: { type: BookListType.READ, userId } },
   });
@@ -23,7 +23,7 @@ export async function isBookRead(id: number, userId: string) {
   return count === 1;
 }
 
-export async function isBookInReadingList(id: number, userId: string) {
+async function isBookInReadingList(id: number, userId: string) {
   const count = await prisma.bookListItem.count({
     where: { list: { type: BookListType.READING_LIST, userId }, bookId: id },
   });

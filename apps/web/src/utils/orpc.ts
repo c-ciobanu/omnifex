@@ -27,7 +27,7 @@ export const queryClient = new QueryClient({
   }),
 });
 
-export const link = new RPCLink({
+const link = new RPCLink({
   url: `${env.VITE_SERVER_URL}/rpc`,
   fetch(url, options) {
     return fetch(url, {
@@ -45,6 +45,6 @@ export const link = new RPCLink({
   ],
 });
 
-export const client: AppRouterClient = createORPCClient(link);
+const client: AppRouterClient = createORPCClient(link);
 
 export const orpc = createTanstackQueryUtils(client);

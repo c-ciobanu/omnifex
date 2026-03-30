@@ -7,7 +7,7 @@ interface SearchMovieResponse {
   total_results: number;
 }
 
-export interface TMDBSearchMovie {
+interface TMDBSearchMovie {
   adult: boolean;
   backdrop_path?: string;
   genre_ids: number[];
@@ -24,7 +24,7 @@ export interface TMDBSearchMovie {
   vote_count: number;
 }
 
-export interface TMDBMovie {
+interface TMDBMovie {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection?: string;
@@ -108,7 +108,7 @@ export async function getTMDBMovie(tmdbId: number) {
   return json;
 }
 
-export interface ChangesResponse {
+interface ChangesResponse {
   results: { id: number; adult: boolean }[];
   page: number;
   total_pages: number;
@@ -138,7 +138,7 @@ interface SearchTvResponse {
   total_results: number;
 }
 
-export interface TMDBSearchShow {
+interface TMDBSearchShow {
   adult: boolean;
   backdrop_path?: string;
   genre_ids: number[];
@@ -155,7 +155,7 @@ export interface TMDBSearchShow {
   vote_count: number;
 }
 
-export interface TMDBShow {
+interface TMDBShow {
   adult: boolean;
   backdrop_path?: string;
   created_by: {

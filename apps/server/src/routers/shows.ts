@@ -30,7 +30,7 @@ function mapEpisode(episode: ShowEpisode) {
   };
 }
 
-export async function getUserShowProgress(id: number, userId: string) {
+async function getUserShowProgress(id: number, userId: string) {
   const show = await prisma.show.findUnique({
     where: { id },
     select: {
@@ -58,7 +58,7 @@ export async function getUserShowProgress(id: number, userId: string) {
   };
 }
 
-export async function isShowInWatchlist(id: number, userId: string) {
+async function isShowInWatchlist(id: number, userId: string) {
   const count = await prisma.watchlistShow.count({ where: { showId: id, userId } });
 
   return count === 1;
