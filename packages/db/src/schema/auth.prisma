@@ -28,6 +28,7 @@ model User {
   toDoLists       ToDoList[]
   files           File[]
   mangaProgresses MangaProgress[]
+  recipes         Recipe[]
 
   @@map("user")
 }

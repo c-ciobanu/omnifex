@@ -1,0 +1,27 @@
+model Recipe {
+  id           String   @id @default(uuid())
+  name         String
+  instructions String[]
+  imageKey     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  ingredients RecipeIngredient[]
+
+  @@map("recipe")
+}
+
+model RecipeIngredient {
+  id       Int     @id @default(autoincrement())
+  name     String
+  quantity String
+  unit     String?
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+
+  @@map("recipe-ingredient")
+}
