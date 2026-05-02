@@ -14,6 +14,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShowsRouteImport } from './routes/shows'
 import { Route as ShoppingListsRouteImport } from './routes/shopping-lists'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as RecipesRouteImport } from './routes/recipes'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
 import { Route as MangasRouteImport } from './routes/mangas'
@@ -30,12 +31,15 @@ import { Route as SearchShowsRouteImport } from './routes/search.shows'
 import { Route as SearchMoviesRouteImport } from './routes/search.movies'
 import { Route as SearchMangasRouteImport } from './routes/search.mangas'
 import { Route as SearchBooksRouteImport } from './routes/search.books'
+import { Route as RecipesNewRouteImport } from './routes/recipes_.new'
+import { Route as RecipesIdRouteImport } from './routes/recipes_.$id'
 import { Route as MoviesTmdbIdRouteImport } from './routes/movies_.$tmdbId'
 import { Route as MetricsIdRouteImport } from './routes/metrics_.$id'
 import { Route as MangasMangaUpdatesIdRouteImport } from './routes/mangas_.$mangaUpdatesId'
 import { Route as LoginDemoRouteImport } from './routes/login_.demo'
 import { Route as DocumentsIdRouteImport } from './routes/documents_.$id'
 import { Route as BooksGoogleIdRouteImport } from './routes/books_.$googleId'
+import { Route as RecipesIdEditRouteImport } from './routes/recipes_.$id_.edit'
 import { Route as ShowsTmdbIdSeasonsNumberRouteImport } from './routes/shows_.$tmdbId_.seasons.$number'
 
 const ToDoListsRoute = ToDoListsRouteImport.update({
@@ -61,6 +65,11 @@ const ShoppingListsRoute = ShoppingListsRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecipesRoute = RecipesRouteImport.update({
+  id: '/recipes',
+  path: '/recipes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoviesRoute = MoviesRouteImport.update({
@@ -143,6 +152,16 @@ const SearchBooksRoute = SearchBooksRouteImport.update({
   path: '/search/books',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecipesNewRoute = RecipesNewRouteImport.update({
+  id: '/recipes_/new',
+  path: '/recipes/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecipesIdRoute = RecipesIdRouteImport.update({
+  id: '/recipes_/$id',
+  path: '/recipes/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MoviesTmdbIdRoute = MoviesTmdbIdRouteImport.update({
   id: '/movies_/$tmdbId',
   path: '/movies/$tmdbId',
@@ -173,6 +192,11 @@ const BooksGoogleIdRoute = BooksGoogleIdRouteImport.update({
   path: '/books/$googleId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecipesIdEditRoute = RecipesIdEditRouteImport.update({
+  id: '/recipes_/$id_/edit',
+  path: '/recipes/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShowsTmdbIdSeasonsNumberRoute =
   ShowsTmdbIdSeasonsNumberRouteImport.update({
     id: '/shows_/$tmdbId_/seasons/$number',
@@ -190,6 +214,7 @@ export interface FileRoutesByFullPath {
   '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
+  '/recipes': typeof RecipesRoute
   '/settings': typeof SettingsRoute
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
@@ -201,6 +226,8 @@ export interface FileRoutesByFullPath {
   '/mangas/$mangaUpdatesId': typeof MangasMangaUpdatesIdRoute
   '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
+  '/recipes/$id': typeof RecipesIdRoute
+  '/recipes/new': typeof RecipesNewRoute
   '/search/books': typeof SearchBooksRoute
   '/search/mangas': typeof SearchMangasRoute
   '/search/movies': typeof SearchMoviesRoute
@@ -208,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists/$id': typeof ToDoListsIdRoute
+  '/recipes/$id/edit': typeof RecipesIdEditRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRoutesByTo {
@@ -220,6 +248,7 @@ export interface FileRoutesByTo {
   '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
+  '/recipes': typeof RecipesRoute
   '/settings': typeof SettingsRoute
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
@@ -231,6 +260,8 @@ export interface FileRoutesByTo {
   '/mangas/$mangaUpdatesId': typeof MangasMangaUpdatesIdRoute
   '/metrics/$id': typeof MetricsIdRoute
   '/movies/$tmdbId': typeof MoviesTmdbIdRoute
+  '/recipes/$id': typeof RecipesIdRoute
+  '/recipes/new': typeof RecipesNewRoute
   '/search/books': typeof SearchBooksRoute
   '/search/mangas': typeof SearchMangasRoute
   '/search/movies': typeof SearchMoviesRoute
@@ -238,6 +269,7 @@ export interface FileRoutesByTo {
   '/shopping-lists/$id': typeof ShoppingListsIdRoute
   '/shows/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists/$id': typeof ToDoListsIdRoute
+  '/recipes/$id/edit': typeof RecipesIdEditRoute
   '/shows/$tmdbId/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRoutesById {
@@ -251,6 +283,7 @@ export interface FileRoutesById {
   '/mangas': typeof MangasRoute
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
+  '/recipes': typeof RecipesRoute
   '/settings': typeof SettingsRoute
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
@@ -262,6 +295,8 @@ export interface FileRoutesById {
   '/mangas_/$mangaUpdatesId': typeof MangasMangaUpdatesIdRoute
   '/metrics_/$id': typeof MetricsIdRoute
   '/movies_/$tmdbId': typeof MoviesTmdbIdRoute
+  '/recipes_/$id': typeof RecipesIdRoute
+  '/recipes_/new': typeof RecipesNewRoute
   '/search/books': typeof SearchBooksRoute
   '/search/mangas': typeof SearchMangasRoute
   '/search/movies': typeof SearchMoviesRoute
@@ -269,6 +304,7 @@ export interface FileRoutesById {
   '/shopping-lists_/$id': typeof ShoppingListsIdRoute
   '/shows_/$tmdbId': typeof ShowsTmdbIdRoute
   '/to-do-lists_/$id': typeof ToDoListsIdRoute
+  '/recipes_/$id_/edit': typeof RecipesIdEditRoute
   '/shows_/$tmdbId_/seasons/$number': typeof ShowsTmdbIdSeasonsNumberRoute
 }
 export interface FileRouteTypes {
@@ -283,6 +319,7 @@ export interface FileRouteTypes {
     | '/mangas'
     | '/metrics'
     | '/movies'
+    | '/recipes'
     | '/settings'
     | '/shopping-lists'
     | '/shows'
@@ -294,6 +331,8 @@ export interface FileRouteTypes {
     | '/mangas/$mangaUpdatesId'
     | '/metrics/$id'
     | '/movies/$tmdbId'
+    | '/recipes/$id'
+    | '/recipes/new'
     | '/search/books'
     | '/search/mangas'
     | '/search/movies'
@@ -301,6 +340,7 @@ export interface FileRouteTypes {
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/to-do-lists/$id'
+    | '/recipes/$id/edit'
     | '/shows/$tmdbId/seasons/$number'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -313,6 +353,7 @@ export interface FileRouteTypes {
     | '/mangas'
     | '/metrics'
     | '/movies'
+    | '/recipes'
     | '/settings'
     | '/shopping-lists'
     | '/shows'
@@ -324,6 +365,8 @@ export interface FileRouteTypes {
     | '/mangas/$mangaUpdatesId'
     | '/metrics/$id'
     | '/movies/$tmdbId'
+    | '/recipes/$id'
+    | '/recipes/new'
     | '/search/books'
     | '/search/mangas'
     | '/search/movies'
@@ -331,6 +374,7 @@ export interface FileRouteTypes {
     | '/shopping-lists/$id'
     | '/shows/$tmdbId'
     | '/to-do-lists/$id'
+    | '/recipes/$id/edit'
     | '/shows/$tmdbId/seasons/$number'
   id:
     | '__root__'
@@ -343,6 +387,7 @@ export interface FileRouteTypes {
     | '/mangas'
     | '/metrics'
     | '/movies'
+    | '/recipes'
     | '/settings'
     | '/shopping-lists'
     | '/shows'
@@ -354,6 +399,8 @@ export interface FileRouteTypes {
     | '/mangas_/$mangaUpdatesId'
     | '/metrics_/$id'
     | '/movies_/$tmdbId'
+    | '/recipes_/$id'
+    | '/recipes_/new'
     | '/search/books'
     | '/search/mangas'
     | '/search/movies'
@@ -361,6 +408,7 @@ export interface FileRouteTypes {
     | '/shopping-lists_/$id'
     | '/shows_/$tmdbId'
     | '/to-do-lists_/$id'
+    | '/recipes_/$id_/edit'
     | '/shows_/$tmdbId_/seasons/$number'
   fileRoutesById: FileRoutesById
 }
@@ -374,6 +422,7 @@ export interface RootRouteChildren {
   MangasRoute: typeof MangasRoute
   MetricsRoute: typeof MetricsRoute
   MoviesRoute: typeof MoviesRoute
+  RecipesRoute: typeof RecipesRoute
   SettingsRoute: typeof SettingsRoute
   ShoppingListsRoute: typeof ShoppingListsRoute
   ShowsRoute: typeof ShowsRoute
@@ -385,6 +434,8 @@ export interface RootRouteChildren {
   MangasMangaUpdatesIdRoute: typeof MangasMangaUpdatesIdRoute
   MetricsIdRoute: typeof MetricsIdRoute
   MoviesTmdbIdRoute: typeof MoviesTmdbIdRoute
+  RecipesIdRoute: typeof RecipesIdRoute
+  RecipesNewRoute: typeof RecipesNewRoute
   SearchBooksRoute: typeof SearchBooksRoute
   SearchMangasRoute: typeof SearchMangasRoute
   SearchMoviesRoute: typeof SearchMoviesRoute
@@ -392,6 +443,7 @@ export interface RootRouteChildren {
   ShoppingListsIdRoute: typeof ShoppingListsIdRoute
   ShowsTmdbIdRoute: typeof ShowsTmdbIdRoute
   ToDoListsIdRoute: typeof ToDoListsIdRoute
+  RecipesIdEditRoute: typeof RecipesIdEditRoute
   ShowsTmdbIdSeasonsNumberRoute: typeof ShowsTmdbIdSeasonsNumberRoute
 }
 
@@ -430,6 +482,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recipes': {
+      id: '/recipes'
+      path: '/recipes'
+      fullPath: '/recipes'
+      preLoaderRoute: typeof RecipesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movies': {
@@ -544,6 +603,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchBooksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recipes_/new': {
+      id: '/recipes_/new'
+      path: '/recipes/new'
+      fullPath: '/recipes/new'
+      preLoaderRoute: typeof RecipesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recipes_/$id': {
+      id: '/recipes_/$id'
+      path: '/recipes/$id'
+      fullPath: '/recipes/$id'
+      preLoaderRoute: typeof RecipesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/movies_/$tmdbId': {
       id: '/movies_/$tmdbId'
       path: '/movies/$tmdbId'
@@ -586,6 +659,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BooksGoogleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recipes_/$id_/edit': {
+      id: '/recipes_/$id_/edit'
+      path: '/recipes/$id/edit'
+      fullPath: '/recipes/$id/edit'
+      preLoaderRoute: typeof RecipesIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shows_/$tmdbId_/seasons/$number': {
       id: '/shows_/$tmdbId_/seasons/$number'
       path: '/shows/$tmdbId/seasons/$number'
@@ -606,6 +686,7 @@ const rootRouteChildren: RootRouteChildren = {
   MangasRoute: MangasRoute,
   MetricsRoute: MetricsRoute,
   MoviesRoute: MoviesRoute,
+  RecipesRoute: RecipesRoute,
   SettingsRoute: SettingsRoute,
   ShoppingListsRoute: ShoppingListsRoute,
   ShowsRoute: ShowsRoute,
@@ -617,6 +698,8 @@ const rootRouteChildren: RootRouteChildren = {
   MangasMangaUpdatesIdRoute: MangasMangaUpdatesIdRoute,
   MetricsIdRoute: MetricsIdRoute,
   MoviesTmdbIdRoute: MoviesTmdbIdRoute,
+  RecipesIdRoute: RecipesIdRoute,
+  RecipesNewRoute: RecipesNewRoute,
   SearchBooksRoute: SearchBooksRoute,
   SearchMangasRoute: SearchMangasRoute,
   SearchMoviesRoute: SearchMoviesRoute,
@@ -624,6 +707,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShoppingListsIdRoute: ShoppingListsIdRoute,
   ShowsTmdbIdRoute: ShowsTmdbIdRoute,
   ToDoListsIdRoute: ToDoListsIdRoute,
+  RecipesIdEditRoute: RecipesIdEditRoute,
   ShowsTmdbIdSeasonsNumberRoute: ShowsTmdbIdSeasonsNumberRoute,
 }
 export const routeTree = rootRouteImport

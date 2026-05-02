@@ -121,6 +121,13 @@
     @apply bg-background text-foreground;
   }
 
+  /* Tailwind v4 switched from cursor: pointer to cursor: default for the button component. */
+  /* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
   main {
     min-height: calc(100vh - var(--spacing) * 14);
   }
