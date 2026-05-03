@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { getTime, intlFormat, intlFormatDistance, isAfter, isBefore } from "date-fns";
 
-import { Spinner } from "./ui/spinner";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 interface MoviesGridProps {
   movies: OrpcClientOutputs["movies"]["getWatchlist"];

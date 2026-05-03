@@ -1,12 +1,19 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
-import { useAppForm } from "@/hooks/form";
 import { zodTypes } from "@/lib/zod";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation } from "@tanstack/react-query";
 import * as z from "zod";
 
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
-import { FieldGroup } from "./ui/field";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@omnifex/ui/components/ui/dialog";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name must be at least 1 character"),

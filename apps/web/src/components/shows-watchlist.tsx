@@ -5,7 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { getTime, intlFormat, intlFormatDistance, isAfter, isBefore } from "date-fns";
 import { maxTime } from "date-fns/constants";
 
-import { Spinner } from "./ui/spinner";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 interface ShowsGridProps {
   shows: OrpcClientOutputs["shows"]["getWatchlist"];

@@ -1,7 +1,12 @@
 import placeholderTallUrl from "@/assets/placeholder-tall.svg";
 import placeholderWideUrl from "@/assets/placeholder-wide.svg";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { orpc, queryClient } from "@/utils/orpc";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { CalendarIcon, CheckIcon, CircleCheckIcon, Clock3Icon, EyeOffIcon, StarIcon } from "lucide-react";
+
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Card, CardContent } from "@omnifex/ui/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +14,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Progress } from "@/components/ui/progress";
-import { Spinner } from "@/components/ui/spinner";
-import { orpc, queryClient } from "@/utils/orpc";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { CalendarIcon, CheckIcon, CircleCheckIcon, Clock3Icon, EyeOffIcon, StarIcon } from "lucide-react";
+} from "@omnifex/ui/components/ui/dropdown-menu";
+import { Progress } from "@omnifex/ui/components/ui/progress";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export const Route = createFileRoute("/shows_/$tmdbId_/seasons/$number")({
   component: Component,

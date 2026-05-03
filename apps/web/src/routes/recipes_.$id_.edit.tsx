@@ -1,8 +1,9 @@
 import { RecipeForm } from "@/components/recipe-form";
-import { Spinner } from "@/components/ui/spinner";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
+
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export const Route = createFileRoute("/recipes_/$id_/edit")({
   component: Component,

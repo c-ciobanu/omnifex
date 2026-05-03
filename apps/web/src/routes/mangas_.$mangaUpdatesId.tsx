@@ -1,10 +1,11 @@
 import { MangaActions } from "@/components/manga-actions";
-import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import Markdown from "react-markdown";
+
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export const Route = createFileRoute("/mangas_/$mangaUpdatesId")({
   component: Component,

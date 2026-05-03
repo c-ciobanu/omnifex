@@ -1,5 +1,9 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
 import { useState } from "react";
+import { orpc, queryClient } from "@/utils/orpc";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { ExternalLinkIcon, PencilIcon, PlusIcon, Trash2Icon } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -8,15 +12,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
-import { orpc, queryClient } from "@/utils/orpc";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { ExternalLinkIcon, PencilIcon, PlusIcon, Trash2Icon } from "lucide-react";
+} from "@omnifex/ui/components/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@omnifex/ui/components/ui/avatar";
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 import { BookmarkModal } from "./bookmark-modal";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 function getUrlHostname(url: string) {
   return new URL(url).hostname;

@@ -1,10 +1,11 @@
 import { AbandonedShows } from "@/components/abandoned-shows";
 import { ShowsWatchlist } from "@/components/shows-watchlist";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WatchedShows } from "@/components/watched-shows";
-import { useAppForm } from "@/hooks/form";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import * as z from "zod";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@omnifex/ui/components/ui/tabs";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 export const Route = createFileRoute("/shows")({
   component: Component,

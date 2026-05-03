@@ -1,27 +1,5 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
 import { useState } from "react";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { FieldGroup } from "@/components/ui/field";
-import { Spinner } from "@/components/ui/spinner";
-import { useAppForm } from "@/hooks/form";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
@@ -36,6 +14,29 @@ import {
   UploadCloudIcon,
 } from "lucide-react";
 import * as z from "zod";
+
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@omnifex/ui/components/ui/alert-dialog";
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Card, CardContent } from "@omnifex/ui/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@omnifex/ui/components/ui/dropdown-menu";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 export const Route = createFileRoute("/files")({
   component: Component,

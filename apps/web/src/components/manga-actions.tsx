@@ -1,15 +1,20 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
 import { useState } from "react";
-import { useAppForm } from "@/hooks/form";
-import { cn } from "@/lib/utils";
 import { zodTypes } from "@/lib/zod";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation } from "@tanstack/react-query";
 import { CheckIcon, EyeOffIcon, ListMinusIcon, ListPlusIcon } from "lucide-react";
 import * as z from "zod";
 
-import { Button } from "./ui/button";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Button } from "@omnifex/ui/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@omnifex/ui/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,8 +22,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Progress } from "./ui/progress";
+} from "@omnifex/ui/components/ui/dropdown-menu";
+import { Progress } from "@omnifex/ui/components/ui/progress";
+import { useAppForm } from "@omnifex/ui/hooks/form";
+import { cn } from "@omnifex/ui/lib/utils";
 
 const formSchema = z.object({
   chapter: zodTypes.number.gte(1),

@@ -1,10 +1,10 @@
 import type { OrpcClientOutputs } from "@/utils/orpc";
-import { cn } from "@/lib/utils";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation } from "@tanstack/react-query";
 import { EyeIcon, EyeOffIcon, ListMinusIcon, ListPlusIcon } from "lucide-react";
 
-import { Button } from "./ui/button";
+import { Button } from "@omnifex/ui/components/ui/button";
+import { cn } from "@omnifex/ui/lib/utils";
 
 interface Props {
   book: OrpcClientOutputs["books"]["get"];

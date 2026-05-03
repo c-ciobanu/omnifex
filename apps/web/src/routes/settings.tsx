@@ -1,10 +1,11 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { FieldGroup } from "@/components/ui/field";
-import { useAppForm } from "@/hooks/form";
 import { authClient } from "@/lib/auth-client";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { toast } from "sonner";
 import * as z from "zod";
+
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@omnifex/ui/components/ui/card";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 export const Route = createFileRoute("/settings")({
   component: Component,

@@ -2,7 +2,7 @@ import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
-import { Spinner } from "./ui/spinner";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export function ReadMangas() {
   const { data: mangas, isLoading } = useQuery(orpc.mangas.getRead.queryOptions());

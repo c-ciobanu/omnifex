@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
+
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@omnifex/ui/components/ui/card";
 
 export const Route = createFileRoute("/login_/demo")({
   component: Component,

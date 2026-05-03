@@ -25,6 +25,21 @@ catalogs:
     "prisma": 6.19.2 # Update Dockerfile runner-server
     "@prisma/client": 6.19.2
     "@prisma/adapter-pg": 6.19.2
+  react:
+    "@types/react": 19.2.14
+    "@types/react-dom": 19.2.3
+    react: 19.1.0
+    react-dom: 19.1.0
+  lexical:
+    "@lexical/code": "0.42.0"
+    "@lexical/hashtag": "0.42.0"
+    "@lexical/link": "0.42.0"
+    "@lexical/list": "0.42.0"
+    "@lexical/react": "0.42.0"
+    "@lexical/rich-text": "0.42.0"
+    "@lexical/selection": "0.42.0"
+    "@lexical/utils": "0.42.0"
+    lexical: "0.42.0"
 
 linkWorkspacePackages: true
 

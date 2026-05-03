@@ -1,13 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FieldGroup } from "@/components/ui/field";
-import { Spinner } from "@/components/ui/spinner";
-import { useAppForm } from "@/hooks/form";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { PlusIcon, Trash2Icon } from "lucide-react";
 import * as z from "zod";
+
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Checkbox } from "@omnifex/ui/components/ui/checkbox";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const formSchema = z.object({
   name: z.string().trim().min(1),

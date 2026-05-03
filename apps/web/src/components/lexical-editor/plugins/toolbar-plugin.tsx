@@ -1,18 +1,6 @@
 import type { HeadingTagType } from "@lexical/rich-text";
 import type { ElementFormatType } from "lexical";
 import { useCallback, useEffect, useState } from "react";
-import { Dialog, DialogClose, DialogContent, DialogFooter } from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { FieldGroup } from "@/components/ui/field";
-import { Separator } from "@/components/ui/separator";
-import { Toggle } from "@/components/ui/toggle";
-import { useAppForm } from "@/hooks/form";
 import { orpc, queryClient } from "@/utils/orpc";
 import { $createCodeNode } from "@lexical/code";
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
@@ -75,6 +63,19 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import * as z from "zod";
+
+import { Dialog, DialogClose, DialogContent, DialogFooter } from "@omnifex/ui/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@omnifex/ui/components/ui/dropdown-menu";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { Separator } from "@omnifex/ui/components/ui/separator";
+import { Toggle } from "@omnifex/ui/components/ui/toggle";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const blockTypeElements = {
   paragraph: (

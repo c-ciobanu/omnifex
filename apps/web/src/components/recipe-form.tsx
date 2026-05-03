@@ -1,10 +1,10 @@
-import { useAppForm } from "@/hooks/form";
 import { zodTypes } from "@/lib/zod";
 import { PlusIcon, Trash2Icon } from "lucide-react";
 import * as z from "zod";
 
-import { Button } from "./ui/button";
-import { FieldGroup } from "./ui/field";
+import { Button } from "@omnifex/ui/components/ui/button";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const formSchema = z.object({
   name: zodTypes.requiredString,

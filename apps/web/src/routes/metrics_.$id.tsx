@@ -2,6 +2,11 @@ import { useReducer, useState } from "react";
 import { EditMetricEntryModal } from "@/components/edit-metric-entry-modal";
 import { MetricEntryChart } from "@/components/metric-entry-chart";
 import { NewMetricEntryModal } from "@/components/new-metric-entry-modal";
+import { orpc, queryClient } from "@/utils/orpc";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { MoreVerticalIcon, PlusIcon } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -10,8 +15,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from "@omnifex/ui/components/ui/alert-dialog";
+import { Button } from "@omnifex/ui/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,12 +24,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Spinner } from "@/components/ui/spinner";
-import { orpc, queryClient } from "@/utils/orpc";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { MoreVerticalIcon, PlusIcon } from "lucide-react";
+} from "@omnifex/ui/components/ui/dropdown-menu";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export const Route = createFileRoute("/metrics_/$id")({
   component: Component,

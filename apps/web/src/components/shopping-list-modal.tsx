@@ -1,8 +1,15 @@
-import { useAppForm } from "@/hooks/form";
 import * as z from "zod";
 
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
-import { FieldGroup } from "./ui/field";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@omnifex/ui/components/ui/dialog";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const formSchema = z.object({
   name: z.string().trim().min(1),

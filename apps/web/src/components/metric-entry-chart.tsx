@@ -3,9 +3,9 @@ import { useState } from "react";
 import { format, getTime, intlFormat, isAfter, subDays } from "date-fns";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@omnifex/ui/components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@omnifex/ui/components/ui/chart";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@omnifex/ui/components/ui/select";
 
 const rangeOptions = [
   { value: "7", label: "Last week" },

@@ -3,27 +3,7 @@ import "../index.css";
 import { useState } from "react";
 import { Logo } from "@/components/logo";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
-import { Toaster } from "@/components/ui/sonner";
 import { authClient } from "@/lib/auth-client";
-import { cn } from "@/lib/utils";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
@@ -36,6 +16,27 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { FrownIcon, MenuIcon, SmileIcon, XIcon } from "lucide-react";
+
+import { Button, buttonVariants } from "@omnifex/ui/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@omnifex/ui/components/ui/collapsible";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@omnifex/ui/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@omnifex/ui/components/ui/navigation-menu";
+import { Separator } from "@omnifex/ui/components/ui/separator";
+import { Toaster } from "@omnifex/ui/components/ui/sonner";
+import { cn } from "@omnifex/ui/lib/utils";
 
 const authenticatedNavigation = linkOptions([
   { to: "/dashboard", label: "Dashboard" },

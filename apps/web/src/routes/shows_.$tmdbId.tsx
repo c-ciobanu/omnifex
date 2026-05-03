@@ -1,14 +1,15 @@
 import placeholderTallUrl from "@/assets/placeholder-tall.svg";
 import { ShowActions } from "@/components/show-actions";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
-import { cn } from "@/lib/utils";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { millisecondsInSecond } from "date-fns/constants";
 import { CircleCheckIcon, RefreshCwIcon, StarIcon } from "lucide-react";
+
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
+import { cn } from "@omnifex/ui/lib/utils";
 
 export const Route = createFileRoute("/shows_/$tmdbId")({
   component: Component,

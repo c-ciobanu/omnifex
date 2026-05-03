@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { orpc, queryClient } from "@/utils/orpc";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, redirect, useRouter } from "@tanstack/react-router";
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -7,13 +11,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
-import { orpc, queryClient } from "@/utils/orpc";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link, redirect, useRouter } from "@tanstack/react-router";
+} from "@omnifex/ui/components/ui/alert-dialog";
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@omnifex/ui/components/ui/card";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export const Route = createFileRoute("/recipes_/$id")({
   component: Component,

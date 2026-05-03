@@ -1,9 +1,10 @@
 import { BooksReadingList } from "@/components/books-reading-list";
 import { ReadBooks } from "@/components/read-books";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAppForm } from "@/hooks/form";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import * as z from "zod";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@omnifex/ui/components/ui/tabs";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 export const Route = createFileRoute("/books")({
   component: Component,

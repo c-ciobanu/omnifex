@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { useAppForm } from "@/hooks/form";
 import { orpc, queryClient } from "@/utils/orpc";
 import { useMutation } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
 import * as z from "zod";
 
-import { Button } from "./ui/button";
+import { Button } from "@omnifex/ui/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -14,8 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
-import { FieldGroup } from "./ui/field";
+} from "@omnifex/ui/components/ui/dialog";
+import { FieldGroup } from "@omnifex/ui/components/ui/field";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title must be at least 1 character"),

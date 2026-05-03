@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { BookOpenIcon, CircleCheckBigIcon } from "lucide-react";
 
-import { Spinner } from "./ui/spinner";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 interface MangasGridProps {
   mangas: OrpcClientOutputs["mangas"]["getReading"];

@@ -1,8 +1,9 @@
 import { LexicalEditor } from "@/components/lexical-editor";
-import { Spinner } from "@/components/ui/spinner";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export const Route = createFileRoute("/documents_/$id")({
   component: Component,

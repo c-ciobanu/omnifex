@@ -1,10 +1,11 @@
 import { AbandonedMangas } from "@/components/abandoned-mangas";
 import { MangasReadingList } from "@/components/mangas-reading-list";
 import { ReadMangas } from "@/components/read-mangas";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAppForm } from "@/hooks/form";
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import * as z from "zod";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@omnifex/ui/components/ui/tabs";
+import { useAppForm } from "@omnifex/ui/hooks/form";
 
 export const Route = createFileRoute("/mangas")({
   component: Component,

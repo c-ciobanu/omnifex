@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import { orpc } from "@/utils/orpc";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "@omnifex/ui/components/ui/button";
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@omnifex/ui/components/ui/card";
+import { Spinner } from "@omnifex/ui/components/ui/spinner";
 
 export function DashboardShoppingList() {
   const { data: list, isLoading } = useQuery(orpc.shoppingLists.getForDashboard.queryOptions());
