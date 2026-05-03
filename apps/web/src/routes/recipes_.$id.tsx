@@ -70,6 +70,8 @@ function Component() {
           </div>
         </div>
 
+        {recipe.calories ? <p>Calories: {recipe.calories}</p> : null}
+
         <Card>
           <CardHeader>
             <CardTitle>Ingredients</CardTitle>
@@ -83,6 +85,26 @@ function Component() {
             </ul>
           </CardContent>
         </Card>
+
+        {recipe.links.length > 0 ? (
+          <Card>
+            <CardHeader>
+              <CardTitle>Links</CardTitle>
+            </CardHeader>
+
+            <CardContent>
+              <ul className="list-inside list-disc">
+                {recipe.links.map((link) => (
+                  <li key={link.id}>
+                    <a href={link.link} target="_blank" rel="noreferrer" className="text-blue-500 hover:underline">
+                      {link.text ?? link.link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        ) : null}
 
         <Card>
           <CardHeader>

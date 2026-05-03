@@ -8,6 +8,7 @@ import { useAppForm } from "@omnifex/ui/hooks/form";
 
 const formSchema = z.object({
   name: zodTypes.requiredString,
+  calories: zodTypes.number.nullable(),
   instructions: z.array(zodTypes.requiredString).min(1),
   ingredients: z
     .array(
@@ -18,6 +19,12 @@ const formSchema = z.object({
       }),
     )
     .min(1),
+  links: z.array(
+    z.object({
+      link: zodTypes.requiredString,
+      text: zodTypes.nullableString,
+    }),
+  ),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -31,8 +38,10 @@ export function RecipeForm({ onSubmit, defaultValues }: Props) {
   const form = useAppForm({
     defaultValues: defaultValues ?? {
       name: "",
+      calories: null,
       instructions: [""],
       ingredients: [{ name: "", quantity: "", unit: "" }],
+      links: [],
     },
     validators: {
       onSubmit: formSchema,
@@ -54,6 +63,11 @@ export function RecipeForm({ onSubmit, defaultValues }: Props) {
     >
       <FieldGroup>
         <form.AppField name="name" children={(field) => <field.InputField label="Name" />} />
+
+        <form.AppField
+          name="calories"
+          children={(field) => <field.InputField label="Calories" inputProps={{ type: "number", min: 1 }} />}
+        />
 
         <form.Field name="instructions" mode="array">
           {(field) => (
@@ -115,7 +129,7 @@ export function RecipeForm({ onSubmit, defaultValues }: Props) {
               <div className="space-y-2">
                 {field.state.value.map((_, index) => (
                   <div key={`ingredient-${index}`} className="rounded-lg border p-4">
-                    <div className="grid gap-3 md:grid-cols-[2fr_1fr_1fr_auto]">
+                    <div className="grid gap-2 md:grid-cols-[2fr_1fr_1fr_auto]">
                       <form.AppField
                         name={`ingredients[${index}].name`}
                         children={(subField) => <subField.InputField inputProps={{ placeholder: "Name" }} />}
@@ -140,6 +154,44 @@ export function RecipeForm({ onSubmit, defaultValues }: Props) {
                       >
                         <Trash2Icon />
                         <span className="sr-only">Remove ingredient {index + 1}</span>
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </form.Field>
+
+        <form.Field name="links" mode="array">
+          {(field) => (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold">Links</h3>
+
+                <Button type="button" variant="outline" onClick={() => field.pushValue({ link: "", text: "" })}>
+                  <PlusIcon />
+                  Add Link
+                </Button>
+              </div>
+
+              <div className="space-y-2">
+                {field.state.value.map((_, index) => (
+                  <div key={`link-${index}`} className="rounded-lg border p-4">
+                    <div className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
+                      <form.AppField
+                        name={`links[${index}].link`}
+                        children={(subField) => <subField.InputField inputProps={{ placeholder: "Link" }} />}
+                      />
+
+                      <form.AppField
+                        name={`links[${index}].text`}
+                        children={(subField) => <subField.InputField inputProps={{ placeholder: "Text" }} />}
+                      />
+
+                      <Button type="button" variant="ghost" size="icon-sm" onClick={() => field.removeValue(index)}>
+                        <Trash2Icon />
+                        <span className="sr-only">Remove link {index + 1}</span>
                       </Button>
                     </div>
                   </div>

@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function InputField({ label, description, inputProps = {}, className }: Props) {
-  const field = useFieldContext<string>();
+  const field = useFieldContext<string | null>();
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
   const id = `form-tanstack-input-${field.name}`;
@@ -23,9 +23,11 @@ export function InputField({ label, description, inputProps = {}, className }: P
         {...inputProps}
         id={id}
         name={field.name}
-        value={field.state.value}
+        value={field.state.value ?? ""}
         onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(e.target.value)}
+        onChange={(e) =>
+          field.handleChange(inputProps.type === "number" && e.target.value === "" ? null : e.target.value)
+        }
         aria-invalid={isInvalid}
       />
 

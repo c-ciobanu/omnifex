@@ -16,6 +16,13 @@ const recipeInputSchema = z.object({
       }),
     )
     .min(1),
+  calories: z.int().nullable(),
+  links: z.array(
+    z.object({
+      link: z.string().trim().min(1),
+      text: z.string().trim().min(1).nullable(),
+    }),
+  ),
 });
 
 export const recipesRouter = {
@@ -31,18 +38,20 @@ export const recipesRouter = {
       where: { id: input.id, userId: context.session.user.id },
       include: {
         ingredients: true,
+        links: true,
       },
     });
   }),
 
   create: protectedProcedure.input(recipeInputSchema).handler(({ input, context }) => {
-    const { ingredients, ...recipeData } = input;
+    const { ingredients, links, ...recipeData } = input;
 
     return prisma.recipe.create({
       data: {
         ...recipeData,
         userId: context.session.user.id,
         ingredients: { create: ingredients },
+        links: { create: links },
       },
     });
   }),
@@ -50,13 +59,14 @@ export const recipesRouter = {
   update: protectedProcedure
     .input(recipeInputSchema.extend({ id: z.string().trim().min(1) }))
     .handler(({ input, context }) => {
-      const { id, ingredients, ...recipeData } = input;
+      const { id, ingredients, links, ...recipeData } = input;
 
       return prisma.recipe.update({
         where: { id, userId: context.session.user.id },
         data: {
           ...recipeData,
           ingredients: { deleteMany: {}, create: ingredients },
+          links: { deleteMany: {}, create: links },
         },
       });
     }),
