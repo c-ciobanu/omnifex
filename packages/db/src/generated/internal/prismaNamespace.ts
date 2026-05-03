@@ -409,6 +409,7 @@ export const ModelName = {
   MovieListItem: 'MovieListItem',
   Recipe: 'Recipe',
   RecipeIngredient: 'RecipeIngredient',
+  RecipeLink: 'RecipeLink',
   ShoppingList: 'ShoppingList',
   ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "recipe" | "recipeIngredient" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "recipe" | "recipeIngredient" | "recipeLink" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1844,6 +1845,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RecipeLink: {
+      payload: Prisma.$RecipeLinkPayload<ExtArgs>
+      fields: Prisma.RecipeLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecipeLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecipeLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.RecipeLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecipeLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>
+        }
+        findMany: {
+          args: Prisma.RecipeLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>[]
+        }
+        create: {
+          args: Prisma.RecipeLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>
+        }
+        createMany: {
+          args: Prisma.RecipeLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecipeLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.RecipeLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>
+        }
+        update: {
+          args: Prisma.RecipeLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecipeLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecipeLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecipeLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecipeLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.RecipeLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecipeLink>
+        }
+        groupBy: {
+          args: Prisma.RecipeLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecipeLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecipeLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecipeLinkCountAggregateOutputType> | number
+        }
+      }
+    }
     ShoppingList: {
       payload: Prisma.$ShoppingListPayload<ExtArgs>
       fields: Prisma.ShoppingListFieldRefs
@@ -2872,6 +2947,7 @@ export const RecipeScalarFieldEnum = {
   name: 'name',
   instructions: 'instructions',
   imageKey: 'imageKey',
+  calories: 'calories',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
@@ -2889,6 +2965,16 @@ export const RecipeIngredientScalarFieldEnum = {
 } as const
 
 export type RecipeIngredientScalarFieldEnum = (typeof RecipeIngredientScalarFieldEnum)[keyof typeof RecipeIngredientScalarFieldEnum]
+
+
+export const RecipeLinkScalarFieldEnum = {
+  id: 'id',
+  link: 'link',
+  text: 'text',
+  recipeId: 'recipeId'
+} as const
+
+export type RecipeLinkScalarFieldEnum = (typeof RecipeLinkScalarFieldEnum)[keyof typeof RecipeLinkScalarFieldEnum]
 
 
 export const ShoppingListScalarFieldEnum = {
@@ -3293,6 +3379,7 @@ export type GlobalOmitConfig = {
   movieListItem?: Prisma.MovieListItemOmit
   recipe?: Prisma.RecipeOmit
   recipeIngredient?: Prisma.RecipeIngredientOmit
+  recipeLink?: Prisma.RecipeLinkOmit
   shoppingList?: Prisma.ShoppingListOmit
   shoppingListItem?: Prisma.ShoppingListItemOmit
   show?: Prisma.ShowOmit

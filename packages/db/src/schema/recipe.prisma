@@ -3,6 +3,7 @@ model Recipe {
   name         String
   instructions String[]
   imageKey     String?
+  calories     Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -10,6 +11,7 @@ model Recipe {
   user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   ingredients RecipeIngredient[]
+  links       RecipeLink[]
 
   @@map("recipe")
 }
@@ -24,4 +26,15 @@ model RecipeIngredient {
   recipeId String
 
   @@map("recipe-ingredient")
+}
+
+model RecipeLink {
+  id   Int     @id @default(autoincrement())
+  link String
+  text String?
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+
+  @@map("recipe-link")
 }

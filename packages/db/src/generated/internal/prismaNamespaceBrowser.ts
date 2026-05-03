@@ -68,6 +68,7 @@ export const ModelName = {
   MovieListItem: 'MovieListItem',
   Recipe: 'Recipe',
   RecipeIngredient: 'RecipeIngredient',
+  RecipeLink: 'RecipeLink',
   ShoppingList: 'ShoppingList',
   ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
@@ -345,6 +346,7 @@ export const RecipeScalarFieldEnum = {
   name: 'name',
   instructions: 'instructions',
   imageKey: 'imageKey',
+  calories: 'calories',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
@@ -362,6 +364,16 @@ export const RecipeIngredientScalarFieldEnum = {
 } as const
 
 export type RecipeIngredientScalarFieldEnum = (typeof RecipeIngredientScalarFieldEnum)[keyof typeof RecipeIngredientScalarFieldEnum]
+
+
+export const RecipeLinkScalarFieldEnum = {
+  id: 'id',
+  link: 'link',
+  text: 'text',
+  recipeId: 'recipeId'
+} as const
+
+export type RecipeLinkScalarFieldEnum = (typeof RecipeLinkScalarFieldEnum)[keyof typeof RecipeLinkScalarFieldEnum]
 
 
 export const ShoppingListScalarFieldEnum = {

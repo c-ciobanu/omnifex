@@ -113,6 +113,11 @@ export type Recipe = Prisma.RecipeModel
  */
 export type RecipeIngredient = Prisma.RecipeIngredientModel
 /**
+ * Model RecipeLink
+ * 
+ */
+export type RecipeLink = Prisma.RecipeLinkModel
+/**
  * Model ShoppingList
  * 
  */
