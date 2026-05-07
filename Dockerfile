@@ -8,6 +8,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 RUN corepack enable
+RUN corepack prepare pnpm@10.31.0 --activate
 
 FROM builder AS builder-server
 
