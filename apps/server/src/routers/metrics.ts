@@ -1,4 +1,5 @@
 import { ORPCError } from "@orpc/server";
+import { getTime } from "date-fns";
 import * as z from "zod";
 
 import { prisma } from "@omnifex/db";
@@ -12,11 +13,13 @@ export const metricsRouter = {
       include: { entries: { orderBy: { date: "desc" }, take: 1 } },
     });
 
-    return metrics.map((metric) => ({
-      ...metric,
-      entries: undefined,
-      latestEntry: metric.entries[0],
-    }));
+    return metrics
+      .map((metric) => ({
+        ...metric,
+        entries: undefined,
+        latestEntry: metric.entries[0],
+      }))
+      .sort((a, b) => getTime(b.latestEntry?.date ?? new Date()) - getTime(a.latestEntry?.date ?? new Date()));
   }),
 
   get: protectedProcedure.input(z.object({ id: z.int() })).handler(async ({ input, context }) => {
