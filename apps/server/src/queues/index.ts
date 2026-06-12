@@ -26,9 +26,19 @@ export interface UpdateMangaDataType {
 
 export const updateMangaQueue = new Queue<UpdateMangaDataType>("update-manga", defaultQueueOptions);
 
+export interface CreateReminderNotificationDataType {
+  reminderId: string;
+}
+
+export const createReminderNotificationQueue = new Queue<CreateReminderNotificationDataType>(
+  "create-reminder-notification",
+  defaultQueueOptions,
+);
+
 export const queues = [
   checkMovieChangesQueue,
   checkShowChangesQueue,
+  createReminderNotificationQueue,
   updateMangaQueue,
   updateMangasQueue,
   updateMovieQueue,
