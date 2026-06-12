@@ -47,6 +47,7 @@ const authenticatedNavigation = linkOptions([
   { to: "/documents", label: "Documents" },
   { to: "/files", label: "Files" },
   { to: "/metrics", label: "Metrics" },
+  { to: "/reminders", label: "Reminders" },
   { to: "/recipes", label: "Recipes" },
   { to: "/to-do-lists", label: "To Do Lists" },
   { to: "/shopping-lists", label: "Shopping Lists" },
@@ -66,6 +67,7 @@ const desktopAuthenticatedNavigation = [
   linkOptions({ to: "/documents", label: "Documents" }),
   linkOptions({ to: "/files", label: "Files" }),
   linkOptions({ to: "/metrics", label: "Metrics" }),
+  linkOptions({ to: "/reminders", label: "Reminders" }),
   linkOptions({ to: "/recipes", label: "Recipes" }),
   {
     section: "Lists",

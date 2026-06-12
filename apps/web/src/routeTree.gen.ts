@@ -14,6 +14,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ShowsRouteImport } from './routes/shows'
 import { Route as ShoppingListsRouteImport } from './routes/shopping-lists'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as RemindersRouteImport } from './routes/reminders'
 import { Route as RecipesRouteImport } from './routes/recipes'
 import { Route as MoviesRouteImport } from './routes/movies'
 import { Route as MetricsRouteImport } from './routes/metrics'
@@ -65,6 +66,11 @@ const ShoppingListsRoute = ShoppingListsRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RemindersRoute = RemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RecipesRoute = RecipesRouteImport.update({
@@ -215,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/recipes': typeof RecipesRoute
+  '/reminders': typeof RemindersRoute
   '/settings': typeof SettingsRoute
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
@@ -249,6 +256,7 @@ export interface FileRoutesByTo {
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/recipes': typeof RecipesRoute
+  '/reminders': typeof RemindersRoute
   '/settings': typeof SettingsRoute
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
@@ -284,6 +292,7 @@ export interface FileRoutesById {
   '/metrics': typeof MetricsRoute
   '/movies': typeof MoviesRoute
   '/recipes': typeof RecipesRoute
+  '/reminders': typeof RemindersRoute
   '/settings': typeof SettingsRoute
   '/shopping-lists': typeof ShoppingListsRoute
   '/shows': typeof ShowsRoute
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/metrics'
     | '/movies'
     | '/recipes'
+    | '/reminders'
     | '/settings'
     | '/shopping-lists'
     | '/shows'
@@ -354,6 +364,7 @@ export interface FileRouteTypes {
     | '/metrics'
     | '/movies'
     | '/recipes'
+    | '/reminders'
     | '/settings'
     | '/shopping-lists'
     | '/shows'
@@ -388,6 +399,7 @@ export interface FileRouteTypes {
     | '/metrics'
     | '/movies'
     | '/recipes'
+    | '/reminders'
     | '/settings'
     | '/shopping-lists'
     | '/shows'
@@ -423,6 +435,7 @@ export interface RootRouteChildren {
   MetricsRoute: typeof MetricsRoute
   MoviesRoute: typeof MoviesRoute
   RecipesRoute: typeof RecipesRoute
+  RemindersRoute: typeof RemindersRoute
   SettingsRoute: typeof SettingsRoute
   ShoppingListsRoute: typeof ShoppingListsRoute
   ShowsRoute: typeof ShowsRoute
@@ -482,6 +495,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reminders': {
+      id: '/reminders'
+      path: '/reminders'
+      fullPath: '/reminders'
+      preLoaderRoute: typeof RemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/recipes': {
@@ -687,6 +707,7 @@ const rootRouteChildren: RootRouteChildren = {
   MetricsRoute: MetricsRoute,
   MoviesRoute: MoviesRoute,
   RecipesRoute: RecipesRoute,
+  RemindersRoute: RemindersRoute,
   SettingsRoute: SettingsRoute,
   ShoppingListsRoute: ShoppingListsRoute,
   ShowsRoute: ShowsRoute,

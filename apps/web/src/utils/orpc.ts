@@ -1,4 +1,4 @@
-import type { InferClientOutputs } from "@orpc/client";
+import type { InferClientBodyInputs, InferClientOutputs } from "@orpc/client";
 import { env } from "@/env";
 import { createORPCClient, onError } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
@@ -11,6 +11,7 @@ import { decimalSerializer } from "@omnifex/orpc";
 import type { AppRouterClient } from "../../../server/src/routers";
 
 export type OrpcClientOutputs = InferClientOutputs<AppRouterClient>;
+export type OrpcClientBodyInputs = InferClientBodyInputs<AppRouterClient>;
 
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
