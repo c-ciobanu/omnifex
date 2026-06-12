@@ -66,9 +66,11 @@ export const ModelName = {
   Movie: 'Movie',
   MovieList: 'MovieList',
   MovieListItem: 'MovieListItem',
+  Notification: 'Notification',
   Recipe: 'Recipe',
   RecipeIngredient: 'RecipeIngredient',
   RecipeLink: 'RecipeLink',
+  Reminder: 'Reminder',
   ShoppingList: 'ShoppingList',
   ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
@@ -341,6 +343,19 @@ export const MovieListItemScalarFieldEnum = {
 export type MovieListItemScalarFieldEnum = (typeof MovieListItemScalarFieldEnum)[keyof typeof MovieListItemScalarFieldEnum]
 
 
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  body: 'body',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  reminderId: 'reminderId'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
 export const RecipeScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -374,6 +389,19 @@ export const RecipeLinkScalarFieldEnum = {
 } as const
 
 export type RecipeLinkScalarFieldEnum = (typeof RecipeLinkScalarFieldEnum)[keyof typeof RecipeLinkScalarFieldEnum]
+
+
+export const ReminderScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  notes: 'notes',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
 
 
 export const ShoppingListScalarFieldEnum = {

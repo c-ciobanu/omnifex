@@ -261,6 +261,8 @@ export type UserWhereInput = {
   files?: Prisma.FileListRelationFilter
   mangaProgresses?: Prisma.MangaProgressListRelationFilter
   recipes?: Prisma.RecipeListRelationFilter
+  reminders?: Prisma.ReminderListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -292,6 +294,8 @@ export type UserOrderByWithRelationInput = {
   files?: Prisma.FileOrderByRelationAggregateInput
   mangaProgresses?: Prisma.MangaProgressOrderByRelationAggregateInput
   recipes?: Prisma.RecipeOrderByRelationAggregateInput
+  reminders?: Prisma.ReminderOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -326,6 +330,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   files?: Prisma.FileListRelationFilter
   mangaProgresses?: Prisma.MangaProgressListRelationFilter
   recipes?: Prisma.RecipeListRelationFilter
+  reminders?: Prisma.ReminderListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -395,6 +401,8 @@ export type UserCreateInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -426,6 +434,8 @@ export type UserUncheckedCreateInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -457,6 +467,8 @@ export type UserUpdateInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -488,6 +500,8 @@ export type UserUncheckedUpdateInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -741,6 +755,20 @@ export type UserUpdateOneRequiredWithoutMovieListsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMovieListsInput, Prisma.UserUpdateWithoutMovieListsInput>, Prisma.UserUncheckedUpdateWithoutMovieListsInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateNestedOneWithoutRecipesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutRecipesInput, Prisma.UserUncheckedCreateWithoutRecipesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecipesInput
@@ -753,6 +781,20 @@ export type UserUpdateOneRequiredWithoutRecipesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutRecipesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecipesInput, Prisma.UserUpdateWithoutRecipesInput>, Prisma.UserUncheckedUpdateWithoutRecipesInput>
+}
+
+export type UserCreateNestedOneWithoutRemindersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRemindersInput, Prisma.UserUncheckedCreateWithoutRemindersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRemindersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRemindersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRemindersInput, Prisma.UserUncheckedCreateWithoutRemindersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRemindersInput
+  upsert?: Prisma.UserUpsertWithoutRemindersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRemindersInput, Prisma.UserUpdateWithoutRemindersInput>, Prisma.UserUncheckedUpdateWithoutRemindersInput>
 }
 
 export type UserCreateNestedOneWithoutShoppingListsInput = {
@@ -853,6 +895,8 @@ export type UserCreateWithoutAccountsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -883,6 +927,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -929,6 +975,8 @@ export type UserUpdateWithoutAccountsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -959,6 +1007,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -989,6 +1039,8 @@ export type UserCreateWithoutSessionsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1019,6 +1071,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1065,6 +1119,8 @@ export type UserUpdateWithoutSessionsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1095,6 +1151,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookListsInput = {
@@ -1125,6 +1183,8 @@ export type UserCreateWithoutBookListsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookListsInput = {
@@ -1155,6 +1215,8 @@ export type UserUncheckedCreateWithoutBookListsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookListsInput = {
@@ -1201,6 +1263,8 @@ export type UserUpdateWithoutBookListsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookListsInput = {
@@ -1231,6 +1295,8 @@ export type UserUncheckedUpdateWithoutBookListsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -1261,6 +1327,8 @@ export type UserCreateWithoutBookmarksInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -1291,6 +1359,8 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -1337,6 +1407,8 @@ export type UserUpdateWithoutBookmarksInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -1367,6 +1439,8 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDocumentsInput = {
@@ -1397,6 +1471,8 @@ export type UserCreateWithoutDocumentsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -1427,6 +1503,8 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -1473,6 +1551,8 @@ export type UserUpdateWithoutDocumentsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -1503,6 +1583,8 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFilesInput = {
@@ -1533,6 +1615,8 @@ export type UserCreateWithoutFilesInput = {
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFilesInput = {
@@ -1563,6 +1647,8 @@ export type UserUncheckedCreateWithoutFilesInput = {
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFilesInput = {
@@ -1609,6 +1695,8 @@ export type UserUpdateWithoutFilesInput = {
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFilesInput = {
@@ -1639,6 +1727,8 @@ export type UserUncheckedUpdateWithoutFilesInput = {
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMangaProgressesInput = {
@@ -1669,6 +1759,8 @@ export type UserCreateWithoutMangaProgressesInput = {
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMangaProgressesInput = {
@@ -1699,6 +1791,8 @@ export type UserUncheckedCreateWithoutMangaProgressesInput = {
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMangaProgressesInput = {
@@ -1745,6 +1839,8 @@ export type UserUpdateWithoutMangaProgressesInput = {
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMangaProgressesInput = {
@@ -1775,6 +1871,8 @@ export type UserUncheckedUpdateWithoutMangaProgressesInput = {
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMetricsInput = {
@@ -1805,6 +1903,8 @@ export type UserCreateWithoutMetricsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMetricsInput = {
@@ -1835,6 +1935,8 @@ export type UserUncheckedCreateWithoutMetricsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMetricsInput = {
@@ -1881,6 +1983,8 @@ export type UserUpdateWithoutMetricsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMetricsInput = {
@@ -1911,6 +2015,8 @@ export type UserUncheckedUpdateWithoutMetricsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMovieListsInput = {
@@ -1941,6 +2047,8 @@ export type UserCreateWithoutMovieListsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMovieListsInput = {
@@ -1971,6 +2079,8 @@ export type UserUncheckedCreateWithoutMovieListsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMovieListsInput = {
@@ -2017,6 +2127,8 @@ export type UserUpdateWithoutMovieListsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMovieListsInput = {
@@ -2047,6 +2159,152 @@ export type UserUncheckedUpdateWithoutMovieListsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  username: string
+  displayUsername?: string | null
+  email: string
+  emailVerified?: boolean
+  name: string
+  image?: string | null
+  role?: string
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movieLists?: Prisma.MovieListCreateNestedManyWithoutUserInput
+  watchedEpisodes?: Prisma.WatchedEpisodeCreateNestedManyWithoutUserInput
+  showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
+  abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
+  bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
+  shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
+  toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
+  mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  username: string
+  displayUsername?: string | null
+  email: string
+  emailVerified?: boolean
+  name: string
+  image?: string | null
+  role?: string
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movieLists?: Prisma.MovieListUncheckedCreateNestedManyWithoutUserInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
+  abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
+  bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
+  shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
+  toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
+  mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movieLists?: Prisma.MovieListUpdateManyWithoutUserNestedInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUpdateManyWithoutUserNestedInput
+  showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
+  abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
+  bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
+  shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
+  toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
+  mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movieLists?: Prisma.MovieListUncheckedUpdateManyWithoutUserNestedInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
+  abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
+  bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
+  toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
+  mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRecipesInput = {
@@ -2077,6 +2335,8 @@ export type UserCreateWithoutRecipesInput = {
   toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecipesInput = {
@@ -2107,6 +2367,8 @@ export type UserUncheckedCreateWithoutRecipesInput = {
   toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecipesInput = {
@@ -2153,6 +2415,8 @@ export type UserUpdateWithoutRecipesInput = {
   toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecipesInput = {
@@ -2183,6 +2447,152 @@ export type UserUncheckedUpdateWithoutRecipesInput = {
   toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRemindersInput = {
+  id?: string
+  username: string
+  displayUsername?: string | null
+  email: string
+  emailVerified?: boolean
+  name: string
+  image?: string | null
+  role?: string
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movieLists?: Prisma.MovieListCreateNestedManyWithoutUserInput
+  watchedEpisodes?: Prisma.WatchedEpisodeCreateNestedManyWithoutUserInput
+  showsWatchlist?: Prisma.WatchlistShowCreateNestedManyWithoutUserInput
+  abandonedShows?: Prisma.AbandonedShowCreateNestedManyWithoutUserInput
+  bookLists?: Prisma.BookListCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  metrics?: Prisma.MetricCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
+  shoppingLists?: Prisma.ShoppingListCreateNestedManyWithoutUserInput
+  toDoLists?: Prisma.ToDoListCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUserInput
+  mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRemindersInput = {
+  id?: string
+  username: string
+  displayUsername?: string | null
+  email: string
+  emailVerified?: boolean
+  name: string
+  image?: string | null
+  role?: string
+  banned?: boolean | null
+  banReason?: string | null
+  banExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movieLists?: Prisma.MovieListUncheckedCreateNestedManyWithoutUserInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  showsWatchlist?: Prisma.WatchlistShowUncheckedCreateNestedManyWithoutUserInput
+  abandonedShows?: Prisma.AbandonedShowUncheckedCreateNestedManyWithoutUserInput
+  bookLists?: Prisma.BookListUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  metrics?: Prisma.MetricUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
+  shoppingLists?: Prisma.ShoppingListUncheckedCreateNestedManyWithoutUserInput
+  toDoLists?: Prisma.ToDoListUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
+  mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRemindersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRemindersInput, Prisma.UserUncheckedCreateWithoutRemindersInput>
+}
+
+export type UserUpsertWithoutRemindersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRemindersInput, Prisma.UserUncheckedUpdateWithoutRemindersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRemindersInput, Prisma.UserUncheckedCreateWithoutRemindersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRemindersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRemindersInput, Prisma.UserUncheckedUpdateWithoutRemindersInput>
+}
+
+export type UserUpdateWithoutRemindersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movieLists?: Prisma.MovieListUpdateManyWithoutUserNestedInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUpdateManyWithoutUserNestedInput
+  showsWatchlist?: Prisma.WatchlistShowUpdateManyWithoutUserNestedInput
+  abandonedShows?: Prisma.AbandonedShowUpdateManyWithoutUserNestedInput
+  bookLists?: Prisma.BookListUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  metrics?: Prisma.MetricUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
+  shoppingLists?: Prisma.ShoppingListUpdateManyWithoutUserNestedInput
+  toDoLists?: Prisma.ToDoListUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUserNestedInput
+  mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRemindersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  displayUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movieLists?: Prisma.MovieListUncheckedUpdateManyWithoutUserNestedInput
+  watchedEpisodes?: Prisma.WatchedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  showsWatchlist?: Prisma.WatchlistShowUncheckedUpdateManyWithoutUserNestedInput
+  abandonedShows?: Prisma.AbandonedShowUncheckedUpdateManyWithoutUserNestedInput
+  bookLists?: Prisma.BookListUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  metrics?: Prisma.MetricUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  shoppingLists?: Prisma.ShoppingListUncheckedUpdateManyWithoutUserNestedInput
+  toDoLists?: Prisma.ToDoListUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
+  mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShoppingListsInput = {
@@ -2213,6 +2623,8 @@ export type UserCreateWithoutShoppingListsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShoppingListsInput = {
@@ -2243,6 +2655,8 @@ export type UserUncheckedCreateWithoutShoppingListsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShoppingListsInput = {
@@ -2289,6 +2703,8 @@ export type UserUpdateWithoutShoppingListsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShoppingListsInput = {
@@ -2319,6 +2735,8 @@ export type UserUncheckedUpdateWithoutShoppingListsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShowsWatchlistInput = {
@@ -2349,6 +2767,8 @@ export type UserCreateWithoutShowsWatchlistInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShowsWatchlistInput = {
@@ -2379,6 +2799,8 @@ export type UserUncheckedCreateWithoutShowsWatchlistInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShowsWatchlistInput = {
@@ -2425,6 +2847,8 @@ export type UserUpdateWithoutShowsWatchlistInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShowsWatchlistInput = {
@@ -2455,6 +2879,8 @@ export type UserUncheckedUpdateWithoutShowsWatchlistInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAbandonedShowsInput = {
@@ -2485,6 +2911,8 @@ export type UserCreateWithoutAbandonedShowsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAbandonedShowsInput = {
@@ -2515,6 +2943,8 @@ export type UserUncheckedCreateWithoutAbandonedShowsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAbandonedShowsInput = {
@@ -2561,6 +2991,8 @@ export type UserUpdateWithoutAbandonedShowsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAbandonedShowsInput = {
@@ -2591,6 +3023,8 @@ export type UserUncheckedUpdateWithoutAbandonedShowsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWatchedEpisodesInput = {
@@ -2621,6 +3055,8 @@ export type UserCreateWithoutWatchedEpisodesInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWatchedEpisodesInput = {
@@ -2651,6 +3087,8 @@ export type UserUncheckedCreateWithoutWatchedEpisodesInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWatchedEpisodesInput = {
@@ -2697,6 +3135,8 @@ export type UserUpdateWithoutWatchedEpisodesInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWatchedEpisodesInput = {
@@ -2727,6 +3167,8 @@ export type UserUncheckedUpdateWithoutWatchedEpisodesInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutToDoListsInput = {
@@ -2757,6 +3199,8 @@ export type UserCreateWithoutToDoListsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutToDoListsInput = {
@@ -2787,6 +3231,8 @@ export type UserUncheckedCreateWithoutToDoListsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUserInput
   mangaProgresses?: Prisma.MangaProgressUncheckedCreateNestedManyWithoutUserInput
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutToDoListsInput = {
@@ -2833,6 +3279,8 @@ export type UserUpdateWithoutToDoListsInput = {
   files?: Prisma.FileUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutToDoListsInput = {
@@ -2863,6 +3311,8 @@ export type UserUncheckedUpdateWithoutToDoListsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUserNestedInput
   mangaProgresses?: Prisma.MangaProgressUncheckedUpdateManyWithoutUserNestedInput
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2886,6 +3336,8 @@ export type UserCountOutputType = {
   files: number
   mangaProgresses: number
   recipes: number
+  reminders: number
+  notifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2904,6 +3356,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   files?: boolean | UserCountOutputTypeCountFilesArgs
   mangaProgresses?: boolean | UserCountOutputTypeCountMangaProgressesArgs
   recipes?: boolean | UserCountOutputTypeCountRecipesArgs
+  reminders?: boolean | UserCountOutputTypeCountRemindersArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -3021,6 +3475,20 @@ export type UserCountOutputTypeCountRecipesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.RecipeWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRemindersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReminderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3051,6 +3519,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   files?: boolean | Prisma.User$filesArgs<ExtArgs>
   mangaProgresses?: boolean | Prisma.User$mangaProgressesArgs<ExtArgs>
   recipes?: boolean | Prisma.User$recipesArgs<ExtArgs>
+  reminders?: boolean | Prisma.User$remindersArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3119,6 +3589,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   files?: boolean | Prisma.User$filesArgs<ExtArgs>
   mangaProgresses?: boolean | Prisma.User$mangaProgressesArgs<ExtArgs>
   recipes?: boolean | Prisma.User$recipesArgs<ExtArgs>
+  reminders?: boolean | Prisma.User$remindersArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3142,6 +3614,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     files: Prisma.$FilePayload<ExtArgs>[]
     mangaProgresses: Prisma.$MangaProgressPayload<ExtArgs>[]
     recipes: Prisma.$RecipePayload<ExtArgs>[]
+    reminders: Prisma.$ReminderPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3566,6 +4040,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   files<T extends Prisma.User$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mangaProgresses<T extends Prisma.User$mangaProgressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mangaProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recipes<T extends Prisma.User$recipesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recipesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reminders<T extends Prisma.User$remindersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4353,6 +4829,54 @@ export type User$recipesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.RecipeScalarFieldEnum | Prisma.RecipeScalarFieldEnum[]
+}
+
+/**
+ * User.reminders
+ */
+export type User$remindersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Reminder
+   */
+  select?: Prisma.ReminderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Reminder
+   */
+  omit?: Prisma.ReminderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReminderInclude<ExtArgs> | null
+  where?: Prisma.ReminderWhereInput
+  orderBy?: Prisma.ReminderOrderByWithRelationInput | Prisma.ReminderOrderByWithRelationInput[]
+  cursor?: Prisma.ReminderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReminderScalarFieldEnum | Prisma.ReminderScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

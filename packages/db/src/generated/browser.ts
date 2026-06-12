@@ -103,6 +103,11 @@ export type MovieList = Prisma.MovieListModel
  */
 export type MovieListItem = Prisma.MovieListItemModel
 /**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
  * Model Recipe
  * 
  */
@@ -117,6 +122,11 @@ export type RecipeIngredient = Prisma.RecipeIngredientModel
  * 
  */
 export type RecipeLink = Prisma.RecipeLinkModel
+/**
+ * Model Reminder
+ * 
+ */
+export type Reminder = Prisma.ReminderModel
 /**
  * Model ShoppingList
  * 

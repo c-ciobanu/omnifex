@@ -1,0 +1,15 @@
+model Reminder {
+  id    String   @id @default(uuid())
+  title String
+  notes String?
+  date  DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  notifications Notification[]
+
+  @@map("reminder")
+}

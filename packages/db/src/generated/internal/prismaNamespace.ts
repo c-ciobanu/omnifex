@@ -407,9 +407,11 @@ export const ModelName = {
   Movie: 'Movie',
   MovieList: 'MovieList',
   MovieListItem: 'MovieListItem',
+  Notification: 'Notification',
   Recipe: 'Recipe',
   RecipeIngredient: 'RecipeIngredient',
   RecipeLink: 'RecipeLink',
+  Reminder: 'Reminder',
   ShoppingList: 'ShoppingList',
   ShoppingListItem: 'ShoppingListItem',
   Show: 'Show',
@@ -435,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "recipe" | "recipeIngredient" | "recipeLink" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem"
+    modelProps: "user" | "account" | "session" | "verification" | "book" | "bookList" | "bookListItem" | "bookmark" | "document" | "file" | "manga" | "mangaProgress" | "metric" | "metricEntry" | "movie" | "movieList" | "movieListItem" | "notification" | "recipe" | "recipeIngredient" | "recipeLink" | "reminder" | "shoppingList" | "shoppingListItem" | "show" | "showSeason" | "showEpisode" | "watchlistShow" | "abandonedShow" | "watchedEpisode" | "toDoList" | "toDoListItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1697,6 +1699,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Notification: {
+      payload: Prisma.$NotificationPayload<ExtArgs>
+      fields: Prisma.NotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.NotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        findMany: {
+          args: Prisma.NotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        create: {
+          args: Prisma.NotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        createMany: {
+          args: Prisma.NotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.NotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        update: {
+          args: Prisma.NotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.NotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.NotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNotification>
+        }
+        groupBy: {
+          args: Prisma.NotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationCountAggregateOutputType> | number
+        }
+      }
+    }
     Recipe: {
       payload: Prisma.$RecipePayload<ExtArgs>
       fields: Prisma.RecipeFieldRefs
@@ -1916,6 +1992,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.RecipeLinkCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.RecipeLinkCountAggregateOutputType> | number
+        }
+      }
+    }
+    Reminder: {
+      payload: Prisma.$ReminderPayload<ExtArgs>
+      fields: Prisma.ReminderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReminderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReminderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>
+        }
+        findFirst: {
+          args: Prisma.ReminderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReminderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>
+        }
+        findMany: {
+          args: Prisma.ReminderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+        }
+        create: {
+          args: Prisma.ReminderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>
+        }
+        createMany: {
+          args: Prisma.ReminderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReminderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+        }
+        delete: {
+          args: Prisma.ReminderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>
+        }
+        update: {
+          args: Prisma.ReminderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReminderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReminderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReminderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReminderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReminderPayload>
+        }
+        aggregate: {
+          args: Prisma.ReminderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReminder>
+        }
+        groupBy: {
+          args: Prisma.ReminderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReminderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReminderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReminderCountAggregateOutputType> | number
         }
       }
     }
@@ -2942,6 +3092,19 @@ export const MovieListItemScalarFieldEnum = {
 export type MovieListItemScalarFieldEnum = (typeof MovieListItemScalarFieldEnum)[keyof typeof MovieListItemScalarFieldEnum]
 
 
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  body: 'body',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  reminderId: 'reminderId'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
 export const RecipeScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2975,6 +3138,19 @@ export const RecipeLinkScalarFieldEnum = {
 } as const
 
 export type RecipeLinkScalarFieldEnum = (typeof RecipeLinkScalarFieldEnum)[keyof typeof RecipeLinkScalarFieldEnum]
+
+
+export const ReminderScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  notes: 'notes',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
 
 
 export const ShoppingListScalarFieldEnum = {
@@ -3377,9 +3553,11 @@ export type GlobalOmitConfig = {
   movie?: Prisma.MovieOmit
   movieList?: Prisma.MovieListOmit
   movieListItem?: Prisma.MovieListItemOmit
+  notification?: Prisma.NotificationOmit
   recipe?: Prisma.RecipeOmit
   recipeIngredient?: Prisma.RecipeIngredientOmit
   recipeLink?: Prisma.RecipeLinkOmit
+  reminder?: Prisma.ReminderOmit
   shoppingList?: Prisma.ShoppingListOmit
   shoppingListItem?: Prisma.ShoppingListItemOmit
   show?: Prisma.ShowOmit
