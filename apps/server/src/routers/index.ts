@@ -7,6 +7,7 @@ import { filesRouter } from "./files";
 import { mangasRouter } from "./mangas";
 import { metricsRouter } from "./metrics";
 import { moviesRouter } from "./movies";
+import { notificationsRouter } from "./notifications";
 import { recipesRouter } from "./recipes";
 import { remindersRouter } from "./reminders";
 import { shoppingListsRouter } from "./shoppingLists";
@@ -21,6 +22,7 @@ export const appRouter = {
   mangas: mangasRouter,
   metrics: metricsRouter,
   movies: moviesRouter,
+  notifications: notificationsRouter,
   recipes: recipesRouter,
   reminders: remindersRouter,
   shoppingLists: shoppingListsRouter,
