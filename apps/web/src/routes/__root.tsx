@@ -2,6 +2,7 @@ import "../index.css";
 
 import { useState } from "react";
 import { Logo } from "@/components/logo";
+import { NotificationsMenu } from "@/components/notifications-menu";
 import { ThemeProvider } from "@/components/theme-provider";
 import { authClient } from "@/lib/auth-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -199,10 +200,12 @@ function Component() {
               </div>
 
               <div className="flex items-center gap-2">
+                {session ? <NotificationsMenu /> : null}
+
                 <DropdownMenu>
                   <Button asChild variant="ghost" size="icon" className="-mr-2 hidden text-gray-300 md:inline-flex">
                     <DropdownMenuTrigger>
-                      {session ? <SmileIcon className="!h-6 !w-6" /> : <FrownIcon className="!h-6 !w-6" />}
+                      {session ? <SmileIcon className="size-6" /> : <FrownIcon className="size-6" />}
                     </DropdownMenuTrigger>
                   </Button>
 
@@ -224,7 +227,7 @@ function Component() {
 
                 <CollapsibleTrigger asChild>
                   <Button variant="ghost" size="icon" className="-mr-2 text-gray-300 md:hidden">
-                    {isOpen ? <XIcon className="!h-6 !w-6" /> : <MenuIcon className="!h-6 !w-6" />}
+                    {isOpen ? <XIcon className="size-6" /> : <MenuIcon className="size-6" />}
                   </Button>
                 </CollapsibleTrigger>
               </div>
