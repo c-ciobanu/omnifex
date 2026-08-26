@@ -721,10 +721,10 @@ interface MangaBakaSeries {
   };
 }
 
-const baseUrl = "https://api.mangabaka.dev/v1";
+const baseUrl = "https://api.mangabaka.org";
 
 export async function getManga(id: string): Promise<[undefined, Error] | [MangaBakaSeries, undefined]> {
-  const response = await fetch(`${baseUrl}/series/${id}`);
+  const response = await fetch(`${baseUrl}/v1/series/${id}`);
 
   if (response.status !== 200) {
     return [undefined, new Error(response.statusText)];
@@ -738,7 +738,7 @@ export async function getManga(id: string): Promise<[undefined, Error] | [MangaB
 export async function getMangaByMangaUpdatesId(
   id: string,
 ): Promise<[undefined, Error] | [MangaBakaSeries | undefined, undefined]> {
-  const response = await fetch(`${baseUrl}/source/manga-updates/${id}`);
+  const response = await fetch(`${baseUrl}/v1/source/manga-updates/${id}`);
 
   if (response.status !== 200) {
     return [undefined, new Error(response.statusText)];
