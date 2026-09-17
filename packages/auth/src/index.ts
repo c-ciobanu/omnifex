@@ -37,6 +37,7 @@ export function initAuth() {
     },
     plugins: [username(), admin()],
     advanced: {
+      cookiePrefix: "omnifex",
       defaultCookieAttributes: {
         sameSite: "none",
         secure: true,
